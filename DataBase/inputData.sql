@@ -176,7 +176,37 @@ values
 insert into Issue
     (nombreIssue, storyPoints, prioridadIssue, estadoIssue, fechaCreacion, fechaFinalizacion)
 values
-   ('Arreglar error en el sistema de pagos', 5, 'Alta', 'To-Do', '2023-03-11 14:30:00', '2023-03-13 10:45:00');
+    ('Arreglar error en el sistema de pagos', 5, 'Alta', 'To-Do', '2023-03-11 14:30:00', '2023-03-13 10:45:00'),
+    ('Agregar soporte para notificaciones push', 8, 'Alta', 'To-Do', '2023-03-10 09:25:00', '2023-03-15 16:50:00'),
+    ('Optimizar la velocidad de carga de la página de inicio', 5, 'Media', 'In Progress', '2023-03-11 12:30:00', '2023-03-14 18:15:00'),
+    ('Corregir errores en el proceso de pago', 10, 'Alta', 'Done', '2023-03-08 16:00:00', '2023-03-11 20:35:00'),
+    ('Agregar filtros de búsqueda avanzados', 6, 'Media-Baja', 'To-Do', '2023-03-09 10:45:00', '2023-03-16 12:20:00'),
+    ('Solucionar problemas de compatibilidad con Internet Explorer', 4, 'Media', 'In Progress', '2023-03-12 08:30:00', '2023-03-17 14:45:00'),
+    ('Agregar funcionalidad para compartir contenido en redes sociales', 3, 'Media-Baja', 'To-Do', '2023-03-10 14:15:00', '2023-03-13 09:30:00'),
+    ('Mejorar el diseño y la usabilidad de la página de registro', 7, 'Media-Alta', 'In Progress', '2023-03-11 11:00:00', '2023-03-15 17:20:00'),
+    ('Solucionar problemas de seguridad en la gestión de contraseñas', 9, 'Alta', 'Done', '2023-03-09 15:30:00', '2023-03-12 21:00:00'),
+    ('Agregar soporte para múltiples idiomas', 6, 'Media', 'In Progress', '2023-03-13 09:00:00', '2023-03-19 14:30:00'),
+    ('Optimizar el rendimiento de la aplicación en dispositivos móviles', 8, 'Media-Alta', 'To-Do', '2023-03-12 13:45:00', '2023-03-16 19:10:00'),
+    ('Agregar funcionalidad de chat en vivo para atención al cliente', 7, 'Media-Alta', 'In Progress', '2023-03-08 10:00:00', '2023-03-13 15:40:00'),
+    ('Solucionar problemas de rendimiento en la búsqueda de productos', 6, 'Media-Baja', 'Done', '2023-03-09 14:00:00', '2023-03-11 19:25:00'),
+    ('Agregar soporte para pagos con tarjeta de crédito', 9, 'Alta', 'To-Do', '2023-03-14 11:30:00', '2023-03-18 17:50:00'),
+    ('Optimizar el proceso de carga de imágenes en la galería', 4, 'Media-Baja', 'In Progress', '2023-03-11 08:15:00', '2023-03-16 13:30:00'),
+    ('Agregar funcionalidad de sugerencias de productos relacionados', 5, 'Media', 'To-Do', '2023-03-10 16:00:00', '2023-03-13 21:15:00'),
+    ('Solucionar problemas de rendimiento en la carga de la página de detalles del producto', 8, 'Media-Alta', 'In Progress', '2023-03-12 10:30:00', '2023-03-17 16:40:00'),
+    ('Agregar soporte para compartir imágenes en redes sociales', 6, 'Media-Baja', 'Done', '2023-03-09 12:45:00', '2023-03-12 18:55:00'),
+    ('Optimizar la búsqueda de productos por categoría', 7, 'Media-Alta', 'To-Do', '2023-03-13 14:00:00', '2023-03-18 19:30:00'),
+    ('Solucionar problemas de compatibilidad con dispositivos Apple', 9, 'Alta', 'In Progress', '2023-03-11 09:00:00', '2023-03-16 14:20:00'),
+    ('Agregar funcionalidad de seguimiento de envíos', 8, 'Media-Alta', 'Done', '2023-03-10 13:15:00', '2023-03-13 18:45:00'),
+    ('Optimizar el rendimiento de la página de búsqueda avanzada', 6, 'Media-Baja', 'To-Do', '2023-03-08 11:30:00', '2023-03-14 15:50:00'),
+    ('Agregar soporte para autenticación con Google', 7, 'Media-Alta', 'In Progress', '2023-03-13 09:45:00', '2023-03-19 14:10:00'),
+    ('Solucionar problemas de seguridad en el proceso de recuperación de contraseña', 10, 'Alta', 'To-Do', '2023-03-11 14:00:00', '2023-03-14 19:20:00'),
+    ('Agregar funcionalidad de sugerencias de búsqueda', 5, 'Media-Baja', 'In Progress', '2023-03-09 16:30:00', '2023-03-15 21:40:00'),
+    ('Optimizar la velocidad de carga de la página de resultados de búsqueda', 8, 'Media-Alta', 'Done', '2023-03-12 12:00:00', '2023-03-16 17:15:00'),
+    ('Agregar soporte para pagos con PayPal', 9, 'Alta', 'To-Do', '2023-03-10 10:15:00', '2023-03-14 15:30:00'),
+    ('Solucionar problemas de compatibilidad con navegadores antiguos', 4, 'Media-Baja', 'In Progress', '2023-03-11 09:00:00', '2023-03-17 13:25:00'),
+    ('Agregar funcionalidad de búsqueda por voz', 6, 'Media', 'Done', '2023-03-08 14:30:00', '2023-03-10 19:40:00');
+
+
 -- Insertando datos en la tabla de Privilegios
 insert into Privilegio
     (nombrePrivilegio, descripcionPrivilegio)

@@ -57,7 +57,7 @@ create table if not exists Sprint(
  
 create table if not exists Issue(
     idIssue int not null auto_increment primary key,
-    nombreIssue varchar(50) not null, 
+    nombreIssue varchar(150) not null, 
     storyPoints int not null default 0,
     prioridadIssue enum('Alta', 'Media-Alta', 'Media', 'Media-Baja', 'Baja') not null default 'Baja',
     estadoIssue enum('To-Do', 'In Progress', 'Done') not null default 'To-Do',
