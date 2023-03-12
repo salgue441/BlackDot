@@ -1,5 +1,3 @@
-
-
 create database if not EXISTS Zebrands;
 
 use Zebrands;
