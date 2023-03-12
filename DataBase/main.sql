@@ -146,9 +146,9 @@ CREATE TABLE IF NOT EXISTS EquipoTrabajoIssue(
     idEquipoTrabajo INT NOT NULL,
     idIssue INT NOT NULL,
 
-    PRIMARY KEY(idEquipoTrabajo, idIssue),
-    FOREIGN KEY(idEquipoTrabajo) REFERENCES EquipoTrabajo(idEquipoTrabajo),
-    FOREIGN KEY(idIssue) REFERENCES Issue(idIssue)
+    primary key(idEquipoTrabajo, idIssue),
+    foreign key(idEquipoTrabajo) references EquipoTrabajo(idEquipoTrabajo),
+    foreign key(idIssue) references Issue(idIssue)
 );
 
 create Table if not exists SprintIssue(
@@ -164,9 +164,9 @@ CREATE TABLE IF NOT EXISTS SprintEpica(
     idSprint INT NOT NULL,
     idEpica INT NOT NULL,
 
-    PRIMARY KEY(idSprint, idEpica),
-    FOREIGN KEY(idSprint) REFERENCES Sprint(idSprint),
-    FOREIGN kEY(idEpica) REFERENCES Epica(idEpica)
+    primary key(idSprint, idEpica),
+    foreign key(idSprint) references Sprint(idSprint),
+    foreign key(idEpica) references Epica(idEpica)
 );
  
 
@@ -194,14 +194,14 @@ create table if not exists CualitativaAccionable(
 -- Alterando las tablas para aniadir las llaves foraneas
 
 alter table Retroalimentacion
-add constraint fk_idSprint FOREIGN KEY (idSprint) REFERENCES Sprint(idSprint),
-add constraint fk_idReporte FOREIGN KEY (idReporte) REFERENCES Reporte(idReporte);
+add constraint fk_idSprint foreign key (idSprint) references Sprint(idSprint),
+add constraint fk_idReporte foreign key (idReporte) references Reporte(idReporte);
 
 alter table Cuantitativa
-add constraint fk_idPreguntaCuanti FOREIGN KEY (idPregunta) REFERENCES RetroalimentacionPregunta(idPregunta),
-add constraint fk_idRetroalimentacionCuanti FOREIGN KEY (idRetroalimentacion) REFERENCES RetroalimentacionPregunta(idRetroalimentacion);
+add constraint fk_idPreguntaCuanti foreign key (idPregunta) references RetroalimentacionPregunta(idPregunta),
+add constraint fk_idRetroalimentacionCuanti foreign key (idRetroalimentacion) references RetroalimentacionPregunta(idRetroalimentacion);
 
 alter table Cualitativa
-add constraint fk_idPreguntaCuali FOREIGN KEY (idPregunta) REFERENCES RetroalimentacionPregunta(idPregunta),
-add constraint fk_idRetroalimentacionCuali FOREIGN KEY (idRetroalimentacion) REFERENCES RetroalimentacionPregunta(idRetroalimentacion);
+add constraint fk_idPreguntaCuali foreign key (idPregunta) references RetroalimentacionPregunta(idPregunta),
+add constraint fk_idRetroalimentacionCuali foreign key (idRetroalimentacion) references RetroalimentacionPregunta(idRetroalimentacion);
 
