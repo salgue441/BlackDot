@@ -2,13 +2,15 @@ const dataBase = require("./server/dataBase")
 const { faker } = require("@faker-js/faker")
 const sampleUsers = require("./sampleUsers.json")
 
+faker.setLocale("es_MX")
+
 async function loadUsers(db) {
   for (let i = 0; i < 50; i++) {
     let idGoogleAuth = faker.datatype.uuid()
     let primerNombre = faker.name.firstName()
-    let segundoNombre = Math.random() < 0.5 ? faker.name.firstName() : null
+    let segundoNombre = Math.random() < 0.7 ? faker.name.firstName() : null
     let apellidoPaterno = faker.name.lastName()
-    let apellidoMaterno = Math.random() < 0.5 ? faker.name.lastName() : null
+    let apellidoMaterno = Math.random() < 0.6 ? faker.name.lastName() : null
     let googleEmail = faker.internet.email(undefined, undefined, "gmail.com")
 
     try {
