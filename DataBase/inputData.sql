@@ -12,41 +12,9 @@
 
 -- Insertando datos en la tabla Empleado
 insert into Empleado
-    (primerNombre, segundoNombre, apellidoPaterno, apellidoMaterno, idGoogleAuth)
+    (primerNombre, segundoNombre, apellidoPaterno, apellidoMaterno, idGoogleAuth, googleEmail)
 values
-    ('Juan', 'Pablo', 'García', 'López', UNHEX(REPLACE('ba275379-63a6-11ec-96d2-87fcf641e8fa', '-', ''))),
-    ('María', NULL, 'Hernández', 'González', UNHEX(REPLACE('c1b8d2aa-63a6-11ec-9e23-9be2c7145f5a', '-', ''))),
-    ('Pedro', 'Antonio', 'Fernández', NULL, UNHEX(REPLACE('c925d91c-63a6-11ec-a0e2-d1e26a2432cf', '-', ''))),
-    ('Laura', 'Elena', 'Martínez', 'Pérez', UNHEX(REPLACE('d2a2b3f2-63a6-11ec-9b62-f753f04c4b24', '-', ''))),
-    ('José', 'Luis', 'González', 'Rodríguez', UNHEX(REPLACE('d8a42c6a-63a6-11ec-bc11-9f6050e314e7', '-', ''))),
-    ('Ana', 'María', 'López', NULL, UNHEX(REPLACE('de41d6de-63a6-11ec-b2a8-19b38d674b7f', '-', ''))),
-    ('Carlos', NULL, 'Gutiérrez', 'Ortega', UNHEX(REPLACE('e41fa2b2-63a6-11ec-8b4b-3b89ba4ddc07', '-', ''))),
-    ('Sara', 'Isabel', 'Sánchez', 'Romero', UNHEX(REPLACE('ea4cf4a4-63a6-11ec-a78b-1bcf55cde0da', '-', ''))),
-    ('David', 'Alejandro', 'Pérez', 'Ruiz', UNHEX(REPLACE('f094c5d6-63a6-11ec-98e2-ef92a1d64b5d', '-', ''))),
-    ('Verónica', 'Lucía', 'Díaz', NULL, UNHEX(REPLACE('f7a3c470-63a6-11ec-80de-07349dfe7d27', '-', ''))),
-    ('Miguel', NULL, 'Romero', 'Gómez', UNHEX(REPLACE('fe35d794-63a6-11ec-a42a-43f1049987b9', '-', ''))),
-    ('Fernanda', 'Paola', 'Ortega', 'Morales', UNHEX(REPLACE('045c7e46-63a7-11ec-a3a4-6f1115292d1a', '-', ''))),
-    ('Ricardo', 'José', 'Ruiz', 'Hernández', UNHEX(REPLACE('0bb2f8c8-63a7-11ec-965e-5346b41a618f', '-', ''))),
-    ('Carmen', 'Leticia', 'Flores', 'García', UNHEX(REPLACE('11fbb5fc-63a7-11ec-bce8-7b2359dbdff', '-', ''))),
-    ('Juan', 'Carlos', 'García', NULL, UNHEX('6f40c9ac9e8f11eb97e500ff22e710b3')),
-    ('Ana', 'Isabel', 'Hernández', 'Martínez', UNHEX
-    ('6f40c9b09e8f11eb97e500ff22e710b3')),
-    ('María', 'Fernanda', 'Gutiérrez', 'Díaz', UNHEX
-    ('6f40c9b19e8f11eb97e500ff22e710b3')),
-    ('Roberto', 'Carlos', 'Vázquez', NULL, UNHEX
-    ('6f40c9b29e8f11eb97e500ff22e710b3')),
-    ('Luis', 'Gerardo', 'Méndez', 'Torres', UNHEX
-    ('6f40c9b39e8f11eb97e500ff22e710b3')),
-    ('Esteban', NULL, 'García', NULL, UNHEX
-('f78f3077880a48a7b0a39f34d9b9a2d1')),
-    ('Maria', 'Antonieta', 'Hernández', NULL, UNHEX
-('832bfe6b7f6c4d838f8a52a31a20a44e')),
-    ('Mario', NULL, 'Black', 'Díaz', UNHEX
-('1562e70c8d444ad2b68c4f41b3d4c8f9')),
-    ('Carmen', 'Dolores', 'Vázquez', NULL, UNHEX
-('6f40c9b29e8f11eb97e500ff22e710b3')),
-    ('Chan', NULL, 'Yeol', NULL , UNHEX
-('3a92d8f88bba4aa09622e2872c45cc7f'))
+
 
 -- Insertando datos en la tabla Rol
 insert into Rol
@@ -55,3 +23,21 @@ values
     ('Administrador'),
     ('Squad Member')
 
+-- Insertando datos en tabla de Issue
+insert into Issue
+    (nombreIssue, storyPoints, prioridadIssue, estadoIssue, fechaCreacion, fechaFinalizacion)
+values
+    ('Thomas', 'Andrew', 'Peterson', null, UNHEX(REPLACE('ed9a2326-3f05-4a4f-80e8-81457275ff7f', '-', '')), 'thomas@gmail.com'),
+    ('John', 'Michael', 'Smith', null, UNHEX(REPLACE('68404405-5c4c-44c1-887c-9c4aa9e51fa5', '-', '')), 'johnmichael@gmail.com'),
+    ('Mary', null, 'Smith', null, UNHEX(REPLACE('71cf87e8-d60e-4b62-8a5d-2c223489a972', '-', '')), 'marysmith@gmail.com'),
+    ('Ethan', 'Michael', 'Phillips', null, unhex(replace()), null),
+    ('Rebecca', null, 'Johnson', 'Smith', UNHEX(REPLACE('f1b5b8b1-1b9f-4b5b-8c1a-1c1b1b1b1b1b', '-', '')), 'rebecca@gmail.com'),
+    ('David', 'Robert', 'Wilson', 'Open', UNHEX(REPLACE('4f23f31c-6e36-4f9e-8a36-30774538483b', '-', '')), 'davidwilson@gmail.com'),
+    ('Samantha', null, 'Jones', 'Closed', UNHEX(REPLACE('4f23f31c-6e36-4f9e-8a36-30774538483c', '-', '')), 'samanthajones@gmail.com'),
+    ('Nathan', 'Christopher', 'Clark', 'In Progress', UNHEX(REPLACE('4f23f31c-6e36-4f9e-8a36-30774538483d', '-', '')), 'nathanclark@gmail.com'),
+    ('Olivia', null, 'Davis', 'Open', UNHEX(REPLACE('4f23f31c-6e36-4f9e-8a36-30774538483e', '-', '')), 'oliviadavis@gmail.com'),
+    ('Jacob', 'Anthony', 'Martinez', 'Closed', UNHEX(REPLACE('4f23f31c-6e36-4f9e-8a36-30774538483f', '-', '')), 'jacobmartinez@gmail.com'),
+    ('Emily', null, 'Garcia', 'In Progress', UNHEX(REPLACE('4f23f31c-6e36-4f9e-8a36-307745384840', '-', '')), 'emilygarcia@gmail.com'),
+    ('William', 'Ryan', 'Hernandez', 'Open', UNHEX(REPLACE('4f23f31c-6e36-4f9e-8a36-307745384841', '-', '')), 'williamhernandez@gmail.com'),
+    ('Isabella', null, 'Lopez', 'Closed', UNHEX(REPLACE('4f23f31c-6e36-4f9e-8a36-307745384842', '-', '')), 'isabellalopez@gmail.com'),
+    ('Elijah', 'Noah
