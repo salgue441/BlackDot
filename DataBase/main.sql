@@ -3,7 +3,6 @@ create database if not EXISTS Zebrands;
 use Zebrands;
 
 -- Entidades
-
 create table if not exists Empleado(
     idEmpleado int not null auto_increment primary key, 
     primerNombre varchar(25) not null, 
@@ -99,18 +98,17 @@ create table if not exists Cualitativa(
 
  
 create table if not exists Accionable(
-idAccionable int not null auto_increment primary key,
-nombreAccionable varchar(50) null,
-storyPoints int default 0 not null,
-prioridadAccionable enum('Alta', 'Media-Alta', 'Media', 'Media-Baja', 'Baja') not null default 'Baja',
-estadoAccionable enum('Aprobado', 'No aprobado') not null default 'No aprobado',
-estadoJira enum('To-Do', 'In Progress', 'Done') not null default 'To-Do',
-fechaCreacion date not null,
-fechaFinalizacion date not null
+    idAccionable int not null auto_increment primary key,
+    nombreAccionable varchar(50) null,
+    storyPoints int default 0 not null,
+    prioridadAccionable enum('Alta', 'Media-Alta', 'Media', 'Media-Baja', 'Baja') not null default 'Baja',
+    estadoAccionable enum('Aprobado', 'No aprobado') not null default 'No aprobado',
+    estadoJira enum('To-Do', 'In Progress', 'Done') not null default 'To-Do',
+    fechaCreacion date not null,
+    fechaFinalizacion date not null
 );
 
 -- Relaciones
- 
 create table if not exists EmpleadoRol(
     idEmpleado int not null, 
     idRol int not null, 
@@ -190,7 +188,6 @@ create table if not exists CualitativaAccionable(
 );
  
 -- Alterando las tablas para aniadir las llaves foraneas
-
 alter table Retroalimentacion
 add constraint fk_idSprint foreign key (idSprint) references Sprint(idSprint),
 add constraint fk_idReporte foreign key (idReporte) references Reporte(idReporte);
