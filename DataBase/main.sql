@@ -1,4 +1,16 @@
-create database if not EXISTS Zebrands;
+-- file: main.sql
+-- brief: Creates the database and tables
+-- author: Carlos Salguero
+-- author: Yuna Chung
+-- author: Olimpia Garcia
+-- author: Diego Llaca
+-- author: Diego Sandoval
+-- author: Ivan Paredes
+-- version: 1.0
+-- date: 2023-03-11
+-- copyrigth: Copyright (c) 2023 - MIT License
+
+create database if not EXISTS Zebrands default character set utf8 collate utf8_spanish_ci;
 
 use Zebrands;
 
@@ -8,7 +20,8 @@ create table if not exists Empleado(
     primerNombre varchar(25) not null, 
     segundoNombre varchar(25),
     apellidoPaterno varchar(25) not null,
-    apellidoMaterno varchar(25)
+    apellidoMaterno varchar(25), 
+    idGoogleAuth binary(16)
 );
 
 create table if not exists Rol(
@@ -184,4 +197,3 @@ add constraint fk_idRetroalimentacionCuanti foreign key (idRetroalimentacion) re
 alter table Cualitativa
 add constraint fk_idPreguntaCuali foreign key (idPregunta) references RetroalimentacionPregunta(idPregunta),
 add constraint fk_idRetroalimentacionCuali foreign key (idRetroalimentacion) references RetroalimentacionPregunta(idRetroalimentacion);
-
