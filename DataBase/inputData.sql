@@ -78,3 +78,9 @@ values
 ('Jorge Luis', null, 'Quiros', 'Huixtlacatl', 0x2ec94c4f8f264b8ea8678215914a5a78, 'MaradelCarmen_Delgadillo@gmail.com'),
 ('Patricio', 'Luis Ángel', 'Castellanos', null, 0x04fda30c664b4116a8e53c646b26598a, 'Dorotea.Macas7@gmail.com'),
 ('Laura', 'Elena', 'Gonzales', 'Rascón', 0x3bcdea42546f47eaab03af48a4ebe2f9, 'Erick17@gmail.com');
+
+-- Insertando datos en la tabla de Issue
+insert into Issue
+    (nombreIssue, storyPoints, prioridadIssue, estadoIssue, fechaCreacion, fechaFinalizacion)
+values
+   -- ('Arreglar error en el sistema de pagos', 5, 'Alta', 'To-Do', '3/1/2023 9:00:00', '3/24/2023 13:00:00');
