@@ -79,8 +79,52 @@ values
 ('Patricio', 'Luis Ángel', 'Castellanos', null, 0x04fda30c664b4116a8e53c646b26598a, 'Dorotea.Macas7@gmail.com'),
 ('Laura', 'Elena', 'Gonzales', 'Rascón', 0x3bcdea42546f47eaab03af48a4ebe2f9, 'Erick17@gmail.com');
 
+-- Insertando datos en la tabla Rol
+insert into Rol
+    (nombreRol)
+values
+    ('Administrador'),
+    ('Squad Member')
+
 -- Insertando datos en la tabla de Issue
 insert into Issue
     (nombreIssue, storyPoints, prioridadIssue, estadoIssue, fechaCreacion, fechaFinalizacion)
 values
-   -- ('Arreglar error en el sistema de pagos', 5, 'Alta', 'To-Do', '3/1/2023 9:00:00', '3/24/2023 13:00:00');
+-- ('Arreglar error en el sistema de pagos', 5, 'Alta', 'To-Do', '3/1/2023 9:00:00', '3/24/2023 13:00:00');
+
+-- Insertando datos en la tabla de Privilegios
+insert into Privilegio
+    (nombrePrivilegio, descripcionPrivilegio)
+values
+    ('GetTeamDashboard', 'Gets the data corresponding to the team data'),
+    ('getAdminDashboard', 'Gets the data corresponding to the admin data'),
+    ('addRole', 'Allows the admin to add roles to the employees'),
+    ('removeRole', 'Allows the admin to remove the roles to the employees'),
+    ('addEmployee', 'Allows the admin to add employees to the company'),
+    ('removeEmployee', 'Allows the admin to remove employees from the company'),
+    ('addSquad', 'Allows the admin to add squads to the company'),
+    ('removeSquad', 'Allows the admin to remove squads from the company'),
+    ('addProject', 'Allows the admin to add projects to the company'),
+    ('removeProject', 'Allows the admin to remove projects from the company'),
+    ('addTask', 'Allows the admin to add tasks to the company'),
+    ('removeTask', 'Allows the admin to remove tasks from the company'),
+    ('addSprint', 'Allows the admin to add sprints to the company'),
+    ('removeSprint', 'Allows the admin to remove sprints from the company'),
+    ('addUserStory', 'Allows the admin to add user stories to the company'),
+    ('removeUserStory', 'Allows the admin to remove user stories from the company'),
+    ('addTaskToSprint', 'Allows the admin to add tasks to the sprints'),
+    ('removeTaskFromSprint', 'Allows the admin to remove tasks from the sprints'),
+    ('addUserStoryToSprint', 'Allows the admin to add user stories to the sprints'),
+    ('removeUserStoryFromSprint', 'Allows the admin to remove user stories from the sprints'),
+    ('addTaskToUserStory', 'Allows the admin to add tasks to the user stories'),
+    ('removeTaskFromUserStory', 'Allows the admin to remove tasks from the user stories'),
+    ('addUserStoryToProject', 'Allows the admin to add user stories to the projects'),
+    ('removeUserStoryFromProject', 'Allows the admin to remove user stories from the projects'),
+    ('addSprintToProject', 'Allows the admin to add sprints to the projects'),
+    ('removeSprintFromProject', 'Allows the admin to remove sprints from the projects'),
+    ('addSquadToProject', 'Allows the admin to add squads to the projects'),
+    ('removeSquadFromProject', 'Allows the admin to remove squads from the projects'),
+    ('addEmployeeToSquad', 'Allows the admin to add employees to the squads'),
+    ('removeEmployeeFromSquad', 'Allows the admin to remove employees from the squads'),
+    ('addEmployeeToProject', 'Allows the admin to add employees to the projects'),
+    ('removeEmployeeFromProject', 'Allows the admin to remove employees from the projects');
