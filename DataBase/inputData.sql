@@ -242,4 +242,54 @@ values
     ('addEmployeeToSquad', 'Allows the admin to add employees to the squads'),
     ('removeEmployeeFromSquad', 'Allows the admin to remove employees from the squads'),
     ('addEmployeeToProject', 'Allows the admin to add employees to the projects'),
-    ('removeEmployeeFromProject', 'Allows the admin to remove employees from the projects');
+    ('removeEmployeeFrmProject', 'Allows the admin to remove employees from the projects');
+
+insert into Epica
+    (nombreEpica)
+values
+    ('Rovin en Mappa'),
+    ('Nutrition Paraphernalia'),
+    ('First Aid Kit'),
+    ('Bedding Device'),
+    ('Makeup Thingamajig'),
+    ('Biking Supplies'),
+    ('Engine Rig'),
+    ('Hair Care Apparatus'),
+    ('Storage Apparatus'),
+    ('First Aid Equipment'),
+    ('Game Paraphernalia'),
+    ('Swimming Gizmo'),
+    ('Baby Thingamajig'),
+    ('Bedding Apparatus'),
+    ('Camera Apparatus'),
+    ('Car Apparatus'),
+    ('Vitamin Rig'),
+    ('Tire Kit'),
+    ('Fitness Kit'),
+    ('Movie Implement');
+
+insert into Reporte
+    (fechaCreacion)
+values
+    ('2023/03/01'),
+    ('2022/01/20'),
+    ('2021/02/28'),
+    ('2012/12/20'),
+    ('2016/05/25'),
+    ('2017/03/25'),
+    ('2012/03/25'),
+    ('2020/04/26'),
+    ('2015/01/27'),
+    ('2011/08/04'),
+    ('2019/07/24'),
+    ('2014/01/14'),
+    ('2013/02/14'),
+    ('2016/02/25'),
+    ('2014/02/11'),
+    ('2011/05/23'),
+    ('2012/01/13'),
+    ('2017/12/08'),
+    ('2013/05/24'),
+    ('2019/01/14'),
+    ('2021/07/26'),
+    ('2019/02/14');
