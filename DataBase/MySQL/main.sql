@@ -10,9 +10,9 @@
 -- timestamp: 2023-03-11
 -- copyrigth: Copyright (c) 2023 - MIT License
 
-create database if not EXISTS Zebrands default character set utf8 collate utf8_spanish_ci;
+create database if not EXISTS BlackDot default character set utf8 collate utf8_spanish_ci;
 
-use Zebrands;
+use BlackDot;
 
 -- Entidades
 create table if not exists Empleado(
