@@ -7,7 +7,7 @@
     "test": "jest",
     "test:watch": "jest --watchAll",
     "start": "nodemon server.js",
-    "start:carlos": "nodemon server.js"
+    "start:carlos": "nodemon server.js --config nodemon.js"
   },
   "repository": {
     "type": "git",

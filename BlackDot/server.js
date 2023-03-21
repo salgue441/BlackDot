@@ -2,22 +2,21 @@ const express = require("express")
 
 const app = express()
 
-// View Engine
+// View engine
 app.set("view engine", "ejs")
 
-// Static files
+// Static Files
 app.use(express.static("views"))
 app.use("/assets", express.static("assets"))
 
-// Main Routes
+// Routes
 app.get("/", (req, res) => {
-  res.render("static/index.ejs")
+  res.render("static/index")
 })
 
-// Port
-const port = 3000
+// Starting the server
+const PORT = 3000
 
-// Server
-app.listen(port, () => {
-  console.log(`Server running on port ${port}`)
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`)
 })

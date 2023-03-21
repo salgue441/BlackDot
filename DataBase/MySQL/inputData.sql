@@ -71,7 +71,7 @@ insert into Rol
     (nombreRol)
 values
     ('Administrador'),
-    ('Squad Member')
+    ('Squad Member');
 
 -- Insertando datos en tabla de Issue
 
@@ -81,13 +81,7 @@ insert into Rol
     (nombreRol)
 values
     ('Administrador'),
-    ('Squad Member')
-
--- Insertando datos en la tabla de Issue
-insert into Issue
-    (nombreIssue, storyPoints, prioridadIssue, estadoIssue, fechaCreacion, fechaFinalizacion)
-values
--- ('Arreglar error en el sistema de pagos', 5, 'Alta', 'To-Do', '3/1/2023 9:00:00', '3/24/2023 13:00:00');
+    ('Squad Member');
 
 -- Insertando datos en la tabla de Issue
 insert into Issue

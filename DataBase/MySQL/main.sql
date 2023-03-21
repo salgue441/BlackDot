@@ -59,8 +59,9 @@ create table if not exists Issue(
     idIssue int not null auto_increment primary key,
     nombreIssue varchar(150) not null, 
     storyPoints int not null default 0,
+    labelIssue varchar(50),
     prioridadIssue enum('Alta', 'Media-Alta', 'Media', 'Media-Baja', 'Baja') not null default 'Baja',
-    estadoIssue enum('To-Do', 'In Progress', 'Done') not null default 'To-Do',
+    estadoIssue enum('To Do', 'In Progress', 'Done') not null default 'To Do',
     fechaCreacion timestamp default current_timestamp not null,
     fechaFinalizacion timestamp default current_timestamp not null
 );
@@ -104,9 +105,10 @@ create table if not exists Accionable(
     idAccionable int not null auto_increment primary key,
     nombreAccionable varchar(50) null,
     storyPoints int default 0 not null,
-    prioridadAccionable enum('Alta', 'Media-Alta', 'Media', 'Media-Baja', 'Baja') not null default 'Baja',
+    labelAccionable varchar(50),
+    prioridadAccionable enum('Alta', 'Media-Alta', 'Media', 'Media-Baja', 'Baja') not null default 'Media',
     estadoAccionable enum('Aprobado', 'No aprobado') not null default 'No aprobado',
-    estadoJira enum('To-Do', 'In Progress', 'Done') not null default 'To-Do',
+    estadoIssue enum('To Do', 'In Progress', 'Done') not null default 'To Do',
     fechaCreacion timestamp default current_timestamp not null,
     fechaFinalizacion timestamp default current_timestamp not null
 );

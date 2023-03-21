@@ -8,9 +8,9 @@ async function loadUsers(db) {
   for (let i = 0; i < 50; i++) {
     let idGoogleAuth = faker.datatype.uuid()
     let primerNombre = faker.name.firstName()
-    let segundoNombre = Math.random() > 0.55 ? faker.name.firstName() : null
+    let segundoNombre = Math.random() < 0.7 ? faker.name.firstName() : null
     let apellidoPaterno = faker.name.lastName()
-    let apellidoMaterno = Math.random() > 0.7 ? faker.name.lastName() : null
+    let apellidoMaterno = Math.random() < 0.7 ? faker.name.lastName() : null
     let googleEmail = `${primerNombre.toLowerCase()}.${apellidoPaterno.toLowerCase()}@gmail.com`
 
     try {
