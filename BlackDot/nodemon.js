@@ -5,5 +5,5 @@
         "PASSWORD": "",
         "DATABASE": "BlackDot", 
         "PORT": 8000,
-    },    
+    }
 }
