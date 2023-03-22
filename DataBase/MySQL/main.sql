@@ -83,7 +83,8 @@ create table if not exists Reporte(
 
 create table if not exists Pregunta(
     idPregunta int not null auto_increment primary key, 
-    contenido varchar(300) not null
+    contenido varchar(300) not null, 
+    tipoPregunta enum('Cuantitativa', 'Cualitativa')
 );
 
 create table if not exists Cuantitativa(
