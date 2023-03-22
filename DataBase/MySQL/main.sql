@@ -41,7 +41,7 @@ create table if not exists EquipoTrabajo(
     idEquipoTrabajo int not null auto_increment primary key 
 );
 
- 
+
 create table if not exists Epica(
     idEpica int not null auto_increment primary key,
     nombreEpica varchar(50)  
@@ -49,13 +49,13 @@ create table if not exists Epica(
 
 create table if not exists Sprint(
     idSprint int not null auto_increment primary key, 
-    fechaCreacion timestamp not null,
-    fechaFinalizacion timestamp not null,
+    fechaCreacion timestamp not null default current_timestamp,
+    fechaFinalizacion timestamp not null default current_timestamp,
     numeroSprint int not null,
 
     idEpica int not null
 );
- 
+
 create table if not exists Issue(
     idIssue int not null auto_increment primary key,
     nombreIssue varchar(150) not null, 
@@ -63,14 +63,14 @@ create table if not exists Issue(
     labelIssue varchar(50),
     prioridadIssue enum('Alta', 'Media-Alta', 'Media', 'Media-Baja', 'Baja') not null default 'Baja',
     estadoIssue enum('To Do', 'In Progress', 'Done') not null default 'To Do',
-    fechaCreacion timestamp not null,
-    fechaFinalizacion timestamp not null
+    fechaCreacion timestamp not null default current_timestamp,
+    fechaFinalizacion timestamp not null default current_timestamp
 );
- 
+
 create table if not exists Retroalimentacion(
     idRetroalimentacion int not null auto_increment primary key, 
-    fechaCreacion timestamp not null, 
-    fechaFinalizacion timestamp not null,
+    fechaCreacion timestamp not null default current_timestamp, 
+    fechaFinalizacion timestamp not null default current_timestamp,
 
     idSprint int not null,
     idReporte int not null
@@ -80,12 +80,12 @@ create table if not exists Reporte(
     idReporte int not null auto_increment primary key,
     fechaCreacion timestamp default current_timestamp not null
 );
- 
+
 create table if not exists Pregunta(
     idPregunta int not null auto_increment primary key, 
     contenido varchar(300) not null
 );
- 
+
 create table if not exists Cuantitativa(
     idCuantitativa int not null auto_increment primary key, 
     contenido int not null,
@@ -93,7 +93,7 @@ create table if not exists Cuantitativa(
     idPregunta int not null,
     idRetroalimentacion int not null
 );
- 
+
 create table if not exists Cualitativa(
     idCualitativa int not null auto_increment primary key,
     contenido varchar(600) not null,
@@ -101,7 +101,7 @@ create table if not exists Cualitativa(
     idPregunta int not null,
     idRetroalimentacion int not null
 );
- 
+
 create table if not exists Accionable(
     idAccionable int not null auto_increment primary key,
     nombreAccionable varchar(50) null,
@@ -110,8 +110,8 @@ create table if not exists Accionable(
     prioridadAccionable enum('Alta', 'Media-Alta', 'Media', 'Media-Baja', 'Baja') not null default 'Media',
     estadoAccionable enum('Aprobado', 'No aprobado') not null default 'No aprobado',
     estadoIssue enum('To Do', 'In Progress', 'Done') not null default 'To Do',
-    fechaCreacion timestamp default current_timestamp not null,
-    fechaFinalizacion timestamp not null
+    fechaCreacion timestamp not null default current_timestamp ,
+    fechaFinalizacion timestamp not null default current_timestamp
 );
 
 -- Relaciones
@@ -141,7 +141,7 @@ create table if not exists EmpleadoEquipoTrabajo(
     foreign key(idEmpleado) references Empleado(idEmpleado),
     foreign key(idEquipoTrabajo) references EquipoTrabajo(idEquipoTrabajo)
 );
- 
+
 create table if not exists EquipoTrabajoIssue(
     idEquipoTrabajo int not null,
     idIssue int not null,
@@ -168,7 +168,7 @@ create table if not exists SprintEpica(
     foreign key(idSprint) references Sprint(idSprint),
     foreign key(idEpica) references Epica(idEpica)
 );
- 
+
 create table if not exists RetroalimentacionPregunta(
     idRetroalimentacion int not null,
     idPregunta int not null,
@@ -179,7 +179,7 @@ create table if not exists RetroalimentacionPregunta(
     foreign key(idPregunta) references Pregunta(idPregunta)
 );
 
- 
+
 create table if not exists CualitativaAccionable(
     idCualitativa int not null,
     idAccionable int not null,
@@ -188,7 +188,7 @@ create table if not exists CualitativaAccionable(
     foreign key(idCualitativa) references Cualitativa(idCualitativa),
     foreign key(idAccionable) references Accionable(idAccionable)
 );
- 
+
 -- Alterando las tablas para aniadir las llaves foraneas
 alter table Retroalimentacion
 add constraint fk_idSprint foreign key (idSprint) references Sprint(idSprint),
