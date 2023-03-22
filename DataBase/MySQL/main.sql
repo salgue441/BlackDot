@@ -1,5 +1,5 @@
 -- file: main.sql
--- brief: Creates the database and tables
+-- brief: Creates the database, tables, and relationships
 -- author: Carlos Salguero
 -- author: Yuna Chung
 -- author: Olimpia Garcia
@@ -8,7 +8,7 @@
 -- author: Ivan Paredes
 -- version: 1.0
 -- timestamp: 2023-03-11
--- copyrigth: Copyright (c) 2023 - MIT License
+-- copyright: Copyright (c) 2023 - MIT License
 
 create database if not EXISTS BlackDot 
 default character set utf8 collate utf8_spanish_ci;
