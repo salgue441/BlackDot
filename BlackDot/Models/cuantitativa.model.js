@@ -1,9 +1,9 @@
 /**
  * @file cuantitativa.model.js
  * @brief Modelo de la tabla de respuestas cuantitativa
- * @author Olimpia Garcia
+ * @author Carlos Salguero & Olimpia Garcia
  * @version 1.0
- * @date 2023-03-21
+ * @date 2023-03-22
  *
  * @copyright Copyright (c) 2023 - MIT License
  */
