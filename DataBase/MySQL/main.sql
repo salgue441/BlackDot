@@ -10,7 +10,8 @@
 -- timestamp: 2023-03-11
 -- copyrigth: Copyright (c) 2023 - MIT License
 
-create database if not EXISTS BlackDot default character set utf8 collate utf8_spanish_ci;
+create database if not EXISTS BlackDot 
+default character set utf8 collate utf8_spanish_ci;
 
 use BlackDot;
 
@@ -48,8 +49,8 @@ create table if not exists Epica(
 
 create table if not exists Sprint(
     idSprint int not null auto_increment primary key, 
-    fechaCreacion timestamp default current_timestamp not null,
-    fechaFinalizacion timestamp default current_timestamp not null,
+    fechaCreacion timestamp not null,
+    fechaFinalizacion timestamp not null,
     numeroSprint int not null,
 
     idEpica int not null
@@ -62,14 +63,14 @@ create table if not exists Issue(
     labelIssue varchar(50),
     prioridadIssue enum('Alta', 'Media-Alta', 'Media', 'Media-Baja', 'Baja') not null default 'Baja',
     estadoIssue enum('To Do', 'In Progress', 'Done') not null default 'To Do',
-    fechaCreacion timestamp default current_timestamp not null,
-    fechaFinalizacion timestamp default current_timestamp not null
+    fechaCreacion timestamp not null,
+    fechaFinalizacion timestamp not null
 );
  
 create table if not exists Retroalimentacion(
     idRetroalimentacion int not null auto_increment primary key, 
-    fechaCreacion timestamp default current_timestamp not null, 
-    fechaFinalizacion timestamp default current_timestamp not null,
+    fechaCreacion timestamp not null, 
+    fechaFinalizacion timestamp not null,
 
     idSprint int not null,
     idReporte int not null
@@ -110,7 +111,7 @@ create table if not exists Accionable(
     estadoAccionable enum('Aprobado', 'No aprobado') not null default 'No aprobado',
     estadoIssue enum('To Do', 'In Progress', 'Done') not null default 'To Do',
     fechaCreacion timestamp default current_timestamp not null,
-    fechaFinalizacion timestamp default current_timestamp not null
+    fechaFinalizacion timestamp not null
 );
 
 -- Relaciones
