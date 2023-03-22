@@ -6,6 +6,7 @@
   "scripts": {
     "test": "jest",
     "test:watch": "jest --watchAll",
+    "test:carlos": "jest --config nodemon.js",
     "start": "nodemon server.js",
     "start:carlos": "nodemon server.js --config nodemon.js"
   },
