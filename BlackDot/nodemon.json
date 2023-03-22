@@ -3,7 +3,7 @@
     "HOST": "localhost",
     "USER": "root",
     "PASSWORD": "",
-    "DATABASE": "BlackDot",
+    "DATABASE": "blackDot",
     "PORT": 8000
   }
 }
