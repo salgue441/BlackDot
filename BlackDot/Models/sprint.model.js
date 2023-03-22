@@ -49,21 +49,23 @@ moduole.exports = class Sprint {
       id,
     ]);
 
-    return sprint;
+    return new Sprint(sprint);
   }
 
   static async getAll() {
     const sprints = await dataBase.query("select * from Sprint");
-    return sprints;
+    return sprints.map((sprint) => new Sprint(sprint));
   }
 
-  //? preguntar por funcionalidad de date
   static async getSprintActual() {
     const fechaActual = new Date().toISOString().split("T")[0];
+
 
     const sprint = await dataBase.query(
       "select * from Sprint where FechaCreacion <= ? and FechaFinalizacion >= ?",
       [fechaActual, fechaActual]
     );
+
+    return new Sprint(sprint);
   }
 };
