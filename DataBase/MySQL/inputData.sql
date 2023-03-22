@@ -139,66 +139,55 @@ values
 insert into Sprint
     (fechaCreacion, fechaFinalizacion, numeroSprint)
 values
-    ('2016/06/06', '2016/10/06', 1),
-    ('2016/10/06', '2016/12/06', 2),
-    ('2016/12/06', '2017/02/06', 3),
-    ('2017/02/06', '2017/04/06', 4),
-    ('2017/04/06', '2017/06/06', 5),
-    ('2017/06/06', '2017/08/06', 6),
-    ('2017/08/06', '2017/10/06', 7),
-    ('2017/10/06', '2017/12/06', 8),
-    ('2017/12/06', '2018/02/06', 9),
-    ('2018/02/06', '2018/04/06', 10),
-    ('2018/04/06', '2018/06/06', 11),
-    ('2018/06/06', '2018/08/06', 12),
-    ('2018/08/06', '2018/10/06', 13),
-    ('2018/10/06', '2018/12/06', 14),
-    ('2018/12/06', '2019/02/06', 15),
-    ('2019/02/06', '2019/04/06', 16),
-    ('2019/04/06', '2019/06/06', 17),
-    ('2019/06/06', '2019/08/06', 18),
-    ('2019/08/06', '2019/10/06', 19),
-    ('2019/10/06', '2019/12/06', 20),
-    ('2019/12/06', '2020/02/06', 21),
-    ('2020/02/06', '2020/04/06', 22),
-    ('2020/04/06', '2020/06/06', 23),
-    ('2020/06/06', '2020/08/06', 24),
-    ('2020/08/06', '2020/10/06', 25),
-    ('2020/10/06', '2020/12/06', 26);
+    ('2021-03-22', '2021-04-05', 2)
+    ('2021-04-05', '2021-04-19', 3)
+    ('2021-04-19', '2021-05-03', 4)
+    ('2021-05-03', '2021-05-17', 5)
+    ('2021-05-17', '2021-05-31', 6)
+    ('2021-05-31', '2021-06-14', 7)
+    ('2021-06-14', '2021-06-28', 8)
+    ('2021-06-28', '2021-07-12', 9)
+    ('2021-07-12', '2021-07-26', 10)
+    ('2021-07-26', '2021-08-09', 11)
+    ('2021-08-09', '2021-08-23', 12)
+    ('2021-08-23', '2021-09-06', 13)
+    ('2021-09-06', '2021-09-20', 14)
+    ('2021-09-20', '2021-10-04', 15)
+    ('2021-10-04', '2021-10-18', 16)
+    ('2021-10-18', '2021-11-01', 17)
+    ('2021-11-01', '2021-11-15', 18)
+    ('2021-11-15', '2021-11-29', 19)
+    ('2021-11-29', '2021-12-13', 20)
+    ('2021-12-13', '2021-12-27', 21)
+    ('2021-12-27', '2022-01-10', 22)
+    ('2022-01-10', '2022-01-24', 23)
+    ('2022-01-24', '2022-02-07', 24)
+    ('2022-02-07', '2022-02-21', 25)
+    ('2022-02-21', '2022-03-07', 26)
 
 -- Insertando datos en la tabla de Issue
 insert into Issue
     (nombreIssue, storyPoints, labelIssue, prioridadIssue, estadoIssue, fechaCreacion, fechaFinalizacion)
 values
-    ('Arreglar error en el sistema de pagos', 5,'Front', 'Alta', 'To-Do', '2023-03-11 14:30:00', '2023-03-13 10:45:00'),
-    ('Agregar soporte para notificaciones push', 8, 'Back','Alta', 'To-Do', '2023-03-10 09:25:00', '2023-03-15 16:50:00'),
-    ('Optimizar la velocidad de carga de la página de inicio', 5,'Front', 'Media', 'In Progress', '2023-03-11 12:30:00', '2023-03-14 18:15:00'),
-    ('Corregir errores en el proceso de pago', 10,'TC1000', 'Alta', 'Done', '2023-03-08 16:00:00', '2023-03-11 20:35:00'),
-    ('Agregar filtros de búsqueda avanzados', 6,'Back', 'Media-Baja', 'To-Do', '2023-03-09 10:45:00', '2023-03-16 12:20:00'),
-    ('Solucionar problemas de compatibilidad con Internet Explorer', 4,'Back', 'Media', 'In Progress', '2023-03-12 08:30:00', '2023-03-17 14:45:00'),
-    ('Agregar funcionalidad para compartir contenido en redes sociales', 3,'Back', 'Media-Baja', 'To-Do', '2023-03-10 14:15:00', '2023-03-13 09:30:00'),
-    ('Mejorar el diseño y la usabilidad de la página de registro', 7,'Front', 'Media-Alta', 'In Progress', '2023-03-11 11:00:00', '2023-03-15 17:20:00'),
-    ('Solucionar problemas de seguridad en la gestión de contraseñas', 9,'Front', 'Alta', 'Done', '2023-03-09 15:30:00', '2023-03-12 21:00:00'),
-    ('Agregar soporte para múltiples idiomas', 6,'Front', 'Media', 'In Progress', '2023-03-13 09:00:00', '2023-03-19 14:30:00'),
-    ('Optimizar el rendimiento de la aplicación en dispositivos móviles', 8,'Back', 'Media-Alta', 'To-Do', '2023-03-12 13:45:00', '2023-03-16 19:10:00'),
-    ('Agregar funcionalidad de chat en vivo para atención al cliente', 7,'Back', 'Media-Alta', 'In Progress', '2023-03-08 10:00:00', '2023-03-13 15:40:00'),
-    ('Solucionar problemas de rendimiento en la búsqueda de productos', 6,'Back', 'Media-Baja', 'Done', '2023-03-09 14:00:00', '2023-03-11 19:25:00'),
-    ('Agregar soporte para pagos con tarjeta de crédito', 9,'Back', 'Alta', 'To-Do', '2023-03-14 11:30:00', '2023-03-18 17:50:00'),
-    ('Optimizar el proceso de carga de imágenes en la galería', 4,'Front', 'Media-Baja', 'In Progress', '2023-03-11 08:15:00', '2023-03-16 13:30:00'),
-    ('Agregar funcionalidad de sugerencias de productos relacionados', 5,'TC1030', 'Media', 'To-Do', '2023-03-10 16:00:00', '2023-03-13 21:15:00'),
-    ('Solucionar problemas de rendimiento en la carga de la página de detalles del producto', 8,'Front', 'Media-Alta', 'In Progress', '2023-03-12 10:30:00', '2023-03-17 16:40:00'),
-    ('Agregar soporte para compartir imágenes en redes sociales', 6,'Back', 'Media-Baja', 'Done', '2023-03-09 12:45:00', '2023-03-12 18:55:00'),
-    ('Optimizar la búsqueda de productos por categoría', 7,'Back', 'Media-Alta', 'To-Do', '2023-03-13 14:00:00', '2023-03-18 19:30:00'),
-    ('Solucionar problemas de compatibilidad con dispositivos Apple', 9,'Front', 'Alta', 'In Progress', '2023-03-11 09:00:00', '2023-03-16 14:20:00'),
-    ('Agregar funcionalidad de seguimiento de envíos', 8,'Front', 'Media-Alta', 'Done', '2023-03-10 13:15:00', '2023-03-13 18:45:00'),
-    ('Optimizar el rendimiento de la página de búsqueda avanzada', 6,'TC1040', 'Media-Baja', 'To-Do', '2023-03-08 11:30:00', '2023-03-14 15:50:00'),
-    ('Agregar soporte para autenticación con Google', 7,'Back', 'Media-Alta', 'In Progress', '2023-03-13 09:45:00', '2023-03-19 14:10:00'),
-    ('Solucionar problemas de seguridad en el proceso de recuperación de contraseña', 10,'Back', 'Alta', 'To-Do', '2023-03-11 14:00:00', '2023-03-14 19:20:00'),
-    ('Agregar funcionalidad de sugerencias de búsqueda', 5,'Front', 'Media-Baja', 'In Progress', '2023-03-09 16:30:00', '2023-03-15 21:40:00'),
-    ('Optimizar la velocidad de carga de la página de resultados de búsqueda', 8,'Back', 'Media-Alta', 'Done', '2023-03-12 12:00:00', '2023-03-16 17:15:00'),
-    ('Agregar soporte para pagos con PayPal', 9,'TC1045', 'Alta', 'To-Do', '2023-03-10 10:15:00', '2023-03-14 15:30:00'),
-    ('Solucionar problemas de compatibilidad con navegadores antiguos', 4,'Front', 'Media-Baja', 'In Progress', '2023-03-11 09:00:00', '2023-03-17 13:25:00'),
-    ('Agregar funcionalidad de búsqueda por voz', 6,'Front', 'Media', 'Done', '2023-03-08 14:30:00', '2023-03-10 19:40:00');
+    ('Arreglar error en el sistema de pagos', 5,'Front', 'Alta', 'To-Do', '2021-04-01 09:00:00', '2021-04-03 17:00:00'),
+    ('Agregar soporte para notificaciones push', 8, 'Back','Alta', 'To-Do', '2021-03-23 12:00:00', '2021-03-26 16:00:00'),
+    ('Optimizar la velocidad de carga de la página de inicio', 5,'Front', 'Media', 'In Progress', '2021-03-30 14:00:00', '2021-04-02 18:00:00'),
+    ('Implementar nuevas funciones en el panel de administración', 6, 'Back', 'Media', 'To-Do', '2021-04-05 10:00:00', '2021-04-08 16:00:00'),
+    ('Actualizar la interfaz de usuario', 7, 'Front', 'Media', 'In Progress', '2021-04-02 13:00:00', '2021-04-06 18:00:00'),
+    ('Corregir errores en el proceso de registro', 4, 'Back', 'Baja', 'To-Do', '2021-03-28 11:00:00', '2021-03-30 15:00:00'),
+    ('Realizar pruebas de rendimiento en el servidor', 5, 'DevOps', 'Alta', 'To-Do', '2021-04-02 09:00:00', '2021-04-05 13:00:00'),
+    ('Desarrollar una API para integración con otros sistemas', 8, 'Back', 'Alta', 'In Progress', '2021-03-25 10:00:00', '2021-03-31 ,16:00:00')
+    ('Revisar la seguridad del sitio web', 6, 'Security', 'Alta', 'To-Do', '2021-03-27 09:00:00', '2021-03-30 12:00:00'),
+    ('Diseñar una nueva plantilla para correos electrónicos', 3, 'Front', 'Baja', 'To-Do', '2021-03-23 14:00:00', '2021-03-25 18:00:00'),
+    ('Crear un sistema de seguimiento de tareas', 5, 'Back', 'Media', 'In Progress', '2021-03-30 10:00:00', '2021-04-02 14:00:00'),
+    ('Mejorar la integración con el servicio de pagos', 7, 'Back', 'Media', 'In Progress', '2021-04-04 12:00:00', '2021-04-07 16:00:00'),
+    ('Rediseñar la página de perfil de usuario', 7, 'Front', 'Alta', 'To-Do', '2021-03-24 10:00:00', '2021-03-29 18:00:00'),
+    ('Agregar función de búsqueda avanzada', 6, 'Back', 'Media', 'In Progress', '2021-03-27 12:00:00', '2021-04-01 16:00:00'),
+    ('Mejorar la seguridad del sistema de autenticación', 9, 'Back', 'Alta', 'To-Do', '2021-03-22 08:00:00', '2021-03-25 14:00:00'),
+    ('Implementar sistema de seguimiento de tareas', 4, 'Front', 'Baja', 'Done', '2021-03-29 13:00:00', '2021-03-30 17:00:00'),
+    ('Revisar y actualizar la documentación de usuario', 3, 'Back', 'Baja', 'In Progress', '2021-03-28 10:00:00', '2021-03-31 16:00:00'),
+    ('Crear sección de preguntas frecuentes en el sitio web', 2, 'Front', 'Media', 'To-Do', '2021-03-23 09:00:00', '2021-03-26 18:00:00'),
+    ('Agregar opción de pago con tarjeta de crédito', 5, 'Back', 'Media', 'Done', '2021-03-26 14:00:00', '2021-03-27 18:00:00')
 
 -- Insertando datos en retroalimentacion
 
@@ -247,23 +236,24 @@ values
 insert into Accionable
     (nombreAccionable, storyPoints, prioridadAccionable, estadoAccionable, estadoJira, fechaCreacion, fechaFinalizacion)
 values
-    ('Martes de Tacos', 2, 'Baja', 'No aprobado', 'To-Do', '2023-02-03', '2023-02-25'),
-    ('Mantenimiento Página Web', 5, 'Alta', 'Aprobado', 'In Progress', '2023-02-20', '2023-02-23'),
-    ('Mantenimiento Base de Datos', 4, 'Media-Alta', 'Aprobado', 'Done', '2023-01-21', '2023-02-22'),
-    ('Actualización Productos', 3, 'Media', 'No aprobado', 'To-Do', '2023-03-10', '2023-03-05'),
-    ('Venta Fin de Año', 7, 'Alta', 'Aprobado', 'Done', '2022-12-15', '2022-12-31'),
-    ('Buen Fin', 7, 'Alta', 'Aprobado', 'Done', '2022-11-18', '2022-11-21'),
-    ('Mantenimiento Servidores', 4, 'Media-Baja', 'Aprobado', 'In Progress', '2023-03-05', '2023-03-07'),
-    ('Agregar Easter Eggs', 2, 'Alta', 'No aprobado', 'To-Do', '2023-03-03', '2023-03-11'),
-    ('Productos Luuna', 6, 'Media-Alta', 'Aprobado', 'In Progress', '2023-03-06', '2023-03-12'),
-    ('Productos Nooz', 4, 'Media-Baja', 'Aprobado', 'Done', '2023-01-02', '2023-01-07'),
-    ('Aplicación Móvil', 5, 'Media', 'No aprobado', 'To-Do', '2023-03-01', '2023-03-08'),
-    ('Actualización de Cuentas', 3, 'Media-Baja', 'Aprobado', 'In Progress', '2023-03-10', '2023-03-11'),
-    ('Migración de Datos', 7, 'Media', 'Aprobado', 'Done', '2023-02-27', '2023-03-01'),
-    ('Promociones Especiales', 4, 'Media-Baja', 'No aprobado', 'To-Do', '2023-01-17', '2023-01-19'),
-    ('Cambio Paleta de Colores', 1, 'Baja', 'Aprobado', 'Done', '2023-02-01', '2023-02-04'),
-    ('Compatibilidad Android', 3, 'Alta', 'No aprobado', 'To-Do', '2023-01-14', '2023-01-22'),
-    ('Realidad Aumentada', 1, 'Baja', 'Aprobado', 'In progress', '2023-02-09', '2023-02-11'),
-    ('Datos de Envío', 3, 'Alta', 'Aprobado', 'To-Do', '2023-01-11', '2023-01-13'),
-    ('Traducción a Portugués', 2, 'Media-Baja', 'No aprobado', 'To-Do', '2023-03-01', '2023-03-12'),
-    ('Nuevos anuncios', 5, 'Media', 'Aprobado', 'In progress', '2023-03-05', '2023-03-08')
+    ('Diseño de Logotipo', 2, 'Baja', 'No aprobado', 'To-Do', '2021-04-01', '2021-04-15'),
+    ('Campaña Publicitaria', 5, 'Media', 'No aprobado', 'To-Do', '2021-05-08', '2021-05-22'),
+    ('Desarrollo de App Web', 6, 'Media-Alta', 'Aprobado', 'In Progress', '2021-06-14', '2021-06-28'),
+    ('Mantenimiento de Servidores', 4, 'Media-Baja', 'Aprobado', 'Done', '2021-07-01', '2021-07-15'),
+    ('Actualización de Contenido', 3, 'Media-Baja', 'No aprobado', 'To-Do', '2021-08-11', '2021-08-25'),
+    ('Integración de Redes Sociales', 2, 'Baja', 'Aprobado', 'In Progress', '2021-09-20', '2021-10-04'),
+    ('Optimización SEO', 4, 'Media-Baja', 'No aprobado', 'To-Do', '2021-10-15', '2021-10-29'),
+    ('Análisis de Datos', 7, 'Alta', 'Aprobado', 'Done', '2021-11-18', '2021-12-02'),
+    ('Diseño de Nuevos Productos', 5, 'Media', 'No aprobado', 'To-Do', '2021-12-28', '2022-01-11'),
+    ('Promociones Especiales', 4, 'Media-Baja', 'No aprobado', 'To-Do', '2022-01-23', '2022-02-06'),
+    ('Nuevas Características', 3, 'Media-Baja', 'Aprobado', 'In Progress', '2022-02-28', '2022-03-14'),
+    ('Mantenimiento de Base de Datos', 6, 'Media-Alta', 'Aprobado', 'Done', '2022-03-19', '2022-04-02'),
+    ('Rediseño de Sitio Web', 5, 'Media', 'No aprobado', 'To-Do', '2022-04-10', '2022-04-24'),
+    ('Nuevas Integraciones', 4, 'Media-Baja', 'No aprobado', 'To-Do', '2022-05-15', '2022-05-29'),
+    ('Actualización de Seguridad', 6, 'Media-Alta', 'Aprobado', 'In Progress', '2022-06-19', '2022-07-03'),
+    ('Campaña de Email Marketing', 3, 'Media-Baja', 'Aprobado', 'Done', '2022-07-18', '2022-08-01'),
+    ('Desarrollo de App Móvil', 7, 'Alta', 'No aprobado', 'To-Do', '2022-08-22', '2022-09-05'),
+    ('Diseño de Nuevos Servicios', 5, 'Media', 'No aprobado', 'To-Do', '2022-09-26', '2022-10-10'),
+    ('Nuevos Canales de Venta', 4, 'Media-Baja', 'Aprobado', 'In Progress', '2022-10-31', '2022-11-14'),
+    ('Diseño de Nuevos Paquetes', 3, 'Media-Baja', 'Aprobado', 'Done', '2022-11-19', '2022-12-03'),
+    ('Desarrollo de App de Escritorio', 6, 'Media-Alta', 'No aprobado', 'To-Do', '2022-12-12', '2022-12-26');
