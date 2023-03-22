@@ -202,26 +202,28 @@ values
 
 
 -- Insertando datos en reporte
-insert into Reporte default values;
-insert into Reporte default values;
-insert into Reporte default values;
-insert into Reporte default values;
-insert into Reporte default values;
-insert into Reporte default values;
-insert into Reporte default values;
-insert into Reporte default values;
-insert into Reporte default values;
-insert into Reporte default values;
-insert into Reporte default values;
-insert into Reporte default values;
-insert into Reporte default values;
-insert into Reporte default values;
-insert into Reporte default values;
-insert into Reporte default values;
-insert into Reporte default values;
-insert into Reporte default values;
-insert into Reporte default values;
-insert into Reporte default values;
+insert into Reporte(fechaCreacion)
+values 
+(default), 
+(default),
+(default),
+(default),
+(default),
+(default),
+(default),
+(default),
+(default),
+(default),
+(default),
+(default),
+(default),
+(default),
+(default),
+(default),
+(default),
+(default),
+(default),
+(default);
 
 -- Insertando datos en pregunta
 insert into Pregunta
