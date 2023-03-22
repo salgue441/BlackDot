@@ -175,7 +175,7 @@ values
     ('Implementar nuevas funciones en el panel de administración', 6, 'Back', 'Media', 'To-Do', '2021-04-05 10:00:00', '2021-04-08 16:00:00'),
     ('Actualizar la interfaz de usuario', 7, 'Front', 'Media', 'In Progress', '2021-04-02 13:00:00', '2021-04-06 18:00:00'),
     ('Corregir errores en el proceso de registro', 4, 'Back', 'Baja', 'To-Do', '2021-03-28 11:00:00', '2021-03-30 15:00:00'),
-    ('Realizar pruebas de rendimiento en el servidor', 5, 'DevOps', 'Alta', 'To-Do', '2021-04-02 09:00:00', '2021-04-05 13:00:00'),
+    ('Realizar pruebas de rendimiento en el servidor', 5, 'Back', 'Alta', 'To-Do', '2021-04-02 09:00:00', '2021-04-05 13:00:00'),
     ('Desarrollar una API para integración con otros sistemas', 8, 'Back', 'Alta', 'In Progress', '2021-03-25 10:00:00', '2021-03-31 ,16:00:00')
     ('Revisar la seguridad del sitio web', 6, 'Security', 'Alta', 'To-Do', '2021-03-27 09:00:00', '2021-03-30 12:00:00'),
     ('Diseñar una nueva plantilla para correos electrónicos', 3, 'Front', 'Baja', 'To-Do', '2021-03-23 14:00:00', '2021-03-25 18:00:00'),
