@@ -11,58 +11,58 @@
 -- copyrigth: Copyright (c) 2023 - MIT License
 
 -- Insertando datos en Empleado
-insert into `empleado` (`primerNombre`, `segundoNombre`, `apellidoPaterno`, `apellidoMaterno`, `idGoogleAuth`, `googleEmail`) 
-values
-('Saúl', 'Carmen', 'Armendáriz', null, 0xdba6a8c07b84449894cc524f047b42e1, 'saúl.armendáriz@gmail.com'),
-('Micaela', 'Ivanna', 'Acosta', null, 0x26e98e8aee12416a842d05cba4ea2454, 'micaela.acosta@gmail.com'),
-('Reina', null, 'Olivera', 'Montaño', 0x043128a38b7e4e488945afc64134796e, 'reina.olivera@gmail.com'),
+INSERT INTO empleado (primerNombre
+, segundoNombre, apellidoPaterno, apellidoMaterno, idGoogleAuth, googleEmail) VALUES
+('Saúl', 'Carmen', 'Armendáriz', NULL, 0xdba6a8c07b84449894cc524f047b42e1, 'saúl.armendáriz@gmail.com'),
+('Micaela', 'Ivanna', 'Acosta', NULL, 0x26e98e8aee12416a842d05cba4ea2454, 'micaela.acosta@gmail.com'),
+('Reina', NULL, 'Olivera', 'Montaño', 0x043128a38b7e4e488945afc64134796e, 'reina.olivera@gmail.com'),
 ('Agustín', 'Ximena Guadalupe', 'Moya', 'Colunga', 0xb070dfd57f3040668a75bbed0ad78aec, 'agustín.moya@gmail.com'),
-('Alicia', null, 'Corrales', null, 0x2ae9aed35f5b488d8f2dd7cfb8aa7e1e, 'alicia.corrales@gmail.com'),
-('Juan Manuel', 'Jerónimo', 'Riojas', null, 0x6d11115f1b3144adb5e2e12489209424, 'juan manuel.riojas@gmail.com'),
+('Alicia', NULL, 'Corrales', NULL, 0x2ae9aed35f5b488d8f2dd7cfb8aa7e1e, 'alicia.corrales@gmail.com'),
+('Juan Manuel', 'Jerónimo', 'Riojas', NULL, 0x6d11115f1b3144adb5e2e12489209424, 'juan manuel.riojas@gmail.com'),
 ('Dolores', 'Ángel Daniel', 'Velázquez', 'Salcedo', 0x2e0806fafacc43d69b65ac68d432d01a, 'dolores.velázquez@gmail.com'),
 ('Berta', 'María de los Ángeles', 'Malave', 'Márquez', 0x50d56b9188544ebc8a96564aef938bcb, 'berta.malave@gmail.com'),
-('Manuela', null, 'Serrato', 'Kyra', 0x288459f41939430abcc6a962d84f02db, 'manuela.serrato@gmail.com'),
+('Manuela', NULL, 'Serrato', 'Kyra', 0x288459f41939430abcc6a962d84f02db, 'manuela.serrato@gmail.com'),
 ('Francisco Javier', 'Yolanda', 'Menchaca', 'Aparicio', 0x314b8c27b6734f218a76895bf07c9baf, 'francisco javier.menchaca@gmail.com'),
-('Manuel', 'Israel', 'Arevalo', null, 0x485b3fbdf10743c0b0054d21297322f2, 'manuel.arevalo@gmail.com'),
+('Manuel', 'Israel', 'Arevalo', NULL, 0x485b3fbdf10743c0b0054d21297322f2, 'manuel.arevalo@gmail.com'),
 ('José Emilio', 'Lourdes', 'Krasnova', 'Cordero', 0xeeb78b5378684fb4b80ca9f5b261b26e, 'josé emilio.krasnova@gmail.com'),
-('Santiago', 'Manuela', 'Casillas', null, 0xd5e277fcb25f492285ce59ff7eb90ebf, 'santiago.casillas@gmail.com'),
-('Jennifer', null, 'Montemayor', null, 0x2d183d2c0f66468aa41973b1cbfa6ae3, 'jennifer.montemayor@gmail.com'),
-('Manuel', 'Ramona', 'Pagan', null, 0x761c94851e564335b2e9f922a9b1dc2f, 'manuel.pagan@gmail.com'),
+('Santiago', 'Manuela', 'Casillas', NULL, 0xd5e277fcb25f492285ce59ff7eb90ebf, 'santiago.casillas@gmail.com'),
+('Jennifer', NULL, 'Montemayor', NULL, 0x2d183d2c0f66468aa41973b1cbfa6ae3, 'jennifer.montemayor@gmail.com'),
+('Manuel', 'Ramona', 'Pagan', NULL, 0x761c94851e564335b2e9f922a9b1dc2f, 'manuel.pagan@gmail.com'),
 ('Alfredo', 'José Eduardo', 'Vigil', 'Acuña', 0xc0889a4516ec45c78a7ad5af8aeb5ec6, 'alfredo.vigil@gmail.com'),
-('Germán', null, 'Villarreal', null, 0xa24e5ea89481468eb14ef78e4d65454d, 'germán.villarreal@gmail.com'),
-( 'Ximena', 'Victor Manuel', 'Maldonado', 'Canales', 0x53b4c2f78f6a439f88182dd839293ec0, 'ximena.maldonado@gmail.com'),
-('Yolanda', null, 'Abrego', 'Solorzano', 0xbe99d323a5e3409f8dc252583f8bf21b, 'yolanda.abrego@gmail.com'),
+('Germán', NULL, 'Villarreal', NULL, 0xa24e5ea89481468eb14ef78e4d65454d, 'germán.villarreal@gmail.com'),
+('Ximena', 'Victor Manuel', 'Maldonado', 'Canales', 0x53b4c2f78f6a439f88182dd839293ec0, 'ximena.maldonado@gmail.com'),
+('Yolanda', NULL, 'Abrego', 'Solorzano', 0xbe99d323a5e3409f8dc252583f8bf21b, 'yolanda.abrego@gmail.com'),
 ('Federico', 'Lorenzo', 'Beltrán', 'Covarrubias', 0x356a9ff0bea348649f8be2d39efde866, 'federico.beltrán@gmail.com'),
-('Eduardo', null, 'Agosto', 'Palomo', 0x941d3eb568a24ad59e698b311f3cfb82, 'eduardo.agosto@gmail.com'),
+('Eduardo', NULL, 'Agosto', 'Palomo', 0x941d3eb568a24ad59e698b311f3cfb82, 'eduardo.agosto@gmail.com'),
 ('Patricio', 'Berta', 'Garica', 'Casares', 0x1fd0bb7829754a2d95e6c0c098bba4d0, 'patricio.garica@gmail.com'),
 ('Jorge Luis', 'Mariano', 'Gastélum', 'Espinal', 0xae5b6389f4764c0db44cacba808ec9a8, 'jorge luis.gastélum@gmail.com'),
 ('Pedro', 'Maricarmen', 'Contreras', 'Mota', 0x86bfd67b082a4983b55c29df50e42a36, 'pedro.contreras@gmail.com'),
 ('Marcos', 'Jose Daniel', 'Balderas', 'Mateo', 0xbeb8b06427404ad58ab1e85754103f91, 'marcos.balderas@gmail.com'),
-('Juan Carlos', null, 'Santillán', null, 0x5fa51fcc5f5941de984cf1aebd2be6e8, 'juan carlos.santillán@gmail.com'),
-('Germán', 'Esteban', 'Salinas', null, 0x855af815a12548e9afc46d5e76d47be7, 'germán.salinas@gmail.com'),
+('Juan Carlos', NULL, 'Santillán', NULL, 0x5fa51fcc5f5941de984cf1aebd2be6e8, 'juan carlos.santillán@gmail.com'),
+('Germán', 'Esteban', 'Salinas', NULL, 0x855af815a12548e9afc46d5e76d47be7, 'germán.salinas@gmail.com'),
 ('Ana María', 'Florencia', 'Montalvo', 'Vázquez', 0xf5560c3193f1467f96d904991d5d8f9c, 'ana maría.montalvo@gmail.com'),
-('David', null, 'Vaca', null, 0x0dd5d7250ac24d068d88d9ed7a500bee, 'david.vaca@gmail.com'),
+('David', NULL, 'Vaca', NULL, 0x0dd5d7250ac24d068d88d9ed7a500bee, 'david.vaca@gmail.com'),
 ('David', 'Mariano', 'Ramón', 'Baca', 0x5579274d8fc74d94ae660eb52bd28f38, 'david.ramón@gmail.com'),
 ('Ernesto', 'Rosalia', 'Cotto', 'Arteaga', 0x30225b9c306647e49a11b5aa39d6b90e, 'ernesto.cotto@gmail.com'),
 ('Nicolás', 'José Luis', 'Mesa', 'Trejo', 0x31bea5e51e7e4aef95e151c91bfa2d2d, 'nicolás.mesa@gmail.com'),
-('Leonardo', null, 'Acevedo', null, 0x999ec79fe8d04d1592d556b351c18bb2, 'leonardo.acevedo@gmail.com'),
-('Hugo', null, 'Batista', null, 0xcfad81e9330f406da0c73706549e44a2, 'hugo.batista@gmail.com'),
+('Leonardo', NULL, 'Acevedo', NULL, 0x999ec79fe8d04d1592d556b351c18bb2, 'leonardo.acevedo@gmail.com'),
+('Hugo', NULL, 'Batista', NULL, 0xcfad81e9330f406da0c73706549e44a2, 'hugo.batista@gmail.com'),
 ('Catalina', 'Juan Carlos', 'Quintana', 'Varela', 0xa117d3fdd64549c1b8631be87790e5d6, 'catalina.quintana@gmail.com'),
-('Ricardo', null, 'Rincón', 'Luna', 0xe1f5799660614961a2a564819964332d, 'ricardo.rincón@gmail.com'),
-('Virginia', null, 'Ledesma', 'Figueroa', 0xeab66bc042e547a3a58ef1dfe88c0eed, 'virginia.ledesma@gmail.com'),
+('Ricardo', NULL, 'Rincón', 'Luna', 0xe1f5799660614961a2a564819964332d, 'ricardo.rincón@gmail.com'),
+('Virginia', NULL, 'Ledesma', 'Figueroa', 0xeab66bc042e547a3a58ef1dfe88c0eed, 'virginia.ledesma@gmail.com'),
 ('Alfonso', 'Manuela', 'Zepeda', 'Lucero', 0x38a14b57dd094675bc5cf886102f1ae1, 'alfonso.zepeda@gmail.com'),
-('Saúl', 'Esperanza', 'Caraballo', null, 0xad05b7dae93245e2bd39314063738947, 'saúl.caraballo@gmail.com'),
-('José Miguel', 'Guillermo', 'Rosas', null, 0x36739f88015d4742a8312cbbad241051, 'josé miguel.rosas@gmail.com'),
-('Manuela', 'Bernardo', 'Bahena', null, 0x5c80014060684bec8dc4ee5164bfecc4, 'manuela.bahena@gmail.com'),
+('Saúl', 'Esperanza', 'Caraballo', NULL, 0xad05b7dae93245e2bd39314063738947, 'saúl.caraballo@gmail.com'),
+('José Miguel', 'Guillermo', 'Rosas', NULL, 0x36739f88015d4742a8312cbbad241051, 'josé miguel.rosas@gmail.com'),
+('Manuela', 'Bernardo', 'Bahena', NULL, 0x5c80014060684bec8dc4ee5164bfecc4, 'manuela.bahena@gmail.com'),
 ('Concepción', 'Lucia', 'Balderas', 'Delarosa', 0x7b12920f116a4bacbc64e98300757ce4, 'concepción.balderas@gmail.com'),
 ('Soledad', 'Liliana', 'Gurule', 'Preciado', 0x2c5ebacd36344d9c80b5da77ca262b1c, 'soledad.gurule@gmail.com'),
-('Rosa María', null, 'Delgado', 'Ceballos', 0x1fd1ad4254b9453cac26030bef6bb1f0, 'rosa maría.delgado@gmail.com'),
-('Leticia', null, 'Curiel', 'Vaca', 0x8ffa3d9284da4cb2ab4ad77313c3d4e4, 'leticia.curiel@gmail.com'),
+('Rosa María', NULL, 'Delgado', 'Ceballos', 0x1fd1ad4254b9453cac26030bef6bb1f0, 'rosa maría.delgado@gmail.com'),
+('Leticia', NULL, 'Curiel', 'Vaca', 0x8ffa3d9284da4cb2ab4ad77313c3d4e4, 'leticia.curiel@gmail.com'),
 ('Federico', 'Ana Victoria', 'Rentería', 'Cardenas', 0x4fbd61df38454068a4801348906985dc, 'federico.rentería@gmail.com'),
-('Ivanna', 'Erick', 'Mendoza', null, 0xe9bc8aed2c29466fb79d9aed112aea54, 'ivanna.mendoza@gmail.com'),
-('Juan', null, 'Agosto', 'Murillo', 0xe2a4878d03aa46c19e7e3dc0d317db52, 'juan.agosto@gmail.com'),
+('Ivanna', 'Erick', 'Mendoza', NULL, 0xe9bc8aed2c29466fb79d9aed112aea54, 'ivanna.mendoza@gmail.com'),
+('Juan', NULL, 'Agosto', 'Murillo', 0xe2a4878d03aa46c19e7e3dc0d317db52, 'juan.agosto@gmail.com'),
 ('David', 'José Miguel', 'Karam', 'Atencio', 0x2aab4a236bdc4aad913d6c30a72c17c8, 'david.karam@gmail.com'),
-('Fernando', 'Damián', 'Nevárez', null, 0xa0be3009aebf44ce857573d983b88968, 'fernando.nevárez@gmail.com');
+('Fernando', 'Damián', 'Nevárez', NULL, 0xa0be3009aebf44ce857573d983b88968, 'fernando.nevárez@gmail.com');
 
 -- Insertando datos en la tabla Rol
 insert into Rol
@@ -136,6 +136,7 @@ values
     ('Movie Implement');
 
 -- Insertando datos en la tabla de Sprint
+-- Falta IdEpica Xampp da error. 
 insert into Sprint
     (fechaCreacion, fechaFinalizacion, numeroSprint)
 values
@@ -190,29 +191,59 @@ values
     ('Agregar opción de pago con tarjeta de crédito', 5, 'Back', 'Media', 'Done', '2021-03-26 14:00:00', '2021-03-27 18:00:00')
 
 -- Insertando datos en retroalimentacion
-
+insert into Retroalimentacion
+    (fechaCreacion, fechaFinalizacion, idSprint, idReporte)
+values
+    ('2021-01-01', '2021-01-02', 1, 1),
+    ('2021-02-14', '2021-02-15', 2, 2),
+    ('2021-03-17', '2021-03-18', 3, 3),
+    ('2021-04-02', '2021-04-03', 4, 4),
+    ('2021-05-05', '2021-05-06', 5, 5),
+    ('2021-06-20', '2021-06-21', 6, 6),
+    ('2021-07-04', '2021-07-05', 7, 7),
+    ('2021-08-30', '2021-08-31', 8, 8),
+    ('2021-09-15', '2021-09-16', 9, 9),
+    ('2021-10-09', '2021-10-10', 10, 10),
+    ('2021-11-01', '2021-11-02', 11, 11),
+    ('2021-11-22', '2021-11-23', 12, 12),
+    ('2021-12-01', '2021-12-02', 13, 13),
+    ('2021-12-12', '2021-12-13', 14, 14),
+    ('2021-12-31', '2022-01-01', 15, 15),
+    ('2022-01-20', '2022-01-21', 16, 16),
+    ('2022-02-14', '2022-02-15', 17, 17),
+    ('2022-03-17', '2022-03-18', 18, 18),
+    ('2022-04-02', '2022-04-03', 19, 19),
+    ('2022-05-05', '2022-05-06', 20, 20);
 
 -- Insertando datos en reporte
-insert into Reporte default values;
-insert into Reporte default values;
-insert into Reporte default values;
-insert into Reporte default values;
-insert into Reporte default values;
-insert into Reporte default values;
-insert into Reporte default values;
-insert into Reporte default values;
-insert into Reporte default values;
-insert into Reporte default values;
-insert into Reporte default values;
-insert into Reporte default values;
-insert into Reporte default values;
-insert into Reporte default values;
-insert into Reporte default values;
-insert into Reporte default values;
-insert into Reporte default values;
-insert into Reporte default values;
-insert into Reporte default values;
-insert into Reporte default values;
+insert into reporte
+    (fechaCreacion)
+values
+    ('2021-04-05'),
+    ('2021-04-19'),
+    ('2021-05-03'),
+    ('2021-05-17'),
+    ('2021-05-31'),
+    ('2021-06-14'),
+    ('2021-06-28'),
+    ('2021-07-12'),
+    ('2021-07-26'),
+    ('2021-08-09'),
+    ('2021-08-23'),
+    ('2021-09-06'),
+    ('2021-09-20'),
+    ('2021-10-04'),
+    ('2021-10-18'),
+    ('2021-11-01'),
+    ('2021-11-15'),
+    ('2021-11-29'),
+    ('2021-12-13'),
+    ('2021-12-27'),
+    ('2022-01-10'),
+    ('2022-01-10'),
+    ('2022-02-07'),
+    ('2022-02-21'),
+    ('2022-03-07');
 
 -- Insertando datos en pregunta
 insert into Pregunta
