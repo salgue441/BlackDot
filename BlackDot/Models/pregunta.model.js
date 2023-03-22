@@ -57,15 +57,24 @@ module.exports = class Pregunta {
    * @throws {Error} - Si no se ha proporcionado un contenido
    * @throws {Error} - Si no se ha proporcionado un tipo de pregunta
    */
-  save() {
-    if (!this.contenido) throw new Error("No se ha proporcionado un contenido")
-    if (!this.tipoPregunta)
-      throw new Error("No se ha proporcionado un tipo de pregunta")
+  async save() {
+    if (!this.contenido || this.contenido.trim().length === 0)
+      throw new Error("No se ha proporcionado un contenido")
 
-    return dataBase.query(
-      "insert into Pregunta (contenido, tipoPregunta) values (?, ?)",
-      [this.contenido, this.tipoPregunta]
-    )
+    if (!this.tipoPregunta)
+      throw new Error("No se ha proporcionado el tipo de Pregunta")
+
+    const query = `insert into Pregunta (contenido, tipoPregunta) values(?, ?)`
+    const result = await dataBase.query(query, [
+      this.contenido,
+      this.tipoPregunta,
+    ])
+
+    if (result.affectedRows === 0)
+      throw new Error("La pregunta no se pudo guardar")
+
+    this.idPregunta = result.insertId
+    return this
   }
 
   /**
@@ -76,7 +85,7 @@ module.exports = class Pregunta {
    * @throws {Error} - Si el contenido es muy largo
    * @throws {Error} - Si no se envia el tipo de pregunta
    */
-  static async verify() {
+  async verify() {
     if (!this.contenido) throw new Error("No se ha proporcionado un contenido")
     if (this.contenido.length > 300)
       throw new Error("El contenido es muy largo")
@@ -88,6 +97,8 @@ module.exports = class Pregunta {
       "select * from Pregunta where contenido = ? and tipoPregunta = ?",
       [this.contenido, this.tipoPregunta]
     )
+
+    return Boolean(pregunta)
   }
 
   /**
@@ -98,16 +109,16 @@ module.exports = class Pregunta {
    * @throws {Error} - Si no se envia el ID
    * @throws {Error} - Si el ID no es un numero
    */
-  deleteByID(idPregunta) {
+  async deleteByID(idPregunta) {
     if (!idPregunta) throw new Error("No se envio el ID")
-    if (typeof id !== "number") throw new Error("El ID debe ser un numero")
+    if (typeof idPregunta !== "number")
+      throw new Error("El ID debe ser un numero")
 
-    const index = this.preguntas.findIndex(
-      (pregunta) => pregunta.idPregunta === idPregunta
+    const result = await dataBase.query(
+      `delete from Preguntas where idPregunta = $1`,
+      [idPregunta]
     )
-    if (index === -1) return false
 
-    this.preguntas.splice(index, 1)
-    return true
+    return result.rowCount > 0
   }
 }
