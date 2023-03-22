@@ -1,25 +1,10 @@
-INSERT INTO Cualitativa
-    (contenido, idPregunta, idRetroalimentacion)
+INSERT INTO Cualitativa 
+    (contenido, idPregunta, idRetroalimentacion) 
 VALUES
-    ('Considero que para que todo el equipo se sienta mas unido y exista un mejor compañerismo, una noche de Tacos o Pizza seria la mejor opcion', 10, 1),
-    ('Mi principal reto de este sprint fue darle mantenimiento a la pagina de web de Luuna. Al ser nuevo en el equipo, me hubiera gustado que existieran manuales o que alguien me guiara en el proceso de realizacion del mantenimiento de este servicio', 9, 1),
-    ('Considero que la empresa puede ayudarme al darme certificaciones que me seran utiles en mi carrera profesional, asi como realizar el mantenimiento a los sistemas con el apoyo de un mentor de la empresa. Tambien, que mis compañeros de trabajo me ayuden a cumplir con los objetivos y me reten a mejorar', 7, 1),
-    ('Al finalizar este sprint, no me voy satisfecho de mi desempeño. Tuve algunos problemas personales que hicieron que mi desempeño bajara.', 4, 2),
-    ('Considero que la cantidad de issues que me fueron asignadas y que pude resolver fue una cantidad aceptable de trabajo. En general, los issues que mas me costaron resolver fueron los de la plataforma de Productos Luuna porque utilizan un codigo legacy que no tenia idea de como estaba hecho ni como funcionaban sus metodos', 5, 2),
-    ('Considero que el ambiente laboral puede mejorar en ciertos aspectos. Quizas hacer mas dinamicas con todo el equipo ayude a que nos llevemos mejor y nos permita mejorar la comunicacion entre todos. Asi como reducir el estres en diferentes tiempos de los sprints', 3, 3),
-    ('Considero que tener demasiados issues asignados a mi han afectado mi salud mental. Me encuentro mas estresado, me cuesta dormir y me veo trabajando jornadas de 10 horas todos los dias. Me gustaria que en el siguiente sprint se me asignen menos issues para que pueda empezar a sentirme mejor', 2, 3),
-    ('Buen Fin'),
-    ('Mantenimiento Servidores'),
-    ('Agregar Easter Eggs'),
-    ('Productos Luuna'),
-    ('Productos Nooz'),
-    ('Aplicación Móvil'),
-    ('Actualización de Cuentas'),
-    ('Migración de Datos'),
-    ('Promociones Especiales'),
-    ('Cambio Paleta de Colores'),
-    ('Compatibilidad Android'),
-    ('Realidad Aumentada'),
-    ('Datos de Envío'),
-    ('Traducción a Portugués'),
-    ('Nuevos anuncios');
+    ('Mantener una comunicación constante entro todos los miembros del equipo.', 4, 1),
+    ('No esperar hasta el último momento donde se amontonan las cosas.', 5, 2),
+    ('Injusta distribución de trabajos', 6, 2),
+    ('Un integrante del equipo estuvo muy perdido durante todo el Sprint.', 7, 1),
+    ('Para que todos los miembros del equipo se sientan unidos entre todos, tendríamos que hacer una noche de Pizza', 8, 3);
+
+   
