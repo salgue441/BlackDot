@@ -148,20 +148,14 @@ create table if not exists RolPrivilegio
     foreign key(idPrivilegio) references Privilegio(idPrivilegio)
 );
 
-create table
-if not exists EmpleadoEquipoTrabajo
+create table if not exists EmpleadoEquipoTrabajo
 (
     idEmpleado int not null,
     idEquipoTrabajo int not null,
 
-    primary key
-(idEmpleado, idEquipoTrabajo),
-    foreign key
-(idEmpleado) references Empleado
-(idEmpleado),
-    foreign key
-(idEquipoTrabajo) references EquipoTrabajo
-(idEquipoTrabajo)
+    primary key(idEmpleado, idEquipoTrabajo),
+    foreign key(idEmpleado) references Empleado(idEmpleado),
+    foreign key(idEquipoTrabajo) references EquipoTrabajo(idEquipoTrabajo)
 );
 
 create table if not exists EquipoTrabajoIssue
