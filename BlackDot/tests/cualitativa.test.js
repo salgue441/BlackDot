@@ -1,9 +1,11 @@
 /**
  * @file cualitativa.test.js
  * @brief Pruebas unitarias para la clase Cualitativa
- * @author 
+ * @author
  * @version 1.0
  * @date 2023-03-21
- * 
+ *
  * @copyright Copyright (c) 2023 - MIT License
  */
+
+const Cualitativa = require("../models/cualitativa.model")
