@@ -1,5 +1,5 @@
 insert into Accionable
-    (idAccionable, nombreAccionable, storyPoints, labelAccionable, prioridadAccionable, estadoAccionable, estadoJira, fechaCreacion, fechaFinalizacion)
+    (nombreAccionable, storyPoints, labelAccionable, prioridadAccionable, estadoAccionable, estadoIssue, fechaCreacion, fechaFinalizacion)
 values
     ('Martes de Tacos', 2, 'Front', 'Baja', 'No aprobado', 'To-Do', '2023-02-03 10:30:20', '2023-02-25 05:45:15'),
     ('Mantenimiento Página Web', 5, 'Back', 'Alta', 'Aprobado', 'In Progress', '2023-02-20 22:30:45', '2023-02-23 16:20:20'),
