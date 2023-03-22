@@ -1,8 +1,22 @@
+/**
+ * @file cualitativa.model.js
+ * @brief Modelo de la tabla de respuestas cualitativas
+ * @author Carlos Salguero
+ * @version 1.0
+ * @date 2023-03-21
+ *
+ * @copyright Copyright (c) 2023 - MIT License
+ */
+
 const dataBase = require("../database")
 
 /**
  * @class
  * @classdesc Modelo de la tabla de respuestas cualitativas
+ * @property {int} idCualitativa - Identificador de la respuesta
+ * @property {string} contenido - Contenido de la respuesta
+ * @property {int} idPregunta - Identificador de la pregunta
+ * @property {int} idRetroalimentacion - Identificador de la retroalimentacion
  */
 module.exports = class Cualitativa {
   /**
@@ -20,7 +34,8 @@ module.exports = class Cualitativa {
   /**
    * @brief
    * Recibe una respuesta cualitativa de acuerdo con el ID.
-   * @param {*} idCualitativa -
+   * @param {*} idCualitativa - ID de la respuesta cualitativa
+   * @returns {object} - Objeto de tipo Cualitativa
    */
   static async getByID(idCualitativa) {
     const query = `select * from Cualitativa where idCualitativa = ?`
@@ -35,7 +50,7 @@ module.exports = class Cualitativa {
   /**
    * @brief
    * Obtiene todas las respuestas cualitativas.
-   * @returns
+   * @returns {Promise<Cualitativa[]>} - Arreglo de objetos de tipo Cualitativa
    */
   static async getAll() {
     const query = `select * from Cualitativa`
@@ -47,6 +62,7 @@ module.exports = class Cualitativa {
   /**
    * @brief
    * Guarda una nueva respuesta cualitativa
+   * @returns {Promise<Cualitativa>} - Query de la respuesta cualitativa guardada
    */
   async save() {
     const query = `insert into Cualitativa(contenido, idPregunta, idRetroalimentacion) values (?, ?, ?)`
@@ -64,7 +80,7 @@ module.exports = class Cualitativa {
    * @brief
    * Verifica que el objeto sea de tipo Cualitativa
    * @param {*} Cualitativa
-   * @returns
+   * @returns {boolean}
    */
   static async verify(Cualitativa) {}
 
@@ -72,7 +88,7 @@ module.exports = class Cualitativa {
    * @brief
    * Elimina una respuesta cualitativa de acuerdo con el ID
    * @param {*} idCualitativa - id de la respuesta
-   * @returns
+   * @returns {Promise<void>} - Query de la respuesta cualitativa eliminada
    */
   static async deleteByID(idCualitativa) {
     const query = `delete from Cualitativa where idCualitativa = ?`

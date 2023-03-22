@@ -1,110 +1,113 @@
-const dataBase = require("../Utils/dataBase")
-
 /**
- * @class
- * @classdesc Clase que representa un modelo de Pregunta
- * @property {string} id - Identificador de la pregunta
- * @property {string} contenido - Contenido de la pregunta
+ * @file pregunta.model.js
+ * @brief Modelo de la tabla de preguntas
+ * @author Carlos Salguero
+ * @author Diego Sandoval
+ * @author Olimpia Garcia
+ * @author Diego Llaca
+ * @author Yuna Chung
+ * @author Ivan Paredes
+ * @version 1.0
+ * @date 2023-03-21
+ *
+ * @copyright Copyright (c) 2023 - MIT License
  */
+
+const dataBase = require("../utils/dataBase")
+
 module.exports = class Pregunta {
-  /**
-   * @brief
-   * Constructor de la clase pregunta
-   * @param {*} Pregunta - Objeto de tipo pregunta
-   * @throws {Error} - Si no se envia el objeto de tipo pregunta
-   * @throws {Error} - Si el objeto no tiene el atributo contenido
-   */
   constructor(Pregunta) {
-    if (!Pregunta) throw new Error("El objeto no es de tipo pregunta")
-    if (!Pregunta.contenido)
-      throw new Error("El objeto no tiene el atributo contenido")
-
-    this.id = Pregunta.id
+    this.idPregunta = Pregunta.idPregunta
     this.contenido = Pregunta.contenido
-    this.tipo = Pregunta.tipo
-
-    //?   enum('Cualitativa', 'Cuantitativa')
+    this.tipoPregunta = Pregunta.tipoPregunta
   }
 
   /**
    * @brief
-   * Funcion que obtiene una pregunta por su id
-   * @param {*} id - Identificador de la pregunta
-   * @returns {Pregunta} - Objeto de tipo pregunta
-   * @throws {Error} - Si no se envia el id
+   * Obtiene una pregunta de acuerdo con el ID.
+   * @param {*} idPregunta - ID de la pregunta
+   * @returns {object} - Objeto de tipo Pregunta
    */
-  static async getByID(id) {
-    if (!id) throw new Error("No se envio el id")
+  static async getByID(idPregunta) {
+    if (!idPregunta) throw new Error("No se ha proporcionado un ID")
 
-    const pregunta = await dataBase.query(
-      "select * from Pregunta where id = ?",
-      [id]
+    const [pregunta] = await dataBase.query(
+      "select * from Pregunta where idPregunta = ?",
+      [idPregunta]
     )
 
-    return pregunta
+    return new Pregunta(pregunta)
   }
 
   /**
    * @brief
-   * Funcion que obtiene todas las Pregunta
-   * @returns {Pregunta[]} - Arreglo de objetos de tipo pregunta
-   * @throws {Error} - Si no se envia el id
-   * @throws {Error} - Si
+   * Obtiene todas las preguntas.
+   * @returns {Promise<Pregunta[]>} - Arreglo de objetos de tipo Pregunta
    */
   static async getAll() {
-    return dataBase.execute("select * from Pregunta")
+    const preguntas = await dataBase.query("select * from Pregunta")
+
+    return preguntas.map((pregunta) => new Pregunta(pregunta))
   }
 
   /**
    * @brief
-   * Funcion que manda los datos de la pregunta a la base de datos
+   * Guarda una pregunta en la base de datos.
+   * @returns {Promise<Pregunta>} - Query de la pregunta guardada
+   * @throws {Error} - Si no se ha proporcionado un contenido
+   * @throws {Error} - Si no se ha proporcionado un tipo de pregunta
    */
   save() {
-    if (Pregunta.verify(this.contenido)) {
-      return dataBase.query(
-        "insert into Pregunta (contenido, tipo) values (?, ?)",
-        [this.contenido, this.tipo]
-      )
-    }
+    if (!this.contenido) throw new Error("No se ha proporcionado un contenido")
+    if (!this.tipoPregunta)
+      throw new Error("No se ha proporcionado un tipo de pregunta")
+
+    return dataBase.query(
+      "insert into Pregunta (contenido, tipoPregunta) values (?, ?)",
+      [this.contenido, this.tipoPregunta]
+    )
   }
 
   /**
    * @brief
-   * Funcion que verifica si una pregunta existe
-   * @param {*} contenido - Contenido de la pregunta
-   * @returns {boolean} - True si existe, false si no existe
+   * Verifica si una pregunta existe en la base de datos.
+   * @returns {Promise<boolean>} - True si existe, false si no
    * @throws {Error} - Si no se envia el contenido
    * @throws {Error} - Si el contenido es muy largo
+   * @throws {Error} - Si no se envia el tipo de pregunta
    */
-  static async verify(Pregunta) {
-    if (!Pregunta.contenido) throw new Error("No se envio el contenido")
+  static async verify() {
+    if (!this.contenido) throw new Error("No se ha proporcionado un contenido")
+    if (this.contenido.length > 300)
+      throw new Error("El contenido es muy largo")
 
-    if (Pregunta.contenido.length > 300)
-      throw new Error("El contenido de la pregunta es muy largo")
+    if (!this.tipoPregunta)
+      throw new Error("No se ha proporcionado un tipo de pregunta")
+
+    const [pregunta] = await dataBase.query(
+      "select * from Pregunta where contenido = ? and tipoPregunta = ?",
+      [this.contenido, this.tipoPregunta]
+    )
   }
 
   /**
    * @brief
-   * Funcion que elimina una pregunta por su id
-   * @param {*} pregunta  - Objeto de tipo pregunta
-   * @returns {Function} - Query de la base de datos para eliminar la pregunta
+   * Elimina una pregunta segun su ID de la base de datos.
+   * @param {number} idPregunta - ID de la pregunta
+   * @returns {boolean} - True si se elimino, false si no
+   * @throws {Error} - Si no se envia el ID
+   * @throws {Error} - Si el ID no es un numero
    */
-  static async deleteById(Pregunta) {
-    return dataBase.query("delete from Pregunta where id = ?", [Pregunta.id])
-  }
+  deleteByID(idPregunta) {
+    if (!idPregunta) throw new Error("No se envio el ID")
+    if (typeof id !== "number") throw new Error("El ID debe ser un numero")
 
-  /**
-   * @brief
-   * Funcion que modifica una pregunta por su id
-   * @param {*} Pregunta - Objeto de tipo pregunta
-   * @returns {Function} - Query de la base de datos para actualizar la pregunta
-   */
-  static async modifyById(Pregunta) {
-    if (Pregunta.verify(Pregunta.contenido)) {
-      return dataBase.query("update Pregunta set contenido = ? where id = ?", [
-        Pregunta.contenido,
-        Pregunta.id,
-      ])
-    }
+    const index = this.preguntas.findIndex(
+      (pregunta) => pregunta.idPregunta === idPregunta
+    )
+    if (index === -1) return false
+
+    this.preguntas.splice(index, 1)
+    return true
   }
 }
