@@ -60,17 +60,6 @@ const { getByID } = require("./cualitativa.model")
     }
 
 
-    async save()
-        {
-            const query = "isnsert into Epica(idEpica, nombreEpica) values (? . ? "
-
-            const [result] = await dataBase.execute(query,
-                [
-                    this.idEpica,
-                    this.nombreEpica,
-                ])
-        }
-
 
     }
 
