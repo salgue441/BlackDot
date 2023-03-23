@@ -1,6 +1,6 @@
 /**
  * @file sprintEpica.model.js
- * @brief Modelo de la tabla de Issue Epica
+ * @brief Modelo de la tabla de Sprint Epica
  * @author Olimpia Garcia
  * @version 0.1
  * @date 2023-03-23
