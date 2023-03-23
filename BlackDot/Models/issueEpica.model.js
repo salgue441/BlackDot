@@ -9,6 +9,7 @@
  */
 
  const dataBase = require("../database") //manda llamar a la base
+const { getByID } = require("./cualitativa.model")
 
  /**
  * @class
@@ -28,6 +29,49 @@
         this.idEpica = Epica.idEpica
         this.contenido = Epica.nombreEpica
     }
- }
 
- 
+    /**
+     * @brief obtiene una epica de acuerdo al ID
+     * @param {*} idEpica - Id de la epica
+     * @returns {object} -Objeto tipo epica
+     */
+
+    static async getByID(idEpica)
+    {
+       if (!idEpica) throw new Error("No se ha proporcionado un ID")
+       const [epica] = await dataBase.query
+       (
+        "select * from Epica where idEpica = ?", [idEpica]
+       )
+        return new Epica(epica)
+    }
+
+    /**
+     * @brief Obtiene las epicas
+     * @returns {Promise<epica[]>} Arreglo de objetos epica
+     */
+
+    static async getAll()
+    {
+        const query = "select * from epica"
+        const epica = await dataBase.execute(query)
+        
+        return epica.map((epica) => new Epica(epica))
+    }
+
+
+    async save()
+        {
+            const query = "isnsert into Epica(idEpica, nombreEpica) values (? . ? "
+
+            const [result] = await dataBase.execute(query,
+                [
+                    this.idEpica,
+                    this.nombreEpica,
+                ])
+        }
+
+
+    }
+
+
