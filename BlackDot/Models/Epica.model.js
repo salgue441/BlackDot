@@ -1,6 +1,6 @@
 /**
- * @file issueepica.model.js
- * @brief Modelo de la tabla de Issue Epica
+ * @file Epica.model.js
+ * @brief Modelo de la tabla de Epica
  * @author Olimpia Garcia
  * @version 0.1
  * @date 2023-03-21
