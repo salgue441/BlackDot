@@ -53,13 +53,13 @@ const { getByID } = require("./cualitativa.model")
 
     static async getAll()
     {
+        if(!this.Epica) throw new Error ("No hay epicas que recuperar")
+
         const query = "select * from epica"
         const epica = await dataBase.execute(query)
         
         return epica.map((epica) => new Epica(epica))
     }
-
-
 
     }
 
