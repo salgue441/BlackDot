@@ -60,8 +60,6 @@ create table if not exists Sprint
     idSprint int not null auto_increment primary key, 
     fechaCreacion timestamp not null default current_timestamp,
     fechaFinalizacion timestamp not null default current_timestamp,
-    fechaCreacion timestamp not null default current_timestamp,
-    fechaFinalizacion timestamp not null default current_timestamp,
     numeroSprint int not null,
     idEpica int not null
 );
@@ -81,8 +79,6 @@ create table if not exists Issue
 create table if not exists Retroalimentacion
 (
     idRetroalimentacion int not null auto_increment primary key, 
-    fechaCreacion timestamp not null default current_timestamp, 
-    fechaFinalizacion timestamp not null default current_timestamp,
     fechaCreacion timestamp not null default current_timestamp, 
     fechaFinalizacion timestamp not null default current_timestamp,
 
