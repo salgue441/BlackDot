@@ -34,6 +34,8 @@ module.exports = class Retro {
             id,
         ]);
 
+        if(retro.length == 0) throw new Error("No se encontro la retroalimentacion");
+
         return new Retro(retro);
     }
 
@@ -51,6 +53,7 @@ module.exports = class Retro {
     /**
      * @brief
      * Funcion que guarda una retro
+     * @returns {Promise<Retroalimentacion>}
      */
 
     async save() {
