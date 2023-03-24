@@ -11,24 +11,26 @@
  const dataBase = require("../database") //manda llamar a la base
  
 const { getByID } = require("./Epica.model")
+const { getByID } = require("./Sprint.model") //validar con llaca 
 
  /**
  * @class
  * @classdesc Modelo de la tabla de epicas
- * @property {int} idEpica - Identificador epica
- * @property {varchar} nombreEpica - Nombre de la epica
+ * @property {int} idEpica - IIdentificador de la epica
+ *  @property {int} idSprint - IIdentificador del sprint
+ * 
  */
 
- module.exports = class Epica
+ module.exports = class SprintEpica
  {
     /**
-     * @brief Cosntructor de la clase Epica
-     * @param {*} Epica - Objeto de tipo Epica
+     * @brief Cosntructor de la clase SprintEpica
+     * @param {*} SprintEpica - Objeto de tipo SprintEpica
      */
-    constructor(Epica)
+    constructor(SprintEpica)
     {
-        this.idEpica = Epica.idEpica
-        this.contenido = Epica.nombreEpica
+        this.idEpica = SprintEpica.idEpica
+        this.idsprint = SprintEpica.idsprint
     }
 
     /**
@@ -37,14 +39,25 @@ const { getByID } = require("./Epica.model")
      * @returns {object} -Objeto tipo epica
      */
 
-    static async getByID(idEpica)
+    static async getByIDE(idEpica)
     {
        if (!idEpica) throw new Error("No se ha proporcionado un ID")
        const [epica] = await dataBase.query
        (
-        "select * from Epica where idEpica = ?", [idEpica]
+        "select * from sprintepica where idEpica = ?", [idEpica]
        )
         return new Epica(epica)
+    }
+
+
+    static async getByIDS(idsprint)
+    {
+       if (!idsprint) throw new Error("No se ha proporcionado un ID")
+       const [sprint] = await dataBase.query
+       (
+        "select * from sprintepica where idSprint = ?", [idsprint]
+       )
+        return new Epica(sprint)
     }
 
     /**
@@ -54,12 +67,12 @@ const { getByID } = require("./Epica.model")
 
     static async getAll()
     {
-        if(!this.Epica) throw new Error ("No hay epicas que recuperar")
+        if(!this.SprintEpica) throw new Error ("No hay epicas que recuperar")
 
-        const query = "select * from epica"
-        const epica = await dataBase.execute(query)
+        const query = "select * from sprintepica"
+        const sprintepica = await dataBase.execute(query)
         
-        return epica.map((epica) => new Epica(epica))
+        return sprintepica.map((sprintepica) => new SprintEpica(sprintepica))
     }
 
     }
