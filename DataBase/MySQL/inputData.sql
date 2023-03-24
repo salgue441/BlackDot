@@ -261,22 +261,23 @@ values
     ('¿Qué podemos mejorar?');
 
 -- Insertando datos en Cuantitativa
--- Insertando datos en Cualitativa
-    ('¿Cómo te sientes?'),
-    ('¿Sientes que tu salud mental está siendo alterada por nuestro ritmo de trabajo?'),
-    ('¿Consideras que el ambiente de trabajo es el adecuado?'),
-    ('¿Te sientes a gusto con tu desempeño este sprint?'),
-    ('¿Consideras que la cantidad de issues asignadas en este sprint son las adecuadas?'),
-    ('¿Hay algo que quieras compartir antes de empezar?'),
-    ('¿Cómo puede ayudarte la empresa con tu desarrollo profesional?'),
-    ('Hablemos de las metas no cumplidas del sprint. ¿Qué contribuyó a estos resultados?'),
-    ('¿Cuál crees que es tu principal reto el próximo sprint?'),
-    ('¿Qué podemos mejorar?');
+INSERT INTO Cuantitativa
+    (contenido, idPregunta, idRetroalimentacion)
+VALUES
+    (4, 1, 2),
+    (3, 2, 4),
+    (1, 3, 2);
 
--- Insertando datos en Cuantitativa
 -- Insertando datos en Cualitativa
+INSERT INTO Cualitativa 
+    (contenido, idPregunta, idRetroalimentacion) 
+VALUES
+    ('Mantener una comunicación constante entro todos los miembros del equipo.', 4, 1),
+    ('No esperar hasta el último momento donde se amontonan las cosas.', 5, 2),
+    ('Injusta distribución de trabajos', 6, 2),
+    ('Un integrante del equipo estuvo muy perdido durante todo el Sprint.', 7, 1),
+    ('Para que todos los miembros del equipo se sientan unidos entre todos, tendríamos que hacer una noche de Pizza', 8, 3);
 
--- Insertando datos en Accionables
 -- Insertando datos en Accionables
 insert into Accionable
     (nombreAccionable, storyPoints, prioridadAccionable, estadoAccionable, estadoJira, fechaCreacion, fechaFinalizacion)
