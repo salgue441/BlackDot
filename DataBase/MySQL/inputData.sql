@@ -140,31 +140,31 @@ values
 insert into Sprint
     (fechaCreacion, fechaFinalizacion, numeroSprint)
 values
-    ('2021-03-22', '2021-04-05', 2)
-    ('2021-04-05', '2021-04-19', 3)
-    ('2021-04-19', '2021-05-03', 4)
-    ('2021-05-03', '2021-05-17', 5)
-    ('2021-05-17', '2021-05-31', 6)
-    ('2021-05-31', '2021-06-14', 7)
-    ('2021-06-14', '2021-06-28', 8)
-    ('2021-06-28', '2021-07-12', 9)
-    ('2021-07-12', '2021-07-26', 10)
-    ('2021-07-26', '2021-08-09', 11)
-    ('2021-08-09', '2021-08-23', 12)
-    ('2021-08-23', '2021-09-06', 13)
-    ('2021-09-06', '2021-09-20', 14)
-    ('2021-09-20', '2021-10-04', 15)
-    ('2021-10-04', '2021-10-18', 16)
-    ('2021-10-18', '2021-11-01', 17)
-    ('2021-11-01', '2021-11-15', 18)
-    ('2021-11-15', '2021-11-29', 19)
-    ('2021-11-29', '2021-12-13', 20)
-    ('2021-12-13', '2021-12-27', 21)
-    ('2021-12-27', '2022-01-10', 22)
-    ('2022-01-10', '2022-01-24', 23)
-    ('2022-01-24', '2022-02-07', 24)
-    ('2022-02-07', '2022-02-21', 25)
-    ('2022-02-21', '2022-03-07', 26)
+    ('2021-03-22', '2021-04-05', 1)
+    ('2021-04-05', '2021-04-19', 2)
+    ('2021-04-19', '2021-05-03', 3)
+    ('2021-05-03', '2021-05-17', 4)
+    ('2021-05-17', '2021-05-31', 5)
+    ('2021-05-31', '2021-06-14', 6)
+    ('2021-06-14', '2021-06-28', 7)
+    ('2021-06-28', '2021-07-12', 8)
+    ('2021-07-12', '2021-07-26', 9)
+    ('2021-07-26', '2021-08-09', 10)
+    ('2021-08-09', '2021-08-23', 11)
+    ('2021-08-23', '2021-09-06', 12)
+    ('2021-09-06', '2021-09-20', 13)
+    ('2021-09-20', '2021-10-04', 14)
+    ('2021-10-04', '2021-10-18', 15)
+    ('2021-10-18', '2021-11-01', 16)
+    ('2021-11-01', '2021-11-15', 17)
+    ('2021-11-15', '2021-11-29', 18)
+    ('2021-11-29', '2021-12-13', 19)
+    ('2021-12-13', '2021-12-27', 20)
+    ('2021-12-27', '2022-01-10', 21)
+    ('2022-01-10', '2022-01-24', 22)
+    ('2022-01-24', '2022-02-07', 23)
+    ('2022-02-07', '2022-02-21', 24)
+    ('2022-02-21', '2022-03-07', 25)
 
 -- Insertando datos en la tabla de Issue
 insert into Issue
@@ -249,16 +249,14 @@ values
 insert into Pregunta
     (contenido)
 values
-    ('¿Cómo te sientes?'),
-    ('¿Sientes que tu salud mental está siendo alterada por nuestro ritmo de trabajo?'),
-    ('¿Consideras que el ambiente de trabajo es el adecuado?'),
-    ('¿Te sientes a gusto con tu desempeño este sprint?'),
-    ('¿Consideras que la cantidad de issues asignadas en este sprint son las adecuadas?'),
-    ('¿Hay algo que quieras compartir antes de empezar?'),
-    ('¿Cómo puede ayudarte la empresa con tu desarrollo profesional?'),
-    ('Hablemos de las metas no cumplidas del sprint. ¿Qué contribuyó a estos resultados?'),
-    ('¿Cuál crees que es tu principal reto el próximo sprint?'),
-    ('¿Qué podemos mejorar?');
+    ('¿Cómo te sientes?', 'Cuantitativa'),
+    ('¿Te sientes a gusto con tu desempeño este sprint?', 'Cuantitativa'),
+    ('¿Consideras que la cantidad de issues asignadas en este sprint son las adecuadas?', 'Cuantitativa'),
+    ('¿Que hicimos bien este sprint', 'Cualitativa'),
+    ('¿Que hicimos mal que debemos hacer diferente?', 'Cualitativa'),
+    ('¿Que nos causa ruido?', 'Cualitativa'),
+    ('¿Que impedimiento tuvimos en este sprint?', 'Cualitativa'),
+    ('¿Qué podemos mejorar?', 'Cualitativa');
 
 -- Insertando datos en Cuantitativa
 INSERT INTO Cuantitativa
