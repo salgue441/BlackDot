@@ -278,26 +278,25 @@ VALUES
 
 -- Insertando datos en Accionables
 insert into Accionable
-    (nombreAccionable, storyPoints, prioridadAccionable, estadoAccionable, estadoJira, fechaCreacion, fechaFinalizacion)
+    (nombreAccionable, storyPoints, labelAccionable, prioridadAccionable, estadoAccionable, estadoIssue, fechaCreacion, fechaFinalizacion)
 values
-    ('Diseño de Logotipo', 2, 'Baja', 'No aprobado', 'To-Do', '2021-04-01', '2021-04-15'),
-    ('Campaña Publicitaria', 5, 'Media', 'No aprobado', 'To-Do', '2021-05-08', '2021-05-22'),
-    ('Desarrollo de App Web', 6, 'Media-Alta', 'Aprobado', 'In Progress', '2021-06-14', '2021-06-28'),
-    ('Mantenimiento de Servidores', 4, 'Media-Baja', 'Aprobado', 'Done', '2021-07-01', '2021-07-15'),
-    ('Actualización de Contenido', 3, 'Media-Baja', 'No aprobado', 'To-Do', '2021-08-11', '2021-08-25'),
-    ('Integración de Redes Sociales', 2, 'Baja', 'Aprobado', 'In Progress', '2021-09-20', '2021-10-04'),
-    ('Optimización SEO', 4, 'Media-Baja', 'No aprobado', 'To-Do', '2021-10-15', '2021-10-29'),
-    ('Análisis de Datos', 7, 'Alta', 'Aprobado', 'Done', '2021-11-18', '2021-12-02'),
-    ('Diseño de Nuevos Productos', 5, 'Media', 'No aprobado', 'To-Do', '2021-12-28', '2022-01-11'),
-    ('Promociones Especiales', 4, 'Media-Baja', 'No aprobado', 'To-Do', '2022-01-23', '2022-02-06'),
-    ('Nuevas Características', 3, 'Media-Baja', 'Aprobado', 'In Progress', '2022-02-28', '2022-03-14'),
-    ('Mantenimiento de Base de Datos', 6, 'Media-Alta', 'Aprobado', 'Done', '2022-03-19', '2022-04-02'),
-    ('Rediseño de Sitio Web', 5, 'Media', 'No aprobado', 'To-Do', '2022-04-10', '2022-04-24'),
-    ('Nuevas Integraciones', 4, 'Media-Baja', 'No aprobado', 'To-Do', '2022-05-15', '2022-05-29'),
-    ('Actualización de Seguridad', 6, 'Media-Alta', 'Aprobado', 'In Progress', '2022-06-19', '2022-07-03'),
-    ('Campaña de Email Marketing', 3, 'Media-Baja', 'Aprobado', 'Done', '2022-07-18', '2022-08-01'),
-    ('Desarrollo de App Móvil', 7, 'Alta', 'No aprobado', 'To-Do', '2022-08-22', '2022-09-05'),
-    ('Diseño de Nuevos Servicios', 5, 'Media', 'No aprobado', 'To-Do', '2022-09-26', '2022-10-10'),
-    ('Nuevos Canales de Venta', 4, 'Media-Baja', 'Aprobado', 'In Progress', '2022-10-31', '2022-11-14'),
-    ('Diseño de Nuevos Paquetes', 3, 'Media-Baja', 'Aprobado', 'Done', '2022-11-19', '2022-12-03'),
-    ('Desarrollo de App de Escritorio', 6, 'Media-Alta', 'No aprobado', 'To-Do', '2022-12-12', '2022-12-26');
+    ('Martes de Tacos', 2, 'Front', 'Baja', 'No aprobado', 'To Do', '2023-02-03 10:30:20', '2023-02-25 05:45:15'),
+    ('Mantenimiento Página Web', 5, 'Back', 'Alta', 'Aprobado', 'In Progress', '2023-02-20 22:30:45', '2023-02-23 16:20:20'),
+    ('Mantenimiento Base de Datos', 4, 'TC1000', 'Media-Alta', 'Aprobado', 'Done', '2023-01-21 15:40:10', '2023-02-22 07:50:30'),
+    ('Actualización Productos', 3, 'Front', 'Media', 'No aprobado', 'To Do', '2023-03-10 21:20:10', '2023-03-05 20:55:35'),
+    ('Venta Fin de Año', 7, 'Front', 'Alta', 'Aprobado', 'Done', '2022-12-15 09:32:19', '2022-12-31 08:24:10'),
+    ('Buen Fin', 7, 'Back', 'Alta', 'Aprobado', 'Done', '2022-11-18 10:05:40', '2022-11-21 11:28:55'),
+    ('Mantenimiento Servidores', 4, 'Back', 'Media-Baja', 'Aprobado', 'In Progress', '2023-03-05 15:10:20', '2023-03-07 23:45:20'),
+    ('Agregar Easter Eggs', 2, 'TC1000', 'Alta', 'No aprobado', 'To Do', '2023-03-03 22:40:15', '2023-03-11 14:38:20'),
+    ('Productos Luuna', 6, 'Front', 'Media-Alta', 'Aprobado', 'In Progress', '2023-03-06 10:10:25', '2023-03-12 06:07:21'),
+    ('Productos Nooz', 4, 'TC1000', 'Media-Baja', 'Aprobado', 'Done', '2023-01-02 12:33:40', '2023-01-07 22:35:22'),
+    ('Aplicación Móvil', 5, 'Back', 'Media', 'No aprobado', 'To Do', '2023-03-01 15:35:20', '2023-03-08 03:40:16'),
+    ('Actualización de Cuentas', 3, 'Back', 'Media-Baja', 'Aprobado', 'In Progress', '2023-03-10 17:35:10', '2023-03-11 18:50:32'),
+    ('Migración de Datos', 7, 'Front', 'Media', 'Aprobado', 'Done', '2023-02-27 10:44:04', '2023-03-01 18:08:19'),
+    ('Promociones Especiales', 4, 'TC1000', 'Media-Baja', 'No aprobado', 'To Do', '2023-01-17 17:14:12', '2023-01-19 23:40:21'),
+    ('Cambio Paleta de Colores', 1, 'Back', 'Baja', 'Aprobado', 'Done', '2023-02-01 16:10:53', '2023-02-04 02:08:48'),
+    ('Compatibilidad Android', 3, 'Front', 'Alta', 'No aprobado', 'To Do', '2023-01-14 08:25:34', '2023-01-22 16:54:33'),
+    ('Realidad Aumentada', 1, 'Front', 'Baja', 'Aprobado', 'In progress', '2023-02-09 05:06:07', '2023-02-11 07:03:17'),
+    ('Datos de Envío', 3, 'Back', 'Alta', 'Aprobado', 'To Do', '2023-01-11 21:46:19', '2023-01-13 15:31:50'),
+    ('Traducción a Portugués', 2, 'Front', 'Media-Baja', 'No aprobado', 'To Do', '2023-03-01 04:12:22', '2023-03-12 08:36:20'),
+    ('Nuevos anuncios', 5, 'Front', 'Media', 'Aprobado', 'In progress', '2023-03-05 09:03:54', '2023-03-08 05:17:25')
