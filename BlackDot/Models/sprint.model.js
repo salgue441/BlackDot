@@ -14,25 +14,15 @@ moduole.exports = class Sprint {
    * @brief
    * Constructor de la clase Sprint
    * @param {*} Sprint - Objeto de tipo Sprint
-   * @throws {Error} - Si no se envia el objeto de tipo Sprint
-   * @throws {Error} - Si el objeto no tiene el atributo FechaCreacion
-   * @throws {Error} - Si el objeto no tiene el atributo FechaFinalizacion
-   * @throws {Error} - Si el objeto no tiene el atributo numeroSprint
    */
 
   constructor(Sprint) {
-    if (!Sprint) throw new Error("El objeto no es de tipo Sprint");
-    if (!Sprint.FechaCreacion)
-      throw new Error("El objeto no tiene el atributo FechaCreacion");
-    if (!Sprint.FechaFinalizacion)
-      throw new Error("El objeto no tiene el atributo FechaFinalizacion");
-    if (!Sprint.numeroSprint)
-      throw new Error("El objeto no tiene el atributo numeroSprint");
 
     this.id = Sprint.id;
     this.FechaCreacion = Sprint.FechaCreacion;
     this.FechaFinalizacion = Sprint.FechaFinalizacion;
     this.numeroSprint = Sprint.numeroSprint;
+    this.idEpica = Sprint.idEpica;
   }
 
   /**
@@ -51,6 +41,12 @@ moduole.exports = class Sprint {
 
     return new Sprint(sprint);
   }
+
+  /**
+   * @brief
+   * Funcion que obtiene todos los sprints
+   * @returns {Sprint[]} - Arreglo de objetos de tipo sprint
+  */
 
   static async getAll() {
     const sprints = await dataBase.query("select * from Sprint");
