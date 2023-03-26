@@ -1,50 +1,76 @@
 <aside class="menu sidebar is-hidden-touch" id="sidebar-data">
-  <p class="menu-label nav-title">Usuario</p>
+  <p class="menu-label">Usuario</p>
 
-  <ul class="menu-list">
-    <li>
-      <figure class="image is-128x128">
-        <img src="" alt="User Profile" class="is-rounded profile-image" />
-      </figure>
-      <br />
-
-      <div class="sidebar-content">
+  <div class="sidebar-user">
+    <ul class="menu-list">
+      <li>
+        <figure class="image is-128x128">
+          <img src="" alt="User Profile" class="is-rounded profile-image" />
+        </figure>
         <br />
-        <p class="is-size-6 has-text-weight-bold s-content-text">Nombre</p>
-        <p class="is-size-7" style="text-align: center">Rol</p>
-      </div>
-    </li>
-  </ul>
+
+        <div class="sidebar-content is-flex">
+          <br />
+          <div class="sidebar-user-text">
+            <p class="is-size-6 has-text-weight-bold">Nombre</p>
+            <p class="is-size-7">Rol</p>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
 
   <!-- Navigation -->
   <br />
-  <p class="menu-label nav-title">Navegacion</p>
+  <p class="menu-label">Navegacion</p>
   <ul class="menu-list">
-    <p class="is-size-6 nav-head">
+    <!-- Actual section -->
+    <p class="is-size-6 sidebar-nav-title">
       <img
+        class="nav-icon"
         src="../../assets/navbar-section.png"
         alt="Navbar section"
-        class="nav-toggle"
       />Actual
     </p>
 
     <ul class="menu-list-item">
       <li><a href="/actual/metrica">Metrica</a></li>
-      <li><a href="/actual/retroalimentacion">Retroalimentacion</a></li>
+      <li><a href="/actual/retroalimentacion">Retroalimentación</a></li>
+      <li><a href="/actual/accionables">Accionable</a></li>
     </ul>
 
     <br />
 
-    <p class="is-size-6">
+    <!-- Historic section -->
+    <p class="is-size-6 sidebar-nav-title">
       <img
+        class="nav-icon"
         src="../../assets/navbar-section.png"
         alt="Navbar section"
-        class="nav-toggle"
       />Historico
     </p>
     <ul class="menu-list-item">
       <li><a href="/historico/metrica">Metrica</a></li>
-      <li><a href="/historico/retroalimentacion">Retroalimentacion</a></li>
+      <li><a href="/historico/retroalimentacion">Retroalimentación</a></li>
+
+      <!-- Admin only -->
+      <li><a href="/historico/accionables">Accionable</a></li>
+    </ul>
+
+    <br />
+
+    <!-- Admin only -->
+    <p class="is-size-6 sidebar-nav-title">
+      <img
+        class="nav-icon"
+        src="../../assets/navbar-section.png"
+        alt="Navbar section"
+      />Editar
+    </p>
+
+    <ul class="menu-list-item">
+      <li><a href="/editar/preguntas">Preguntas</a></li>
+      <li><a href="editar/usuarios">Usuarios</a></li>
     </ul>
   </ul>
 
@@ -55,13 +81,36 @@
   </button>
 </aside>
 
+<!-- Sidebar custom styles -->
 <style>
+  /* Bulma CSS Override */
+  .menu-label {
+    margin-left: 15px !important;
+    margin-bottom: 25px !important;
+  }
+
+  .menu-list {
+    margin-left: 30px;
+    margin-bottom: 20px;
+  }
+
+  .image.is-128x128 {
+    border-radius: 50%;
+    border: 2px solid #e4e5e3;
+    box-shadow: 0 0 0 2px #fff !important;
+    width: 128px;
+    height: 128px;
+    object-fit: cover;
+    transform: translateX(-20%);
+  }
+
+  /* Custom Styles */
   .sidebar {
     position: fixed;
     top: 50;
     left: 0;
     bottom: 0;
-    width: 230px;
+    width: 275px;
     overflow-y: auto;
     background-color: #e4e5e3;
     z-index: 10;
@@ -69,60 +118,44 @@
     padding-bottom: 60px;
   }
 
-  .nav-title {
-    margin-left: 20px;
-  }
-
-  .nav-toggle {
-    width: 10px;
-    height: 10px;
-    margin-right: 10px;
-  }
-
-  .menu-list {
-    margin-left: 20px;
-  }
-
-  .menu-list-item {
-    margin-left: 30px;
-  }
-
-  .sidebar-content {
+  .sidebar-user {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
   }
 
-  .image.is-128by128 img {
-    border-radius: 50%;
-  }
-
-  .profile-image {
-    width: 128px;
-    height: 128px;
-    left: 50%;
-    transform: translateX(15%);
-  }
-
-  .s-content-text {
+  .sidebar-content {
     text-align: center;
+  }
+
+  .sidebar-nav-title {
+    margin-left: 10px;
+    margin-bottom: 25px;
+  }
+
+  .nav-icon {
+    width: 10px !important;
+    height: 15px !important;
+    margin-right: 15px;
+  }
+
+  .menu-list-item {
+    margin-left: 30px;
+    margin-bottom: 25px;
   }
 
   .logout-button {
     position: absolute;
     bottom: 20;
-    left: 100;
+    left: 130;
     width: 120px;
-    border-radius: 25;
+    border-radius: 52;
   }
 
-  .logout-image {
-    width: 20px;
-    height: 20px;
-    margin-right: 10px;
-  }
-
+  /* Media queries */
   @media screen and (min-width: 769px) {
     .sidebar {
       transform: translateX(-100%);
