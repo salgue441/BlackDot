@@ -3,5 +3,55 @@
 
   <body>
     <%- include('../include/navbar.ejs') %>
+
+    <!-- Hero -->
+    <section class="hero is-medium is-bold">
+      <div class="hero-body has-text-centered">
+        <div class="container">
+          <h1 class="title is-1">
+            'CREANDO MARCAS <br />
+            PARA EL FUTURO'
+          </h1>
+
+          <br />
+          <button class="button is-success status-button">STATUS</button>
+
+          <!-- red button
+            <button class="button is-success status-button>STATUS</button>" -->
+        </div>
+      </div>
+    </section>
   </body>
 </html>
+
+<!-- Styles -->
+<style>
+  /* Overriding Bulma CSS */
+  .hero {
+    background-image: url("../../assets/hero.png");
+    background-size: cover;
+    background-position: center;
+    height: 500px;
+  }
+
+  .title {
+    color: #ffffff;
+  }
+
+  .is-1 {
+    font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+      "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+    font-size: 4.8893rem !important;
+  }
+
+  .status-button {
+    border-radius: 52px;
+    width: 300px;
+    height: 60px;
+    font-size: 1.5rem !important;
+  }
+
+  .button.is-success {
+    background-color: #356959 !important;
+  }
+</style>
