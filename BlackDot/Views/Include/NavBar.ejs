@@ -38,17 +38,19 @@
 <!-- Sidebar -->
 <%- include('./sidebar.ejs') %>
 
-<!-- Overriding the default Bulma CSS Behaviour -->
+<!-- Styles -->
 <style>
-  .navbar {
-    background-color: #e4e5e3;
-  }
-
+  /* Custom styles */
   .navbar-item-center {
     position: absolute;
     left: 50%;
     top: 10%;
     transform: translateX(-50%);
+  }
+
+  /* Overriding Bulma CSS */
+  .navbar {
+    background-color: #e4e5e3;
   }
 
   @media screen and (min-width: 1024px) {
