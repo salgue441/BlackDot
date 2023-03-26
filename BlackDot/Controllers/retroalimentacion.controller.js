@@ -19,14 +19,14 @@ const path = require("path")
 /**
  * @brief
  * Gets all retros
- * @param {Request} req - Request
- * @param {Response} res - Response
- * @returns {Promise<Response>} - Response
+ * @param {Request} req - Request object
+ * @param {Response} res - Response object
+ * @returns {Response} - Response object
  * @throws {Error} - Error message
  */
 exports.getAllRetros = async (req, res) => {
   try {
-    const retros = await Retro.getAll().then((retros) => {
+    await Retro.getAll().then((retros) => {
       res.render(
         path.join(__dirname, "../Views/Static/historico/retroalimentacion.ejs")
       )
