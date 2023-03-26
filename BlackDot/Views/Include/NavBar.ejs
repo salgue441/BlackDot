@@ -10,7 +10,8 @@
       class="navbar-burger burger"
       aria-label="menu"
       aria-expanded="false"
-      data-target="navbar-sidebar"
+      data-target="sidebar-data"
+      onclick="toggleSidebar(event)"
     >
       <span aria-hidden="true"></span>
       <span aria-hidden="true"></span>
@@ -34,6 +35,9 @@
   </div>
 </nav>
 
+<!-- Sidebar -->
+<%- include('./sidebar.ejs') %>
+
 <!-- Overriding the default Bulma CSS Behaviour -->
 <style>
   .navbar {
@@ -51,15 +55,21 @@
     .navbar-burger {
       display: block !important;
     }
+
+    .menu.is-hidden-touch {
+      display: none;
+    }
   }
 </style>
 
 <!-- Hamburger icon functionality -->
 <script>
-  document.querySelector(".navbar-burger").addEventListener("click", () => {
-    var target = document.getElementById(this.dataset.target)
+  // When the hamburger icon is clicked, the sidebar opens
+  const toggleSidebar = (event) => {
+    var target = document.getElementById(event.target.dataset.target)
 
-    this.classList.toggle("is-active")
+    event.target.classList.toggle("is-active")
     target.classList.toggle("is-active")
-  })
+    target.classList.toggle("is-hidden-touch")
+  }
 </script>

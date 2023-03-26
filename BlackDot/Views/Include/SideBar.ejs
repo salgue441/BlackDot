@@ -1,4 +1,135 @@
-<!-- Create a sidebar with Bulma Css -->
-<aside class="menu is-hidden-touch">
-  <p class="menu-label">Sidebar</p>
+<aside class="menu sidebar is-hidden-touch" id="sidebar-data">
+  <p class="menu-label nav-title">Usuario</p>
+
+  <ul class="menu-list">
+    <li>
+      <figure class="image is-128x128">
+        <img src="" alt="User Profile" class="is-rounded profile-image" />
+      </figure>
+      <br />
+
+      <div class="sidebar-content">
+        <br />
+        <p class="is-size-6 has-text-weight-bold s-content-text">Nombre</p>
+        <p class="is-size-7" style="text-align: center">Rol</p>
+      </div>
+    </li>
+  </ul>
+
+  <!-- Navigation -->
+  <br />
+  <p class="menu-label nav-title">Navegacion</p>
+  <ul class="menu-list">
+    <p class="is-size-6 nav-head">
+      <img
+        src="../../assets/navbar-section.png"
+        alt="Navbar section"
+        class="nav-toggle"
+      />Actual
+    </p>
+
+    <ul class="menu-list-item">
+      <li><a href="/actual/metrica">Metrica</a></li>
+      <li><a href="/actual/retroalimentacion">Retroalimentacion</a></li>
+    </ul>
+
+    <br />
+
+    <p class="is-size-6">
+      <img
+        src="../../assets/navbar-section.png"
+        alt="Navbar section"
+        class="nav-toggle"
+      />Historico
+    </p>
+    <ul class="menu-list-item">
+      <li><a href="/historico/metrica">Metrica</a></li>
+      <li><a href="/historico/retroalimentacion">Retroalimentacion</a></li>
+    </ul>
+  </ul>
+
+  <!-- Log Out Button -->
+  <button class="button is-danger logout-button">
+    <img src="../../assets/logout.png" class="logout-image" />
+    Log out
+  </button>
 </aside>
+
+<style>
+  .sidebar {
+    position: fixed;
+    top: 50;
+    left: 0;
+    bottom: 0;
+    width: 230px;
+    overflow-y: auto;
+    background-color: #e4e5e3;
+    z-index: 10;
+    transition: transform 0.5s ease-in-out;
+    padding-bottom: 60px;
+  }
+
+  .nav-title {
+    margin-left: 20px;
+  }
+
+  .nav-toggle {
+    width: 10px;
+    height: 10px;
+    margin-right: 10px;
+  }
+
+  .menu-list {
+    margin-left: 20px;
+  }
+
+  .menu-list-item {
+    margin-left: 30px;
+  }
+
+  .sidebar-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .image.is-128by128 img {
+    border-radius: 50%;
+  }
+
+  .profile-image {
+    width: 128px;
+    height: 128px;
+    left: 50%;
+    transform: translateX(15%);
+  }
+
+  .s-content-text {
+    text-align: center;
+  }
+
+  .logout-button {
+    position: absolute;
+    bottom: 20;
+    left: 100;
+    width: 120px;
+    border-radius: 25;
+  }
+
+  .logout-image {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+  }
+
+  @media screen and (min-width: 769px) {
+    .sidebar {
+      transform: translateX(-100%);
+    }
+
+    .sidebar.is-active {
+      transform: translateX(0);
+    }
+  }
+</style>
