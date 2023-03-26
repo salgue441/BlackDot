@@ -1,20 +1,61 @@
 <nav
-  class="navbar is-fixed-top is-light"
+  class="navbar is-fixed-top is-light is-fullwidth is-flex"
   role="navigation"
   aria-label="main navigation"
 >
   <div class="navbar-brand">
-    <div class="navbar-start">
-      <a
-        role="button"
-        class="navbar-burger burger always-visible"
-        aria-label="menu"
-        aria-expanded="true"
-      >
-        <span aria-hidden="false"></span>
-        <span aria-hidden="false"></span>
-        <span aria-hidden="false"></span>
+    <!-- Hamburger icon -->
+    <a
+      role="button"
+      class="navbar-burger burger"
+      aria-label="menu"
+      aria-expanded="false"
+      data-target="navbar-sidebar"
+    >
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+
+  <!-- Logo -->
+  <div class="navbar-item-center">
+    <div class="navbar-item">
+      <a href="/">
+        <img src="../../assets/$zebrands-brand-logo.svg" alt="Zebrands" />
       </a>
     </div>
   </div>
+
+  <div class="navbar-end">
+    <div class="navbar-item">
+      <img src="" alt="User Profile" />
+    </div>
+  </div>
 </nav>
+
+<!-- Overriding the default Bulma CSS Behaviour -->
+<style>
+  .navbar-item-center {
+    position: absolute;
+    left: 50%;
+    top: 10%;
+    transform: translateX(-50%);
+  }
+
+  @media screen and (min-width: 1024px) {
+    .navbar-burger {
+      display: block !important;
+    }
+  }
+</style>
+
+<!-- Hamburger icon functionality -->
+<script>
+  document.querySelector(".navbar-burger").addEventListener("click", () => {
+    var target = document.getElementById(this.dataset.target)
+
+    this.classList.toggle("is-active")
+    target.classList.toggle("is-active")
+  })
+</script>
