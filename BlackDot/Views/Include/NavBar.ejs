@@ -30,7 +30,7 @@
 
   <div class="navbar-end">
     <div class="navbar-item">
-      <img src="" alt="User Profile" />
+      <img src="" alt="User Profile" class="is-rounded profile-img" />
     </div>
   </div>
 </nav>
@@ -40,15 +40,28 @@
 
 <!-- Overriding the default Bulma CSS Behaviour -->
 <style>
-  .navbar {
-    background-color: #e4e5e3;
-  }
-
+  /* Custom Styles */
   .navbar-item-center {
     position: absolute;
     left: 50%;
     top: 10%;
     transform: translateX(-50%);
+  }
+
+  .profile-img {
+    width: 40px;
+    height: 40px;
+
+    border: 1px solid #e4e5e3;
+    border-radius: 50%;
+
+    margin-right: 10px;
+  }
+
+  /* Bulma Css */
+
+  .navbar {
+    background-color: #e4e5e3;
   }
 
   @media screen and (min-width: 1024px) {
