@@ -28,8 +28,7 @@ exports.getAllRetros = async (req, res) => {
   try {
     const retros = await Retro.getAll().then((retros) => {
       res.render(
-        path.join(__dirname, "../Views/Static/historico/retroalimentacion.ejs"),
-        { retros }
+        path.join(__dirname, "../Views/Static/historico/retroalimentacion.ejs")
       )
     })
   } catch (error) {
