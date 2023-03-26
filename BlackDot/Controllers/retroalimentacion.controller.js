@@ -13,4 +13,28 @@
  * @copyright Copyright (c) 2023 - MIT License
  */
 
-const Retroalimentacion = require("../models/retro.model")
+const Retro = require("../models/retro.model")
+const path = require("path")
+
+/**
+ * @brief
+ * Gets all retros
+ * @param {Request} req - Request
+ * @param {Response} res - Response
+ * @returns {Promise<Response>} - Response
+ * @throws {Error} - Error message
+ */
+exports.getAllRetros = async (req, res) => {
+  try {
+    const retros = await Retro.getAll().then((retros) => {
+      res.render(
+        path.join(__dirname, "../Views/Static/historico/retroalimentacion.ejs"),
+        { retros }
+      )
+    })
+  } catch (error) {
+    res.status(500).json({
+      message: error.message || "Error al obtener retroalimentación",
+    })
+  }
+}

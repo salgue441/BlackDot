@@ -14,6 +14,10 @@ app.get("/", (req, res) => {
   res.render("static/index")
 })
 
+const historico = require("./routes/historico.routes")
+
+app.use("/historico", historico)
+
 // Starting the server
 const PORT = 3000
 
