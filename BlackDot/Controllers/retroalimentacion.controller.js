@@ -14,6 +14,8 @@
  */
 
 const Retro = require("../models/retro.model")
+const { GoogleChart } = require("google-charts")
+
 const path = require("path")
 
 /**
