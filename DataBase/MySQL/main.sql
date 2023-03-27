@@ -39,8 +39,8 @@ create table if not exists Rol
 create table if not exists Privilegio
 (
     idPrivilegio int not null auto_increment primary key,
-    nombrePrivilegio varchar (25) not null,
-    descripcionPrivilegio varchar (100)
+    nombrePrivilegio varchar (50) not null,
+    descripcionPrivilegio varchar (200)
 );
 
 create table if not exists EquipoTrabajo
