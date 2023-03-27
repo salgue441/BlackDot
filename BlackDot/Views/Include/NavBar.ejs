@@ -23,7 +23,11 @@
   <div class="navbar-item-center">
     <div class="navbar-item">
       <a href="/">
-        <img src="../../assets/$zebrands-brand-logo.svg" alt="Zebrands" />
+        <img
+          src="../../assets/$zebrands-brand-logo.svg"
+          alt="Zebrands"
+          class="logo"
+        />
       </a>
     </div>
   </div>
@@ -56,10 +60,16 @@
     margin-right: 10px;
   }
 
+  .logo svg {
+    width: 100px;
+    height: 100px;
+  }
+
   /* Bulma Css */
 
   .navbar {
     background-color: #e4e5e3;
+    height: 60px;
   }
 
   @media screen and (max-width: 1023px) {
