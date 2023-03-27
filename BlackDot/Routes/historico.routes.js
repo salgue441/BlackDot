@@ -5,7 +5,7 @@
 const express = require("express")
 const router = express.Router()
 
-const Retro = require("../Controllers/retroalimentacion.controller")
-router.get("/retroalimentacion", Retro.getAllRetros)
+const metricasEpicas = require("../controllers/metricaEpica.controller")
+router.get("/metricasEpicas", metricasEpicas.getAllEpicas)
 
 module.exports = router
