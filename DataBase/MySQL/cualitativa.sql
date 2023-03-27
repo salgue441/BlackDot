@@ -33,6 +33,19 @@ VALUES
     ('No dar suficiente importancia al trabajo en equipo.', 5, 1),
 -- ¿Qué nos causa ruido?
     ('Injusta distribución de trabajos', 6, 2),
+    ('Interrupciones frecuentes en forma de llamadas telefónicas o correos electrónicos.', 6, 2),
+    ('Problemas técnicos con la herramienta de trabajo utilizada.', 6, 1),
+    ('La falta de claridad en los requisitos del proyecto.', 6, 1),
+    ('Los cambios frecuentes en los requisitos del proyecto.', 6, 1),
+    ('La falta de recursos para completar las tareas asignadas.', 6, 1),
+    ('Las reuniones prolongadas que interrumpieron la productividad.', 6, 3),
+    ('La falta de retroalimentación o comunicación efectiva del equipo de liderazgo.', 6, 3),
+    ('Las distracciones en el entorno de trabajo, como ruido de fondo o ruido de construcción cercana.', 6, 3),
+    ('Los problemas con el flujo de trabajo y la organización del equipo.', 6, 1),
+    ('Las discrepancias en las expectativas del equipo y la gestión del proyecto.', 6, 2),
+    ('Los problemas con el equipo, como fallas técnicas o conflictos interpersonales', 6, 2),
+    ('La falta de habilidades o experiencia en el equipo para llevar a cabo algunas tareas.', 6, 2),
+    ('Los cambios de prioridad frecuentes que dificultaron la planificación y el progreso del proyecto.', 6, 1),
 -- ¿Qué impedimiento tuvimos en este Sprint?
     ('Un integrante del equipo estuvo muy perdido durante todo el Sprint.', 7, 1),
 -- ¿Qué podemos mejorar?
