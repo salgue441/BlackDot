@@ -52,15 +52,48 @@ module.exports = class SprintIssue {
 
     return new SprintIssue(pregunta);
   }
-
   /**
    * @brief
-   * Obtiene todos los retroPregunta.
+   * Obtiene todos los retroPregunta Cualitativa.
    * @returns {Promise<retroPregunta[]>} - Arreglo de objetos de tipo retroPregunta
    * */
 
-  static async getAll() {
-    const retroPregunta = await dataBase.query("select * from retroPregunta");
+  static async getAllCuali() {
+    const query = `
+    select 
+    pregunta.contenido as Pregunta, 
+    cuantitativa.contenido
+  from retroalimentacion
+  join retroalimentacionpregunta on retroalimentacion.idRetroalimentacion = retroalimentacionpregunta.idPregunta
+  join pregunta on retroalimentacionpregunta.idPregunta = pregunta.idPregunta
+  left join cuantitativa on retroalimentacionpregunta.idPregunta = cuantitativa.idPregunta
+  and retroalimentacionpregunta.idRetroalimentacion = cuantitativa.idRetroalimentacion;
+    `;
+
+    const retroPregunta = await dataBase.query(query);
+    return retroPregunta.map((retroPregunta) => new SprintIssue(retroPregunta));
+  }
+
+  /**
+   * @brief
+   * Obtiene todos los retroPregunta Cuantitativa.
+   *  @returns {Promise<retroPregunta[]>} - Arreglo de objetos de tipo retroPregunta
+   * */
+
+  static async getAllCuant() {
+    const query = `select retroalimentacion.idRetroalimentacion,  
+    pregunta.idPregunta, 
+    pregunta.contenido as Pregunta, 
+    cuantitativa.idPregunta,
+    cuantitativa.contenido
+  from retroalimentacion
+  join retroalimentacionpregunta on retroalimentacion.idRetroalimentacion = retroalimentacionpregunta.idPregunta
+  join pregunta on retroalimentacionpregunta.idPregunta = pregunta.idPregunta
+  left join cuantitativa on retroalimentacionpregunta.idPregunta = cuantitativa.idPregunta
+  and retroalimentacionpregunta.idRetroalimentacion = cuantitativa.idRetroalimentacion; `;
+
+    const retroPregunta = await dataBase.query(query);
+
     return retroPregunta.map((retroPregunta) => new SprintIssue(retroPregunta));
   }
 };
