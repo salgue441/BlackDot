@@ -12,36 +12,65 @@ const dataBase = require("../utils/dataBase");
 
 /**
  * @class
- * @classdesc Modelo de la tabla de cualiaccionable
+ * @classdesc Modelo de la tabla de cualitativaaccionable
  * @property {int} idCualitativa - Identificador de Cualitativa
  * @property {int} idAccionable - Identificador del Accionable
  **/
 
 const {getById} = require("./cualitativa.model");
 const {getById} = require("./accionable.model");
-const Accionable = require("./accionable.model");
 
-module.exports = class CualiAccionable{
-    constructor(CualiAccionable){
-        this.idCualitativa = CualiAccionable.idCualitativa;
-        this.idAccionable = CualiAccionable.idAccionable;
-    }
+module.exports = class CualitativaAccionable{
+    constructor(CualitativaAccionable){
+        this.idCualitativa = CualitativaAccionable.idCualitativa;
+        this.idAccionable = CualitativaAccionable.idAccionable;
+    };
 
     /**
      * @brief
-     * Obtiene un CualiAccionable de acuerdo con el ID del Accionable
+     * Obtiene una CualitativaAccionable de acuerdo con el ID del Accionable
      * @param {*} IdAccionable - ID del Accionable
-     * @returns {object} - Objeto de tipo CualiAccionable
+     * @returns {object} - Objeto de tipo CualitativaAccionable
      **/
 
-    static async getById(idAccionable){
+    static async getByIdA(idAccionable){
         if(!idAccionable) throw new Error("No se ha proporcionado un ID del Accionable");
 
         const [accionable] = await dataBase.query(
-            "SELECT * FROM CualiAccionable WHERE idAccionable = ?",
+            "SELECT * FROM CualitativaAccionable WHERE idAccionable = ?",
             [idAccionable]
         );
 
-        return new CualiAccionable(accionable);
-    }
-}
+        return new CualitativaAccionable(accionable);
+    };
+
+    /**
+     * @brief
+     * Obtiene un CualitativaAccionable de acuerdo con el ID de Cualitativa
+     * @param {*} idCualitativa - ID de Cualitativa
+     * @returns {object} - Objeeto de tipo CualitativaAccionable
+     **/
+
+    static async getByIdC(idCualitativa){
+        if(!idCualitativa) throw new Error("No se ha proporcionado un ID de la cualitativa");
+
+        const [cualitativa] = await dataBase.query(
+            "SELECT * FROM CualitativaAccionable WHERE idCualitativa = ?",
+            [idCualitativa]
+        );
+
+        return new CualitativaAccionable(cualitativa);
+    };
+
+    /**
+     * @brief
+     * Obtiene todos los CualitativaAccionables
+     * @returns {Promise<CualitativaAccionable[>} - Arreglo de objetos de tipo CualitativaAccionable
+     **/
+
+    static async getAll(){
+        const cualitativaaccionable = await dataBase.query("SELECT * FROM CualitativaAccionable");
+
+        return cualitativaaccionable.map((cualitativaaccionable) => new CualitativaAccionable(cualitativaaccionable));
+    };
+};
