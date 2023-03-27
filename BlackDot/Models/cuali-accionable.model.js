@@ -8,7 +8,7 @@
  * @copyright Copyright (c) 2023 - MIT License
  **/
 
-const dataBase = require("../utils/dataBase")
+const dataBase = require("../utils/dataBase");
 
 /**
  * @class
@@ -17,6 +17,31 @@ const dataBase = require("../utils/dataBase")
  * @property {int} idAccionable - Identificador del Accionable
  **/
 
-const {getById} = require("./cualitativa.model")
-const {getById} = require("./accionable.model")
+const {getById} = require("./cualitativa.model");
+const {getById} = require("./accionable.model");
+const Accionable = require("./accionable.model");
 
+module.exports = class CualiAccionable{
+    constructor(CualiAccionable){
+        this.idCualitativa = CualiAccionable.idCualitativa;
+        this.idAccionable = CualiAccionable.idAccionable;
+    }
+
+    /**
+     * @brief
+     * Obtiene un CualiAccionable de acuerdo con el ID del Accionable
+     * @param {*} IdAccionable - ID del Accionable
+     * @returns {object} - Objeto de tipo CualiAccionable
+     **/
+
+    static async getById(idAccionable){
+        if(!idAccionable) throw new Error("No se ha proporcionado un ID del Accionable");
+
+        const [accionable] = await dataBase.query(
+            "SELECT * FROM CualiAccionable WHERE idAccionable = ?",
+            [idAccionable]
+        );
+
+        return new CualiAccionable(accionable);
+    }
+}
