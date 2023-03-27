@@ -62,6 +62,19 @@ VALUES
     ('Falta de experiencia en el trabajo asignado', 7, 1),
     ('Problemas de gestión del tiempo', 7, 1),
 -- ¿Qué podemos mejorar?
-    ('Para que todos los miembros del equipo se sientan unidos entre todos, tendríamos que hacer una noche de Pizza', 8, 3);
+    ('Para que todos los miembros del equipo se sientan unidos entre todos, tendríamos que hacer una noche de Pizza', 8, 3),
+    ('Establecer una reunión diaria para el equipo para discutir el progreso y cualquier problema que surja.', 8, 2),
+    ('Proporcionar una capacitación adicional al equipo para desarrollar habilidades específicas que puedan mejorar la calidad del trabajo.', 8, 2),
+    ('Celebrar los éxitos y los hitos alcanzados durante el Sprint para mantener al euqipo motivado y comprometido con el proyecto dando premios', 8, 1),
+    ('Asignar un líder de equipo o un responsable de proyecto para asegurarse de que el trabajo se organice y se realice de manera efectiva', 8, 3),
+    ('Tener sesiones para compartir nuestra experiencia para proporcionar apoyo emocional y profesional al equipo para manejar el estrés y las presiones del proyecto', 8, 1),
+    ('Establecer un plan de contigencia para manejar cualquier imprevisto o contratiempo durante el Sprint', 8, 2),
+    ('Asignar responsabilidades y tareas específicas a cada miembro del equipo para evitar duplicidad de esfuerzos', 8, 2),
+    ('Asegurars ede que los miembros del equ9po estén capacitados en las herramientas y tecnologías necesarias para el proyecto', 8, 1),
+    ('Promover una cultura de aprendizaje continuo, fomentando la capacitación y el desarrollo personal y profesional del equipo.', 8, 3),
+    ('Evaluar y revisar el éxito del Sprint al final de una Épia para identificar áreas de mejora y aplicarlas en proyectos futuros', 8, 1),
+    ('Revisar y mejorar los procesos de colaboración para fomentar la creatividad y la innovación en el equipo.', 8, 3),
+    ('Tener sesiones de retroalimentación individual para revisar desempeño de cada uno', 8, 1),
+    ('Para que todos puedan energía mientras que trabajamos, tener un Snack Bar en la oficina', 8, 1);
 
    
