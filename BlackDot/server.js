@@ -22,12 +22,13 @@ app.get("/", (req, res) => {
 
 // Section routes
 const historico = require("./routes/historico.routes")
+const actual = require("./routes/actual.routes")
 
 /**
  * @brief
- * Route for the historico section
+ * Route for the actual section
  */
-app.use("/historico", historico)
+app.use("/actual", actual)
 
 // Starting the server
 const PORT = 3000

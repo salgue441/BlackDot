@@ -1,0 +1,74 @@
+<html>
+  <%- include('../../include/header.ejs') %>
+
+  <body>
+    <%- include('../../include/navbar.ejs') %>
+
+    <section class="hero is-medium is-bold">
+      <div class="hero-body has-text-centered">
+        <!-- Sprint title & Button -->
+        <div class="columns">
+          <div class="column is-half">
+            <h1 class="title is-1">Sprint #1</h1>
+          </div>
+
+          <div class="column">
+            <div class="dropdown is-active">
+              <button
+                class="button is-danger"
+                aria-haspopup="true"
+                aria-controls="dropdown-menu"
+              >
+                <span>Seleccionar Sprint</span>
+                <span class="icon is-small">
+                  <img
+                    src="../../../assets/Dropdown.png"
+                    alt="Dropdown"
+                    style="width: 10px; height: 10px; margin-left: 5px"
+                  />
+                </span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <br />
+
+        <!-- Answers -->
+        <!-- Grpahs -->
+        <div class="columns">
+          <div class="column is-half">
+            <div class="box">
+              <h3 class="title is-3">Graph 1</h3>
+              <div id="graph1"></div>
+            </div>
+          </div>
+
+          <div class="column is-half">
+            <div class="box">
+              <h3 class="title is-3">Accionable</h3>
+              <div id="graph3"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Accionables -->
+        <div class="columns">
+          <div class="column is-half">
+            <div class="box">
+              <h3 class="title is-3">Graph 2</h3>
+              <div id="graph2"></div>
+            </div>
+          </div>
+
+          <div class="column is-half">
+            <div class="box">
+              <h3 class="title is-3">Accionable</h3>
+              <div id="graph3"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </body>
+</html>
