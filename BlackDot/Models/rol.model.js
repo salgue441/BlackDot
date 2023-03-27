@@ -24,7 +24,7 @@ module.exports = class Rol {
      */
     constructor(Rol) {
         this.idRol = Rol.idRol
-        this.nombreRol = Issue.nombreRol
+        this.nombreRol = Rol.nombreRol
     }
 
     /**
