@@ -48,6 +48,19 @@ VALUES
     ('Los cambios de prioridad frecuentes que dificultaron la planificación y el progreso del proyecto.', 6, 1),
 -- ¿Qué impedimiento tuvimos en este Sprint?
     ('Un integrante del equipo estuvo muy perdido durante todo el Sprint.', 7, 1),
+    ('Problemas con la infraestructura de la red', 7, 2),
+    ('Interrupciones constantes en el trabajo', 7, 3),
+    ('Retrasos en la entrega de las tareas asignadas', 7, 1),
+    ('Falta de claridad en las expectativas del proyecto', 7, 1),
+    ('Problemas de compatibilidad de software', 7, 2),
+    ('Cambios frecuentes en los requisitos del proyecto', 7, 2),
+    ('Ausencia de un líder de proyecto efectivo', 7, 2),
+    ('Falta de recursos adecuados', 7, 3),
+    ('Incapacidad para alcanzar los objetivos de calidad', 7, 3),
+    ('Conflictos entre los miembros del equipo', 7, 3),
+    ('Falta de motivación de los miembros del equipo', 7, 2),
+    ('Falta de experiencia en el trabajo asignado', 7, 1),
+    ('Problemas de gestión del tiempo', 7, 1),
 -- ¿Qué podemos mejorar?
     ('Para que todos los miembros del equipo se sientan unidos entre todos, tendríamos que hacer una noche de Pizza', 8, 3);
 
