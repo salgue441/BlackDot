@@ -29,7 +29,7 @@
   </div>
 
   <div class="navbar-end">
-    <div class="navbar-item">
+    <div class="navbar-item is-hidden-touch">
       <img src="" alt="User Profile" class="is-rounded profile-img" />
     </div>
   </div>
@@ -51,10 +51,8 @@
   .profile-img {
     width: 40px;
     height: 40px;
-
     border: 1px solid #e4e5e3;
     border-radius: 50%;
-
     margin-right: 10px;
   }
 
@@ -62,6 +60,16 @@
 
   .navbar {
     background-color: #e4e5e3;
+  }
+
+  @media screen and (max-width: 1023px) {
+    .navbar-end {
+      justify-content: flex-end;
+      margin-right: 10px;
+    }
+    .navbar-item.is-hidden-touch {
+      display: block;
+    }
   }
 
   @media screen and (min-width: 1024px) {
