@@ -26,7 +26,8 @@ create table if not exists Empleado
     apellidoPaterno varchar (25) not null,
     apellidoMaterno varchar (25), 
     idGoogleAuth binary (16) not null, 
-    googleEmail varchar (50) not null
+    googleEmail varchar (50) not null, 
+    googleProfilePicture varchar(300)
 );
 
 create table if not exists Rol
