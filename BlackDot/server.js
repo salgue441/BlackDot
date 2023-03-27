@@ -27,6 +27,12 @@ const actual = require("./routes/actual.routes")
 
 /**
  * @brief
+ * Route for the historico section
+ */
+app.use("/historico", historico)
+
+/**
+ * @brief
  * Route for the actual section
  */
 app.use("/actual", actual)
