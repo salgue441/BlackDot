@@ -51,29 +51,6 @@ const simplifyAnswers = (answers) => {
 
 /**
  * @brief
- * Counts the number of times a value appears in an array
- * @param {*} array - Array to count
- * @return {*} - Object with the count of each value
- * @throws {Error} - Error message
- */
-const countValues = (array) => {
-  try {
-    return array.reduce((acc, curr) => {
-      if (acc[curr]) {
-        acc[curr]++
-      } else {
-        acc[curr] = 1
-      }
-
-      return acc
-    }, {})
-  } catch (error) {
-    console.log(error)
-  }
-}
-
-/**
- * @brief
  * Gets all answers from a retroalimentacion
  * @param {Request} req - Request object
  * @param {Response} res - Response object
@@ -85,11 +62,18 @@ exports.getCurretRetroalimentacion = async (req, res) => {
     // Quantitative answers
     const quantitative = await retroPregunta.getQuantitativeAnswers()
     const simplifiedQuantitative = simplifyAnswers(quantitative)
-    console.log(simplifiedQuantitative);
-    console.log(JSON.stringify(simplifiedQuantitative));
+
+    console.log(simplifiedQuantitative)
+
+    // Qualitative answers
+    const qualitative = await retroPregunta.getQualitativeAnswers()
+
+    console.log(qualitative)
+
     res.render(
       path.join(__dirname, "../Views/Static/actual/verRetroalimentacion.ejs"),
       {
+        idRetroalimentacion: req.params.idRetroalimentacion,
         simplifiedQuantitative: simplifiedQuantitative,
       }
     )
