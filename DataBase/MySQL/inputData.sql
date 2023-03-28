@@ -162,7 +162,7 @@ values
 INSERT INTO EquipoTrabajo
     (idEquipoTrabajo)
 VALUES
-    (default);
+    (1);
 
 -- Insertando datos en la tabla de Epica
 insert into Epica
