@@ -54,6 +54,9 @@ describe("Pregunta", () => {
       expect(Array.isArray(preguntas)).toBe(true);
     });
   });
+      expect(Array.isArray(preguntas)).toBe(true)
+    })
+  })
 
   /**
    * @brief
