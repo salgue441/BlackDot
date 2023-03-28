@@ -8,10 +8,9 @@
  * @copyright Copyright (c) 2023 - MIT License
  */
 
- const dataBase = require("../utils/dataBase") //manda llamar a la base
- 
-// const { getByIDE } = require("./Epica.model")
-// const { getByIDS } = require("./Sprint.model") //validar con llaca 
+const dataBase = require("../utils/dataBase") //manda llamar a la base
+
+const { getByID } = require("./sprint.model") //validar con llaca 
 
  /**
  * @class
@@ -39,22 +38,20 @@
      * @returns {object} -Objeto tipo epica
      */
 
-    static async getByIDE(idEpica)
+    static async getByID(idEpica)
     {
        if (!idEpica) throw new Error("No se ha proporcionado un ID")
-       const [epica] = await dataBase.query
-       (
+       const epica = await dataBase.query(
         "select * from sprintepica where idEpica = ?", [idEpica]
        )
         return new Epica(epica)
     }
 
 
-    static async getByIDS(idsprint)
+    static async getByID(idsprint)
     {
        if (!idsprint) throw new Error("No se ha proporcionado un ID")
-       const [sprint] = await dataBase.query
-       (
+       const [sprint] = await dataBase.query(
         "select * from sprintepica where idSprint = ?", [idsprint]
        )
         return new Epica(sprint)
