@@ -9,7 +9,7 @@ const dataBase = require("../Utils/dataBase");
  * @property {int} numeroSprint - Numero de sprint
  **/
 
-moduole.exports = class Sprint {
+module.exports = class Sprint {
   /**
    * @brief
    * Constructor de la clase Sprint
@@ -17,7 +17,6 @@ moduole.exports = class Sprint {
    */
 
   constructor(Sprint) {
-
     this.id = Sprint.id;
     this.FechaCreacion = Sprint.FechaCreacion;
     this.FechaFinalizacion = Sprint.FechaFinalizacion;
@@ -35,9 +34,10 @@ moduole.exports = class Sprint {
   static async getbyID(id) {
     if (!id) throw new Error("No se envio el id");
 
-    const sprint = await dataBase.query("select * from Sprint where id = ?", [
-      id,
-    ]);
+    const sprint = await dataBase.query(
+      "select * from Sprint where idSprint = ?",
+      [id]
+    );
 
     return new Sprint(sprint);
   }
@@ -46,7 +46,7 @@ moduole.exports = class Sprint {
    * @brief
    * Funcion que obtiene todos los sprints
    * @returns {Sprint[]} - Arreglo de objetos de tipo sprint
-  */
+   */
 
   static async getAll() {
     const sprints = await dataBase.query("select * from Sprint");
@@ -55,7 +55,6 @@ moduole.exports = class Sprint {
 
   static async getSprintActual() {
     const fechaActual = new Date().toISOString().split("T")[0];
-
 
     const sprint = await dataBase.query(
       "select * from Sprint where FechaCreacion <= ? and FechaFinalizacion >= ?",
