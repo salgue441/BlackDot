@@ -20,11 +20,11 @@ describe("Epica", () => {
     
     test("Crear una instancia Epica", () => 
     {
-        const epica = new Epica({
+        const epic = new Epica({
         idEpica: 1,
         contenido: "Rovin en Mappa",
         })
-        expect(epica).toBeInstance(Epica)
+        expect(epic).toBeInstanceOf(Epica)
     })
     
     describe("geByID", () => 
