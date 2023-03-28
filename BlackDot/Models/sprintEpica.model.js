@@ -38,7 +38,7 @@ const { getByID } = require("./sprint.model") //validar con llaca
      * @returns {object} -Objeto tipo epica
      */
 
-    static async getByID(idEpica)
+    static async getByIDE(idEpica)
     {
        if (!idEpica) throw new Error("No se ha proporcionado un ID")
        const epica = await dataBase.query(
@@ -48,7 +48,7 @@ const { getByID } = require("./sprint.model") //validar con llaca
     }
 
 
-    static async getByID(idsprint)
+    static async getByIDS(idsprint)
     {
        if (!idsprint) throw new Error("No se ha proporcionado un ID")
        const [sprint] = await dataBase.query(
