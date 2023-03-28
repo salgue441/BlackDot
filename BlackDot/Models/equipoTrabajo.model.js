@@ -67,11 +67,19 @@ module.exports = class EquipoTrabajo {
 
     /**
      * @brief
-     * Verifica que el objeto sea de tipo EquipoTrabajo
-     * @param {*} EquipoTrabajo
-     * @returns {boolean}
+     * Verifica si un equipoTrabajo existe en la base de datos.
+     * @returns {Promise<boolean>} - True si existe, false si no
+     * @throws {Error} - Si no se envia el id de equipoTrabajo
      */
-    static async verify(EquipoTrabajo) {}
+    static async verify(EquipoTrabjo) {
+        if (!EquipoTrabajo.idEquipoTrabajo) 
+            throw new Error("No se ha proporcionado un id de equipoTrabajo")
+
+        const [equipoTrabajo] = await dataBase.query(
+            "select * from EquipoTrabajo where idEquipoTrabajo = ?",
+            [EquipoTrabajo.idEquipoTrabajo]
+        )
+    }
 
     /**
      * @brief
