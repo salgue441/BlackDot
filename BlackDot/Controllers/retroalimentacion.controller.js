@@ -15,9 +15,14 @@
 
 const Retro = require("../models/retro.model");
 const Pregunta = require("../models/pregunta.model");
+const Cualitativa = require("../models/cualitativa.model");
+const Cuantitativa = require("../models/cuantitativa.model");
 const bodyparser = require("body-parser");
+const express = require("express");
 
 const path = require("path");
+
+bodyparser.urlencoded({ extended: false });
 
 /**
  * @brief
@@ -58,7 +63,7 @@ exports.getRegistrarRespuestas = async (req, res) => {
       const completed = req.query.respuestas
         ? Object.keys(req.query.respuestas).length
         : 0;
-      const barProgress = Math.floor((completed / total) * 100);
+      const barProgress = 0;
 
       // Render the EJS template with the preguntas and progress variables
       res.render("Static/actual/registrarRespuestasRetroalimentacion.ejs", {
@@ -71,4 +76,29 @@ exports.getRegistrarRespuestas = async (req, res) => {
       message: error.message || "Error al obtener preguntas",
     });
   }
+};
+
+/**
+ * @brief
+ * post of register answers in retro
+ * @param {Request} req - Request object
+ * @param {Response} res - Response object
+ * @returns {Response} - Response object
+ * @throws {Error} - Error message
+ * */
+
+exports.postRegistrarRespuestas = async (req, res) => {
+  const { respuestas } = req.body;
+  console.log(respuestas);
+
+  // respuestas.forEach((respuesta) => {
+  //   if (typeof respuesta.contenido === "string") {
+  //     //respuesta.Cualitativa.save();
+  //     console.log("string");
+  //   } else {
+  //     console.log(respuesta);
+  //     //respuesta.Cuantitativa.save();
+  //   }
+  // });
+  res.redirected("/actual/retroalimentacion");
 };
