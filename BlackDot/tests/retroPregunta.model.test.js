@@ -43,7 +43,43 @@ describe("RetroPregunta", () => {
   describe("getByIDR", () => {
     test("Debe devolver un arreglo de preguntas", async () => {
       const preguntas = await RetroPregunta.getByIDR(1)
-      expect(preguntas).toBeInstanceOf(Array)
+      expect(preguntas).toBeInstanceOf(RetroPregunta)
+    })
+  })
+
+  /**
+   * @brief
+   * Test para el metodo de GetByIDR
+   * @param {int} idRetro - ID del retro
+   */
+  describe("getByIDP", () => {
+    test("Debe devolver un arreglo de retroalimentaciones", async () => {
+      const retro = await RetroPregunta.getByIDP(1)
+      expect(retro).toBeInstanceOf(RetroPregunta)
+    })
+  })
+
+  /**
+   * @brief
+   * Test para el metodo de getAllCualitativas de RetroPregunta
+   */
+  describe("getAllCualitativas", () => {
+    test("Debe devolver un arreglo de retroPregunta", async () => {
+      const retroPregunta = await RetroPregunta.getAllCuali()
+      expect(retroPregunta).toBeInstanceOf(Array)
+      expect(retroPregunta[0]).toBeInstanceOf(RetroPregunta)
+    })
+  })
+
+  /**
+   * @brief
+   * Test para el metodo de getAllCuantitativas de RetroPregunta
+   */
+  describe("getAllCuantitativas", () => {
+    test("Debe devolver un arreglo de retroPregunta", async () => {
+      const retroPregunta = await RetroPregunta.getAllCuali()
+      expect(retroPregunta).toBeInstanceOf(Array)
+      expect(retroPregunta[0]).toBeInstanceOf(RetroPregunta)
     })
   })
 })
