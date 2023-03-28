@@ -65,8 +65,6 @@ module.exports = class Rol {
     save() {
         if (!this.nombreRol) 
             throw new Error("No se ha proporcionado nombre de rol")
-        if (!this.labelRol)
-            throw new Error("No se ha proporcionado un label de rol")
 
         return dataBase.query(
             "insert into Rol (nombreRol) values (?)",
