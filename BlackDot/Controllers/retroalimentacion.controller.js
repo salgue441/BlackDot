@@ -1,6 +1,6 @@
 /**
  * @file retroalimentacion.controller.js
- * @brief Controlador de retroalimentación
+ * @brief Controller for retroalimentacion table (Actual Retroalimentacion)
  * @author Carlos Salguero
  * @author Diego Sandoval
  * @author Yuna Chung
@@ -16,7 +16,6 @@
 const path = require("path")
 
 // Data Models
-const Epica = require("../models/epica.model")
 const retroPregunta = require("../models/retro-pregunta.model")
 const Pregunta = require("../models/pregunta.model")
 
