@@ -17,9 +17,6 @@ const dataBase = require("../utils/dataBase")
  * @property {int} idPrivilegio - Identificador del privilegio
  * 
  */
-const { getByID } = require("./Rol.model")
-const { getByID } = require("./Privilegio.model")
-
 module.exports = class RolPrivilegio {
     constructor(RolPrivilegio) {
         this.idRol = RolPrivilegio.idRol
