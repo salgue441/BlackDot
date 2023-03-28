@@ -60,13 +60,10 @@ module.exports = class Rol {
      * Guarda un Rol en la base de datos.
      * @returns {Promise<Rol>} - Query del rol guardado
      * @throws {Error} - Si no se ha proporcionado un nombre de Rol
-     * @throws {Error} - Si no se ha proporcionado un label de Rol
      */
     save() {
         if (!this.nombreRol) 
             throw new Error("No se ha proporcionado nombre de rol")
-        if (!this.labelRol)
-            throw new Error("No se ha proporcionado un label de rol")
 
         return dataBase.query(
             "insert into Rol (nombreRol) values (?)",
