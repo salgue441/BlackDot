@@ -49,7 +49,7 @@ module.exports = class Privilegio {
     /**
      * @brief
      * Obtiene todos los Privilegios.
-     * @returns {Promise<Privilegios[]>} - Arreglo de objetos de tipo Privilegio
+     * @returns {Promise<Privilegio[]>} - Arreglo de objetos de tipo Privilegio
      */
     static async getAll() {
         const privilegios = await dataBase.query("select * from Privilegio")
@@ -71,8 +71,10 @@ module.exports = class Privilegio {
             throw new Error("No se ha proporcionado un label de privilegio")
 
         return dataBase.query(
-            "insert into Privilegio (nombrePrivilegio, descripcionPrivilegio) values (?, ?)",
-            [this.nombrePrivilegio]
+            "insert into Privilegio (nombrePrivilegio, descripcionPrivilegio) values (?, ?)", [
+                this.nombrePrivilegio,
+                this.descripcionPrivilegio
+            ]
         )
     }
 
