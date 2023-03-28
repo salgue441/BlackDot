@@ -8,10 +8,9 @@
  * @copyright Copyright (c) 2023 - MIT License
  */
 
- const dataBase = require("../database") //manda llamar a la base
- 
-const { getByID } = require("./Epica.model")
-const { getByID } = require("./Sprint.model") //validar con llaca 
+const dataBase = require("../utils/dataBase") //manda llamar a la base
+const { getByIDE } = require("../models/Epica.model")
+const { getByIDS } = require("../models/sprint.model") //validar con llaca 
 
  /**
  * @class
@@ -42,22 +41,20 @@ const { getByID } = require("./Sprint.model") //validar con llaca
     static async getByIDE(idEpica)
     {
        if (!idEpica) throw new Error("No se ha proporcionado un ID")
-       const [epica] = await dataBase.query
-       (
+       const epica = await dataBase.query(
         "select * from sprintepica where idEpica = ?", [idEpica]
        )
-        return new Epica(epica)
+        return new SprintEpica(epica)
     }
 
 
     static async getByIDS(idsprint)
     {
        if (!idsprint) throw new Error("No se ha proporcionado un ID")
-       const [sprint] = await dataBase.query
-       (
+       const [sprint] = await dataBase.query(
         "select * from sprintepica where idSprint = ?", [idsprint]
        )
-        return new Epica(sprint)
+        return new SprintEpica(sprint)
     }
 
     /**
@@ -67,10 +64,7 @@ const { getByID } = require("./Sprint.model") //validar con llaca
 
     static async getAll()
     {
-        if(!this.SprintEpica) throw new Error ("No hay epicas que recuperar")
-
-        const query = "select * from sprintepica"
-        const sprintepica = await dataBase.execute(query)
+        const sprintepica = await dataBase.query("select * from sprintepica")
         
         return sprintepica.map((sprintepica) => new SprintEpica(sprintepica))
     }
