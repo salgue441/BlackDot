@@ -1,100 +1,123 @@
 /**
- * @class
- * @classdesc Modelo de la tabla de retroPregunta
- * @property {int} idRetro - Identificador del issue
- * @property {int} idPregunta - Identificador del sprint
+ * @file retro-pregunta.model.js
+ * @brief Data model for retro-pregunta table
+ * @author Diego Sandoval
+ * @date 2023-03-27
+ * @version 1.0
+ *
+ * @copyright Copyright (c) 2023 - MIT License
  */
+
 const dataBase = require("../utils/dataBase")
 
-module.exports = class retroPregunta {
+/**
+ * @brief
+ * @classdesc Data model class for retro-pregunta table
+ */
+class retroPregunta {
+  /**
+   * @brief
+   * Creates a new instance of retroPregunta
+   * @param {int} idRetroalimentacion - ID of the retroalimentacion
+   * @param {int} idPregunta - ID of the pregunta
+   * @param {boolean} required - If the pregunta is required
+   */
   constructor(retroPregunta) {
-    this.idRetro = retroPregunta.idRetroalimentacion
+    this.idRetroalimentacion = retroPregunta.idRetroalimentacion
     this.idPregunta = retroPregunta.idPregunta
+    this.required = retroPregunta.required
   }
 
   /**
    * @brief
-   * obtiene un retroPregunta de acuerdo con el ID de retro.
-   * @param {*} idRetro - ID del retro
-   * @returns {object} - Objeto de tipo retroPregunta
+   * Gets retroPreguntas entities from the database
+   * @param {int} idRetroalimentacion - ID of the retroalimentacion
+   * @throw {Error} If the query fails
+   * @return {* } retroPreguntas entities
    */
+  static async getByRetroalimentacion(idRetroalimentacion) {
+    const query = `select * from retroalimentacionPregunta 
+                   where idRetroalimentacion = ?`
 
-  static async getByIDR(idRetroalimentacion) {
-    if (!idRetroalimentacion)
-      throw new Error("No se ha proporcionado un ID de retro")
-
-    const [retro] = await dataBase.query(
-      "select * from retroalimentacionpregunta where idRetroalimentacion = ?",
-      [idRetroalimentacion]
-    )
+    const retro = await dataBase.query(query, [idRetroalimentacion])
 
     return new retroPregunta(retro)
   }
 
   /**
    * @brief
-   * Obtiene un retroPregunta de acuerdo con el ID de pregunta.
-   * @param {*} idPregunta - ID del pregunta
-   * @returns {object} - Objeto de tipo retroPregunta
-   * */
+   * Gets the retroPreguntas entities from the database
+   * @param {int} idPregunta - ID of the pregunta
+   * @throw {Error} If the query fails
+   * @return {* } retroPreguntas entities
+   */
+  static async getByPregunta(idPregunta) {
+    const query = `select * from retroalimentacionPregunta 
+                   where idPregunta = ?`
 
-  static async getByIDP(idPregunta) {
-    if (!idPregunta) throw new Error("No se ha proporcionado un ID de pregunta")
+    const retro = await dataBase.query(query, [idPregunta])
 
-    const [pregunta] = await dataBase.query(
-      "select * from retroalimentacionpregunta where idPregunta = ?",
-      [idPregunta]
-    )
-
-    return new retroPregunta(pregunta)
+    return new retroPregunta(retro)
   }
+
   /**
    * @brief
-   * Obtiene todos los retroPregunta Cualitativa.
-   * @returns {Promise<retroPregunta[]>} - Arreglo de objetos de tipo retroPregunta
-   * */
-
-  static async getAllCuali() {
-    const query = `
-    select 
-    pregunta.contenido as Pregunta, 
-    cuantitativa.contenido
-    from retroalimentacion
-    join retroalimentacionpregunta on retroalimentacion.idRetroalimentacion = retroalimentacionpregunta.idPregunta
-    join pregunta on retroalimentacionpregunta.idPregunta = pregunta.idPregunta
-    left join cuantitativa on retroalimentacionpregunta.idPregunta = cuantitativa.idPregunta
-	  and retroalimentacionpregunta.idRetroalimentacion = cuantitativa.idRetroalimentacion 
-    where Pregunta.tipoPregunta = 'Cuantitativa';
+   * Gets the cualitative answers from the database
+   * @throw {Error} If the query fails
+   * @return {Array} retroPreguntas entities
+   */
+  static async getQualitativeAnswers() {
+    try {
+      const query = `
+        select 
+        pregunta.contenido as Pregunta, 
+        cuantitativa.contenido
+        from retroalimentacion
+        join retroalimentacionpregunta on retroalimentacion.idRetroalimentacion = retroalimentacionpregunta.idPregunta
+        join pregunta on retroalimentacionpregunta.idPregunta = pregunta.idPregunta
+        left join cuantitativa on retroalimentacionpregunta.idPregunta = cuantitativa.idPregunta
+        and retroalimentacionpregunta.idRetroalimentacion = cuantitativa.idRetroalimentacion 
+        where Pregunta.tipoPregunta = 'Cualitativa';
     `
 
-    const retro_pregunta = await dataBase.query(query)
-    return retro_pregunta.map(
-      (retro_pregunta) => new retroPregunta(retro_pregunta)
-    )
+      const qualitatives = await dataBase.query(query)
+
+      return qualitatives.map((qualitative) => new retroPregunta(qualitative))
+    } catch (error) {
+      throw new Error(error)
+    }
   }
 
   /**
    * @brief
-   * Obtiene todos los retroPregunta Cuantitativa.
-   *  @returns {Promise<retroPregunta[]>} - Arreglo de objetos de tipo retroPregunta
-   * */
+   * Gets the quantitative answers from the database
+   * @throw {Error} If the query fails
+   * @return {Array} retroPreguntas entities
+   */
+  static async getQuantitativeAnswers() {
+    try {
+      const query = `
+        select 
+          retroalimentacion.idRetroalimentacion, 
+          pregunta.idPregunta, 
+          pregunta.contenido AS Pregunta, 
+          cuantitativa.idPregunta, 
+          cuantitativa.contenido 
+        from retroalimentacion 
+        join retroalimentacionpregunta on retroalimentacion.idRetroalimentacion = retroalimentacionpregunta.idRetroalimentacion 
+        join pregunta on retroalimentacionpregunta.idPregunta = pregunta.idPregunta 
+        left join cuantitativa on retroalimentacionpregunta.idPregunta = cuantitativa.idPregunta and retroalimentacion.idRetroalimentacion = cuantitativa.idRetroalimentacion 
+        where pregunta.tipoPregunta = 'Cuantitativa';;`
 
-  static async getAllCuant() {
-    const query = `select retroalimentacion.idRetroalimentacion,  
-    pregunta.idPregunta, 
-    pregunta.contenido as Pregunta, 
-    cuantitativa.idPregunta,
-    cuantitativa.contenido
-    from retroalimentacion
-    join retroalimentacionpregunta on retroalimentacion.idRetroalimentacion = retroalimentacionpregunta.idPregunta
-    join pregunta on retroalimentacionpregunta.idPregunta = pregunta.idPregunta
-    left join cuantitativa on retroalimentacionpregunta.idPregunta = cuantitativa.idPregunta
-    and retroalimentacionpregunta.idRetroalimentacion = cuantitativa.idRetroalimentacion and where Pregunta.tipoPregunta = 'Cuantitativa';`
+      const quantitatives = await dataBase.query(query)
 
-    const retroPregunta = await dataBase.query(query)
-
-    return retroPregunta.map(
-      (retroPregunta) => new retroPregunta(retroPregunta)
-    )
+      return quantitatives.map(
+        (quantitative) => new retroPregunta(quantitative)
+      )
+    } catch (error) {
+      throw new Error(error)
+    }
   }
 }
+
+module.exports = retroPregunta
