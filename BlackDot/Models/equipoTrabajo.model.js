@@ -71,7 +71,7 @@ module.exports = class EquipoTrabajo {
      * @returns {Promise<boolean>} - True si existe, false si no
      * @throws {Error} - Si no se envia el id de equipoTrabajo
      */
-    static async verify(EquipoTrabjo) {
+    static async verify(EquipoTrabajo) {
         if (!EquipoTrabajo.idEquipoTrabajo) 
             throw new Error("No se ha proporcionado un id de equipoTrabajo")
 
