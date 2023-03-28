@@ -77,24 +77,17 @@ const createChart = (answerData) => {
     if (!canvas) return
 
     const labels = states.map((state) => state.label)
-    const data = labels.map(
-      (label) => item.respuestas.filter((answer) => answer === label).length
-    )
+    const data = item.respuestas
 
     createBarChart(canvas, labels, data)
   })
 }
 
-createChart([
+const data = [
   {
     idPregunta: 1,
     Pregunta: "¿Cómo te sientes?",
     respuestas: [5, 1, 5, 1, 5, 10, 4, 3, 4, 2, 3, 2, 2, 2, 5, 5],
-  },
-  {
-    idPregunta: null,
-    Pregunta: "¿Cómo te sientes?",
-    respuestas: [null, null, null],
   },
   {
     idPregunta: 2,
@@ -107,6 +100,6 @@ createChart([
       "¿Consideras que la cantidad de issues asignadas en este sprint son las adecuadas?",
     respuestas: [5, 5, 5, 5, 1, 4, 1, 4, 2, 4, 2, 4, 1, 1],
   },
-])
+]
 
-//export default createChart
+createChart(data)
