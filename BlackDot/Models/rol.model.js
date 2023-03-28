@@ -76,11 +76,19 @@ module.exports = class Rol {
 
     /**
      * @brief
-     * Verifica que el objeto sea de tipo Rol
-     * @param {*} Rol
-     * @returns {boolean}
+     * Verifica si un rol existe en la base de datos.
+     * @returns {Promise<boolean>} - True si existe, false si no
+     * @throws {Error} - Si no se envia el id de rol
      */
-    static async verify(Rol) {}
+    static async verify(Rol) {
+        if (!Rol.idRol) 
+            throw new Error("No se ha proporcionado un id de privilegio")
+
+        const [rol] = await dataBase.query(
+            "select * from Rol where idRol = ?",
+            [Rol.idRol]
+        )
+    }  
 
     /**
      * @brief
