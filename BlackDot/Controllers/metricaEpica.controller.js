@@ -13,8 +13,7 @@
  * @copyright Copyright (c) 2023 - MIT License
  */
 
-const Epica = require("../models/epica.model")
-const retroPregunta = require("../models/retro-pregunta.model")
+const path = require("path")
 
 /**
  * @brief
@@ -26,9 +25,6 @@ const retroPregunta = require("../models/retro-pregunta.model")
  */
 exports.getAllEpicas = async (req, res) => {
   try {
-    const result = await retroPregunta.getAllCualitativas()
-    console.log(result)
-
     res.render(
       path.join(__dirname, "../Views/Static/historico/verMetricasEpicas.ejs")
     )
