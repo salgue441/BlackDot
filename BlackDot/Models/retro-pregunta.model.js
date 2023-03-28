@@ -70,19 +70,18 @@ class retroPregunta {
     try {
       const query = `
         select 
-        pregunta.contenido as Pregunta, 
-        cuantitativa.contenido
+          pregunta.contenido as Pregunta, 
+          cualitativa.contenido
         from retroalimentacion
         join retroalimentacionpregunta on retroalimentacion.idRetroalimentacion = retroalimentacionpregunta.idPregunta
         join pregunta on retroalimentacionpregunta.idPregunta = pregunta.idPregunta
-        left join cuantitativa on retroalimentacionpregunta.idPregunta = cuantitativa.idPregunta
-        and retroalimentacionpregunta.idRetroalimentacion = cuantitativa.idRetroalimentacion 
-        where Pregunta.tipoPregunta = 'Cualitativa';
-    `
+        left join cualitativa on retroalimentacionpregunta.idPregunta = cualitativa.idPregunta
+        and retroalimentacionpregunta.idRetroalimentacion = cualitativa.idRetroalimentacion 
+        where pregunta.tipoPregunta = 'Cualitativa';
+`
 
-      const qualitatives = await dataBase.query(query)
-
-      return qualitatives.map((qualitative) => new retroPregunta(qualitative))
+      const [qualitatives, _] = await dataBase.query(query)
+      return qualitatives
     } catch (error) {
       throw new Error(error)
     }
@@ -107,13 +106,11 @@ class retroPregunta {
         join retroalimentacionpregunta on retroalimentacion.idRetroalimentacion = retroalimentacionpregunta.idRetroalimentacion 
         join pregunta on retroalimentacionpregunta.idPregunta = pregunta.idPregunta 
         left join cuantitativa on retroalimentacionpregunta.idPregunta = cuantitativa.idPregunta and retroalimentacion.idRetroalimentacion = cuantitativa.idRetroalimentacion 
-        where pregunta.tipoPregunta = 'Cuantitativa';;`
+        where pregunta.tipoPregunta = 'Cuantitativa';`
 
-      const quantitatives = await dataBase.query(query)
+      const [quantitatives, _] = await dataBase.query(query)
 
-      return quantitatives.map(
-        (quantitative) => new retroPregunta(quantitative)
-      )
+      return quantitatives
     } catch (error) {
       throw new Error(error)
     }
