@@ -8,10 +8,10 @@
  * @copyright Copyright (c) 2023 - MIT License
  */
 
- const dataBase = require("../database") //manda llamar a la base
+ const dataBase = require("../utils/dataBase") //manda llamar a la base
  
-const { getByID } = require("./Epica.model")
-const { getByID } = require("./Sprint.model") //validar con llaca 
+const { getByIDE } = require("./Epica.model")
+const { getByIDS } = require("./Sprint.model") //validar con llaca 
 
  /**
  * @class
