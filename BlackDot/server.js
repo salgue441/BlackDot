@@ -3,11 +3,11 @@ const app = express()
 require("dotenv").config()
 
 // View engine
-app.set("view engine", "ejs")
+app.set("view engine", "ejs");
 
 // Static Files
-app.use(express.static("views"))
-app.use("/assets", express.static("assets"))
+app.use(express.static("views"));
+app.use("/assets", express.static("assets"));
 
 // Routes
 /**
@@ -18,12 +18,12 @@ app.use("/assets", express.static("assets"))
  * @returns {Response} - Response object
  */
 app.get("/", (req, res) => {
-  res.render("static/index")
-})
+  res.render("static/index");
+});
 
 // Section routes
-const historico = require("./routes/historico.routes")
-const actual = require("./routes/actual.routes")
+const historico = require("./routes/historico.routes");
+const actual = require("./routes/actual.routes");
 
 /**
  * @brief
@@ -35,10 +35,10 @@ app.use("/historico", historico)
  * @brief
  * Route for the actual section
  */
-app.use("/actual", actual)
+app.use("/actual", actual);
 
 // Starting the server
-const PORT = 3000
+const PORT = 3000;
 
 /**
  * @brief
@@ -48,5 +48,5 @@ const PORT = 3000
  * @returns {Function} - Callback function
  */
 app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`)
-})
+  console.log(`Server is running on port ${PORT}`);
+});
