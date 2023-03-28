@@ -158,6 +158,12 @@ values
 (2, 22), 
 (2, 25);
 
+-- Insertando datos en la tabla de EquipoTrabajo
+INSERT INTO EquipoTrabajo
+    (idEquipoTrabajo)
+VALUES
+    (default);
+
 -- Insertando datos en la tabla de Epica
 insert into Epica
     (nombreEpica)
