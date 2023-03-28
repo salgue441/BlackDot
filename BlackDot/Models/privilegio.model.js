@@ -85,12 +85,12 @@ module.exports = class Privilegio {
      * @throws {Error} - Si no se envia el id de privilegio
      */
     static async verify(Privilegio) {
-        if (!idPrivilegio) 
+        if (!Privilegio.idPrivilegio) 
             throw new Error("No se ha proporcionado un id de privilegio")
 
         const [privilegio] = await dataBase.query(
             "select * from Privilegio where idPrivilegio = ?",
-            [idPrivilegio]
+            [Privilegio.idPrivilegio]
         )
     }
 
