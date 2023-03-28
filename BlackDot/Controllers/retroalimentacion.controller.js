@@ -51,6 +51,23 @@ const simplifyAnswers = (answers) => {
 
 /**
  * @brief
+ * Counts the number of duplicates in an array of answers
+ * @param {*} data - Array of answers
+ * @returns {*} - Object with the number of duplicates per question
+ */
+function countDuplicates(data) {
+  const datasets = new Set(data)
+
+  const result = {}
+  for (const dataset of datasets) {
+    result[dataset] = data.filter((x) => x === dataset).length
+  }
+
+  return result
+}
+
+/**
+ * @brief
  * Gets all answers from a retroalimentacion
  * @param {Request} req - Request object
  * @param {Response} res - Response object
@@ -63,7 +80,10 @@ exports.getCurretRetroalimentacion = async (req, res) => {
     const quantitative = await retroPregunta.getQuantitativeAnswers()
     const simplifiedQuantitative = simplifyAnswers(quantitative)
 
-    console.log(simplifiedQuantitative)
+    for (const question of simplifiedQuantitative) {
+      question.respuestas = countDuplicates(question.respuestas)
+      console.log(question.respuestas)
+    }
 
     res.render(
       path.join(__dirname, "../Views/Static/actual/verRetroalimentacion.ejs"),

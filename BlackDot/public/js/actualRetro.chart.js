@@ -59,16 +59,9 @@ const createBarChart = (canvas, labels, data) => {
   return new Chart(ctx, {
     type: "bar",
     data: {
-      labels: [
-        "Totalmente en desacuerdo",
-        "En desacuerdo",
-        "Neutro",
-        "De acuerdo",
-        "Totalmente de acuerdo",
-      ],
+      labels: labels,
       datasets: [
         {
-          label: states.map((state) => state.label),
           data: data,
           backgroundColor: states.map((state) => state.color),
           borderColor: states.map((state) => state.borderColor),
@@ -78,8 +71,18 @@ const createBarChart = (canvas, labels, data) => {
     },
     options: {
       scales: {
-        y: {
-          beginAtZero: true,
+        yAxes: [
+          {
+            ticks: {
+              beginAtZero: true,
+            },
+          },
+        ],
+      },
+
+      plugins: {
+        legend: {
+          display: false,
         },
       },
     },
@@ -103,24 +106,3 @@ const createChart = (answerData) => {
     createBarChart(canvas, labels, data)
   })
 }
-
-const data = [
-  {
-    idPregunta: 1,
-    Pregunta: "¿Cómo te sientes?",
-    respuestas: [5, 1, 5, 1, 5, 10, 4, 3, 4, 2, 3, 2, 2, 2, 5, 5],
-  },
-  {
-    idPregunta: 2,
-    Pregunta: "¿Te sientes a gusto con tu desempeño este sprint?",
-    respuestas: [5, 4, 5, 4, 2, 1, 2, 1, 3, 3, 3, 4, 3, 4],
-  },
-  {
-    idPregunta: 3,
-    Pregunta:
-      "¿Consideras que la cantidad de issues asignadas en este sprint son las adecuadas?",
-    respuestas: [5, 5, 5, 5, 1, 4, 1, 4, 2, 4, 2, 4, 1, 1],
-  },
-]
-
-createChart(data)
