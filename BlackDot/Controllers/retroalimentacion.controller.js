@@ -65,11 +65,6 @@ exports.getCurretRetroalimentacion = async (req, res) => {
 
     console.log(simplifiedQuantitative)
 
-    // Qualitative answers
-    const qualitative = await retroPregunta.getQualitativeAnswers()
-
-    console.log(qualitative)
-
     res.render(
       path.join(__dirname, "../Views/Static/actual/verRetroalimentacion.ejs"),
       {

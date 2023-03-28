@@ -15,19 +15,34 @@
  */
 const states = [
   {
-    label: "To Do",
+    label: "Totalmente en desacuerdo",
+    value: 1,
     color: "rgba(255, 99, 132, 0.6)",
     borderColor: "rgba(255, 99, 132, 1)",
   },
   {
-    label: "In Progress",
+    label: "En desacuerdo",
+    value: 2,
     color: "rgba(54, 162, 235, 0.6)",
     borderColor: "rgba(54, 162, 235, 1)",
   },
   {
-    label: "Done",
+    label: "Neutro",
+    value: 3,
     color: "rgba(75, 192, 192, 0.6)",
     borderColor: "rgba(75, 192, 192, 1)",
+  },
+  {
+    label: "De acuerdo",
+    value: 4,
+    color: "rgba(255, 206, 86, 0.6)",
+    borderColor: "rgba(255, 206, 86, 1)",
+  },
+  {
+    label: "Totalmente de acuerdo",
+    value: 5,
+    color: "rgba(153, 102, 255, 0.6)",
+    borderColor: "rgba(153, 102, 255, 1)",
   },
 ]
 
@@ -44,10 +59,16 @@ const createBarChart = (canvas, labels, data) => {
   return new Chart(ctx, {
     type: "bar",
     data: {
-      labels: labels,
+      labels: [
+        "Totalmente en desacuerdo",
+        "En desacuerdo",
+        "Neutro",
+        "De acuerdo",
+        "Totalmente de acuerdo",
+      ],
       datasets: [
         {
-          label: "Retroalimentación",
+          label: states.map((state) => state.label),
           data: data,
           backgroundColor: states.map((state) => state.color),
           borderColor: states.map((state) => state.borderColor),
