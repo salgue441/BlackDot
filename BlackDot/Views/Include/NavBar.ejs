@@ -23,7 +23,11 @@
   <div class="navbar-item-center">
     <div class="navbar-item">
       <a href="/">
-        <img src="../../assets/$zebrands-brand-logo.svg" alt="Zebrands" />
+        <img
+          src="../../assets/$zebrands-brand-logo.svg"
+          alt="Zebrands"
+          class="logo"
+        />
       </a>
     </div>
   </div>
@@ -47,7 +51,6 @@
     top: 10%;
     transform: translateX(-50%);
   }
-
   .profile-img {
     width: 40px;
     height: 40px;
@@ -55,13 +58,15 @@
     border-radius: 50%;
     margin-right: 10px;
   }
-
+  .logo svg {
+    width: 100px;
+    height: 100px;
+  }
   /* Bulma Css */
-
   .navbar {
     background-color: #e4e5e3;
+    height: 60px;
   }
-
   @media screen and (max-width: 1023px) {
     .navbar-end {
       justify-content: flex-end;
@@ -71,12 +76,10 @@
       display: block;
     }
   }
-
   @media screen and (min-width: 1024px) {
     .navbar-burger {
       display: block !important;
     }
-
     .menu.is-hidden-touch {
       display: none;
     }
@@ -87,10 +90,9 @@
 <script>
   // When the hamburger icon is clicked, the sidebar opens
   const toggleSidebar = (event) => {
-    var target = document.getElementById(event.target.dataset.target)
-
-    event.target.classList.toggle("is-active")
-    target.classList.toggle("is-active")
-    target.classList.toggle("is-hidden-touch")
-  }
+    var target = document.getElementById(event.target.dataset.target);
+    event.target.classList.toggle("is-active");
+    target.classList.toggle("is-active");
+    target.classList.toggle("is-hidden-touch");
+  };
 </script>

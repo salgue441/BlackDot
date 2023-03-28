@@ -13,13 +13,13 @@
  * @copyright Copyright (c) 2023 - MIT License
  */
 
-const dataBase = require("../utils/dataBase")
+const dataBase = require("../utils/dataBase");
 
 module.exports = class Pregunta {
   constructor(Pregunta) {
-    this.idPregunta = Pregunta.idPregunta
-    this.contenido = Pregunta.contenido
-    this.tipoPregunta = Pregunta.tipoPregunta
+    this.idPregunta = Pregunta.idPregunta;
+    this.contenido = Pregunta.contenido;
+    this.tipoPregunta = Pregunta.tipoPregunta;
   }
 
   /**
@@ -29,14 +29,14 @@ module.exports = class Pregunta {
    * @returns {object} - Objeto de tipo Pregunta
    */
   static async getByID(idPregunta) {
-    if (!idPregunta) throw new Error("No se ha proporcionado un ID")
+    if (!idPregunta) throw new Error("No se ha proporcionado un ID");
 
     const [pregunta] = await dataBase.query(
       "select * from Pregunta where idPregunta = ?",
       [idPregunta]
-    )
+    );
 
-    return new Pregunta(pregunta)
+    return new Pregunta(pregunta);
   }
 
   /**
@@ -45,9 +45,9 @@ module.exports = class Pregunta {
    * @returns {Promise<Pregunta[]>} - Arreglo de objetos de tipo Pregunta
    */
   static async getAll() {
-    const preguntas = await dataBase.query("select * from Pregunta")
+    const [preguntas, _] = await dataBase.query("select * from Pregunta");
 
-    return preguntas.map((pregunta) => new Pregunta(pregunta))
+    return preguntas;
   }
 
   /**
@@ -59,22 +59,22 @@ module.exports = class Pregunta {
    */
   async save() {
     if (!this.contenido || this.contenido.trim().length === 0)
-      throw new Error("No se ha proporcionado un contenido")
+      throw new Error("No se ha proporcionado un contenido");
 
     if (!this.tipoPregunta)
-      throw new Error("No se ha proporcionado el tipo de Pregunta")
+      throw new Error("No se ha proporcionado el tipo de Pregunta");
 
-    const query = `insert into Pregunta (contenido, tipoPregunta) values(?, ?)`
+    const query = `insert into Pregunta (contenido, tipoPregunta) values(?, ?)`;
     const result = await dataBase.query(query, [
       this.contenido,
       this.tipoPregunta,
-    ])
+    ]);
 
     if (result.affectedRows === 0)
-      throw new Error("La pregunta no se pudo guardar")
+      throw new Error("La pregunta no se pudo guardar");
 
-    this.idPregunta = result.insertId
-    return this
+    this.idPregunta = result.insertId;
+    return this;
   }
 
   /**
@@ -86,19 +86,19 @@ module.exports = class Pregunta {
    * @throws {Error} - Si no se envia el tipo de pregunta
    */
   async verify() {
-    if (!this.contenido) throw new Error("No se ha proporcionado un contenido")
+    if (!this.contenido) throw new Error("No se ha proporcionado un contenido");
     if (this.contenido.length > 300)
-      throw new Error("El contenido es muy largo")
+      throw new Error("El contenido es muy largo");
 
     if (!this.tipoPregunta)
-      throw new Error("No se ha proporcionado un tipo de pregunta")
+      throw new Error("No se ha proporcionado un tipo de pregunta");
 
     const [pregunta] = await dataBase.query(
       "select * from Pregunta where contenido = ? and tipoPregunta = ?",
       [this.contenido, this.tipoPregunta]
-    )
+    );
 
-    return Boolean(pregunta)
+    return Boolean(pregunta);
   }
 
   /**
@@ -110,15 +110,15 @@ module.exports = class Pregunta {
    * @throws {Error} - Si el ID no es un numero
    */
   async deleteByID(idPregunta) {
-    if (!idPregunta) throw new Error("No se envio el ID")
+    if (!idPregunta) throw new Error("No se envio el ID");
     if (typeof idPregunta !== "number")
-      throw new Error("El ID debe ser un numero")
+      throw new Error("El ID debe ser un numero");
 
     const result = await dataBase.query(
       `delete from Preguntas where idPregunta = $1`,
       [idPregunta]
-    )
+    );
 
-    return result.rowCount > 0
+    return result.rowCount > 0;
   }
-}
+};
