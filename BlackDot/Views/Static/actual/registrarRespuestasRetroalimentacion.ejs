@@ -9,8 +9,8 @@
     <section class="container">
 
 
-      
-      <form class="preguntaContainer">
+
+      <form class="preguntaContainer" >
         <progress class="progress is-danger is-fixed-top-desktop" value="<%= barProgress %>" max="100"></progress>
         
         <% let cantCualitativas = 0; %>
@@ -26,18 +26,21 @@
             id="respuestaCualitativa"
             placeholder="Respuesta"
             onchange="updateProgressBar(event)"
+            required
             
           />
         </div>
         <% } else { %>
         <div class="box is-flex is-flex-direction-column is-vcentered ">
-          <label for="respuestaCuantitativa"><%= preguntas[i].contenido %> cuanti</label>
-          <%- include('../../include/preguntaCuantitativa.ejs') %>
+          <label class="label" for="respuestaCuantitativa"><%= preguntas[i].contenido %></label>
+          <%- include('../../include/preguntaCuantitativa.ejs', {
+            name: i
+          }) %>
           </div>
         <%} %> <% } %>
 
         <div class="is-flex is-justify-content-center">
-          <button class="button is-primary">Enviar</button>
+          <button class="button is-danger is-size-4">Enviar</button>
       </form>
 
     
@@ -64,7 +67,7 @@
   }
 
   .box {
-    height: 10rem;
+    height: 15rem;
   }
 
   .input {
