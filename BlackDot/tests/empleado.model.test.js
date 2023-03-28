@@ -96,4 +96,28 @@ describe("Empleado", () => {
             expect(empleado.idEmpleado).toBeGreaterThan(0)
         })
     })
+
+    describe("delete", () => {
+        /**
+         * @brief
+         * Test para el método delete del Empleado
+         **/
+
+        test("Debe boarrar un Empleado", async () => {
+            const empleado = new Empleado({
+                primerNombre: "Carlos",
+                segundoNombre: "Rodrigo",
+                apellidoMaterno: "Salguero",
+                apellidoMaterno: "Alcántara",
+                googleEmail: "DEF5678@zeb.mx",
+                idRol: 2,
+                idEquipoTrabajo: 1,
+            })
+
+            await empleado.save()
+
+            await Empleado.deleteByID(empleado.idEmpleado)
+            expect(empleado.idEmpleado).toBeGreaterThan(0)
+        })
+    })
 })
