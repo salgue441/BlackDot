@@ -62,13 +62,13 @@ module.exports = class Privilegio {
      * Guarda un Privilegio en la base de datos.
      * @returns {Promise<Privilegio>} - Query del privilegio guardado
      * @throws {Error} - Si no se ha proporcionado un nombre de Privilegio
-     * @throws {Error} - Si no se ha proporcionado un label de Privilegio
+     * @throws {Error} - Si no se ha proporcionado una descripción de Privilegio
      */
     save() {
         if (!this.nombrePrivilegio) 
             throw new Error("No se ha proporcionado nombre de privilegio")
         if (!this.labelPrivilegio)
-            throw new Error("No se ha proporcionado un label de privilegio")
+            throw new Error("No se ha proporcionado una descripción de privilegio")
 
         return dataBase.query(
             "insert into Privilegio (nombrePrivilegio, descripcionPrivilegio) values (?, ?)", [
@@ -80,11 +80,19 @@ module.exports = class Privilegio {
 
     /**
      * @brief
-     * Verifica que el objeto sea de tipo Privilegio
-     * @param {*} Privilegio
-     * @returns {boolean}
+     * Verifica si un privilegio existe en la base de datos.
+     * @returns {Promise<boolean>} - True si existe, false si no
+     * @throws {Error} - Si no se envia el id de privilegio
      */
-    static async verify(Privilegio) {}
+    static async verify(Privilegio) {
+        if (!idPrivilegio) 
+            throw new Error("No se ha proporcionado un id de privilegio")
+
+        const [privilegio] = await dataBase.query(
+            "select * from Privilegio where idPrivilegio = ?",
+            [idPrivilegio]
+        )
+    }
 
     /**
      * @brief
