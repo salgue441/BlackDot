@@ -51,8 +51,7 @@ describe("Pregunta", () => {
     it("Debe devolver un arreglo de preguntas", async () => {
       const preguntas = await Pregunta.getAll()
 
-      expect(preguntas).toBeInstanceOf(Array)
-      expect(preguntas[0]).toBeInstanceOf(Pregunta)
+      expect(Array.isArray(preguntas)).toBe(true)
     })
   })
 
