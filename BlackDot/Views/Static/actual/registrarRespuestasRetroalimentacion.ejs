@@ -1,0 +1,44 @@
+<html>
+  <%- include('../../include/header.ejs') %>
+
+  <body>
+    <%- include('../../include/navbar.ejs') %>
+
+    <section class="container">
+      <form class="preguntaContainer">
+        <% for (var i = 1; i < preguntas.length; i++) { %> <% if
+        (preguntas[i].tipoPregunta === 'Cualitativa') { %>
+        <div class="box is-flex is-flex-direction-column">
+          <label class="label" for="respuesta"><%= preguntas[i].contenido %></label>
+          <input
+            class="input m-3 is-justify-content-center"
+            type="text"
+            name="respuesta"
+            placeholder="Respuesta"
+          />
+        </div>
+        <% } else { %>
+        <div class="box">Cuanitativa</div>
+        <%} %> <% } %>
+
+        <div class="is-flex is-justify-content-center">
+          <button class="button is-primary">Enviar</button>
+      </form>
+    </section>
+  </body>
+</html>
+
+<style>
+  .preguntaContainer {
+    margin-top: 5%;
+  }
+
+  .box {
+    height: 10rem;
+  }
+
+  .input {
+    width: 80%;
+    height: 80%;
+  }
+</style>
