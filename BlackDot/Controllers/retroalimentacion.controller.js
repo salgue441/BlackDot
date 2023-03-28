@@ -78,16 +78,15 @@ const countValues = (array) => {
  * @param {Request} req - Request object
  * @param {Response} res - Response object
  * @returns {Response} - Response object
- * @throw s {Error} - Error message
+ * @throws {Error} - Error message
  */
 exports.getCurretRetroalimentacion = async (req, res) => {
   try {
     // Quantitative answers
     const quantitative = await retroPregunta.getQuantitativeAnswers()
     const simplifiedQuantitative = simplifyAnswers(quantitative)
-
-    console.log(simplifiedQuantitative)
-
+    console.log(simplifiedQuantitative);
+    console.log(JSON.stringify(simplifiedQuantitative));
     res.render(
       path.join(__dirname, "../Views/Static/actual/verRetroalimentacion.ejs"),
       {
