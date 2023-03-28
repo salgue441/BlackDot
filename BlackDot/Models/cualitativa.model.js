@@ -8,7 +8,7 @@
  * @copyright Copyright (c) 2023 - MIT License
  */
 
-const dataBase = require("../database")
+const dataBase = require("../utils/dataBase")
 
 /**
  * @class
@@ -82,7 +82,9 @@ module.exports = class Cualitativa {
    * @param {*} Cualitativa
    * @returns {boolean}
    */
-  static async verify(Cualitativa) {}
+  static async verify(Cualitativa) {
+    
+  }
 
   /**
    * @brief
@@ -100,14 +102,12 @@ module.exports = class Cualitativa {
    * @brief
    * Actualiza el contenido de la respuesta
    */
-  async update() {
-    const query = `update Cualitativa set contenido = ?, idPregunta = ?, idRetroalimentacion = ? where idCualitativa = ?`
+  async update(Cualitativa) {
+    const query = `update Cualitativa set contenido = ? where idCualitativa = ?`
 
-    await dataBase.execute(query, [
-      this.contenido,
-      this.idPregunta,
-      this.idRetroalimentacion,
-      this.idCualitativa,
-    ])
+    await dataBase.execute(query, [Cualitativa.contenido, this.idCualitativa])
+    this.contenido = Cualitativa.contenido
+
+    return this
   }
 }

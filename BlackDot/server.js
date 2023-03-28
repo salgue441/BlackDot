@@ -1,5 +1,6 @@
-const express = require("express");
-const app = express();
+const express = require("express")
+const app = express()
+require("dotenv").config()
 
 // View engine
 app.set("view engine", "ejs");
@@ -23,6 +24,12 @@ app.get("/", (req, res) => {
 // Section routes
 const historico = require("./routes/historico.routes");
 const actual = require("./routes/actual.routes");
+
+/**
+ * @brief
+ * Route for the historico section
+ */
+app.use("/historico", historico)
 
 /**
  * @brief

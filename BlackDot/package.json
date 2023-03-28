@@ -4,11 +4,11 @@
   "description": "Web application for Zebrands that allows the employees to look at the sprint metrics, answer feedback form, and propose new ways to improve",
   "main": "server.js",
   "scripts": {
-    "test": "jest",
+    "test": "jest --forceExit",
     "test:watch": "jest --watchAll",
     "test:carlos": "jest --config jest-carlos.config.js",
     "start": "nodemon server.js",
-    "start:carlos": "nodemon server.js --config nodemon.json"
+    "start:carlos": "nodemon -r dotenv/config server.js"
   },
   "repository": {
     "type": "git",
@@ -29,6 +29,7 @@
     "bcrypt": "^5.1.0",
     "body-parser": "^1.20.2",
     "bulma": "^0.9.4",
+    "dotenv": "^16.0.3",
     "ejs": "^3.1.9",
     "express": "^4.18.2",
     "express-session": "^1.17.3",
@@ -37,7 +38,6 @@
     "mysql2": "^3.2.0"
   },
   "devDependencies": {
-    "dotenv": "^16.0.3",
     "jest-environment-node": "^29.5.0",
     "nodemon": "^2.0.21"
   }
