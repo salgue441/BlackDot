@@ -10,6 +10,19 @@
 
 /**
  * @brief
+ * Fetches the data from the server and sends them to the frontend
+ * @todo Add token when authentication is implemented
+ */
+
+const fetchAnswersData = async () => {
+  const res = await fetch("http://localhost:3000/actual/respuestasRetro")
+  const data = await res.json()
+
+  return data
+}
+
+/**
+ * @brief
  * Color states for the graph
  * @type {Array} - Array of objects with the color states
  */
@@ -49,9 +62,6 @@ const states = [
 /**
  * @brief
  * Creates the graph
- * @param {*} canvas - Canvas to draw the graph on
- * @param {*} labels - Labels for the graph
- * @param {*} data - Data for the graph
  */
 const createBarChart = (canvas, labels, data) => {
   const ctx = canvas.getContext("2d")
@@ -62,6 +72,7 @@ const createBarChart = (canvas, labels, data) => {
       labels: labels,
       datasets: [
         {
+          label: "Retroalimentación",
           data: data,
           backgroundColor: states.map((state) => state.color),
           borderColor: states.map((state) => state.borderColor),
@@ -71,13 +82,21 @@ const createBarChart = (canvas, labels, data) => {
     },
     options: {
       scales: {
-        yAxes: [
-          {
-            ticks: {
-              beginAtZero: true,
-            },
+        y: {
+          ticks: {
+            beginAtZero: true,
           },
-        ],
+          title: {
+            display: true,
+            text: "Frecuencia",
+          },
+        },
+        x: {
+          title: {
+            display: true,
+            text: "Respuestas",
+          },
+        },
       },
 
       plugins: {
@@ -89,20 +108,22 @@ const createBarChart = (canvas, labels, data) => {
   })
 }
 
-/**
- * @brief
- * Function that recieves the data and creates the graph
- * @param {*} data - Data to create the graph
- */
-const createChart = (answerData) => {
-  answerData.forEach((item) => {
-    const canvas = document.getElementById(`graph-${item.idPregunta}`)
+;(async function renderGraphs() {
+  const data = await fetchAnswersData()
+  console.log(data)
 
-    if (!canvas) return
+  data.simplifiedQuantitative.forEach((set) => {
+    const canvas = document.getElementById(`graph-${set.idPregunta}`)
 
-    const labels = states.map((state) => state.label)
-    const data = item.respuestas
+    const labels = Object.keys(set.respuestas)
+    const data = Object.values(set.respuestas)
 
     createBarChart(canvas, labels, data)
   })
-}
+
+  /*   const labels = data.map((item) => item.pregunta)
+  const answers = data.map((item) => item.respuesta)
+
+  const canvas = document.getElementById("myChart")
+  createBarChart(canvas, labels, answers) */
+})()

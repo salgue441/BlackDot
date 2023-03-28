@@ -81,8 +81,9 @@ exports.getCurretRetroalimentacion = async (req, res) => {
 
     for (const question of simplifiedQuantitative) {
       question.respuestas = countDuplicates(question.respuestas)
-      console.log(question.respuestas)
     }
+
+    console.log(simplifiedQuantitative)
 
     res.render(
       path.join(__dirname, "../Views/Static/actual/verRetroalimentacion.ejs"),
@@ -91,6 +92,35 @@ exports.getCurretRetroalimentacion = async (req, res) => {
         simplifiedQuantitative: simplifiedQuantitative,
       }
     )
+  } catch (error) {
+    res.status(500).json({
+      message: error.message || "Error al obtener metricas epicas",
+    })
+  }
+}
+
+/**
+ * @brief
+ * Gets all answers from a retroalimentacion
+ * @param {Request} req - Request object
+ * @param {Response} res - Response object
+ * @returns {Response} - Response object
+ * @throws {Error} - Error message
+ */
+exports.getCurretRetroalimentacionAPI = async (req, res) => {
+  try {
+    // Quantitative answers
+    const quantitative = await retroPregunta.getQuantitativeAnswers()
+    const simplifiedQuantitative = simplifyAnswers(quantitative)
+
+    for (const question of simplifiedQuantitative) {
+      question.respuestas = countDuplicates(question.respuestas)
+    }
+
+    res.json({
+      idRetroalimentacion: req.params.idRetroalimentacion,
+      simplifiedQuantitative: simplifiedQuantitative,
+    })
   } catch (error) {
     res.status(500).json({
       message: error.message || "Error al obtener metricas epicas",
