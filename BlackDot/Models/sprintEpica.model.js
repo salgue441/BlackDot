@@ -10,7 +10,7 @@
 
 const dataBase = require("../utils/dataBase") //manda llamar a la base
 const { getByIDE } = require("../models/Epica.model")
-const { getByIDS } = require("../models/Spint.model") //validar con llaca 
+const { getByIDS } = require("../models/sprint.model") //validar con llaca 
 
  /**
  * @class
@@ -44,7 +44,7 @@ const { getByIDS } = require("../models/Spint.model") //validar con llaca
        const epica = await dataBase.query(
         "select * from sprintepica where idEpica = ?", [idEpica]
        )
-        return new Epica(epica)
+        return new SprintEpica(epica)
     }
 
 
@@ -54,7 +54,7 @@ const { getByIDS } = require("../models/Spint.model") //validar con llaca
        const [sprint] = await dataBase.query(
         "select * from sprintepica where idSprint = ?", [idsprint]
        )
-        return new Epica(sprint)
+        return new SprintEpica(sprint)
     }
 
     /**
@@ -64,10 +64,7 @@ const { getByIDS } = require("../models/Spint.model") //validar con llaca
 
     static async getAll()
     {
-        if(!this.SprintEpica) throw new Error ("No hay epicas que recuperar")
-
-        const query = "select * from sprintepica"
-        const sprintepica = await dataBase.execute(query)
+        const sprintepica = await dataBase.query("select * from sprintepica")
         
         return sprintepica.map((sprintepica) => new SprintEpica(sprintepica))
     }
