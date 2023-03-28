@@ -9,8 +9,8 @@
  */
 
 const dataBase = require("../utils/dataBase") //manda llamar a la base
-
-const { getByID } = require("./sprint.model") //validar con llaca 
+const { getByIDE } = require("../models/Epica.model")
+const { getByIDS } = require("../models/Spint.model") //validar con llaca 
 
  /**
  * @class
