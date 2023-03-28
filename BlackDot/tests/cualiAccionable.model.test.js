@@ -45,7 +45,7 @@ describe("CualitativaAccionable", () => {
 
     describe("getByIDC", () => {
         test("Debe devolver un arreglo de respuestas cualitativas", async () => {
-            const cualitativas = await CualitativaAccionable.getByIdC(1);
+            const cualitativas = await CualitativaAccionable.getByIDC(1);
             expect(cualitativas).toBeInstanceOf(CualitativaAccionable);
         });
     });
