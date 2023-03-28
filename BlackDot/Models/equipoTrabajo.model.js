@@ -71,13 +71,13 @@ module.exports = class EquipoTrabajo {
      * @returns {Promise<boolean>} - True si existe, false si no
      * @throws {Error} - Si no se envia el id de equipoTrabajo
      */
-    static async verify() {
-        if (!this.idEquipoTrabajo) 
+    static async verify(EquipoTrabjo) {
+        if (!EquipoTrabajo.idEquipoTrabajo) 
             throw new Error("No se ha proporcionado un id de equipoTrabajo")
 
         const [equipoTrabajo] = await dataBase.query(
             "select * from EquipoTrabajo where idEquipoTrabajo = ?",
-            [this.idEquipoTrabajo]
+            [EquipoTrabajo.idEquipoTrabajo]
         )
     }
 
