@@ -1,44 +1,73 @@
 /**
  * @file sprintEpica.model.test.js
  * @brief Pruebas unitarias para la clase sprintEpica
- * @author Carlos Salguero
- * @author Diego Sandoval
  * @author Olimpia Garcia
- * @author Diego Llaca
- * @author Yuna Chung
- * @author Ivan Paredes
  * @version 1.0
  * @date 2023-03-21
  *
  * @copyright Copyright (c) 2023 - MIT License
  */
 
- const Pregunta = require("../models/sprintEpica.model")
- const dataBase = require("../utils/dataBase")
+// const Epica = require("../models/Epica.model")
+// const { getByIDS } = require("./Sprint.model") 
+// const { getByIDE } = require("./Sprint.model") 
+const sprintEpica = require("../models/sprintEpica.model")
+
  
 /**
  *
  */
-describe("Pregunta", () => {
+describe("sprintEpica", () => {
 beforeEach(() => {
     jest.resetModules()
 })
 
-describe("Constructor", () => {})
+
 
 /**
  * @brief
- * Prueba unitaria para el método getByID
- * @param {int} idPregunta - ID de la pregunta
+ * Prueba unitaria para el método getByIDE
+ * @param {int} idEpica - ID de la Epica
  */
-describe("getByID", () => {
-    it("Debe devolver una pregunta", async () => {
-    const pregunta = await Pregunta.getByID(1)
+describe("getByIDE", () => {
+    test("Debe devolver una epica", async () => {
+    const epica = await sprintEpica.getByIDE(1)
 
-    expect(pregunta).toBeInstanceOf(Pregunta)
+    expect(epica).toBeInstanceOf(sprintEpica)
+
+    test("Debe devolver un error si no se proporciona un ID", async () => {
+      await expect(sprintEpica.getByIDE()).rejects.toThrow()
+      })
+    })
+})
+
+/**
+ * @brief
+ * Prueba unitaria para el método getByIDS
+ * @param {int} idSprint - ID de la Sprint
+ */
+ describe("getByIDS", () => {
+    test("Debe devolver un sprint", async () => {
+    const sprint = await sprintEpica.getByIDS(1)
+
+    expect(sprint).toBeInstanceOf(sprintEpica)
     })
 
     it("Debe devolver un error si no se proporciona un ID", async () => {
-    await expect(Pregunta.getByID()).rejects.toThrow()
+    await expect(sprintEpica.getByIDS()).rejects.toThrow()
     })
+})
+
+  /**
+   * @brief
+   * Prueba unitaria para el método getAll
+   */
+   describe("getAll", () => {
+    it("Debe devolver un arreglo de sprint-Epicas", async () => {
+      const sprintepicas = await sprintEpica.getAll()
+
+      expect(sprintepicas).toBeInstanceOf(Array)
+      expect(sprintepicas[0]).toBeInstanceOf(sprintEpica)
+    })
+  })
 })
