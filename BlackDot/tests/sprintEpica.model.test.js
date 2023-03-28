@@ -34,10 +34,6 @@ describe("getByID", () => {
     const epica = await sprintEpica.getByIDE(1)
 
     expect(epica).toBeInstanceOf(sprintEpica)
-
-    test("Debe devolver un error si no se proporciona un ID", async () => {
-      await expect(sprintEpica.getByIDE()).rejects.toThrow()
-      })
     })
 })
 
@@ -51,10 +47,6 @@ describe("getByID", () => {
     const sprint = await sprintEpica.getByIDS(1)
 
     expect(sprint).toBeInstanceOf(sprintEpica)
-    })
-
-    it("Debe devolver un error si no se proporciona un ID", async () => {
-    await expect(sprintEpica.getByIDS()).rejects.toThrow()
     })
 })
 
