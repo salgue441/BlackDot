@@ -13,10 +13,11 @@
  * @copyright Copyright (c) 2023 - MIT License
  */
 
-const Retro = require("../models/retro.model")
-const { GoogleChart } = require("google-charts")
+const Retro = require("../models/retro.model");
+const Pregunta = require("../models/pregunta.model");
+const { GoogleChart } = require("google-charts");
 
-const path = require("path")
+const path = require("path");
 
 /**
  * @brief
@@ -31,11 +32,34 @@ exports.getAllRetros = async (req, res) => {
     await Retro.getAll().then((retros) => {
       res.render(
         path.join(__dirname, "../Views/Static/actual/verRetroalimentacion.ejs")
-      )
-    })
+      );
+    });
   } catch (error) {
     res.status(500).json({
       message: error.message || "Error al obtener retroalimentación",
-    })
+    });
   }
-}
+};
+
+/**
+ * @brief
+ * get de registar preguntas de retro
+ * @param {Request} req - Request object
+ * @param {Response} res - Response object
+ * @returns {Response} - Response object
+ * @throws {Error} - Error message
+ * */
+
+exports.getRegistrarRespuestas = async (req, res) => {
+  try {
+    await Pregunta.getAll().then((preguntas) => {
+      res.render("Static/actual/registrarRespuestasRetroalimentacion.ejs", {
+        preguntas,
+      });
+    });
+  } catch (error) {
+    res.status(500).json({
+      message: error.message || "Error al obtener preguntas",
+    });
+  }
+};
