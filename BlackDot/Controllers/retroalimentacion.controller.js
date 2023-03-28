@@ -15,7 +15,7 @@
 
 const Retro = require("../models/retro.model");
 const Pregunta = require("../models/pregunta.model");
-const { GoogleChart } = require("google-charts");
+const bodyparser = require("body-parser");
 
 const path = require("path");
 
@@ -53,8 +53,17 @@ exports.getAllRetros = async (req, res) => {
 exports.getRegistrarRespuestas = async (req, res) => {
   try {
     await Pregunta.getAll().then((preguntas) => {
+      // Calculate progress percentage based on completed fields
+      const total = preguntas.length;
+      const completed = req.query.respuestas
+        ? Object.keys(req.query.respuestas).length
+        : 0;
+      const barProgress = Math.floor((completed / total) * 100);
+
+      // Render the EJS template with the preguntas and progress variables
       res.render("Static/actual/registrarRespuestasRetroalimentacion.ejs", {
         preguntas,
+        barProgress,
       });
     });
   } catch (error) {
