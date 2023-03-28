@@ -96,4 +96,3 @@ module.exports = class Privilegio {
         await dataBase.execute(query, [idPrivilegio])
     }
 }
-
