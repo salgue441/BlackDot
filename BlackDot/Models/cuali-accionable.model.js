@@ -17,8 +17,8 @@ const dataBase = require("../utils/dataBase");
  * @property {int} idAccionable - Identificador del Accionable
  **/
 
-const {getById} = require("./cualitativa.model");
-const {getById} = require("./accionable.model");
+const {getByIDC} = require("./cualitativa.model");
+const {getByIDA} = require("./accionable.model");
 
 module.exports = class CualitativaAccionable{
     constructor(CualitativaAccionable){
@@ -33,7 +33,7 @@ module.exports = class CualitativaAccionable{
      * @returns {object} - Objeto de tipo CualitativaAccionable
      **/
 
-    static async getByIdA(idAccionable){
+    static async getByIDA(idAccionable){
         if(!idAccionable) throw new Error("No se ha proporcionado un ID del Accionable");
 
         const [accionable] = await dataBase.query(
@@ -51,7 +51,7 @@ module.exports = class CualitativaAccionable{
      * @returns {object} - Objeeto de tipo CualitativaAccionable
      **/
 
-    static async getByIdC(idCualitativa){
+    static async getByIDC(idCualitativa){
         if(!idCualitativa) throw new Error("No se ha proporcionado un ID de la cualitativa");
 
         const [cualitativa] = await dataBase.query(
