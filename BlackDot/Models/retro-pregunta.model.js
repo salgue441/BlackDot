@@ -1,18 +1,14 @@
-const dataBase = require("../utils/dataBase");
-
 /**
  * @class
- * @classdesc Modelo de la tabla de sprintissue
+ * @classdesc Modelo de la tabla de retroPregunta
  * @property {int} idRetro - Identificador del issue
  * @property {int} idPregunta - Identificador del sprint
- * */
+ */
+const dataBase = require("../utils/dataBase");
 
-const { getByID } = require("./retro.model");
-const { getByID } = require("./pregunta.model");
-
-module.exports = class SprintIssue {
+module.exports = class retroPregunta {
   constructor(retroPregunta) {
-    this.idRetro = retroPregunta.idRetro;
+    this.idRetro = retroPregunta.idRetroalimentacion;
     this.idPregunta = retroPregunta.idPregunta;
   }
 
@@ -23,15 +19,16 @@ module.exports = class SprintIssue {
    * @returns {object} - Objeto de tipo retroPregunta
    */
 
-  static async getByIDR(idRetro) {
-    if (!idRetro) throw new Error("No se ha proporcionado un ID de retro");
+  static async getByIDR(idRetroalimentacion) {
+    if (!idRetroalimentacion)
+      throw new Error("No se ha proporcionado un ID de retro");
 
     const [retro] = await dataBase.query(
-      "select * from retroPregunta where idRetro = ?",
-      [idRetro]
+      "select * from retroalimentacionpregunta where idRetroalimentacion = ?",
+      [idRetroalimentacion]
     );
 
-    return new SprintIssue(retro);
+    return new retroPregunta(retro);
   }
 
   /**
@@ -46,11 +43,11 @@ module.exports = class SprintIssue {
       throw new Error("No se ha proporcionado un ID de pregunta");
 
     const [pregunta] = await dataBase.query(
-      "select * from retroPregunta where idPregunta = ?",
+      "select * from retroalimentacionpregunta where idPregunta = ?",
       [idPregunta]
     );
 
-    return new SprintIssue(pregunta);
+    return new retroPregunta(pregunta);
   }
   /**
    * @brief
@@ -63,15 +60,18 @@ module.exports = class SprintIssue {
     select 
     pregunta.contenido as Pregunta, 
     cuantitativa.contenido
-  from retroalimentacion
-  join retroalimentacionpregunta on retroalimentacion.idRetroalimentacion = retroalimentacionpregunta.idPregunta
-  join pregunta on retroalimentacionpregunta.idPregunta = pregunta.idPregunta
-  left join cuantitativa on retroalimentacionpregunta.idPregunta = cuantitativa.idPregunta
-  and retroalimentacionpregunta.idRetroalimentacion = cuantitativa.idRetroalimentacion;
+    from retroalimentacion
+    join retroalimentacionpregunta on retroalimentacion.idRetroalimentacion = retroalimentacionpregunta.idPregunta
+    join pregunta on retroalimentacionpregunta.idPregunta = pregunta.idPregunta
+    left join cuantitativa on retroalimentacionpregunta.idPregunta = cuantitativa.idPregunta
+	  and retroalimentacionpregunta.idRetroalimentacion = cuantitativa.idRetroalimentacion 
+    where Pregunta.tipoPregunta = 'Cuantitativa';
     `;
 
-    const retroPregunta = await dataBase.query(query);
-    return retroPregunta.map((retroPregunta) => new SprintIssue(retroPregunta));
+    const retro_pregunta = await dataBase.query(query);
+    return retro_pregunta.map(
+      (retro_pregunta) => new retroPregunta(retro_pregunta)
+    );
   }
 
   /**
@@ -86,14 +86,16 @@ module.exports = class SprintIssue {
     pregunta.contenido as Pregunta, 
     cuantitativa.idPregunta,
     cuantitativa.contenido
-  from retroalimentacion
-  join retroalimentacionpregunta on retroalimentacion.idRetroalimentacion = retroalimentacionpregunta.idPregunta
-  join pregunta on retroalimentacionpregunta.idPregunta = pregunta.idPregunta
-  left join cuantitativa on retroalimentacionpregunta.idPregunta = cuantitativa.idPregunta
-  and retroalimentacionpregunta.idRetroalimentacion = cuantitativa.idRetroalimentacion; `;
+    from retroalimentacion
+    join retroalimentacionpregunta on retroalimentacion.idRetroalimentacion = retroalimentacionpregunta.idPregunta
+    join pregunta on retroalimentacionpregunta.idPregunta = pregunta.idPregunta
+    left join cuantitativa on retroalimentacionpregunta.idPregunta = cuantitativa.idPregunta
+    and retroalimentacionpregunta.idRetroalimentacion = cuantitativa.idRetroalimentacion and where Pregunta.tipoPregunta = 'Cuantitativa';`;
 
     const retroPregunta = await dataBase.query(query);
 
-    return retroPregunta.map((retroPregunta) => new SprintIssue(retroPregunta));
+    return retroPregunta.map(
+      (retroPregunta) => new retroPregunta(retroPregunta)
+    );
   }
 };
