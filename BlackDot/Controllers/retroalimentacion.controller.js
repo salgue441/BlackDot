@@ -82,10 +82,11 @@ const countValues = (array) => {
  */
 exports.getCurretRetroalimentacion = async (req, res) => {
   try {
+    // Quantitative answers
     const quantitative = await retroPregunta.getQuantitativeAnswers()
     const simplifiedQuantitative = simplifyAnswers(quantitative)
 
-    console.log(countValues(simplifiedQuantitative[0].respuestas))
+    console.log(simplifiedQuantitative)
 
     res.render(
       path.join(__dirname, "../Views/Static/actual/verRetroalimentacion.ejs"),
