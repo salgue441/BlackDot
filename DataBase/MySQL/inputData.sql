@@ -158,6 +158,12 @@ values
 (2, 22), 
 (2, 25);
 
+-- Insertando datos en la tabla de EquipoTrabajo
+INSERT INTO EquipoTrabajo
+    (idEquipoTrabajo)
+VALUES
+    (default);
+
 -- Insertando datos en la tabla de Epica
 insert into Epica
     (nombreEpica)
@@ -221,6 +227,30 @@ values
     ('Crear sección de preguntas frecuentes en el sitio web', 2, 'Front', 'Media', 'To Do', '2021-03-23 09:00:00', '2021-03-26 18:00:00'),
     ('Agregar opción de pago con tarjeta de crédito', 5, 'Back', 'Media', 'Done', '2021-03-26 14:00:00', '2021-03-27 18:00:00');
 
+-- Insertando datos en la relación de EquipoTrabajoIssue
+INSERT INTO EquipoTrabajoIssue
+    (idEquipoTrabajo, idIssue)
+VALUES
+    (1, 1),
+    (1, 2),
+    (1, 3),
+    (1, 4),
+    (1, 5),
+    (1, 6),
+    (1, 7),
+    (1, 8),
+    (1, 9),
+    (1, 10),
+    (1, 11),
+    (1, 12),
+    (1, 13),
+    (1, 14),
+    (1, 15),
+    (1, 16),
+    (1, 17),
+    (1, 18),
+    (1, 19);
+    
 -- Insertando datos en la relación de SprintIssue
 INSERT INTO SprintIssue 
     (idIssue, idSprint)
