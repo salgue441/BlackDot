@@ -44,44 +44,31 @@
         <br />
 
         <!-- Answers -->
-        <!-- Grpahs -->
         <div class="columns">
           <div class="column is-half">
-            <div class="box">
-              <h3 class="title is-3"><% %></h3>
-              <div class="box">
-                <h3 class="title is-3">Graph 1</h3>
-                <div id="graph1"></div>
+            <% for (let i = 1; i < simplifiedQuantitative.length; i++) {%>
+            <div class="columns">
+              <div class="column is-flex">
+                <div class="card custom-card">
+                  <div class="card-content">
+                    <div class="content">
+                      <h1 class="title is-4">
+                        <%= simplifiedQuantitative[i].Pregunta %>
+                      </h1>
+
+                      <canvas
+                        class="has-background-grey-lighter graph-canvas"
+                        id="graph"
+                      ></canvas>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
-
-          <div class="column is-half">
-            <div class="box">
-              <h3 class="title is-3">Accionable</h3>
-              <div id="graph3"></div>
-            </div>
+            <% } %>
           </div>
         </div>
-
-        <!-- Accionables -->
-        <div class="columns">
-          <div class="column is-half">
-            <div class="box">
-              <h3 class="title is-3">Graph 2</h3>
-              <div id="graph2"></div>
-            </div>
-          </div>
-
-          <div class="column is-half">
-            <div class="box">
-              <h3 class="title is-3">Accionable</h3>
-              <div class="field">
-                <div class="control"></div>
-              </div>
-            </div>
-          </div>
-        </div>
+        <!-- End of Answers -->
       </div>
     </section>
   </body>
@@ -92,5 +79,14 @@
   .reporte-button {
     margin-left: 20px;
     width: 150px;
+  }
+
+  /* Custom CSS */
+  .custom-card {
+    width: 100%;
+  }
+
+  .graph-canvas {
+    width: 100%;
   }
 </style>
