@@ -13,33 +13,89 @@
  * @copyright Copyright (c) 2023 - MIT License
  */
 
-const Retro = require("../models/retro.model");
-const Pregunta = require("../models/pregunta.model");
-const { GoogleChart } = require("google-charts");
+const path = require("path")
 
-const path = require("path");
+// Data Models
+const Epica = require("../models/epica.model")
+const retroPregunta = require("../models/retro-pregunta.model")
+const Pregunta = require("../models/pregunta.model")
 
 /**
  * @brief
- * Gets all retros
+ * Simplifies the array of answers
+ * @param {*} answers - Array of answers to simplify
+ * @returns {*} - Simplified array of answers
+ * @throws {Error} - Error message
+ */
+const simplifyAnswers = (answers) => {
+  try {
+    return answers.reduce((acc, curr) => {
+      const index = acc.findIndex((item) => item.idPregunta === curr.idPregunta)
+
+      if (index === -1) {
+        acc.push({
+          idPregunta: curr.idPregunta,
+          Pregunta: curr.Pregunta,
+          respuestas: [curr.contenido],
+        })
+      } else {
+        acc[index].respuestas.push(curr.contenido)
+      }
+
+      return acc
+    }, [])
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+/**
+ * @brief
+ * Counts the number of times a value appears in an array
+ * @param {*} array - Array to count
+ * @return {*} - Object with the count of each value
+ * @throws {Error} - Error message
+ */
+const countValues = (array) => {
+  try {
+    return array.reduce((acc, curr) => {
+      if (acc[curr]) {
+        acc[curr]++
+      } else {
+        acc[curr] = 1
+      }
+
+      return acc
+    }, {})
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+/**
+ * @brief
+ * Gets all answers from a retroalimentacion
  * @param {Request} req - Request object
  * @param {Response} res - Response object
  * @returns {Response} - Response object
- * @throws {Error} - Error message
+ * @throw s {Error} - Error message
  */
-exports.getAllRetros = async (req, res) => {
+exports.getCurretRetroalimentacion = async (req, res) => {
   try {
-    await Retro.getAll().then((retros) => {
-      res.render(
-        path.join(__dirname, "../Views/Static/actual/verRetroalimentacion.ejs")
-      );
-    });
+    const quantitative = await retroPregunta.getQuantitativeAnswers()
+    const simplifiedQuantitative = simplifyAnswers(quantitative)
+
+    console.log(countValues(simplifiedQuantitative[0].respuestas))
+
+    res.render(
+      path.join(__dirname, "../Views/Static/actual/verRetroalimentacion.ejs")
+    )
   } catch (error) {
     res.status(500).json({
-      message: error.message || "Error al obtener retroalimentación",
-    });
+      message: error.message || "Error al obtener metricas epicas",
+    })
   }
-};
+}
 
 /**
  * @brief
@@ -55,11 +111,11 @@ exports.getRegistrarRespuestas = async (req, res) => {
     await Pregunta.getAll().then((preguntas) => {
       res.render("Static/actual/registrarRespuestasRetroalimentacion.ejs", {
         preguntas,
-      });
-    });
+      })
+    })
   } catch (error) {
     res.status(500).json({
       message: error.message || "Error al obtener preguntas",
-    });
+    })
   }
-};
+}
