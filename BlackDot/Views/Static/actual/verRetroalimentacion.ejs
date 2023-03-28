@@ -8,11 +8,11 @@
       <div class="hero-body has-text-centered">
         <!-- Sprint title & Button -->
         <div class="columns">
-          <div class="column is-half">
+          <div class="column is-half is-flex">
             <h1 class="title is-1">Sprint #1</h1>
           </div>
 
-          <div class="column">
+          <div class="column is-half is-flex is-justify-content-end">
             <div class="dropdown is-active">
               <button
                 class="button is-danger"
@@ -28,6 +28,15 @@
                   />
                 </span>
               </button>
+
+              <div class="is-grouped is-grouped-centered">
+                <a
+                  class="button is-danger reporte-button"
+                  href="/static/actual/verRetroalimentacion"
+                >
+                  Generar Reporte
+                </a>
+              </div>
             </div>
           </div>
         </div>
@@ -64,7 +73,9 @@
           <div class="column is-half">
             <div class="box">
               <h3 class="title is-3">Accionable</h3>
-              <div id="graph3"></div>
+              <div class="field">
+                <div class="control"></div>
+              </div>
             </div>
           </div>
         </div>
@@ -72,3 +83,11 @@
     </section>
   </body>
 </html>
+
+<style>
+  /* Override Bulma CSS */
+  .reporte-button {
+    margin-left: 20px;
+    width: 150px;
+  }
+</style>
