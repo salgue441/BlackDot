@@ -71,7 +71,7 @@ module.exports = class Privilegio {
             throw new Error("No se ha proporcionado un label de privilegio")
 
         return dataBase.query(
-            "insert into Privilegio (nombrePrivilegio) values (?)",
+            "insert into Privilegio (nombrePrivilegio, descripcionPrivilegio) values (?, ?)",
             [this.nombrePrivilegio]
         )
     }
@@ -96,4 +96,3 @@ module.exports = class Privilegio {
         await dataBase.execute(query, [idPrivilegio])
     }
 }
-
