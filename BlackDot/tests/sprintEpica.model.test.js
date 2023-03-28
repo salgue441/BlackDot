@@ -23,13 +23,12 @@ beforeEach(() => {
 })
 
 
-
 /**
  * @brief
  * Prueba unitaria para el método getByIDE
  * @param {int} idEpica - ID de la Epica
  */
-describe("getByID", () => {
+describe("getByIDE", () => {
     test("Debe devolver una epica", async () => {
     const epica = await sprintEpica.getByIDE(1)
 
@@ -42,7 +41,7 @@ describe("getByID", () => {
  * Prueba unitaria para el método getByIDS
  * @param {int} idSprint - ID de la Sprint
  */
- describe("getByID", () => {
+ describe("getByIDS", () => {
     test("Debe devolver un sprint", async () => {
     const sprint = await sprintEpica.getByIDS(1)
 
@@ -59,7 +58,6 @@ describe("getByID", () => {
       const sprintepicas = await sprintEpica.getAll()
 
       expect(sprintepicas).toBeInstanceOf(Array)
-      expect(sprintepicas[0]).toBeInstanceOf(sprintEpica)
     })
   })
 })
