@@ -19,7 +19,7 @@ const dataBase = require("../utils/dataBase")
  * @property {varchar} apellidoPaterno - Contenido del apellido paterno
  * @property {varchar} apellidoMaterno - Contenido del apellido materno
  * @property {binary} idGoogleAuth - Identificador de la autenticación de Google
- * @property {varchar} googleEmail - Contenido del apellido materno
+ * @property {varchar} googleEmail - Correo electrónico de Google
  * @property {int} idRol - Identificador del rol
  * @property {int} idEquipoTrabajo - Identificador del equipo de trabajo
  */
