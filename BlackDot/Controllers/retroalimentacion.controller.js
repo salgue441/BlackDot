@@ -88,7 +88,10 @@ exports.getCurretRetroalimentacion = async (req, res) => {
     console.log(countValues(simplifiedQuantitative[0].respuestas))
 
     res.render(
-      path.join(__dirname, "../Views/Static/actual/verRetroalimentacion.ejs")
+      path.join(__dirname, "../Views/Static/actual/verRetroalimentacion.ejs"),
+      {
+        simplifiedQuantitative: simplifiedQuantitative,
+      }
     )
   } catch (error) {
     res.status(500).json({
