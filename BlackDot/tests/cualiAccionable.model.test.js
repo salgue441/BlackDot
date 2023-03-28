@@ -8,34 +8,34 @@
  * @copyright Copyright (c) 2023 - MIT License
  **/
 
-const CualiAccionable = require("../Models/cuali-accionable.model")
+const CualitativaAccionable = require("../Models/cuali-accionable.model");
 
 /**
  * @brief
- * Test para CualiAccionable
+ * Test para CualitativaAccionable
  **/
 
-describe("CualiAccionable", () => {
+describe("CualitativaAccionable", () => {
     beforeEach(() => {
-        jest.resetModules()
-    })
+        jest.resetModules();
+    });
 
     describe("Constructor", () => {
         /**
          * @brief
-         * Test para el constructor de CualiAccionable
+         * Test para el constructor de CualitativaAccionable
          * @param {int} idCualitativa - ID de Cualitativa
          * @param {int} idAccionable - ID de Accionable
          **/
 
-        test("Debe crear una instancia de CualiAccionable", () => {
-            const cualiAccionable = new CualiAccionable({
+        test("Debe crear una instancia de CualitativaAccionable", () => {
+            const cualitativaAccionable = new CualitativaAccionable({
                 idCualitativa: 1,
                 idAccionable: 1,
-            })
-            expect(cualiAccionable).toBeInstanceOf(CualiAccionable)
-        })
-    })
+            });
+            expect(cualitativaAccionable).toBeInstanceOf(CualitativaAccionable);
+        });
+    });
 
     /**
      * @brief
@@ -45,10 +45,10 @@ describe("CualiAccionable", () => {
 
     describe("getByIDC", () => {
         test("Debe devolver un arreglo de respuestas cualitativas", async () => {
-            const cualitativas = await CualiAccionable.getByIdC(1)
-            expect(cualitativas).toBeInstanceOf(CualiAccionable)
-        })
-    })
+            const cualitativas = await CualitativaAccionable.getByIdC(1);
+            expect(cualitativas).toBeInstanceOf(CualitativaAccionable);
+        });
+    });
 
     /**
      * @brief
@@ -58,8 +58,21 @@ describe("CualiAccionable", () => {
 
     describe("getByIDA", () => {
         test("Debe devolver un arreglo de accionables", async () => {
-            const accionable = await CualiAccionable.getByIDA(1)
-            expect(accionable).toBeInstanceOf(CualiAccionable)
-        }) 
-    })
-})
+            const accionable = await CualitativaAccionable.getByIDA(1);
+            expect(accionable).toBeInstanceOf(CualitativaAccionable);
+        });
+    });
+
+    /**
+     * @brief
+     * Test para el método de getAll de CualitativaAccionable
+     **/
+
+    describe("getAll", () => {
+        test("Debe devolver un arreglo de cualitativaAccionable", async () => {
+            const cualitativaAccionable = await CualitativaAccionable.getAll();
+            expect(cualitativaAccionable).toBeInstanceOf(Array);
+            expect(cualitativaAccionable[0]).toBeInstanceOf(CualitativaAccionable);
+        });
+    });
+});
