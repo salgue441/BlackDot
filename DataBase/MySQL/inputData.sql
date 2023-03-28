@@ -567,3 +567,33 @@ values
     ('Datos de Envío', 3, 'Back', 'Alta', 'Aprobado', 'To Do', '2023-01-11 21:46:19', '2023-01-13 15:31:50'),
     ('Traducción a Portugués', 2, 'Front', 'Media-Baja', 'No aprobado', 'To Do', '2023-03-01 04:12:22', '2023-03-12 08:36:20'),
     ('Nuevos anuncios', 5, 'Front', 'Media', 'Aprobado', 'In progress', '2023-03-05 09:03:54', '2023-03-08 05:17:25');
+
+-- Insertando datos en la relación de CualitativaAccionable
+INSERT INTO CualitativaAccionable
+    (idCualitativa, idAccionable)
+VALUES
+    (1, 1),
+    (2, 2),
+    (3, 3),
+    (4, 4),
+    (5, 5),
+    (6, 1),
+    (7, 2),
+    (8, 3),
+    (9, 4),
+    (10, 5),
+    (11, 1),
+    (12, 2),
+    (13, 3),
+    (14, 4),
+    (15, 5),
+    (16, 1),
+    (17, 2),
+    (18, 3),
+    (19, 4),
+    (20, 5),
+    (21, 1),
+    (22, 2),
+    (23, 3),
+    (24, 4),
+    (25, 5);
