@@ -29,7 +29,7 @@ beforeEach(() => {
  * Prueba unitaria para el método getByIDE
  * @param {int} idEpica - ID de la Epica
  */
-describe("getByIDE", () => {
+describe("getByID", () => {
     test("Debe devolver una epica", async () => {
     const epica = await sprintEpica.getByIDE(1)
 
@@ -46,7 +46,7 @@ describe("getByIDE", () => {
  * Prueba unitaria para el método getByIDS
  * @param {int} idSprint - ID de la Sprint
  */
- describe("getByIDS", () => {
+ describe("getByID", () => {
     test("Debe devolver un sprint", async () => {
     const sprint = await sprintEpica.getByIDS(1)
 
