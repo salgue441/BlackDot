@@ -19,6 +19,7 @@ const path = require("path")
 const Epica = require("../models/Epica.model")
 const Issue = require("../models/issue.model")
 const Sprint = require("../models/sprint.model")
+const SprintIssue = require("../models/sprint-issue.model")
 
 /**
  * @brief
@@ -32,8 +33,53 @@ exports.getAllEpicas = async (req, res) => {
   try {
     const epicas = await Epica.getAll()
     const issues = await Issue.getAll()
+    const sprints = await Sprint.getAll()
+    const sprintIssues = await SprintIssue.getAll()
 
-    console.log(issues)
+    // Relating sprints and issues
+    const sprintIssuesMap = {}
+
+    sprintIssues.forEach((sprintIssue) => {
+      const sprintID = sprintIssue.idSprint
+      const issueID = sprintIssue.idIssue
+
+      if (!sprintIssuesMap[sprintID]) {
+        sprintIssuesMap[sprintID] = []
+      }
+
+      sprintIssuesMap[sprintID].push(issueID)
+    })
+
+    sprints.forEach((sprint) => {
+      const sprintID = sprint.idSprint
+      const sprintIssues = sprintIssuesMap[sprintID] || []
+
+      sprint.issues = issues.filter((issue) =>
+        sprintIssues.includes(issue.idIssue)
+      )
+    })
+
+    // Relating the Epicas and their sprints
+    const epicasSprintsMap = {}
+
+    sprints.forEach((sprint) => {
+      const epicaID = sprint.idEpica
+
+      if (!epicasSprintsMap[epicaID]) {
+        epicasSprintsMap[epicaID] = []
+      }
+
+      epicasSprintsMap[epicaID].push(sprint)
+    })
+
+    epicas.forEach((epica) => {
+      const epicaID = epica.idEpica
+      const epicaSprints = epicasSprintsMap[epicaID] || []
+
+      epica.sprints = epicaSprints
+    })
+
+    console.dir(sprints)
 
     res.render(
       path.join(__dirname, "../Views/Static/historico/verMetricasEpicas.ejs"),
@@ -61,8 +107,52 @@ exports.getAllEpicasAPI = async (req, res) => {
     const epicas = await Epica.getAll()
     const issues = await Issue.getAll()
     const sprints = await Sprint.getAll()
+    const sprintIssues = await SprintIssue.getAll()
 
-    res.json({ epicas: epicas, issues: issues, sprints: sprints })
+    // Relating sprints and issues
+    const sprintIssuesMap = {}
+
+    sprintIssues.forEach((sprintIssue) => {
+      const sprintID = sprintIssue.idSprint
+      const issueID = sprintIssue.idIssue
+
+      if (!sprintIssuesMap[sprintID]) {
+        sprintIssuesMap[sprintID] = []
+      }
+
+      sprintIssuesMap[sprintID].push(issueID)
+    })
+
+    sprints.forEach((sprint) => {
+      const sprintID = sprint.idSprint
+      const sprintIssues = sprintIssuesMap[sprintID] || []
+
+      sprint.issues = issues.filter((issue) =>
+        sprintIssues.includes(issue.idIssue)
+      )
+    })
+
+    // Relating the Epicas and their sprints
+    const epicasSprintsMap = {}
+
+    sprints.forEach((sprint) => {
+      const epicaID = sprint.idEpica
+
+      if (!epicasSprintsMap[epicaID]) {
+        epicasSprintsMap[epicaID] = []
+      }
+
+      epicasSprintsMap[epicaID].push(sprint)
+    })
+
+    epicas.forEach((epica) => {
+      const epicaID = epica.idEpica
+      const epicaSprints = epicasSprintsMap[epicaID] || []
+
+      epica.sprints = epicaSprints
+    })
+
+    res.json({ epicas: epicas })
   } catch (error) {
     res.status(500).json({
       message: error.message || "Error al obtener metricas epicas",
