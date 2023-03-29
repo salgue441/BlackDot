@@ -9,6 +9,6 @@ const express = require("express")
 const router = express.Router()
 
 const tareaSprint = require("../Controllers/tareasSprint.controller")
-router.get("/", tareaSprint.getAllSprint)
+router.get("/home", tareaSprint.getAllSprint)
 
 module.exports = router
