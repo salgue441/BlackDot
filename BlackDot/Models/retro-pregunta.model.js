@@ -23,8 +23,8 @@ class retroPregunta {
    * @param {boolean} required - If the pregunta is required
    */
   constructor(retroPregunta) {
-    this.idRetroalimentacion = retroPregunta.idRetroalimentacion
-    this.idPregunta = retroPregunta.idPregunta
+    this.idRetroalimentacion = retroPregunta.idRetroalimentacion || null
+    this.idPregunta = retroPregunta.idPregunta || null
     this.required = retroPregunta.required
   }
 
@@ -75,12 +75,43 @@ class retroPregunta {
         from retroalimentacion
         join retroalimentacionpregunta on retroalimentacion.idRetroalimentacion = retroalimentacionpregunta.idPregunta
         join pregunta on retroalimentacionpregunta.idPregunta = pregunta.idPregunta
-        left join cualitativa on retroalimentacionpregunta.idPregunta = cualitativa.idPregunta
+        join cualitativa on retroalimentacionpregunta.idPregunta = cualitativa.idPregunta
         and retroalimentacionpregunta.idRetroalimentacion = cualitativa.idRetroalimentacion 
         where pregunta.tipoPregunta = 'Cualitativa';
 `
 
       const [qualitatives, _] = await dataBase.query(query)
+      return qualitatives
+    } catch (error) {
+      throw new Error(error)
+    }
+  }
+
+  /**
+   * @brief
+   * Gets the cualitative answers from the database
+   * @param {int} idRetroalimentacion - ID of the retroalimentacion
+   * @throw {Error} If the query fails
+   * @return {Array} retroPreguntas entities
+   */
+  static async getQualitativeAnswersByID(idRetroalimentacion) {
+    try {
+      const query = `
+        select 
+          pregunta.contenido as Pregunta, 
+          cualitativa.contenido
+        from retroalimentacion
+        join retroalimentacionpregunta on retroalimentacion.idRetroalimentacion = retroalimentacionpregunta.idPregunta
+        join pregunta on retroalimentacionpregunta.idPregunta = pregunta.idPregunta
+        join cualitativa on retroalimentacionpregunta.idPregunta = cualitativa.idPregunta
+        and retroalimentacionpregunta.idRetroalimentacion = cualitativa.idRetroalimentacion 
+        where pregunta.tipoPregunta = 'Cualitativa
+        and retroalimentacion.idRetroalimentacion = ?';
+`
+
+      const [qualitatives, _] = await dataBase.query(query, [
+        idRetroalimentacion,
+      ])
       return qualitatives
     } catch (error) {
       throw new Error(error)
@@ -105,10 +136,43 @@ class retroPregunta {
         from retroalimentacion 
         join retroalimentacionpregunta on retroalimentacion.idRetroalimentacion = retroalimentacionpregunta.idRetroalimentacion 
         join pregunta on retroalimentacionpregunta.idPregunta = pregunta.idPregunta 
-        left join cuantitativa on retroalimentacionpregunta.idPregunta = cuantitativa.idPregunta and retroalimentacion.idRetroalimentacion = cuantitativa.idRetroalimentacion 
+        join cuantitativa on retroalimentacionpregunta.idPregunta = cuantitativa.idPregunta and retroalimentacion.idRetroalimentacion = cuantitativa.idRetroalimentacion 
         where pregunta.tipoPregunta = 'Cuantitativa';`
 
       const [quantitatives, _] = await dataBase.query(query)
+
+      return quantitatives
+    } catch (error) {
+      throw new Error(error)
+    }
+  }
+
+  /**
+   * @brief
+   * Gets the quantitative answers from the database
+   * @param {int} idRetroalimentacion - ID of the retroalimentacion
+   * @throw {Error} If the query fails
+   * @return {Array} retroPreguntas entities
+   */
+  static async getQuantitativeAnswerByID(idRetroalimentacion) {
+    try {
+      const query = `
+        select 
+          retroalimentacion.idRetroalimentacion, 
+          pregunta.idPregunta, 
+          pregunta.contenido AS Pregunta, 
+          cuantitativa.idPregunta, 
+          cuantitativa.contenido 
+        from retroalimentacion 
+        join retroalimentacionpregunta on retroalimentacion.idRetroalimentacion = retroalimentacionpregunta.idRetroalimentacion 
+        join pregunta on retroalimentacionpregunta.idPregunta = pregunta.idPregunta 
+        join cuantitativa on retroalimentacionpregunta.idPregunta = cuantitativa.idPregunta and retroalimentacion.idRetroalimentacion = cuantitativa.idRetroalimentacion 
+        where pregunta.tipoPregunta = 'Cuantitativa' 
+        and retroalimentacion.idRetroalimentacion = ?;`
+
+      const [quantitatives, _] = await dataBase.query(query, [
+        idRetroalimentacion,
+      ])
 
       return quantitatives
     } catch (error) {

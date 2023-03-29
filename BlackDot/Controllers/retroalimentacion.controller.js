@@ -76,7 +76,7 @@ function countDuplicates(data) {
 exports.getCurretRetroalimentacion = async (req, res) => {
   try {
     // Quantitative answers
-    const quantitative = await retroPregunta.getQuantitativeAnswers()
+    const quantitative = await retroPregunta.getQuantitativeAnswerByID(1)
     const simplifiedQuantitative = simplifyAnswers(quantitative)
 
     for (const question of simplifiedQuantitative) {
@@ -86,7 +86,7 @@ exports.getCurretRetroalimentacion = async (req, res) => {
     res.render(
       path.join(__dirname, "../Views/Static/actual/verRetroalimentacion.ejs"),
       {
-        idRetroalimentacion: quantitative[0].idRetroalimentacion,
+        idRetroalimentacion: "",
         simplifiedQuantitative: simplifiedQuantitative,
       }
     )
@@ -114,6 +114,8 @@ exports.getCurretRetroalimentacionAPI = async (req, res) => {
     for (const question of simplifiedQuantitative) {
       question.respuestas = countDuplicates(question.respuestas)
     }
+
+    console.log(simplifiedQuantitative)
 
     res.json({
       idRetroalimentacion: req.params.idRetroalimentacion,
