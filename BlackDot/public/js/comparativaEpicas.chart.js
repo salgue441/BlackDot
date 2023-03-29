@@ -96,8 +96,6 @@ const createBarChart = (canvas, data, labels) => {
     }, 0)
 
     allStoryPoints.push(epicStoryPoints)
-
-    // Fill the epicasNames with the names of the epicas
     epicasNames.push(set.nombreEpica)
 
     console.log()
