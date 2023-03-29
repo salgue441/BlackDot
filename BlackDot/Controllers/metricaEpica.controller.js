@@ -1,6 +1,6 @@
 /**
  * @file retroalimentacion.controller.js
- * @brief Controller for retroalimentacion mdodel.
+ * @brief Controller for retroalimentacion mdodel (historic).
  * @author Carlos Salguero
  * @author Diego Sandoval
  * @author Yuna Chung
