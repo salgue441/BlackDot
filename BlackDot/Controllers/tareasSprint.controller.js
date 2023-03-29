@@ -12,15 +12,16 @@ const issue = require("../Models/issue.model");
 const Sprint = require("../Models/sprint.model");
 const sprintIssue = require("../Models/sprint-issue.model");
 const { request } = require("express");
-const Epica = require("../models/epica.model");
 
-// exports.getAllSprint = async(req, res) => 
-// {
-//     try{
-//         await Sprint.getAll().then((sprint) => {
-//             res.render(
-//                 path.join(_dirname, "../Views/Static/")
-//             )
-//         }
-//     }
-// }
+
+ exports.getAllSprint = async(req, res) => 
+ {
+
+     try{
+         await Sprint.getAll().then((sprint) => {
+             res.render(
+                 path.join(_dirname, "../Views/Static/")
+             )
+         }
+     }
+}
