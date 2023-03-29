@@ -96,7 +96,7 @@ module.exports = class Privilegio {
 
     /**
      * @brief
-     * Verifica si una pregunta existe en la base de datos.
+     * Verifica si una privilegio existe en la base de datos.
      * @returns {Promise<boolean>} - True si existe, false si no
      * @throws {Error} - Si no se envia el nombrePrivilegio
      * @throws {Error} - Si nombrePrivilegio es muy largo
@@ -113,8 +113,8 @@ module.exports = class Privilegio {
         throw new Error("El nombrePrivilegio es muy largo");
 
         const [privilegio] = await dataBase.query(
-        "select * from Privilegio where nombrePrivilegio = ? and descripcionPrivilegio = ?",
-        [this.nombrePrivilegio, this.descripcionPrivilegio]
+            "select * from Privilegio where nombrePrivilegio = ? and descripcionPrivilegio = ?",
+            [this.nombrePrivilegio, this.descripcionPrivilegio]
         );
 
         return Boolean(privilegio);
