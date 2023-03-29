@@ -8,7 +8,7 @@
       <!-- Epica number & Generar reporte -->
       <div class="columns">
         <div class="column is-half is-flex">
-          <h1 class="title is-1">Epica #</h1>
+          <h1 class="title is-1">Comparativa de Epicas</h1>
         </div>
 
         <div class="column is-half is-flex is-justify-content-end">
@@ -18,17 +18,73 @@
             </a>
           </div>
         </div>
-        <!-- End of Title & Button -->
       </div>
+      <!-- End of Title & Button -->
 
       <!-- Graph -->
-      <div class="container">
-        <div class="box has-background-grey-lighter has-text-centered">
-          <h1 class="title"><%- preguntas %></h1>
-          <p class="subtitle">Grafica</p>
+      <% if (epicas.length > 0) { %>
+
+      <div class="columns">
+        <div class="column is-9">
+          <div class="container">
+            <div
+              class="box has-background-white has-text-centered"
+              style="width: 100%"
+            >
+              <p class="subtitle is-4">Comparativa de Epicas</p>
+              <canvas id="EpicaComparison"></canvas>
+            </div>
+          </div>
+        </div>
+
+        <div class="column is-3">
+          <div class="container">
+            <div
+              class="box has-background-white has-text-centered"
+              style="width: 100%"
+            >
+              <p class="subtitle is-4">Epicas Disponibles</p>
+
+              <div>
+                <!-- Normal behaviour -->
+                <ul>
+                  <!-- Create 3 columns -->
+                  <% for (var i = 0; i < epicas.length; i++) { %>
+                  <li>
+                    <!-- First column -->
+                    <div class="columns">
+                      <div class="column is-1">
+                        <input
+                          type="checkbox"
+                          name="epica"
+                          value="<%= epicas[i].idEpica %>"
+                        />
+                      </div>
+
+                      <div class="column is-10 has-text-left">
+                        <p><%= epicas[i].nombreEpica %></p>
+                      </div>
+                    </div>
+                  </li>
+                  <% } %>
+                </ul>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
+      <% } else { %>
+      <div class="container">
+        <div class="box has-background-white has-text-centered">
+          <p class="subtitle is-4">No hay epicas disponibles</p>
+        </div>
+      </div>
+      <% } %>
       <!-- End of Graph -->
     </div>
   </section>
+
+  <script src="/js/comparativaEpicas.chart.js"></script>
 </body>
+
+<!-- Added functionality -->
