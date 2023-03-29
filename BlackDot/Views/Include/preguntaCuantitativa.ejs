@@ -1,23 +1,29 @@
 <div class="wrap mt-5 is-fixed-top">
   <ul class="likert">
     <li>
-      <input type="radio" name="likert + <%= name %>" value="1" required />
+      <input
+        type="radio"
+        class="likert"
+        name="<%= name %>"
+        value="1"
+        required
+      />
       <label>Desacuerdo</label>
     </li>
     <li>
-      <input type="radio" name="likert + <%= name %>" value="2" />
+      <input type="radio" class="likert" name="<%= name %>" value="2" />
       <label></label>
     </li>
     <li>
-      <input type="radio" name="likert + <%= name %>" value="3" />
+      <input type="radio" class="likert" name="<%= name %>" value="3" />
       <label>Neutral</label>
     </li>
     <li>
-      <input type="radio" name="likert + <%= name %>" value="4" />
+      <input type="radio" class="likert" name="<%= name %>" value="4" />
       <label></label>
     </li>
     <li>
-      <input type="radio" name="likert + <%= name %>" value="5" />
+      <input type="radio" class="likert" name="<%= name %>" value="5" />
       <label>De acuerdo</label>
     </li>
   </ul>

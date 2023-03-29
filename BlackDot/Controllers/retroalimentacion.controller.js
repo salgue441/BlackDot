@@ -22,7 +22,7 @@ const express = require("express");
 
 const path = require("path");
 
-bodyparser.urlencoded({ extended: false });
+bodyparser.urlencoded({ extended: true });
 
 /**
  * @brief
@@ -88,17 +88,8 @@ exports.getRegistrarRespuestas = async (req, res) => {
  * */
 
 exports.postRegistrarRespuestas = async (req, res) => {
-  const { respuestas } = req.body;
-  console.log(respuestas);
-
-  // respuestas.forEach((respuesta) => {
-  //   if (typeof respuesta.contenido === "string") {
-  //     //respuesta.Cualitativa.save();
-  //     console.log("string");
-  //   } else {
-  //     console.log(respuesta);
-  //     //respuesta.Cuantitativa.save();
-  //   }
-  // });
-  res.redirected("/actual/retroalimentacion");
+  console.log(req.body);
+  res.render(
+    path.join(__dirname, "../Views/Static/actual/verRetroalimentacion.ejs")
+  );
 };
