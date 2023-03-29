@@ -12,7 +12,7 @@ const Empleado = require("../Models/empleado.model");
 
 /**
  * @brief
- * Test para Empleado
+ * Test for Empleado
  **/
 
 describe("Empleado", () => {
@@ -23,16 +23,16 @@ describe("Empleado", () => {
     describe("Constructor", () => {
         /**
          * @brief
-         * Test para el constructor del Empleado
-         * @param {int} idEmpleado - Identificador del empleado
-         * @param {varchar} primerNombre - Contenido del primer nombre
-         * @param {varchar} segundoNombre - Contenido del segundo nombre
-         * @param {varchar} apellidoPaterno - Contenido del apellido paterno
-         * @param {varchar} apellidoMaterno - Contenido del apellido materno
+         * Test for the constructor of Empleado
+         * @param {int} idEmpleado - Identifier of Empleado
+         * @param {varchar} primerNombre - Content of first name
+         * @param {varchar} segundoNombre - Content of second name
+         * @param {varchar} apellidoPaterno - Content of father's last name
+         * @param {varchar} apellidoMaterno - Content of mother's last name
          * @param {binary} idGoogleAuth - Identificador de la autenticación de Google
-         * @param {varchar} googleEmail - Correo electrónico de Google
-         * @param {int} idRol - Identificador de Rol
-         * @param {int} idEquipoTrabajo - Identificdor del Equipo de Trabajo
+         * @param {varchar} googleEmail - e-mail of Google
+         * @param {int} idRol - Identifier of Rol
+         * @param {int} idEquipoTrabajo - Identifier of Equipo de Trabajo
          **/
 
         test("Debe crear una instancia de Empleado", () => {
@@ -53,8 +53,8 @@ describe("Empleado", () => {
     describe("getByID", () => {
         /**
          * @brief
-         * Test para el método getByID del Empleado
-         * @param {int} idEmpleado - ID del Empleado
+         * Test for the getByID method of Empleado
+         * @param {int} idEmpleado - ID of Empleado
          **/
 
         test("Debe obtener un Empleado por su ID", async () => {
@@ -66,7 +66,7 @@ describe("Empleado", () => {
     describe("getAll", () => {
         /**
          * @brief
-         * Test para el método getAll del Empleado
+         * Test for the getAll method of Empleado
          **/
 
         test("Debe obtener todos los Empleados", async () => {
@@ -78,7 +78,7 @@ describe("Empleado", () => {
     describe("save", () => {
         /**
          * @brief
-         * Test para el método save del Empleado
+         * Test for the save method of Empleado
          **/
 
         test("Debe guardar un Empleado", async () => {
@@ -97,10 +97,32 @@ describe("Empleado", () => {
         })
     })
 
+    describe("verify", () => {
+        /**
+         * @brief
+         * Test for the verify method of Empleado
+         **/
+
+        test("Debe verificar si existe un Empleado", async () => {
+            const empleado = new Empleado({
+                primerNombre: "Carlos",
+                segundoNombre: "Rodrigo",
+                apellidoMaterno: "Salguero",
+                apellidoMaterno: "Alcántara",
+                googleEmail: "DEF5678@zeb.mx",
+                idRol: 2,
+                idEquipoTrabajo: 1,
+            });
+
+            await empleado.verify();
+            expect(empleado.idEmpleado).toBe(true);
+        });
+    })
+
     describe("delete", () => {
         /**
          * @brief
-         * Test para el método delete del Empleado
+         * Test for the delete method of Empleado
          **/
 
         test("Debe boarrar un Empleado", async () => {
