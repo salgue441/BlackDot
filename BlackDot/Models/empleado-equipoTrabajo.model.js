@@ -50,7 +50,7 @@ module.exports = class EmpleadoEquipoTrabajo {
         if (!idEmpleado) throw new Error("No se ha proporcionado un ID de empleado")
 
         const [empleado] = await dataBase.query(
-            "select * from EmpleadoEquipoTrabajo where idRol = ?",
+            "select * from EmpleadoEquipoTrabajo where idEmpleado = ?",
             [idEmpleado]
         )
 
@@ -60,7 +60,7 @@ module.exports = class EmpleadoEquipoTrabajo {
     /**
      * @brief
      * Obtiene todos los EmpleadoEquipoTrabajo.
-     * @returns {Promise<EmpleadoEquipoTRabajo[]>} - Arreglo de objetos de tipo EmpleadoEquipoTrabajo
+     * @returns {Promise<EmpleadoEquipoTrabajo[]>} - Arreglo de objetos de tipo EmpleadoEquipoTrabajo
      */
     static async getAll() {
         const empleadoequipotrabajo = await dataBase.query("select * from EmpleadoEquipoTrabajo")
