@@ -1,4 +1,4 @@
-const dataBase = require("../Utils/dataBase")
+const dataBase = require("../Utils/dataBase");
 
 /**
  * @class Retroalimentacion
@@ -13,11 +13,11 @@ module.exports = class Retroalimentacion {
    * Constructor de la clase Retroalimentacion
    */
   constructor(retro) {
-    this.id = retro.id
-    this.FechaCreacion = retro.FechaCreacion
-    this.FechaFinalizacion = retro.FechaFinalizacion
-    this.idSprint = retro.idSprint
-    this.idReporte = retro.idReporte
+    this.id = retro.id;
+    this.FechaCreacion = retro.FechaCreacion;
+    this.FechaFinalizacion = retro.FechaFinalizacion;
+    this.idSprint = retro.idSprint;
+    this.idReporte = retro.idReporte;
   }
 
   /**
@@ -25,17 +25,17 @@ module.exports = class Retroalimentacion {
    * Funcion que obtiene una retroalimentacion por su id
    */
   static async getbyID(id) {
-    if (!id) throw new Error("No se envio el id")
+    if (!id) throw new Error("No se envio el id");
 
     const retro = await dataBase.query(
       "select * from retroalimentacion where id = ?",
       [id]
-    )
+    );
 
     if (retro.length == 0)
-      throw new Error("No se encontro la retroalimentacion")
+      throw new Error("No se encontro la retroalimentacion");
 
-    return new Retroalimentacion(retro[0])
+    return new Retroalimentacion(retro[0]);
   }
 
   /**
@@ -44,8 +44,8 @@ module.exports = class Retroalimentacion {
    * @returns {Retroalimentacion[]} - Arreglo de objetos de tipo retroalimentacion
    * */
   static async getAll() {
-    const retros = await dataBase.query("select * from retroalimentacion")
-    return retros.map((retro) => new Retroalimentacion(retro))
+    const retros = await dataBase.query("select * from retroalimentacion");
+    return retros.map((retro) => new Retroalimentacion(retro));
   }
 
   /**
@@ -62,6 +62,17 @@ module.exports = class Retroalimentacion {
         this.idSprint,
         this.idReporte,
       ]
-    )
+    );
   }
-}
+
+  static async getRetroActual() {
+    const fechaActual = new Date().toISOString().split("T")[0];
+
+    const retro = await dataBase.query(
+      "select * from retroalimentacion where FechaCreacion <= ? and FechaFinalizacion >= ?",
+      [fechaActual, fechaActual]
+    );
+
+    return new Retroalimentacion(retro);
+  }
+};

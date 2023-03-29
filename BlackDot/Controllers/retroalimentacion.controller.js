@@ -88,7 +88,17 @@ exports.getRegistrarRespuestas = async (req, res) => {
  * */
 
 exports.postRegistrarRespuestas = async (req, res) => {
-  console.log(req.body);
+  const respuestas = req.body;
+  console.log(respuestas);
+
+  // for (respuesta in respuestas) {
+  //   if (respuestas[respuesta].length > 1) {
+  //     console.log("cualitativa");
+  //   } else {
+  //     console.log("cuantitativa");
+  //   }
+  // }
+
   res.render(
     path.join(__dirname, "../Views/Static/actual/verRetroalimentacion.ejs")
   );
