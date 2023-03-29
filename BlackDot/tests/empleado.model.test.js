@@ -30,21 +30,21 @@ describe("Empleado", () => {
          * @param {varchar} apellidoPaterno - Content of father's last name
          * @param {varchar} apellidoMaterno - Content of mother's last name
          * @param {binary} idGoogleAuth - Identificador de la autenticación de Google
-         * @param {varchar} googleEmail - e-mail of Google
-         * @param {int} idRol - Identifier of Rol
-         * @param {int} idEquipoTrabajo - Identifier of Equipo de Trabajo
+         * @param {varchar} googleEmail - E-mail of Google
+         * @param {varchar} googleProfilePicture - Profile picture of Google
          **/
 
         test("Debe crear una instancia de Empleado", () => {
+        const bin = 0xdba6a8c07b84449894cc524f047b42e2; 
+
             const empleado = new Empleado({
                 primerNombre: "Diego",
                 segundoNombre: "Ernesto",
-                apellidoMaterno: "Sandoval",
+                apellidoPaterno: "Sandoval",
                 apellidoMaterno: "Vargas",
-                idGoogleAuth: 0xdba6a8c07b84449894cc524f047b42e1,
+                idGoogleAuth: bin.toString(2),
                 googleEmail: "ABC1234@zeb.mx",
-                idRol: 1,
-                idEquipoTrabajo: 1,
+                googleProfilePicture: "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80",
             });
 
             expect(empleado).toBeInstanceOf(Empleado);
@@ -89,8 +89,7 @@ describe("Empleado", () => {
                     apellidoMaterno: "Alcántara",
                     idGoogleAuth: 0xdba6a8c07b84449894cc524f047b42e1,
                     googleEmail: "DEF5678@zeb.mx",
-                    idRol: 2,
-                    idEquipoTrabajo: 1,
+                    googleProfilePicture: "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80",
                 });
 
                 await empleado.save();
@@ -112,8 +111,7 @@ describe("Empleado", () => {
                     apellidoMaterno: "Alcántara",
                     idGoogleAuth: 0xdba6a8c07b84449894cc524f047b42e1,
                     googleEmail: "DEF5678@zeb.mx",
-                    idRol: 2,
-                    idEquipoTrabajo: 1,
+                    googleProfilePicture: "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80",
                 });
 
                 await empleado.save();
@@ -138,8 +136,7 @@ describe("Empleado", () => {
                     apellidoMaterno: "Alcántara",
                     idGoogleAuth: 0xdba6a8c07b84449894cc524f047b42e1,
                     googleEmail: "DEF5678@zeb.mx",
-                    idRol: 2,
-                    idEquipoTrabajo: 1,
+                    googleProfilePicture: "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80",
                 })
 
                 await empleado.save();
