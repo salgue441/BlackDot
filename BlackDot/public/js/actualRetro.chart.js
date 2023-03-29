@@ -131,10 +131,4 @@ const createBarChart = (canvas, labels, data) => {
 
     createBarChart(canvas, labels, data)
   })
-
-  /*   const labels = data.map((item) => item.pregunta)
-  const answers = data.map((item) => item.respuesta)
-
-  const canvas = document.getElementById("myChart")
-  createBarChart(canvas, labels, answers) */
 })()
