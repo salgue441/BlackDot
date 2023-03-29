@@ -95,7 +95,7 @@ describe("EquipoTrabajo", () => {
          */
         describe("deleteByID", () => {
             test("Debe eliminar un equipoTrabajo", async () => {
-                const privi = new EquipoTrabajo({
+                const equiTraba = new EquipoTrabajo({
                     idEquipoTrabajo: 111                
             })
     
