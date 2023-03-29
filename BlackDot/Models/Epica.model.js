@@ -47,9 +47,9 @@ module.exports = class Epica {
    * @brief Obtiene las epicas
    * @returns {Promise<epica[]>} Arreglo de objetos epica
    */
-
   static async getAll() {
-    const epicas = await dataBase.query("select * from epica")
-    return epicas.map((epica) => new Epica(epica))
+    const [epicas, _] = await dataBase.query("select * from epica")
+
+    return epicas
   }
 }
