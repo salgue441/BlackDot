@@ -66,14 +66,14 @@
               <div class="card custom-card">
                 <div class="card-content">
                   <div class="content">
-                    <h1 class="title is-4">
+                    <h1 class="title is-4 has-text-left">
                       <%= simplifiedQualitative[i].Pregunta %>
                     </h1>
 
                     <!-- Showing the ansews with a slider -->
                     <% for (let j = 0; j <
                     simplifiedQualitative[i].respuestas.length; j++) { %>
-                    <p class="respuestas">
+                    <p class="has-text-left">
                       <%= simplifiedQualitative[i].respuestas[j].trim() %>
                     </p>
                     <% } %>
@@ -110,9 +110,5 @@
 
   .graph-canvas {
     width: 100%;
-  }
-
-  .respuestas {
-    text-align: left;
   }
 </style>
