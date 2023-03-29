@@ -2,6 +2,7 @@
  * @file empleado.model.js
  * @brief Modelo de la tabla de empleados
  * @author Iván Paredes
+ * @author Yuna Chung
  * @version 1.0
  * @date 2023-03-23
  *
@@ -73,7 +74,7 @@ module.exports = class Empleado {
      * @returns {Promise<Empleado>} - Query del empleado guardado
      */
     async save() {
-        const query = `insert into Empleado(primerNombre, segundoNombre, apellidoPaterno, apellidoMaterno, 
+        const query = `insert into empleado(primerNombre, segundoNombre, apellidoPaterno, apellidoMaterno, 
             idGoogleAuth, googleEmail, googleProfilePicture) values (?, ?, ?, ?, ?, ?, ?)`
 
         const [result] = await dataBase.execute(query, [
@@ -86,7 +87,7 @@ module.exports = class Empleado {
             this.googleProfilePicture,
         ])
 
-        //this.idEmpleado = result.insertId
+        this.idEmpleado = result.insertId
     }
 
     /**
