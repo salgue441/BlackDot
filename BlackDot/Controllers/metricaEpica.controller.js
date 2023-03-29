@@ -1,6 +1,6 @@
 /**
  * @file retroalimentacion.controller.js
- * @brief Controlador de retroalimentación
+ * @brief Controller for retroalimentacion mdodel.
  * @author Carlos Salguero
  * @author Diego Sandoval
  * @author Yuna Chung
@@ -13,7 +13,7 @@
  * @copyright Copyright (c) 2023 - MIT License
  */
 
-const Epica = require("../models/epica.model")
+const path = require("path")
 
 /**
  * @brief
@@ -25,11 +25,9 @@ const Epica = require("../models/epica.model")
  */
 exports.getAllEpicas = async (req, res) => {
   try {
-    await Epica.getAll().then((epicas) => {
-      res.render(
-        path.join(__dirname, "../Views/Static/historico/verMetricasEpicas.ejs")
-      )
-    })
+    res.render(
+      path.join(__dirname, "../Views/Static/historico/verMetricasEpicas.ejs")
+    )
   } catch (error) {
     res.status(500).json({
       message: error.message || "Error al obtener metricas epicas",
