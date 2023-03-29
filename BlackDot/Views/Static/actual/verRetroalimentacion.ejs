@@ -63,8 +63,28 @@
 
         <!-- Answers Qualitative -->
         <div class="columns">
-          <div class="column is-half"></div>
-        </div>
+          <div class="column is-half">
+            <% for (let i = 0; i < simplifiedQualitative.length; i++) { %>
+            <div class="columns">
+              <div class="column is-flex">
+                <div class="card custom-card">
+                  <div class="card-content">
+                    <div class="content">
+                      <h1 class="title is-4">
+                        <%= simplifiedQualitative[i].Pregunta %>
+                      </h1>
+
+                      <canvas
+                        class="has-background-white graph-canvas"
+                        id="graph-<%= simplifiedQualitative[i].idPregunta %>"
+                      ></canvas>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <% } %>
+          </div>
         <!-- End of Answers -->
       </div>
     </section>
