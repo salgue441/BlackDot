@@ -9,78 +9,88 @@
         <!-- Sprint title & Button -->
         <div class="columns">
           <div class="column is-half is-flex">
-            <h1 class="title is-1">Sprint #1</h1>
+            <h1 class="title is-1">
+              Retroalimentacion #<%= idRetroalimentacion %>
+
+              <div>
+                <small class="subtitle is-5 is-flex is-justify-content-start">
+                  2023-03-28
+                </small>
+              </div>
+            </h1>
           </div>
 
           <div class="column is-half is-flex is-justify-content-end">
-            <div class="dropdown is-active">
-              <button
-                class="button is-danger"
-                aria-haspopup="true"
-                aria-controls="dropdown-menu"
+            <div class="is-grouped is-grouped-centered">
+              <a
+                class="button is-danger reporte-button"
+                href="/static/actual/verRetroalimentacion"
               >
-                <span>Seleccionar Sprint</span>
-                <span class="icon is-small">
-                  <img
-                    src="../../../assets/Dropdown.png"
-                    alt="Dropdown"
-                    style="width: 10px; height: 10px; margin-left: 5px"
-                  />
-                </span>
-              </button>
-
-              <div class="is-grouped is-grouped-centered">
-                <a
-                  class="button is-danger reporte-button"
-                  href="/static/actual/verRetroalimentacion"
-                >
-                  Generar Reporte
-                </a>
-              </div>
+                Generar Reporte
+              </a>
             </div>
           </div>
         </div>
 
         <br />
 
-        <!-- Answers -->
-        <!-- Grpahs -->
+        <!-- Showing the answers from retroalimentacion -->
         <div class="columns">
+          <!-- Quantitative Answers -->
           <div class="column is-half">
-            <div class="box">
-              <h3 class="title is-3">Graph 1</h3>
-              <div id="graph1"></div>
-            </div>
-          </div>
+            <% for (let i = 0; i < simplifiedQuantitative.length; i++) { %>
+            <div class="is-flex">
+              <div class="card custom-card">
+                <div class="card-content">
+                  <div class="content">
+                    <h1 class="title is-4">
+                      <%= simplifiedQuantitative[i].Pregunta %>
+                    </h1>
 
-          <div class="column is-half">
-            <div class="box">
-              <h3 class="title is-3">Accionable</h3>
-              <div id="graph3"></div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Accionables -->
-        <div class="columns">
-          <div class="column is-half">
-            <div class="box">
-              <h3 class="title is-3">Graph 2</h3>
-              <div id="graph2"></div>
-            </div>
-          </div>
-
-          <div class="column is-half">
-            <div class="box">
-              <h3 class="title is-3">Accionable</h3>
-              <div class="field">
-                <div class="control"></div>
+                    <canvas
+                      class="has-background-white graph-canvas"
+                      id="graph-<%= simplifiedQuantitative[i].idPregunta %>"
+                    ></canvas>
+                  </div>
+                </div>
               </div>
             </div>
+            <% } %>
           </div>
+          <!-- End of Quantitative Answers -->
+
+          <!-- Qualitative Answers -->
+          <div class="column is-half">
+            <% for (let i = 0; i < simplifiedQualitative.length; i++) { %>
+            <div class="is-flex">
+              <div class="card custom-card">
+                <div class="card-content">
+                  <div class="content">
+                    <h1 class="title is-4 has-text-left">
+                      <%= simplifiedQualitative[i].Pregunta %>
+                    </h1>
+
+                    <!-- Showing the ansews with a slider -->
+                    <% for (let j = 0; j <
+                    simplifiedQualitative[i].respuestas.length; j++) { %>
+                    <p class="has-text-left">
+                      <%= simplifiedQualitative[i].respuestas[j].trim() %>
+                    </p>
+                    <% } %>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <% } %>
+          </div>
+          <!-- End of Qualitative Answers -->
         </div>
+        <!-- End of showing the answers from retroalimentacion -->
       </div>
+      <!-- End of hero -->
     </section>
+
+    <script src="/js/actualRetro.chart.js"></script>
   </body>
 </html>
 
@@ -89,5 +99,16 @@
   .reporte-button {
     margin-left: 20px;
     width: 150px;
+  }
+
+  /* Custom CSS */
+  .custom-card {
+    width: 100%;
+    border-radius: 22px;
+    margin-bottom: 20px;
+  }
+
+  .graph-canvas {
+    width: 100%;
   }
 </style>
