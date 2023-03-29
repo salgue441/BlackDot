@@ -33,7 +33,10 @@ exports.getAllEpicas = async (req, res) => {
     console.log(epicas)
 
     res.render(
-      path.join(__dirname, "../Views/Static/historico/verMetricasEpicas.ejs")
+      path.join(__dirname, "../Views/Static/historico/verMetricasEpicas.ejs"),
+      {
+        epicas: epicas,
+      }
     )
   } catch (error) {
     res.status(500).json({
