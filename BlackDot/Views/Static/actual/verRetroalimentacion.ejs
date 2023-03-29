@@ -34,59 +34,60 @@
 
         <br />
 
-        <!-- Answers Quantitative -->
+        <!-- Showing the answers from retroalimentacion -->
         <div class="columns">
+          <!-- Quantitative Answers -->
           <div class="column is-half">
             <% for (let i = 0; i < simplifiedQuantitative.length; i++) { %>
-            <div class="columns">
-              <div class="column is-flex">
-                <div class="card custom-card">
-                  <div class="card-content">
-                    <div class="content">
-                      <h1 class="title is-4">
-                        <%= simplifiedQuantitative[i].Pregunta %>
-                      </h1>
+            <div class="is-flex">
+              <div class="card custom-card">
+                <div class="card-content">
+                  <div class="content">
+                    <h1 class="title is-4">
+                      <%= simplifiedQuantitative[i].Pregunta %>
+                    </h1>
 
-                      <canvas
-                        class="has-background-white graph-canvas"
-                        id="graph-<%= simplifiedQuantitative[i].idPregunta %>"
-                      ></canvas>
-                    </div>
+                    <canvas
+                      class="has-background-white graph-canvas"
+                      id="graph-<%= simplifiedQuantitative[i].idPregunta %>"
+                    ></canvas>
                   </div>
                 </div>
               </div>
             </div>
             <% } %>
           </div>
-        </div>
-        <!-- End of Answers Quantitative -->
+          <!-- End of Quantitative Answers -->
 
-        <!-- Answers Qualitative -->
-        <div class="columns">
+          <!-- Qualitative Answers -->
           <div class="column is-half">
             <% for (let i = 0; i < simplifiedQualitative.length; i++) { %>
-            <div class="columns">
-              <div class="column is-flex">
-                <div class="card custom-card">
-                  <div class="card-content">
-                    <div class="content">
-                      <h1 class="title is-4">
-                        <%= simplifiedQualitative[i].Pregunta %>
-                      </h1>
+            <div class="is-flex">
+              <div class="card custom-card">
+                <div class="card-content">
+                  <div class="content">
+                    <h1 class="title is-4">
+                      <%= simplifiedQualitative[i].Pregunta %>
+                    </h1>
 
-                      <canvas
-                        class="has-background-white graph-canvas"
-                        id="graph-<%= simplifiedQualitative[i].idPregunta %>"
-                      ></canvas>
-                    </div>
+                    <!-- Showing the ansews with a slider -->
+                    <% for (let j = 0; j <
+                    simplifiedQualitative[i].respuestas.length; j++) { %>
+                    <p class="respuestas">
+                      <%= simplifiedQualitative[i].respuestas[j].trim() %>
+                    </p>
+                    <% } %>
                   </div>
                 </div>
               </div>
             </div>
             <% } %>
           </div>
-        <!-- End of Answers -->
+          <!-- End of Qualitative Answers -->
+        </div>
+        <!-- End of showing the answers from retroalimentacion -->
       </div>
+      <!-- End of hero -->
     </section>
 
     <script src="/js/actualRetro.chart.js"></script>
@@ -104,9 +105,14 @@
   .custom-card {
     width: 100%;
     border-radius: 22px;
+    margin-bottom: 20px;
   }
 
   .graph-canvas {
     width: 100%;
+  }
+
+  .respuestas {
+    text-align: left;
   }
 </style>
