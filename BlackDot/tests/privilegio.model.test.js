@@ -95,21 +95,26 @@ describe("Privilegio", () => {
 
         /**
          * @brief
-         * Test para el metodo de deleteByID
-         * @param {int} idPrivilegio - ID del privilegio (autogenerado)
+         * Prueba unitaria para el metodo deleteByID
          */
         describe("deleteByID", () => {
-            test("Debe eliminar un privilegio", async () => {
-                const privi = new Privilegio({
-                    nombrePrivilegio: "Registrar trabajadores",
-                    descripcionPrivilegio: "Registrar nuevos trabajadores en el sistema"                    
-            })
-    
-            await privi.save()
-    
-            await Privilegio.deleteByID(privi.idPrivilegio)
-            expect(privi).toBeInstanceOf(Privilegio)
-            })
-        })
+            test("Devuelve error si no se proporciona el ID", async () => {
+            const privilegio = new Privilegio({});
+
+            await expect(privilegio.deleteByID()).rejects.toThrow("No se envio el ID");
+            });
+
+            test("Devuelve error si el ID no es un numero", async () => {
+            const privilegio = new Privilegio({});
+
+            await expect(privilegio.deleteByID("abcdef")).rejects.toThrow(
+                "El ID debe ser un numero"
+            );
+            });
+
+            test("Elimina un registro de la base de datos", async () => {
+            // Por terminar
+            });
+        });
     })
 })
