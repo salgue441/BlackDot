@@ -15,6 +15,9 @@
 
 const path = require("path")
 
+// Models
+const Epica = require("../models/Epica.model")
+
 /**
  * @brief
  * Gets all epicas and their metrics
@@ -25,6 +28,10 @@ const path = require("path")
  */
 exports.getAllEpicas = async (req, res) => {
   try {
+    const epicas = await Epica.getAll()
+
+    console.log(epicas)
+
     res.render(
       path.join(__dirname, "../Views/Static/historico/verMetricasEpicas.ejs")
     )
