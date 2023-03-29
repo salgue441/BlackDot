@@ -56,8 +56,8 @@ const simplifyAnswers = (answers) => {
  */
 function countDuplicates(data) {
   const datasets = new Set(data)
-
   const result = {}
+
   for (const dataset of datasets) {
     result[dataset] = data.filter((x) => x === dataset).length
   }
@@ -83,11 +83,18 @@ exports.getCurretRetroalimentacion = async (req, res) => {
       question.respuestas = countDuplicates(question.respuestas)
     }
 
+    // Qualitative answers
+    const qualitative = await retroPregunta.getQualitativeAnswersByID(1)
+    const simplifiedQualitative = simplifyAnswers(qualitative)
+
+    console.log(simplifiedQualitative)
+
     res.render(
       path.join(__dirname, "../Views/Static/actual/verRetroalimentacion.ejs"),
       {
-        idRetroalimentacion: "",
+        idRetroalimentacion: quantitative[0].idRetroalimentacion,
         simplifiedQuantitative: simplifiedQuantitative,
+        simplifiedQualitative: simplifiedQualitative,
       }
     )
   } catch (error) {
@@ -115,8 +122,6 @@ exports.getCurretRetroalimentacionAPI = async (req, res) => {
       question.respuestas = countDuplicates(question.respuestas)
     }
 
-    console.log(simplifiedQuantitative)
-
     res.json({
       idRetroalimentacion: req.params.idRetroalimentacion,
       simplifiedQuantitative: simplifiedQuantitative,
@@ -136,7 +141,6 @@ exports.getCurretRetroalimentacionAPI = async (req, res) => {
  * @returns {Response} - Response object
  * @throws {Error} - Error message
  * */
-
 exports.getRegistrarRespuestas = async (req, res) => {
   try {
     await Pregunta.getAll().then((preguntas) => {
