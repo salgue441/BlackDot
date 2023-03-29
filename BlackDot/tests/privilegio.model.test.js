@@ -108,7 +108,7 @@ describe("Privilegio", () => {
             await privi.save()
     
             await Privilegio.deleteByID(privi.idPrivilegio)
-            expect(cualita).toBeInstanceOf(Privilegio)
+            expect(privi).toBeInstanceOf(Privilegio)
             })
         })
     })
