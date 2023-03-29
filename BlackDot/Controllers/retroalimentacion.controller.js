@@ -83,12 +83,10 @@ exports.getCurretRetroalimentacion = async (req, res) => {
       question.respuestas = countDuplicates(question.respuestas)
     }
 
-    console.log(simplifiedQuantitative)
-
     res.render(
       path.join(__dirname, "../Views/Static/actual/verRetroalimentacion.ejs"),
       {
-        idRetroalimentacion: req.params.idRetroalimentacion,
+        idRetroalimentacion: quantitative[0].idRetroalimentacion,
         simplifiedQuantitative: simplifiedQuantitative,
       }
     )
