@@ -81,9 +81,15 @@ const createBarChart = (canvas, data) => {
 
   data.epicas.forEach((set) => {
     const canvas = document.getElementById("EpicaComparison")
-    const totalStoryPoints = data.issues
-      .filter((issue) => issue.estadoIssue === "Done")
-      .reduce((sum, issue) => sum + issue.storyPoints, 0)
+    const totalStoryPoints = set.sprints.reduce((acc, sprint) => {
+      const doneIssues = sprint.issues.filter((issue) => issue.state === "Done")
+      const sprintStoryPoints = doneIssues.reduce(
+        (total, issue) => total + issue.storyPoints,
+        0
+      )
+
+      return acc + sprintStoryPoints
+    }, 0)
 
     console.log(totalStoryPoints)
 
