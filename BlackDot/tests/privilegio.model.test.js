@@ -111,10 +111,6 @@ describe("Privilegio", () => {
                 "El ID debe ser un numero"
             );
             });
-
-            test("Elimina un registro de la base de datos", async () => {
-            // Por terminar
-            });
         });
     })
 })

@@ -79,7 +79,7 @@ describe("Rol", () => {
         describe("verify", () => {
             test("Debe verificar si existe un Rol", async () => {
                 const rol = new Rol({
-                    nombreRol: "Gerente"
+                    nombreRol: "Gerente",
                 });
 
                 await rol.save();
@@ -91,20 +91,22 @@ describe("Rol", () => {
 
         /**
          * @brief
-         * Test para el metodo de deleteByID
-         * @param {int} idRol - ID del rol (autogenerado)
+         * Prueba unitaria para el metodo deleteByID
          */
         describe("deleteByID", () => {
-            test("Debe eliminar un rol", async () => {
-                const rol = new Rol({
-                    nombreRol: "Gerente",              
-                })
-    
-            await rol.save()
-    
-            await Rol.deleteByID(rol.idRol)
-            expect(rol).toBeInstanceOf(Rol)
-            })
-        })
+            test("Devuelve error si no se proporciona el ID", async () => {
+            const rol = new Rol({});
+
+            await expect(rol.deleteByID()).rejects.toThrow("No se envio el ID");
+            });
+
+            test("Devuelve error si el ID no es un numero", async () => {
+            const rol = new Rol({});
+
+            await expect(rol.deleteByID("abcdef")).rejects.toThrow(
+                "El ID debe ser un numero"
+            );
+            });
+        });
     })
 })

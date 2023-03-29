@@ -104,7 +104,7 @@ module.exports = class Privilegio {
      * @throws {Error} - Si descripcionPrivilegio es muy largo
      */
     async verify() {
-        if (!this.nombrePrivilegio) throw new Error("No se ha proporcionado un contenido");
+        if (!this.nombrePrivilegio) throw new Error("No se ha proporcionado un nombrePrivilegio");
         if (this.nombrePrivilegio.length > 50)
         throw new Error("El nombrePrivilegio es muy largo");
 
