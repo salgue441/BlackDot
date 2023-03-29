@@ -86,7 +86,7 @@ module.exports = class Empleado {
             this.googleProfilePicture,
         ])
 
-        this.idEmpleado = result.insertId
+        //this.idEmpleado = result.insertId
     }
 
     /**
