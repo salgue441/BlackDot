@@ -93,6 +93,7 @@ exports.getCurretRetroalimentacion = async (req, res) => {
       path.join(__dirname, "../Views/Static/actual/verRetroalimentacion.ejs"),
       {
         idRetroalimentacion: quantitative[0].idRetroalimentacion,
+        fechaRetroalimentacion: quantitative[0].fechaFinalizacion,
         simplifiedQuantitative: simplifiedQuantitative,
         simplifiedQualitative: simplifiedQualitative,
       }
