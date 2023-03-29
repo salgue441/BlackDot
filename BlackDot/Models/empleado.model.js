@@ -59,14 +59,13 @@ module.exports = class Empleado {
 
     /**
      * @brief
-     * Obtiene todos los empleados.
+     * Obtiene todos los Empleados.
      * @returns {Promise<Empleado[]>} - Arreglo de objetos de tipo Empleado
      */
     static async getAll() {
-        const query = `select * from Empleado`
-        const [rows] = await dataBase.execute(query)
+        const [empleado, _] = await dataBase.query("select * from Empleado")
 
-        return rows.map((row) => new Empleado(row))
+        return empleado
     }
 
     /**
