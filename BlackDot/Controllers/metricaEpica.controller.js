@@ -17,6 +17,8 @@ const path = require("path")
 
 // Models
 const Epica = require("../models/Epica.model")
+const Issue = require("../models/issue.model")
+const Sprint = require("../models/sprint.model")
 
 /**
  * @brief
@@ -29,8 +31,9 @@ const Epica = require("../models/Epica.model")
 exports.getAllEpicas = async (req, res) => {
   try {
     const epicas = await Epica.getAll()
+    const issues = await Issue.getAll()
 
-    console.log(epicas)
+    console.log(issues)
 
     res.render(
       path.join(__dirname, "../Views/Static/historico/verMetricasEpicas.ejs"),
@@ -38,6 +41,28 @@ exports.getAllEpicas = async (req, res) => {
         epicas: epicas,
       }
     )
+  } catch (error) {
+    res.status(500).json({
+      message: error.message || "Error al obtener metricas epicas",
+    })
+  }
+}
+
+/**
+ * @brief
+ * Sends the graph data in json format
+ * @param {Request} req - Request object
+ * @param {Response} res - Response object
+ * @returns {Response} - Response object
+ * @throws {Error} - Error message
+ */
+exports.getAllEpicasAPI = async (req, res) => {
+  try {
+    const epicas = await Epica.getAll()
+    const issues = await Issue.getAll()
+    const sprints = await Sprint.getAll()
+
+    res.json({ epicas: epicas, issues: issues, sprints: sprints })
   } catch (error) {
     res.status(500).json({
       message: error.message || "Error al obtener metricas epicas",
