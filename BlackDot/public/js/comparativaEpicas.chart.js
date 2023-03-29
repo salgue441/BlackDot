@@ -21,25 +21,24 @@ const fetchEpicasData = async () => {
  * @param {HTMLCanvasElement} canvas - Canvas element
  * @param {Array} data - Data to be displayed
  */
-const createBarChart = (canvas, data) => {
+const createBarChart = (canvas, data, labels) => {
+  console.log(data)
   const ctx = canvas.getContext("2d")
-
-  const existingChart = Chart.getChart(ctx)
-  if (existingChart) {
-    existingChart.destroy()
-  }
 
   return new Chart(ctx, {
     type: "bar",
-    datasets: [
-      {
-        label: "Epicas",
-        data: data,
-        backgroundColor: "rgba(255, 99, 132, 0.6)",
-        borderColor: "rgba(255, 99, 132, 1)",
-        borderWidth: 1,
-      },
-    ],
+    data: {
+      labels: labels,
+      datasets: [
+        {
+          label: "Epicas",
+          data: data,
+          backgroundColor: "rgba(255, 99, 132, 0.6)",
+          borderColor: "rgba(255, 99, 132, 1)",
+          borderWidth: 1,
+        },
+      ],
+    },
     options: {
       scales: {
         y: {
@@ -79,10 +78,15 @@ const createBarChart = (canvas, data) => {
   const data = await fetchEpicasData()
   console.log(data)
 
+  const canvas = document.getElementById("EpicaComparison")
+  let allStoryPoints = []
+  let epicasNames = []
+
   data.epicas.forEach((set) => {
-    const canvas = document.getElementById("EpicaComparison")
-    const totalStoryPoints = set.sprints.reduce((acc, sprint) => {
-      const doneIssues = sprint.issues.filter((issue) => issue.state === "Done")
+    const epicStoryPoints = set.sprints.reduce((acc, sprint) => {
+      const doneIssues = sprint.issues.filter(
+        (issue) => issue.estadoIssue === "Done"
+      )
       const sprintStoryPoints = doneIssues.reduce(
         (total, issue) => total + issue.storyPoints,
         0
@@ -91,8 +95,14 @@ const createBarChart = (canvas, data) => {
       return acc + sprintStoryPoints
     }, 0)
 
-    console.log(totalStoryPoints)
+    allStoryPoints.push(epicStoryPoints)
 
-    createBarChart(canvas, totalStoryPoints)
+    // Fill the epicasNames with the names of the epicas
+    epicasNames.push(set.nombreEpica)
+
+    console.log()
+    console.log(epicasNames)
   })
+
+  createBarChart(canvas, allStoryPoints, epicasNames)
 })()
