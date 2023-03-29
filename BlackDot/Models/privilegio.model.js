@@ -24,9 +24,9 @@ module.exports = class Privilegio {
      * @param {*} Privilegio - Objeto de tipo Privilegio
      */
     constructor(Privilegio) {
-        this.idPrivilegio = Rol.idPrivilegio
-        this.nombrePrivilegio = Rol.nombrePrivilegio
-        this.descripcionPrivilegio = Rol.descripcionPrivilegio
+        this.idPrivilegio = Privilegio.idPrivilegio
+        this.nombrePrivilegio = Privilegio.nombrePrivilegio
+        this.descripcionPrivilegio = Privilegio.descripcionPrivilegio
     }
 
     /**
@@ -67,7 +67,7 @@ module.exports = class Privilegio {
     save() {
         if (!this.nombrePrivilegio) 
             throw new Error("No se ha proporcionado nombre de privilegio")
-        if (!this.labelPrivilegio)
+        if (!this.descripcionPrivilegio)
             throw new Error("No se ha proporcionado una descripción de privilegio")
 
         return dataBase.query(
@@ -96,13 +96,48 @@ module.exports = class Privilegio {
 
     /**
      * @brief
-     * Elimina un privilegio de acuerdo con el ID
-     * @param {*} idPrivilegio - id del privilegio
-     * @returns {Promise<void>} - Query del privilegio eliminado
+     * Verifica si una privilegio existe en la base de datos.
+     * @returns {Promise<boolean>} - True si existe, false si no
+     * @throws {Error} - Si no se envia el nombrePrivilegio
+     * @throws {Error} - Si nombrePrivilegio es muy largo
+     * @throws {Error} - Si no se envia descripcionPrivilegio
+     * @throws {Error} - Si descripcionPrivilegio es muy largo
      */
-    static async deleteByID(idPrivilegio) {
-        const query = `delete from Privilegio where idPrivilegio = ?`
+    async verify() {
+        if (!this.nombrePrivilegio) throw new Error("No se ha proporcionado un contenido");
+        if (this.nombrePrivilegio.length > 50)
+        throw new Error("El nombrePrivilegio es muy largo");
 
-        await dataBase.execute(query, [idPrivilegio])
+        if (!this.descripcionPrivilegio) throw new Error("No se ha proporcionado una descripcionPrivilegio");
+        if (this.nombrePrivilegio.length > 200)
+        throw new Error("El nombrePrivilegio es muy largo");
+
+        const [privilegio] = await dataBase.query(
+            "select * from Privilegio where nombrePrivilegio = ? and descripcionPrivilegio = ?",
+            [this.nombrePrivilegio, this.descripcionPrivilegio]
+        );
+
+        return Boolean(privilegio);
+    }
+
+    /**
+     * @brief
+     * Elimina un privilegio segun su ID de la base de datos.
+     * @param {number} idPrivilegio - ID del privilegio
+     * @returns {boolean} - True si se elimino, false si no
+     * @throws {Error} - Si no se envia el ID
+     * @throws {Error} - Si el ID no es un numero
+     */
+    async deleteByID(idPrivilegio) {
+        if (!idPrivilegio) throw new Error("No se envio el ID");
+        if (typeof idPrivilegio !== "number")
+        throw new Error("El ID debe ser un numero");
+
+        const result = await dataBase.query(
+        `delete from Privilegio where idPrivilegio = $1`,
+        [idPrivilegio]
+        );
+
+        return result.rowCount > 0;
     }
 }
