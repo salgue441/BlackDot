@@ -89,15 +89,27 @@ exports.getRegistrarRespuestas = async (req, res) => {
 
 exports.postRegistrarRespuestas = async (req, res) => {
   const respuestas = req.body;
-  console.log(respuestas);
 
-  // for (respuesta in respuestas) {
-  //   if (respuestas[respuesta].length > 1) {
-  //     console.log("cualitativa");
-  //   } else {
-  //     console.log("cuantitativa");
-  //   }
-  // }
+  for (i in respuestas) {
+    respuestas[i] = [i, respuestas[i], 1];
+    respuestas[i][0] = parseInt(respuestas[i][0]);
+
+    if (respuestas[i][1].length > 2) {
+      const resCuali = new Cualitativa({
+        contenido: respuestas[i][1],
+        idPregunta: respuestas[i][0],
+        idRetroalimentacion: respuestas[i][2],
+      });
+      console.log(resCuali);
+    } else {
+      respuestas[i][1] = parseInt(respuestas[i][1]);
+      const resCuant = new Cuantitativa({
+        contenido: respuestas[i][1],
+        idPregunta: respuestas[i][0],
+        idRetroalimentacion: respuestas[i][2],
+      });
+    }
+  }
 
   res.render(
     path.join(__dirname, "../Views/Static/actual/verRetroalimentacion.ejs")
