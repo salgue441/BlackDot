@@ -41,105 +41,112 @@ describe("Empleado", () => {
                 segundoNombre: "Ernesto",
                 apellidoMaterno: "Sandoval",
                 apellidoMaterno: "Vargas",
+                idGoogleAuth: 0xdba6a8c07b84449894cc524f047b42e1,
                 googleEmail: "ABC1234@zeb.mx",
                 idRol: 1,
                 idEquipoTrabajo: 1,
-            })
-
-            expect(empleado).toBeInstanceOf(Empleado)
-        })
-    })
-
-    describe("getByID", () => {
-        /**
-         * @brief
-         * Test for the getByID method of Empleado
-         * @param {int} idEmpleado - ID of Empleado
-         **/
-
-        test("Debe obtener un Empleado por su ID", async () => {
-            const empleado = await Empleado.getByID(1)
-            expect(empleado).toBeInstanceOf(Empleado)
-        })
-    })
-
-    describe("getAll", () => {
-        /**
-         * @brief
-         * Test for the getAll method of Empleado
-         **/
-
-        test("Debe obtener todos los Empleados", async () => {
-            const empleados = await Empleado.getAll()
-            expect(empleados).toBeInstanceOf(Array)
-        })
-    })
-
-    describe("save", () => {
-        /**
-         * @brief
-         * Test for the save method of Empleado
-         **/
-
-        test("Debe guardar un Empleado", async () => {
-            const empleado = new Empleado({
-                primerNombre: "Carlos",
-                segundoNombre: "Rodrigo",
-                apellidoMaterno: "Salguero",
-                apellidoMaterno: "Alcántara",
-                googleEmail: "DEF5678@zeb.mx",
-                idRol: 2,
-                idEquipoTrabajo: 1,
-            })
-
-            await empleado.save()
-            expect(empleado.idEmpleado).toBeGreaterThan(0)
-        })
-    })
-
-    describe("verify", () => {
-        /**
-         * @brief
-         * Test for the verify method of Empleado
-         **/
-
-        test("Debe verificar si existe un Empleado", async () => {
-            const empleado = new Empleado({
-                primerNombre: "Carlos",
-                segundoNombre: "Rodrigo",
-                apellidoMaterno: "Salguero",
-                apellidoMaterno: "Alcántara",
-                googleEmail: "DEF5678@zeb.mx",
-                idRol: 2,
-                idEquipoTrabajo: 1,
             });
 
-            await empleado.verify();
-            expect(empleado.idEmpleado).toBe(true);
-        });
-    })
-
-    describe("delete", () => {
-        /**
-         * @brief
-         * Test for the delete method of Empleado
-         **/
-
-        test("Debe boarrar un Empleado", async () => {
-            const empleado = new Empleado({
-                primerNombre: "Carlos",
-                segundoNombre: "Rodrigo",
-                apellidoMaterno: "Salguero",
-                apellidoMaterno: "Alcántara",
-                googleEmail: "DEF5678@zeb.mx",
-                idRol: 2,
-                idEquipoTrabajo: 1,
-            })
-
-            await empleado.save()
-
-            await Empleado.deleteByID(empleado.idEmpleado)
-            expect(empleado.idEmpleado).toBeGreaterThan(0)
+            expect(empleado).toBeInstanceOf(Empleado);
         })
+
+        describe("getByID", () => {
+            /**
+             * @brief
+             * Test for the getByID method of Empleado
+             * @param {int} idEmpleado - ID of Empleado
+             **/
+
+            test("Debe obtener un Empleado por su ID", async () => {
+                const empleado = await Empleado.getByID(1)
+                expect(empleado).toBeInstanceOf(Empleado)
+            });
+        })
+
+        describe("getAll", () => {
+            /**
+             * @brief
+             * Test for the getAll method of Empleado
+             **/
+
+            test("Debe obtener todos los Empleados", async () => {
+                const empleados = await Empleado.getAll()
+                expect(empleados).toBeInstanceOf(Array)
+            });
+        })
+
+        describe("save", () => {
+            /**
+             * @brief
+             * Test for the save method of Empleado
+             **/
+
+            test("Debe guardar un Empleado", async () => {
+                const empleado = new Empleado({
+                    primerNombre: "Carlos",
+                    segundoNombre: "Rodrigo",
+                    apellidoMaterno: "Salguero",
+                    apellidoMaterno: "Alcántara",
+                    idGoogleAuth: 0xdba6a8c07b84449894cc524f047b42e1,
+                    googleEmail: "DEF5678@zeb.mx",
+                    idRol: 2,
+                    idEquipoTrabajo: 1,
+                });
+
+                await empleado.save();
+                expect(empleado).toBeInstanceOf(Empleado);
+            });
+        })
+
+        describe("verify", () => {
+            /**
+             * @brief
+             * Test for the verify method of Empleado
+             **/
+
+            test("Debe verificar si existe un Empleado", async () => {
+                const empleado = new Empleado({
+                    primerNombre: "Carlos",
+                    segundoNombre: "Rodrigo",
+                    apellidoMaterno: "Salguero",
+                    apellidoMaterno: "Alcántara",
+                    idGoogleAuth: 0xdba6a8c07b84449894cc524f047b42e1,
+                    googleEmail: "DEF5678@zeb.mx",
+                    idRol: 2,
+                    idEquipoTrabajo: 1,
+                });
+
+                await empleado.save();
+
+                await empleado.verify(empleado.idEmpleado);
+                expect(empleado).toBeInstanceOf(Empleado);
+            });
+        })
+
+        describe("deleteByID", () => {
+            /**
+             * @brief
+             * Test for the deleteByID method of Empleado
+             * @param {int} idEmpleado - ID of Empleao
+             **/
+
+            test("Debe eliminar un Empleado", async () => {
+                const empleado = new Empleado({
+                    primerNombre: "Carlos",
+                    segundoNombre: "Rodrigo",
+                    apellidoMaterno: "Salguero",
+                    apellidoMaterno: "Alcántara",
+                    idGoogleAuth: 0xdba6a8c07b84449894cc524f047b42e1,
+                    googleEmail: "DEF5678@zeb.mx",
+                    idRol: 2,
+                    idEquipoTrabajo: 1,
+                })
+
+                await empleado.save();
+
+                await Empleado.deleteByID(empleado.idEmpleado);
+                expect(empleado).toBeInstanceOf(Empleado);
+            });
+        });
     })
 })

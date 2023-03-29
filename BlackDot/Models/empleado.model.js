@@ -20,8 +20,7 @@ const dataBase = require("../utils/dataBase")
  * @property {varchar} apellidoMaterno - Contenido del apellido materno
  * @property {binary} idGoogleAuth - Identificador de la autenticación de Google
  * @property {varchar} googleEmail - Correo electrónico de Google
- * @property {int} idRol - Identificador del rol
- * @property {int} idEquipoTrabajo - Identificador del equipo de trabajo
+ * @property {varchar} googleProfilePicture - Foto de Perfil de Google
  */
 module.exports = class Empleado {
   /**
@@ -37,8 +36,7 @@ module.exports = class Empleado {
       this.apellidoMaterno = Empleado.apellidoMaterno
       this.idGoogleAuth = Empleado.idGoogleAuth
       this.googleEmail = Empleado.googleEmail
-      this.idRol = Empleado.idRol
-      this.idEquipoTrabajo = Empleado.idEquipoTrabajo
+      this.googleProfilePicture = Empleado.googleProfilePicture
     }
 
     /**
@@ -60,7 +58,7 @@ module.exports = class Empleado {
     /**
      * @brief
      * Obtiene todos los empleados.
-     * @returns {Promise<Empleado[]>} - Arreglo de objetos de tipo Empleado
+     * @returns {Empleado[]} - Arreglo de objetos de tipo Empleado
      */
     static async getAll() {
         const query = `select * from Empleado`
@@ -76,7 +74,7 @@ module.exports = class Empleado {
      */
     async save() {
         const query = `insert into Empleado(primerNombre, segundoNombre, apellidoPaterno, apellidoMaterno, 
-            idGoogleAuth, googleEmail, idRol, idEquipoTrabajo) values (?, ?, ?, ?, ?, ?, ?, ?)`
+            idGoogleAuth, googleEmail, googleProfilePicture) values (?, ?, ?, ?, ?, ?, ?)`
 
         const [result] = await dataBase.execute(query, [
             this.primerNombre,
@@ -85,27 +83,38 @@ module.exports = class Empleado {
             this.apellidoMaterno,
             this.idGoogleAuth,
             this.googleEmail,
-            this.idRol,
-            this.idEquipoTrabajo
+            this.googleProfilePicture,
         ])
 
-        this.idCualitativa = result.insertId
+        this.idEmpleado = result.insertId
     }
 
     /**
      * @brief
      * Verifica si un empleado existe en la base de datos.
      * @returns {Promise<boolean>} - True si existe, false si no
-     * @throws {Error} - Si no se envia el id de empleado
+     * @throws {Error} - Si no se envia el primer nombre
+     * @throws {Error} - Si no se envia el apellido paterno
+     * @throws {Error} - Si no se envia id de Google Authenticator
+     * @throws {Error} - Si no se envia el correo electronico de Google
      */
     static async verify(Empleado) {
-        if (!Empleado.idEmpleado) 
-            throw new Error("No se ha proporcionado un id de empleado")
+        if (!this.primerNombre) 
+            throw new Error("No se ha proporcionado el primer nombre");
+        if (!this.apellidoPaterno)
+            throw new Error("No se ha proporcionado el apellido paterno");
+        if (!this.idGoogleAuth)
+            throw new Error("No se ha proporcionado un ID de Google Authenticator");
+        if (!this.googleEmail)
+            throw new Error("No se ha proporcionado un correo de Google");
 
         const [empleado] = await dataBase.query(
-            "select * from Empleado where idEmpleado = ?",
-            [Empleado.idEmpleado]
-        )
+            `select * from Empleado where primerNombre = ? AND 
+            apellidoPaterno = ? AND idGoogleAuth = ? AND googleEmail = ?`,
+            [this.primerNombre, this.apellidoPaterno, this.idGoogleAuth, this.googleEmail]
+        );
+
+        return Boolean(empleado);
     }
 
     /**
@@ -114,7 +123,7 @@ module.exports = class Empleado {
      * @param {*} idCualitativa - id del empleado
      * @returns {Promise<void>} - Query del empleado eliminado
      */
-    static async deleteByID(idEmpleado) {
+    async deleteByID(idEmpleado) {
         const query = `delete from Empleado where idEmpleado = ?`
 
         await dataBase.execute(query, [idEmpleado])
