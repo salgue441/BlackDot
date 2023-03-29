@@ -12,9 +12,9 @@ const empleadoRol = require("../models/empleado-rol.model")
 
 /**
  * @brief
- * Test suite for retroPregunta model
+ * Test suite for empleadoRol model
  */
-describe("retroPregunta", () => {
+describe("empleadoRol", () => {
     beforeEach(() => {
         jest.resetModules()
     })
