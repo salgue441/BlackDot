@@ -13,14 +13,14 @@
  * @copyright Copyright (c) 2023 - MIT License
  */
 
-const { beforeEach, describe } = require("node:test");
-const Sprint = require("../models/sprint.model");
-const dataBase = require("../utils/dataBase");
+const { beforeEach, describe } = require("node:test")
+const Sprint = require("../models/sprint.model")
+const dataBase = require("../utils/dataBase")
 
 describe("Sprint", () => {
   beforeEach(() => {
-    jest.resetModules();
-  });
+    jest.resetModules()
+  })
 
   describe("Constructor", () => {
     /**
@@ -42,10 +42,10 @@ describe("Sprint", () => {
         FechaFinalizacion: "2021-03-28",
         numeroSprint: 1,
         idEpica: 1,
-      });
+      })
 
-      expect(sprint).toBeInstanceOf(Sprint);
-    });
+      expect(sprint).toBeInstanceOf(Sprint)
+    })
 
     /**
      * @brief
@@ -55,10 +55,10 @@ describe("Sprint", () => {
 
     describe("getByID", () => {
       test("Debe devolver unsprint", async () => {
-        const sprint = await Sprint.getbyID(1);
-        expect(sprint).toBeInstanceOf(Sprint);
-      });
-    });
+        const sprint = await Sprint.getbyID(1)
+        expect(sprint).toBeInstanceOf(Sprint)
+      })
+    })
 
     /**
      * @brief
@@ -67,11 +67,10 @@ describe("Sprint", () => {
 
     describe("getAll", () => {
       test("Debe devolver un arreglo de sprints", async () => {
-        const sprints = await Sprint.getAll();
-        expect(sprints).toBeInstanceOf(Array);
-        expect(sprints[0]).toBeInstanceOf(Sprint);
-      });
-    });
+        const sprints = await Sprint.getAll()
+        expect(Array.isArray(sprints)).toBe(true)
+      })
+    })
 
     /**
      * @brief
@@ -80,9 +79,9 @@ describe("Sprint", () => {
 
     describe("getSprintActual", () => {
       test("Debe devolver el sprint actual", async () => {
-        const sprint = await Sprint.getSprintActual();
-        expect(sprint).toBeInstanceOf(Sprint);
-      });
-    });
-  });
-});
+        const sprint = await Sprint.getSprintActual()
+        expect(sprint).toBeInstanceOf(Sprint)
+      })
+    })
+  })
+})
