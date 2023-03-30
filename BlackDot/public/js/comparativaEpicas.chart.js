@@ -31,7 +31,7 @@ const createBarChart = (canvas, data, labels) => {
       labels: labels,
       datasets: [
         {
-          label: "Epicas",
+          label: "StoryPoints",
           data: data,
           backgroundColor: "rgba(255, 99, 132, 0.6)",
           borderColor: "rgba(255, 99, 132, 1)",
