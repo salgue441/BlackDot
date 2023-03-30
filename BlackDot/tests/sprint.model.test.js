@@ -13,6 +13,7 @@
  * @copyright Copyright (c) 2023 - MIT License
  */
 
+const { beforeEach, describe } = require("node:test")
 const Sprint = require("../models/sprint.model")
 const dataBase = require("../utils/dataBase")
 
@@ -23,15 +24,17 @@ describe("Sprint", () => {
 
   describe("Constructor", () => {
     /**
-     * @brief
-     * Test para el constructor de Sprint
+     *    @brief
+     *  Test para el constructor de Sprint
      * @param {int} idSprint - ID del sprint (autogenerado)\
      * @param {date} fechaCreacion - Fecha de inicio del sprint
      * @param {date} fechaFinalizacion - Fecha de finalización del sprint
-     * @param {int} numero - Numero del sprint
+     *  @param {int} numero - Numero del sprint
      * @param {string} descripcion - Descripción del sprint
      * @param {int} idEpica - ID de la epica a la que pertenece el sprint
+     *
      **/
+
     test("Debe crear un objeto de tipo Sprint", () => {
       const sprint = new Sprint({
         id: 1,
@@ -68,11 +71,6 @@ describe("Sprint", () => {
         expect(Array.isArray(sprints)).toBe(true)
       })
     })
-        const sprints = await Sprint.getAll();
-        
-        expect(Array.isArray(sprints)).toBe(true);
-      });
-    });
 
     /**
      * @brief
