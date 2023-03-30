@@ -8,88 +8,94 @@
  * @copyright Copyright (c) 2023 - MIT License
  */
 
-const Issue = require("../models/issue.model");
+const Issue = require("../models/issue.model")
 
 describe("issue", () => {
-    beforeEach(() => {
-        jest.resetModules();
-    });
+  beforeEach(() => {
+    jest.resetModules()
+  })
 
-    describe("Constructor", () => {});
+  describe("Constructor", () => {
+    test("Debe crear un objeto de tipo Issue", () => {
+      const issue = new Issue({
+        nombreIssue: "Implementar barra de progreso",
+        labelIssue: "Front",
+      })
 
-    /**
-    * @brief
-    * Prueba unitaria para el método getByID
-    * @param {int} idIssue - ID del issue
-    */
-    describe("getByID", () => {
-        it("Debe devolver un issue", async () => {
-            const issuegetid = await Issue.getByID(1);
+      expect(issue).toBeInstanceOf(Issue)
+    })
+  })
 
-            expect(issuegetid).toBeInstanceOf(Issue);
-        });
+  /**
+   * @brief
+   * Prueba unitaria para el método getByID
+   * @param {int} idIssue - ID del issue
+   */
+  describe("getByID", () => {
+    it("Debe devolver un issue", async () => {
+      const issuegetid = await Issue.getByID(1)
 
-        it("Debe devolver un error si no se proporciona un ID", async () => {
-            await expect(Issue.getByID()).rejects.toThrow();
-        });
-    });
+      expect(issuegetid).toBeInstanceOf(Issue)
+    })
 
-    /**
-    * @brief
-    * Prueba unitaria para el método getAll
-    */
-    describe("getAll", () => {
-        it("Debe devolver un arreglo de issues", async () => {
-            const issues = await Issue.getAll();
+    it("Debe devolver un error si no se proporciona un ID", async () => {
+      await expect(Issue.getByID()).rejects.toThrow()
+    })
+  })
 
-            expect(Array.isArray(issues)).toBe(true);
-        });
-    });
+  /**
+   * @brief
+   * Prueba unitaria para el método getAll
+   */
+  describe("getAll", () => {
+    it("Debe devolver un arreglo de issues", async () => {
+      const issues = await Issue.getAll()
 
-    /**
-    * @brief
-    * Prueba unitaria para el metodo verify
-    */
-    describe("verify", () => {
-        test("Debe devolver un error si no se proporciona un nombre de issue", async () => {
-            const issuevrfy1 = new Issue({ labelIssue: "Front" });
+      expect(Array.isArray(issues)).toBe(true)
+    })
+  })
 
-            await expect(issuevrfy1.verify()).rejects.toThrow(
-                "No se ha proporcionado un nombre de issue"
-            );
-        });
+  /**
+   * @brief
+   * Prueba unitaria para el metodo verify
+   */
+  describe("verify", () => {
+    test("Debe devolver un error si no se proporciona un nombre de issue", async () => {
+      const issuevrfy1 = new Issue({ labelIssue: "Front" })
 
-        test("Debe devolver un error si el nombre es muy largo", async () => {
-            const issuevrfy2 = new Issue({
-                nombreIssue: "a".repeat(151),
-                labelIssue: "Front",
-            });
+      await expect(issuevrfy1.verify()).rejects.toThrow(
+        "No se ha proporcionado un nombre de issue"
+      )
+    })
 
-            await expect(issuevrfy2.verify()).rejects.toThrow(
-                "El nombre es muy largo"
-            );
-        });
+    test("Debe devolver un error si el nombre es muy largo", async () => {
+      const issuevrfy2 = new Issue({
+        nombreIssue: "a".repeat(151),
+        labelIssue: "Front",
+      })
 
-        test("Debe devolver un error si no se proporciona un label de issue", async () => {
-            const issuevrfy3 = new Issue({
-                nombreIssue: "Implementar barra de progreso",
-            });
+      await expect(issuevrfy2.verify()).rejects.toThrow(
+        "El nombre es muy largo"
+      )
+    })
 
-            await expect(issuevrfy3.verify()).rejects.toThrow(
-                "No se ha proporcionado un label de issue"
-            );
-        });
+    test("Debe devolver un error si no se proporciona un label de issue", async () => {
+      const issuevrfy3 = new Issue({
+        nombreIssue: "Implementar barra de progreso",
+      })
 
-        test("Debe devolver un error si el label es muy largo", async () => {
-            const issuevrfy4 = new Issue({
-                nombreIssue: "Implementar barra de progreso",
-                labelIssue: "a".repeat(51),
-            });
+      await expect(issuevrfy3.verify()).rejects.toThrow(
+        "No se ha proporcionado un label de issue"
+      )
+    })
 
-            await expect(issuevrfy4.verify()).rejects.toThrow(
-                "El label es muy largo"
-            );
-        });
+    test("Debe devolver un error si el label es muy largo", async () => {
+      const issuevrfy4 = new Issue({
+        nombreIssue: "Implementar barra de progreso",
+        labelIssue: "a".repeat(51),
+      })
 
-    });
-});
+      await expect(issuevrfy4.verify()).rejects.toThrow("El label es muy largo")
+    })
+  })
+})
