@@ -107,7 +107,7 @@ exports.getCurretRetroalimentacion = async (req, res) => {
 
 /**
  * @brief
- * Gets all answers from a retroalimentacion
+ * Sends the data for the graph (Not really used to display content)
  * @param {Request} req - Request object
  * @param {Response} res - Response object
  * @returns {Response} - Response object
