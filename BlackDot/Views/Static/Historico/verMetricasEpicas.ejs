@@ -23,10 +23,18 @@
 
       <!-- Graph changing Button -->
       <div class="columns">
-        <button class="button is-primary toggle-button" id="epicaComparison">
+        <button
+          class="button is-primary toggle-button"
+          id="toggleEpicaComparison"
+          onclick="change(event)"
+        >
           Epicas
         </button>
-        <button class="button is-primary toggle-button" id="sprintComparison">
+        <button
+          class="button is-primary toggle-button"
+          id="toggleSprintComparison"
+          onclick="change(event)"
+        >
           Sprints
         </button>
       </div>
@@ -42,8 +50,16 @@
               class="box has-background-white has-text-centered"
               style="width: 100%"
             >
-              <p class="subtitle is-4">Comparativa de Epicas</p>
-              <canvas id="EpicaComparison"></canvas>
+              <p class="subtitle is-4 graph-title">Story Points por Epicas</p>
+              <p class="subtitle is-4 graph-title" style="display: none">
+                Story Points por Sprints
+              </p>
+              <canvas id="EpicaComparison" class="graph-canvas"></canvas>
+              <canvas
+                id="SprintComparison"
+                class="graph-canvas"
+                style="display: none"
+              ></canvas>
             </div>
           </div>
         </div>
@@ -98,9 +114,42 @@
   <script src="/js/comparativaEpicas.chart.js"></script>
 </body>
 
-<!-- Added functionality -->
 <style>
   .toggle-button {
     margin: 0 10px;
   }
 </style>
+
+<!-- Functionality -->
+<script>
+  /**
+   * @brief
+   * Changes the graph-title and graph-canvas to show the other graph.
+   * Also, changes the colors of the buttons accordingly.
+   * @param {Event} event - The event that triggered the function.
+   */
+  const change = (event) => {
+    const button = event.target
+    const otherButton = document.getElementById(
+      button.id === "toggleEpicaComparison"
+        ? "toggleSprintComparison"
+        : "toggleEpicaComparison"
+    )
+
+    // Change the colors of the buttons
+    button.classList.remove("is-primary")
+    button.classList.add("is-danger")
+    otherButton.classList.remove("is-danger")
+    otherButton.classList.add("is-primary")
+
+    // Change the graph-title and graph-canvas
+    const graphTitle = document.getElementsByClassName("graph-title")
+    const graphCanvas = document.getElementsByClassName("graph-canvas")
+    for (let i = 0; i < graphTitle.length; i++) {
+      graphTitle[i].style.display =
+        graphTitle[i].style.display === "none" ? "block" : "none"
+      graphCanvas[i].style.display =
+        graphCanvas[i].style.display === "none" ? "block" : "none"
+    }
+  }
+</script>
