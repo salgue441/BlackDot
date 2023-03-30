@@ -17,6 +17,6 @@ router.post("/retroalimentacion", Retro.postRegistrarRespuestas);
 router.get("/respuestasRetro", Retro.getCurretRetroalimentacionAPI);
 
 const Accionable = require("../Controllers/accionable.controller");
-router.get("/accionables", Accionable.getAllAccionables);
+router.get("/accionables", Accionable.getAnswersCualitativa);
 
 module.exports = router;
