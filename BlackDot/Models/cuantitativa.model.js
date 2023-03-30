@@ -10,6 +10,7 @@
 
 const dataBase = require("../utils/dataBase");
 
+
 /**
  * @class
  * @classdesc Modelo de la tabla de respuestas cuantitativas
@@ -25,10 +26,10 @@ module.exports = class Cuantitativa {
    * @param {*} Cuantitativa - Objeto de tipo Cuantitativa
    */
   constructor(Cuantitativa) {
-    this.idCuantitativa = Cuantitativa.idCuantitativa;
-    this.contenido = Cuantitativa.contenido;
-    this.idPregunta = Cuantitativa.idPregunta;
-    this.idRetroalimentacion = Cuantitativa.idRetroalimentacion;
+    this.idCuantitativa = Cuantitativa.idCuantitativa
+    this.contenido = Cuantitativa.contenido
+    this.idPregunta = Cuantitativa.idPregunta
+    this.idRetroalimentacion = Cuantitativa.idRetroalimentacion
   }
 
   /**
@@ -38,13 +39,13 @@ module.exports = class Cuantitativa {
    * @returns {object} - Objeto de tipo Cuantitativa
    */
   static async getByID(idCuantitativa) {
-    const query = `select * from Cuantitativa where idCuantitativa = ?`;
-    const [rows] = await dataBase.execute(query, [idCuantitativa]);
+    const query = `select * from Cuantitativa where idCuantitativa = ?`
+    const [rows] = await dataBase.execute(query, [idCuantitativa])
 
     if (rows.length === 0)
-      throw new Error("Respuesta Cuantitativa no encontrada");
+      throw new Error("Respuesta Cuantitativa no encontrada")
 
-    return new Cuantitativa(rows[0]);
+    return new Cuantitativa(rows[0])
   }
 
   /**
@@ -53,10 +54,10 @@ module.exports = class Cuantitativa {
    * @returns {Promise<Cuantitativa[]>} - Arreglo de objetos de tipo Cuantitativa
    */
   static async getAll() {
-    const query = `select * from Cuantitativa`;
-    const [rows] = await dataBase.execute(query);
+    const query = `select * from Cuantitativa`
+    const [rows] = await dataBase.execute(query)
 
-    return rows.map((row) => new Cuantitativa(row));
+    return rows.map((row) => new Cuantitativa(row))
   }
 
   /**
@@ -65,15 +66,15 @@ module.exports = class Cuantitativa {
    * @returns {Promise<Cuantitativa>} - Query de la respuesta Cuantitativa guardada
    */
   async save() {
-    const query = `insert into Cuantitativa(contenido, idPregunta, idRetroalimentacion) values (?, ?, ?)`;
+    const query = `insert into Cuantitativa(contenido, idPregunta, idRetroalimentacion) values (?, ?, ?)`
 
     const [result] = await dataBase.execute(query, [
       this.contenido,
       this.idPregunta,
       this.idRetroalimentacion,
-    ]);
+    ])
 
-    this.idCuantitativa = result.insertId;
+    this.idCuantitativa = result.insertId
   }
 
   /**
@@ -91,23 +92,23 @@ module.exports = class Cuantitativa {
    * @returns {Promise<void>} - Query de la respuesta Cuantitativa eliminada
    */
   static async deleteByID(idCuantitativa) {
-    const query = `delete from Cuantitativa where idCuantitativa = ?`;
+    const query = `delete from Cuantitativa where idCuantitativa = ?`
 
-    await dataBase.execute(query, [idCuantitativa]);
+    await dataBase.execute(query, [idCuantitativa])
   }
 
   /**
    * @brief
    * Actualiza el contenido de la respuesta
+   * @param {*} Cuantitativa - Objeto de tipo Cuantitativa
    */
-  async update() {
-    const query = `update Cuantitativa set contenido = ?, idPregunta = ?, idRetroalimentacion = ? where idCuantitativa = ?`;
+  async update(Cuantitativa) {
+    const query = `update Cuantitativa set contenido = ? where idCuantitativa = ?`
 
-    await dataBase.execute(query, [
-      this.contenido,
-      this.idPregunta,
-      this.idRetroalimentacion,
-      this.idCuantitativa,
-    ]);
+    await dataBase.execute(query, [Cuantitativa.contenido, this.idCuantitativa])
+
+    this.contenido = Cuantitativa.contenido
+
+    return this
   }
-};
+}

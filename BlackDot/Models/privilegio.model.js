@@ -24,9 +24,9 @@ module.exports = class Privilegio {
      * @param {*} Privilegio - Objeto de tipo Privilegio
      */
     constructor(Privilegio) {
-        this.idPrivilegio = Rol.idPrivilegio
-        this.nombrePrivilegio = Rol.nombrePrivilegio
-        this.descripcionPrivilegio = Rol.descripcionPrivilegio
+        this.idPrivilegio = Privilegio.idPrivilegio
+        this.nombrePrivilegio = Privilegio.nombrePrivilegio
+        this.descripcionPrivilegio = Privilegio.descripcionPrivilegio
     }
 
     /**
@@ -49,7 +49,7 @@ module.exports = class Privilegio {
     /**
      * @brief
      * Obtiene todos los Privilegios.
-     * @returns {Promise<Privilegios[]>} - Arreglo de objetos de tipo Privilegio
+     * @returns {Promise<Privilegio[]>} - Arreglo de objetos de tipo Privilegio
      */
     static async getAll() {
         const privilegios = await dataBase.query("select * from Privilegio")
@@ -62,37 +62,82 @@ module.exports = class Privilegio {
      * Guarda un Privilegio en la base de datos.
      * @returns {Promise<Privilegio>} - Query del privilegio guardado
      * @throws {Error} - Si no se ha proporcionado un nombre de Privilegio
-     * @throws {Error} - Si no se ha proporcionado un label de Privilegio
+     * @throws {Error} - Si no se ha proporcionado una descripción de Privilegio
      */
     save() {
         if (!this.nombrePrivilegio) 
             throw new Error("No se ha proporcionado nombre de privilegio")
-        if (!this.labelPrivilegio)
-            throw new Error("No se ha proporcionado un label de privilegio")
+        if (!this.descripcionPrivilegio)
+            throw new Error("No se ha proporcionado una descripción de privilegio")
 
         return dataBase.query(
-            "insert into Privilegio (nombrePrivilegio, descripcionPrivilegio) values (?, ?)",
-            [this.nombrePrivilegio]
+            "insert into Privilegio (nombrePrivilegio, descripcionPrivilegio) values (?, ?)", [
+                this.nombrePrivilegio,
+                this.descripcionPrivilegio
+            ]
         )
     }
 
     /**
      * @brief
-     * Verifica que el objeto sea de tipo Privilegio
-     * @param {*} Privilegio
-     * @returns {boolean}
+     * Verifica si un privilegio existe en la base de datos.
+     * @returns {Promise<boolean>} - True si existe, false si no
+     * @throws {Error} - Si no se envia el id de privilegio
      */
-    static async verify(Privilegio) {}
+    static async verify(Privilegio) {
+        if (!Privilegio.idPrivilegio) 
+            throw new Error("No se ha proporcionado un id de privilegio")
+
+        const [privilegio] = await dataBase.query(
+            "select * from Privilegio where idPrivilegio = ?",
+            [Privilegio.idPrivilegio]
+        )
+    }
 
     /**
      * @brief
-     * Elimina un privilegio de acuerdo con el ID
-     * @param {*} idPrivilegio - id del privilegio
-     * @returns {Promise<void>} - Query del privilegio eliminado
+     * Verifica si una privilegio existe en la base de datos.
+     * @returns {Promise<boolean>} - True si existe, false si no
+     * @throws {Error} - Si no se envia el nombrePrivilegio
+     * @throws {Error} - Si nombrePrivilegio es muy largo
+     * @throws {Error} - Si no se envia descripcionPrivilegio
+     * @throws {Error} - Si descripcionPrivilegio es muy largo
      */
-    static async deleteByID(idPrivilegio) {
-        const query = `delete from Privilegio where idPrivilegio = ?`
+    async verify() {
+        if (!this.nombrePrivilegio) throw new Error("No se ha proporcionado un nombrePrivilegio");
+        if (this.nombrePrivilegio.length > 50)
+        throw new Error("El nombrePrivilegio es muy largo");
 
-        await dataBase.execute(query, [idPrivilegio])
+        if (!this.descripcionPrivilegio) throw new Error("No se ha proporcionado una descripcionPrivilegio");
+        if (this.nombrePrivilegio.length > 200)
+        throw new Error("El nombrePrivilegio es muy largo");
+
+        const [privilegio] = await dataBase.query(
+            "select * from Privilegio where nombrePrivilegio = ? and descripcionPrivilegio = ?",
+            [this.nombrePrivilegio, this.descripcionPrivilegio]
+        );
+
+        return Boolean(privilegio);
+    }
+
+    /**
+     * @brief
+     * Elimina un privilegio segun su ID de la base de datos.
+     * @param {number} idPrivilegio - ID del privilegio
+     * @returns {boolean} - True si se elimino, false si no
+     * @throws {Error} - Si no se envia el ID
+     * @throws {Error} - Si el ID no es un numero
+     */
+    async deleteByID(idPrivilegio) {
+        if (!idPrivilegio) throw new Error("No se envio el ID");
+        if (typeof idPrivilegio !== "number")
+        throw new Error("El ID debe ser un numero");
+
+        const result = await dataBase.query(
+        `delete from Privilegio where idPrivilegio = $1`,
+        [idPrivilegio]
+        );
+
+        return result.rowCount > 0;
     }
 }

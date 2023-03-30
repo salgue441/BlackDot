@@ -1,6 +1,6 @@
 /**
  * @file retroalimentacion.controller.js
- * @brief Controlador de retroalimentación
+ * @brief Controller for retroalimentacion table (Actual Retroalimentacion)
  * @author Carlos Salguero
  * @author Diego Sandoval
  * @author Yuna Chung
@@ -21,32 +21,128 @@ const Accionable = require("../models/accionable.model");
 const CualitativaAccionable = require("../models/cuali-accionable.model");
 const bodyparser = require("body-parser");
 const express = require("express");
+const path = require("path")
 
-const path = require("path");
+// Data Models
+const retroPregunta = require("../models/retro-pregunta.model")
+const Pregunta = require("../models/pregunta.model")
 
 bodyparser.urlencoded({ extended: true });
 
 /**
  * @brief
- * Gets all retros
+ * Simplifies the array of answers
+ * @param {*} answers - Array of answers to simplify
+ * @returns {*} - Simplified array of answers
+ * @throws {Error} - Error message
+ */
+const simplifyAnswers = (answers) => {
+  try {
+    return answers.reduce((acc, curr) => {
+      const index = acc.findIndex((item) => item.idPregunta === curr.idPregunta)
+
+      if (index === -1) {
+        acc.push({
+          idPregunta: curr.idPregunta,
+          Pregunta: curr.Pregunta,
+          respuestas: [curr.contenido],
+        })
+      } else {
+        acc[index].respuestas.push(curr.contenido)
+      }
+
+      return acc
+    }, [])
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+/**
+ * @brief
+ * Counts the number of duplicates in an array of answers
+ * @param {*} data - Array of answers
+ * @returns {*} - Object with the number of duplicates per question
+ */
+function countDuplicates(data) {
+  const datasets = new Set(data)
+  const result = {}
+
+  for (const dataset of datasets) {
+    result[dataset] = data.filter((x) => x === dataset).length
+  }
+
+  return result
+}
+
+/**
+ * @brief
+ * Gets all answers from a retroalimentacion
  * @param {Request} req - Request object
  * @param {Response} res - Response object
  * @returns {Response} - Response object
  * @throws {Error} - Error message
  */
-exports.getAllRetros = async (req, res) => {
+exports.getCurretRetroalimentacion = async (req, res) => {
   try {
-    await Retro.getAll().then((retros) => {
-      res.render(
-        path.join(__dirname, "../Views/Static/actual/verRetroalimentacion.ejs")
-      );
-    });
+    // Quantitative answers
+    const quantitative = await retroPregunta.getQuantitativeAnswerByID(1)
+    const simplifiedQuantitative = simplifyAnswers(quantitative)
+
+    for (const question of simplifiedQuantitative) {
+      question.respuestas = countDuplicates(question.respuestas)
+    }
+
+    // Qualitative answers
+    const qualitative = await retroPregunta.getQualitativeAnswersByID(1)
+    const simplifiedQualitative = simplifyAnswers(qualitative)
+
+    console.log(simplifiedQualitative)
+
+    res.render(
+      path.join(__dirname, "../Views/Static/actual/verRetroalimentacion.ejs"),
+      {
+        idRetroalimentacion: quantitative[0].idRetroalimentacion,
+        fechaRetroalimentacion: quantitative[0].fechaFinalizacion,
+        simplifiedQuantitative: simplifiedQuantitative,
+        simplifiedQualitative: simplifiedQualitative,
+      }
+    )
   } catch (error) {
     res.status(500).json({
-      message: error.message || "Error al obtener retroalimentación",
-    });
+      message: error.message || "Error al obtener metricas epicas",
+    })
   }
-};
+}
+
+/**
+ * @brief
+ * Sends the data for the graph (Not really used to display content)
+ * @param {Request} req - Request object
+ * @param {Response} res - Response object
+ * @returns {Response} - Response object
+ * @throws {Error} - Error message
+ */
+exports.getCurretRetroalimentacionAPI = async (req, res) => {
+  try {
+    // Quantitative answers
+    const quantitative = await retroPregunta.getQuantitativeAnswers()
+    const simplifiedQuantitative = simplifyAnswers(quantitative)
+
+    for (const question of simplifiedQuantitative) {
+      question.respuestas = countDuplicates(question.respuestas)
+    }
+
+    res.json({
+      idRetroalimentacion: req.params.idRetroalimentacion,
+      simplifiedQuantitative: simplifiedQuantitative,
+    })
+  } catch (error) {
+    res.status(500).json({
+      message: error.message || "Error al obtener metricas epicas",
+    })
+  }
+}
 
 /**
  * @brief
@@ -56,7 +152,6 @@ exports.getAllRetros = async (req, res) => {
  * @returns {Response} - Response object
  * @throws {Error} - Error message
  * */
-
 exports.getRegistrarRespuestas = async (req, res) => {
   try {
     await Pregunta.getAll().then((preguntas) => {
@@ -71,12 +166,12 @@ exports.getRegistrarRespuestas = async (req, res) => {
       res.render("Static/actual/registrarRespuestasRetroalimentacion.ejs", {
         preguntas,
         barProgress,
-      });
-    });
+      })
+    })
   } catch (error) {
     res.status(500).json({
       message: error.message || "Error al obtener preguntas",
-    });
+    })
   }
 };
 
@@ -139,3 +234,4 @@ exports.postRegistrarRespuestas = async (req, res) => {
     path.join(__dirname, "../Views/Static/actual/verRetroalimentacion.ejs")
   );
 };
+

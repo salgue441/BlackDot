@@ -4,14 +4,14 @@
 
 const express = require("express");
 const router = express.Router();
-const bodyparser = require("body-parser");
 
-bodyparser.urlencoded({ extended: true });
-
-const Retro = require("../Controllers/retroalimentacion.controller");
-router.get("/verRespuestas", Retro.getAllRetros);
-router.get("/retroalimentacion", Retro.getRegistrarRespuestas);
+const Retro = require("../Controllers/retroalimentacion.controller")
+router.get("/verRespuestas", Retro.getCurretRetroalimentacion)
+router.get("/retroalimentacion", Retro.getRegistrarRespuestas)
 
 router.post("/retroalimentacion", Retro.postRegistrarRespuestas);
 
-module.exports = router;
+// Fetches the data for the graph (Not really used to display content)
+router.get("/respuestasRetro", Retro.getCurretRetroalimentacionAPI)
+
+module.exports = router

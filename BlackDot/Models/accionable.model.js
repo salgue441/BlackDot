@@ -8,7 +8,7 @@
  * @copyright Copyright (c) 2023 - MIT License
  **/
 
-const dataBase = require("../utils/dataBase");
+const dataBase = require("../utils/dataBase")
 
 /**
  * @class Accionable
@@ -32,16 +32,16 @@ module.exports = class Accionable {
    **/
 
   constructor(Accionable) {
-    this.idAccionable = Accionable.idAccionable;
-    this.nombreAccionable = Accionable.nombreAccionable;
-    this.storyPoints = Accionable.storyPoints;
-    this.labelAccionable = Accionable.labelAccionable;
-    this.prioridadAccionable = Accionable.prioridadAccionable;
-    this.estadoAccionable = Accionable.estadoAccionable;
-    this.estadoIssue = Accionable.estadoIssue;
-    this.fechaCreacion = Accionable.fechaCreacion;
-    this.fechaFinalizacion = Accionable.fechaFinalizacion;
-  }
+    this.idAccionable = Accionable.idAccionable
+    this.nombreAccionable = Accionable.nombreAccionable
+    this.storyPoints = Accionable.storyPoints
+    this.labelAccionable = Accionable.labelAccionable
+    this.prioridadAccionable = Accionable.prioridadAccionable
+    this.estadoAccionable = Accionable.estadoAccionable
+    this.estadoIssue = Accionable.estadoIssue
+    this.fechaCreacion = Accionable.fechaCreacion
+    this.fechaFinalizacion = Accionable.fechaFinalizacion
+   }
 
   /**
    * @brief
@@ -51,12 +51,12 @@ module.exports = class Accionable {
    **/
 
   static async getbyId(idAccionable) {
-    const query = `SELECT * FROM Accionable where idAccionable = ?`;
-    const [rows] = await dataBase.execute(query, [idAccionable]);
+    const query = `SELECT * FROM Accionable where idAccionable = ?`
+    const [rows] = await dataBase.execute(query, [idAccionable])
 
-    if (rows.length === 0) throw new Error("Accionable no encontrada");
+    if (rows.length === 0) throw new Error("Accionable no encontrada")
 
-    return new Accionable(rows[0]);
+    return new Accionable(rows[0])
   }
 
   /**
@@ -77,7 +77,6 @@ module.exports = class Accionable {
    * Obtiene el id del ultimo accionable
    * @returns {int} - id del ultimo accionable
    */
-
   static async getLastId() {
     const query = `SELECT idAccionable FROM Accionable ORDER BY idAccionable DESC LIMIT 1`;
 
@@ -110,7 +109,6 @@ module.exports = class Accionable {
    * @brief
    * Modifica Accionable
    **/
-
   async update() {
     const query = `UPDATE Accionable SET nombreAccionable = ?, storyPoints = ?, labelAccionable = ?, prioridadAccionable = ?, estadoAccionable = ?, estadoIssue = ?, fechaCreacion = ?, fechaFinalizacion = ? WHERE idAccionable = ?`;
 
@@ -123,6 +121,8 @@ module.exports = class Accionable {
       this.estadoIssue,
       this.fechaCreacion,
       this.fechaFinalizacion,
-    ]);
+    ])
+
+    this.idAccionable = result.insertId
   }
-};
+}
