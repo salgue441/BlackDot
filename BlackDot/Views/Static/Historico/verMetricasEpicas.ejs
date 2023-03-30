@@ -21,6 +21,17 @@
       </div>
       <!-- End of Title & Button -->
 
+      <!-- Graph changing Button -->
+      <div class="columns">
+        <button class="button is-primary toggle-button" id="epicaComparison">
+          Epicas
+        </button>
+        <button class="button is-primary toggle-button" id="sprintComparison">
+          Sprints
+        </button>
+      </div>
+      <!-- End of Graph Changing Button -->
+
       <!-- Graph -->
       <% if (epicas.length > 0) { %>
 
@@ -88,3 +99,8 @@
 </body>
 
 <!-- Added functionality -->
+<style>
+  .toggle-button {
+    margin: 0 10px;
+  }
+</style>
