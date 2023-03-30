@@ -36,7 +36,7 @@ const createLineGraph = (canvas, data, labels) => {
             data: data,
             fill: false,
             borderColor: "rgba(251, 88, 89, 1)",
-            tension: 0.1,
+            tension: 0.3,
           },
         ],
       },
