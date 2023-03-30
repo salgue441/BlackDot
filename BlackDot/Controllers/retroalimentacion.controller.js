@@ -18,7 +18,7 @@ const Pregunta = require("../models/pregunta.model");
 const Cualitativa = require("../models/cualitativa.model");
 const Cuantitativa = require("../models/cuantitativa.model");
 const Accionable = require("../models/accionable.model");
-const CualiAccionable = require("../models/cuali-accionable.model");
+const CualitativaAccionable = require("../models/cuali-accionable.model");
 const bodyparser = require("body-parser");
 const express = require("express");
 
@@ -114,6 +114,15 @@ exports.postRegistrarRespuestas = async (req, res) => {
         });
 
         await accionable.save();
+
+        idAccionable = await Accionable.getLastId();
+
+        const CualiAccionable = new CualitativaAccionable({
+          idCualitativa: idcuali,
+          idAccionable: idAccionable,
+        });
+
+        await CualiAccionable.save();
       } else {
         respuestas[i][1] = parseInt(respuestas[i][1]);
         const resCuant = new Cuantitativa({

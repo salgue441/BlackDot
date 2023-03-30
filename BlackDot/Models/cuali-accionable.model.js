@@ -77,4 +77,15 @@ module.exports = class CualitativaAccionable {
         new CualitativaAccionable(cualitativaaccionable)
     );
   }
+
+  /**
+   * @brief
+   * funcion que guarda un CualitativaAccionable en la base de datos
+   * @returns {Promise<CualitativaAccionable>} - Objeto de tipo CualitativaAccionable
+   * */
+
+  async save() {
+    const query = `INSERT INTO CualitativaAccionable (idCualitativa, idAccionable) VALUES (?, ?)`;
+    await dataBase.execute(query, [this.idCualitativa, this.idAccionable]);
+  }
 };

@@ -74,6 +74,22 @@ module.exports = class Accionable {
 
   /**
    * @brief
+   * Obtiene el id del ultimo accionable
+   * @returns {int} - id del ultimo accionable
+   */
+
+  static async getLastId() {
+    const query = `SELECT idAccionable FROM Accionable ORDER BY idAccionable DESC LIMIT 1`;
+
+    const [idAccionable, _] = await dataBase.execute(query);
+
+    const id = idAccionable[0].idAccionable;
+
+    return id;
+  }
+
+  /**
+   * @brief
    * Guarda un nuevo Accionable
    * @returns {Promise<Accionable>} - Query del Accioanble guardada
    **/
