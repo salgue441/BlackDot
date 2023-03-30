@@ -78,12 +78,30 @@ const createBarChart = (canvas, data, labels) => {
 const createStackBarChart = (canvas, epicasData, labels) => {
   const ctx = canvas.getContext("2d")
 
-  const datasets = epicasData.map((epic, index) => {
-    const backgroundColor = `rgba(${100 + index * 30}, ${
-      index * 50 + 100
-    }, 132, 0.6)`
-    const borderColor = `rgba(${100 + index * 30}, ${index * 50 + 100}, 132, 1)`
+  const colors = [
+    {
+      backgroundColor: "rgba(255, 99, 132, 0.6)",
+      borderColor: "rgba(255, 99, 132, 1)",
+    },
+    {
+      backgroundColor: "rgba(54, 162, 235, 0.6)",
+      borderColor: "rgba(54, 162, 235, 1)",
+    },
+    {
+      backgroundColor: "rgba(255, 206, 86, 0.6)",
+      borderColor: "rgba(255, 206, 86, 1)",
+    },
+    {
+      backgroundColor: "rgba(75, 192, 192, 0.6)",
+      borderColor: "rgba(75, 192, 192, 1)",
+    },
+    {
+      backgroundColor: "rgba(153, 102, 255, 0.6)",
+      borderColor: "rgba(153, 102, 255, 1)",
+    },
+  ]
 
+  const datasets = epicasData.map((epic, index) => {
     const storyPointsPerSprint = epic.sprints.map((sprint) => {
       const doneIssues = sprint.issues.filter(
         (issue) => issue.estadoIssue === "Done"
@@ -94,8 +112,8 @@ const createStackBarChart = (canvas, epicasData, labels) => {
     return {
       label: epic.nombreEpica,
       data: storyPointsPerSprint,
-      backgroundColor: backgroundColor,
-      borderColor: borderColor,
+      backgroundColor: colors[index % colors.length].backgroundColor,
+      borderColor: colors[index % colors.length].borderColor,
       borderWidth: 1,
     }
   })
@@ -109,7 +127,6 @@ const createStackBarChart = (canvas, epicasData, labels) => {
     options: {
       scales: {
         y: {
-          stacked: true,
           beginAtZero: true,
           title: {
             display: true,
@@ -117,7 +134,6 @@ const createStackBarChart = (canvas, epicasData, labels) => {
           },
         },
         x: {
-          stacked: true,
           title: {
             display: true,
             text: "Sprints",
