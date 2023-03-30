@@ -28,20 +28,41 @@
                 <% if(accionables[i].nombreAccionable !== '') { %>
                     <% numAccionable++ %>
                     <div class="columns">
-                        <div class="column is-11">
-                            <div class="box is-black"> 
-                                <div class="content">
-                                    <p class="is-white">
-                                        <%= accionables[i].nombreAccionable %>
-                                    </p>
+                        <div class="column">
+                            <div class="box is-black is-flex is-align-items-center accionable" style="height: 100px !important;">
+                                
+                                <!-- Image -->
+                                <div class="column is-2">
+                                    <img src="" alt="Yuna Image" />
                                 </div>
+                                <!-- End of Image -->
+
+                                <!-- User -->
+                                <div class="column is-2">
+                                    <div class="content user">
+                                        <p class="is-white" style="font-size: 1.2rem;">
+                                            Yuna Chung
+                                        </p>
+                                    </div>
+                                </div>
+                                <!-- End of User -->
+
+                                <!-- Accionable content -->
+                                <div class="column is-8">
+                                        <div class="content">
+                                            <p class="is-white" style="font-size: 1.1rem;">
+                                                <%= accionables[i].nombreAccionable %>
+                                            </p>
+                                        </div>
+                                    </div>
+                             <!-- End of Accionable Content -->
                             </div>
                         </div>
                         <div class="column is-1">
-                            <div class="box is-black">
+                            <div class="box is-black accionable-toggle">
                                 <article class="media">
-                                    <figure class="image is-64x64">
-                                        <img src = "../../assets/approval.png">
+                                    <figure class="image is-24x24">
+                                        <input type="checkbox" name="accionable" value="" class="checkbox" />
                                     </figure>
                                 </article>
                             </div>
@@ -60,7 +81,58 @@
         background-color: #232021 !important;
     }
 
+    .accionable {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100px;
+        text-align: left;
+    }
+
     .is-white {
         color: #FFFFFF !important;
     }
+
+    .accionable-toggle {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100px;
+    }
+
+    .checkbox {
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 40px;
+        width: 40px;
+        transform: translate(-18%, -20%);
+        appearance: none;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        outline: none;
+        border: 2px solid #fff;
+        border-radius: 4px;
+    }
+
+    .checkbox::before {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        height: 20px;
+        width: 20px;
+        background-color: #fff;
+        border-radius: 2px;
+        opacity: 0;
+        transition: opacity 0.2s ease-in-out;
+    }
+
+    .checkbox:checked::before {
+        opacity: 1;
+    }
+
+
 </style>
