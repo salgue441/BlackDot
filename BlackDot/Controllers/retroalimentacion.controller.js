@@ -90,7 +90,7 @@ exports.getCurretRetroalimentacion = async (req, res) => {
     // Quantitative answers
     const quantitative = await retroPregunta.getQuantitativeAnswerByID(idRetro);
     const simplifiedQuantitative = simplifyAnswers(quantitative);
-
+    
     for (const question of simplifiedQuantitative) {
       question.respuestas = countDuplicates(question.respuestas);
     }
@@ -102,6 +102,7 @@ exports.getCurretRetroalimentacion = async (req, res) => {
     // Questions
 
     retros = await Retro.getAll();
+
 
     res.render(
       path.join(__dirname, "../Views/Static/actual/verRetroalimentacion.ejs"),
@@ -133,6 +134,7 @@ exports.getCurretRetroalimentacionAPI = async (req, res) => {
     // Quantitative answers
     const quantitative = await retroPregunta.getQuantitativeAnswerByID(5);
     const simplifiedQuantitative = simplifyAnswers(quantitative);
+
 
     for (const question of simplifiedQuantitative) {
       question.respuestas = countDuplicates(question.respuestas);
