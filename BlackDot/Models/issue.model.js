@@ -47,7 +47,7 @@ module.exports = class Issue {
     static async getAll() {
         const issues = await dataBase.query("select * from Issue")
 
-        return issues.map((issue) => new Issue(issue))
+        return issues
     }
 
     /**
