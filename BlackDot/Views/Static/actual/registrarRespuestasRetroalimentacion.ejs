@@ -5,11 +5,7 @@
     <%- include('../../include/navbar.ejs') %>
 
     <section class="container">
-      <form
-        class="preguntaContainer"
-        method="POST"
-        action="/actual/retroalimentacion"
-      >
+      <form class="preguntaContainer" method="POST" action="/actual/enviado">
         <progress
           class="progress is-danger is-fixed-top-desktop"
           value="<%= barProgress %>"

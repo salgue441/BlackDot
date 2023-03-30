@@ -89,7 +89,7 @@ let retroObj = {};
 
 exports.getCurretRetroalimentacion = async (req, res) => {
   try {
-    const idRetro = req.params.id || 3;
+    const idRetro = req.params.id || 5;
     // req.idRetro = idRetro;
 
     retroObj.id = idRetro;
@@ -243,5 +243,9 @@ exports.postRegistrarRespuestas = async (req, res) => {
     }
   }
 
-  res.render(path.join(__dirname, "../Views/Static/index.ejs"));
+  res.render(path.join(__dirname, "../Views/Static/actual/enviado.ejs"));
+};
+
+exports.getPaginaEnviado = async (req, res) => {
+  res.render(path.join(__dirname, "../Views/Static/actual/enviado.ejs"));
 };
