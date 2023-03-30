@@ -57,14 +57,14 @@
 
 <script>
   function updateProgressBar(e) {
-    const contenido = e.target.value
-    const valor = 100 / "<%= cantCualitativas %>"
+    const contenido = e.target.value;
+    const valor = 100 / "<%= cantCualitativas %>";
     if (!contenido) {
       document.querySelector("progress").value =
-        document.querySelector("progress").value - valor
+        document.querySelector("progress").value - valor;
     } else {
       document.querySelector("progress").value =
-        document.querySelector("progress").value + valor
+        document.querySelector("progress").value + valor;
     }
   }
 </script>
