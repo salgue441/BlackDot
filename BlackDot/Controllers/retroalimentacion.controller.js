@@ -13,21 +13,19 @@
  * @copyright Copyright (c) 2023 - MIT License
  */
 
-const Retro = require("../models/retro.model");
-const Pregunta = require("../models/pregunta.model");
-const Cualitativa = require("../models/cualitativa.model");
-const Cuantitativa = require("../models/cuantitativa.model");
-const Accionable = require("../models/accionable.model");
-const CualitativaAccionable = require("../models/cuali-accionable.model");
-const bodyparser = require("body-parser");
-const express = require("express");
-const path = require("path")
-
 // Data Models
-const retroPregunta = require("../models/retro-pregunta.model")
+const Retro = require("../models/retro.model")
 const Pregunta = require("../models/pregunta.model")
+const Cualitativa = require("../models/cualitativa.model")
+const Cuantitativa = require("../models/cuantitativa.model")
+const Accionable = require("../models/accionable.model")
+const CualitativaAccionable = require("../models/cuali-accionable.model")
+const bodyparser = require("body-parser")
+const express = require("express")
+const path = require("path")
+const retroPregunta = require("../models/retro-pregunta.model")
 
-bodyparser.urlencoded({ extended: true });
+bodyparser.urlencoded({ extended: true })
 
 /**
  * @brief
@@ -97,13 +95,11 @@ exports.getCurretRetroalimentacion = async (req, res) => {
     const qualitative = await retroPregunta.getQualitativeAnswersByID(1)
     const simplifiedQualitative = simplifyAnswers(qualitative)
 
-    console.log(simplifiedQualitative)
-
     res.render(
       path.join(__dirname, "../Views/Static/actual/verRetroalimentacion.ejs"),
       {
         idRetroalimentacion: quantitative[0].idRetroalimentacion,
-        fechaRetroalimentacion: quantitative[0].fechaFinalizacion,
+        fechaRetroalimentacion: quantitative[0].fechaRetroalimentacion,
         simplifiedQuantitative: simplifiedQuantitative,
         simplifiedQualitative: simplifiedQualitative,
       }
@@ -156,11 +152,11 @@ exports.getRegistrarRespuestas = async (req, res) => {
   try {
     await Pregunta.getAll().then((preguntas) => {
       // Calculate progress percentage based on completed fields
-      const total = preguntas.length;
+      const total = preguntas.length
       const completed = req.query.respuestas
         ? Object.keys(req.query.respuestas).length
-        : 0;
-      const barProgress = 0;
+        : 0
+      const barProgress = 0
 
       // Render the EJS template with the preguntas and progress variables
       res.render("Static/actual/registrarRespuestasRetroalimentacion.ejs", {
@@ -173,7 +169,7 @@ exports.getRegistrarRespuestas = async (req, res) => {
       message: error.message || "Error al obtener preguntas",
     })
   }
-};
+}
 
 /**
  * @brief
@@ -185,53 +181,52 @@ exports.getRegistrarRespuestas = async (req, res) => {
  * */
 
 exports.postRegistrarRespuestas = async (req, res) => {
-  const respuestas = req.body;
-  const idRetroalimentacion = 5;
+  const respuestas = req.body
+  const idRetroalimentacion = 5
 
   for (i in respuestas) {
-    respuestas[i] = [i, respuestas[i], idRetroalimentacion];
-    respuestas[i][0] = parseInt(respuestas[i][0]);
+    respuestas[i] = [i, respuestas[i], idRetroalimentacion]
+    respuestas[i][0] = parseInt(respuestas[i][0])
 
     if (respuestas[i][1].length > 2) {
       const resCuali = new Cualitativa({
         contenido: respuestas[i][1],
         idPregunta: respuestas[i][0],
         idRetroalimentacion: respuestas[i][2],
-      });
-      await resCuali.save();
+      })
+      await resCuali.save()
       if (respuestas[i][0] === 8) {
-        idcuali = await Cualitativa.getLastid();
+        idcuali = await Cualitativa.getLastid()
 
         const accionable = new Accionable({
           nombreAccionable: respuestas[i][1],
           storyPoints: 0,
           labelAccionable: "Accionable",
-        });
+        })
 
-        await accionable.save();
+        await accionable.save()
 
-        idAccionable = await Accionable.getLastId();
+        idAccionable = await Accionable.getLastId()
 
         const CualiAccionable = new CualitativaAccionable({
           idCualitativa: idcuali,
           idAccionable: idAccionable,
-        });
+        })
 
-        await CualiAccionable.save();
+        await CualiAccionable.save()
       } else {
-        respuestas[i][1] = parseInt(respuestas[i][1]);
+        respuestas[i][1] = parseInt(respuestas[i][1])
         const resCuant = new Cuantitativa({
           contenido: respuestas[i][1],
           idPregunta: respuestas[i][0],
           idRetroalimentacion: respuestas[i][2],
-        });
-        resCuant.save();
+        })
+        resCuant.save()
       }
     }
   }
 
   res.render(
     path.join(__dirname, "../Views/Static/actual/verRetroalimentacion.ejs")
-  );
-};
-
+  )
+}
