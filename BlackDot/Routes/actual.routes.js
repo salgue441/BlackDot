@@ -14,4 +14,9 @@ router.post("/retroalimentacion", Retro.postRegistrarRespuestas);
 // Fetches the data for the graph (Not really used to display content)
 router.get("/respuestasRetro", Retro.getCurretRetroalimentacionAPI)
 
+// Sprint Actual
+
+const SprintActual = require("../Controllers/metricaActual.controller")
+router.get("/metricasSprint", SprintActual.getActual)
+
 module.exports = router
