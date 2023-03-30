@@ -27,7 +27,7 @@ describe("EquipoTrabajo", () => {
          */
         test("Debe crear una instancia de EquipoTrabajo", () => {
             const equiTraba = new EquipoTrabajo({
-                idEquipoTrabajo: 111
+                idEquipoTrabajo: 22
             })
             expect(equiTraba).toBeInstanceOf(EquipoTrabajo)
         })
@@ -62,8 +62,8 @@ describe("EquipoTrabajo", () => {
          */
         describe("save", () => {
             test("Debe guardar un equipoTrabajo", async () => {
-                const privi = new EquipoTrabajo({
-                    idEquipoTrabajo: 111
+                const equiTraba = new EquipoTrabajo({
+                    idEquipoTrabajo: 23
                 })
 
                 await equiTraba.save()
@@ -77,33 +77,35 @@ describe("EquipoTrabajo", () => {
          **/
         describe("verify", () => {
             test("Debe verificar si existe un EquipoTrabajo", async () => {
-                const equiTraba = new EquipoTrabajo({
-                    idEquipoTrabajo: 111
+                const equipotrabajo = new EquipoTrabajo({
+                    idEquipoTrabajo: 11,
                 });
 
-                await equiTraba.save();
+                await equipotrabajo.save();
 
-                await equiTraba.verify(equiTraba.idEquipoTrabajo);
-                expect(equiTraba).toBeInstanceOf(EquipoTrabajo);
+                await equipotrabajo.verify(equipotrabajo.idEquipoTrabajo);
+                expect(equipotrabajo).toBeInstanceOf(EquipoTrabajo);
             });
         })
 
         /**
          * @brief
-         * Test para el metodo de deleteByID
-         * @param {int} idEquipoTrabajo - ID del equipoTrabajo
+         * Prueba unitaria para el metodo deleteByID
          */
         describe("deleteByID", () => {
-            test("Debe eliminar un equipoTrabajo", async () => {
-                const equiTraba = new EquipoTrabajo({
-                    idEquipoTrabajo: 111                
-            })
-    
-            await equiTraba.save()
-    
-            await EquipoTrabajo.deleteByID(equiTraba.idEquipoTrabajo)
-            expect(equiTraba).toBeInstanceOf(EquipoTrabajo)
-            })
-        })
+            test("Devuelve error si no se proporciona el ID", async () => {
+            const equipotrabajo = new EquipoTrabajo({});
+
+            await expect(equipotrabajo.deleteByID()).rejects.toThrow("No se envio el ID");
+            });
+
+            test("Devuelve error si el ID no es un numero", async () => {
+            const equipotrabajo = new EquipoTrabajo({});
+
+            await expect(equipotrabajo.deleteByID("abcdef")).rejects.toThrow(
+                "El ID debe ser un numero"
+            );
+            });
+        });
     })
 })
