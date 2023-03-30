@@ -68,6 +68,11 @@ describe("Sprint", () => {
         expect(Array.isArray(sprints)).toBe(true)
       })
     })
+        const sprints = await Sprint.getAll();
+        
+        expect(Array.isArray(sprints)).toBe(true);
+      });
+    });
 
     /**
      * @brief
