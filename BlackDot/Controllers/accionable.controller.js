@@ -28,16 +28,19 @@ const Accionable = require("../Models/accionable.model");
 
 exports.getAllAccionables = async (req, res) => {
     try{
-        await Accionable.getAll().then((actionables) => {
-            res.render(
-                path.join(__dirname, "../Views/Static/actual/aprobarAccionable.ejs")
-            );
-        });
+        const accionables = await Accionable.getAll()
+
+        res.render(
+            path.join(__dirname, "../Views/Static/actual/aprobarAccionable.ejs"), 
+            {
+                accionables: accionables,
+            }
+        )
     }
 
-    catch(error){
+    catch (error){
         res.status(500).json({
-            message: error.message || "No se puede obtener Accionable"
-        });
+            message: error.message || "Error al obtener Accionables",
+        })
     }
-};
+}
