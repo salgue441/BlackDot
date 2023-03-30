@@ -79,8 +79,6 @@ exports.getAllEpicas = async (req, res) => {
       epica.sprints = epicaSprints
     })
 
-    console.dir(sprints)
-
     res.render(
       path.join(__dirname, "../Views/Static/historico/verMetricasEpicas.ejs"),
       {
