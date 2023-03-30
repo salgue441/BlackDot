@@ -9,7 +9,7 @@
             <!-- Title & Button to Accept -->
                 <div class="columns">
                     <div class="column is-half is-flex">
-                        <h1 class = "title is-1">Accionables</h1>
+                        <h1 class = "title is-1">Aprobar Accionables</h1>
                     </div>
 
                     <div class = "column is-half is-flex is-justify-content-end">
@@ -22,10 +22,10 @@
                 </div>
                 <!-- End of Title & Button -->
 
-                <!-- Accionables -->
+                <!-- Quantitative Answers -->
                 <% let numAccionable = 0 %>
-                <% for(var i = 0; i < accionables.length; i++) { %>
-                <% if(accionables[i].nombreAccionable !== '') { %>
+                <% for(var i = 0; i < waitingAnswers.length; i++) { %>
+                <% if(waitingAnswers[i].contenido !== '') { %>
                     <% numAccionable++ %>
                     <div class="columns">
                         <div class="column">
@@ -51,7 +51,7 @@
                                 <div class="column is-8">
                                         <div class="content">
                                             <p class="is-white" style="font-size: 1.1rem;">
-                                                <%= accionables[i].nombreAccionable %>
+                                                <%= waitingAnswers[i].contenido %>
                                             </p>
                                         </div>
                                     </div>
