@@ -23,13 +23,32 @@
     </section>
 
     <section>
+
+    <!-- Graph  -->
+
+      <% if (sprint.length > 0) { %>
     
-      const config = {
-        type: 'line',
-        data: 2,
-      };
+      <div class="container is-widescreen" style="z-index: 10;">
+        <div
+          class="box has-background-white has-text-centered sprint-graph"
+          style="width: 100%" >
+          <p class="subtitle is-2">Sprint</p>
+          <canvas id="Sprints"></canvas>
+        </div>
+      </div>
+    
+      <!-- <% } else { %>
+        <div class="container">
+          <div class="box has-background-white has-text-centered">
+            <p class="subtitle is-4">No hay epicas disponibles</p>
+          </div>
+        </div>
+        <% } %>
+        End of Graph -->
 
     </section>
+
+    <script src="/js/sprint.chart.js"></script>
   </body>
 </html>
 
@@ -62,6 +81,10 @@
 
   .button.is-success {
     background-color: #356959 !important;
+  }
+
+  .sprint-graph  {
+    margin-top: 30px;
   }
 
   @media screen and (max-width: 768px) {
