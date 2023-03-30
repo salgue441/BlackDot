@@ -21,13 +21,29 @@
           </div>
 
           <div class="column is-half is-flex is-justify-content-end">
-            <div class="is-grouped is-grouped-centered">
-              <a
-                class="button is-danger reporte-button"
-                href="/static/actual/verRetroalimentacion"
-              >
-                Generar Reporte
-              </a>
+            <div class="dropdown" id="dropdown">
+              <div class="dropdown-trigger">
+                <button
+                  class="button is-danger"
+                  aria-haspopup="true"
+                  aria-controls="dropdown-menu3"
+                >
+                  <span>Seleccionar Retroalimentacion </span>
+                  <span class="icon is-small">
+                    <i class="fas fa-angle-down" aria-hidden="true"></i>
+                  </span>
+                </button>
+              </div>
+              <div class="dropdown-menu" id="dropdown-menu3" role="menu">
+                <div class="dropdown-content">
+                  <!-- <a href="#" class="dropdown-item is-center"> Overview </a> //onclick llama funcion y cambia idretro -->
+                  <% for (let i = 0; i < retros.length; i++) { %>
+                  <a href="#" class="dropdown-item">
+                    Retroalimentacion <%= retros[i].idRetroalimentacion %>
+                  </a>
+                  <% } %>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -111,4 +127,19 @@
   .graph-canvas {
     width: 100%;
   }
+
+  #dropdown-menu3 {
+    width: 265px;
+  }
 </style>
+
+<script>
+  var dropdown = document.getElementById("dropdown");
+  dropdown.addEventListener("click", function (event) {
+    event.stopPropagation();
+    dropdown.classList.toggle("is-active");
+  });
+  document.addEventListener("click", function (event) {
+    dropdown.classList.remove("is-active");
+  });
+</script>
