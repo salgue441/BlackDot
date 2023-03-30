@@ -61,6 +61,21 @@ module.exports = class Cualitativa {
 
   /**
    * @brief
+   * Obtiene la ultima respuesta cualitativa
+   * @returns  objeto tipo cualitativa
+   */
+
+  static async getLastid() {
+    const query = `select idCualitativa from Cualitativa order by idCualitativa desc limit 1`;
+    const [idCualitativa, _] = await dataBase.execute(query);
+
+    const id = idCualitativa[0].idCualitativa;
+
+    return id;
+  }
+
+  /**
+   * @brief
    * Guarda una nueva respuesta cualitativa
    * @returns {Promise<Cualitativa>} - Query de la respuesta cualitativa guardada
    */

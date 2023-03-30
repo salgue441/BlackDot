@@ -17,6 +17,8 @@ const Retro = require("../models/retro.model");
 const Pregunta = require("../models/pregunta.model");
 const Cualitativa = require("../models/cualitativa.model");
 const Cuantitativa = require("../models/cuantitativa.model");
+const Accionable = require("../models/accionable.model");
+const CualiAccionable = require("../models/cuali-accionable.model");
 const bodyparser = require("body-parser");
 const express = require("express");
 
@@ -102,14 +104,25 @@ exports.postRegistrarRespuestas = async (req, res) => {
         idRetroalimentacion: respuestas[i][2],
       });
       await resCuali.save();
-    } else {
-      respuestas[i][1] = parseInt(respuestas[i][1]);
-      const resCuant = new Cuantitativa({
-        contenido: respuestas[i][1],
-        idPregunta: respuestas[i][0],
-        idRetroalimentacion: respuestas[i][2],
-      });
-      resCuant.save();
+      if (respuestas[i][0] === 8) {
+        idcuali = await Cualitativa.getLastid();
+
+        const accionable = new Accionable({
+          nombreAccionable: respuestas[i][1],
+          storyPoints: 0,
+          labelAccionable: "Accionable",
+        });
+
+        await accionable.save();
+      } else {
+        respuestas[i][1] = parseInt(respuestas[i][1]);
+        const resCuant = new Cuantitativa({
+          contenido: respuestas[i][1],
+          idPregunta: respuestas[i][0],
+          idRetroalimentacion: respuestas[i][2],
+        });
+        resCuant.save();
+      }
     }
   }
 
