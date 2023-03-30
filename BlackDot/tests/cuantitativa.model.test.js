@@ -114,7 +114,7 @@ describe("Cuantitativa", () => {
       await cuanti.save()
 
       cuanti.update({
-        contenido: 10,
+        contenido: 4,
       })
     })
   })
