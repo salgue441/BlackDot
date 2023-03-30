@@ -11,10 +11,12 @@ router.get("/verRespuestas", Retro.getCurretRetroalimentacion);
 
 router.get("/retroalimentacion", Retro.getRegistrarRespuestas);
 
-router.post("/retroalimentacion", Retro.postRegistrarRespuestas);
+router.post("/enviado", Retro.postRegistrarRespuestas);
 
 // Fetches the data for the graph (Not really used to display content)
 router.get("/respuestasRetro", Retro.getCurretRetroalimentacionAPI);
+
+router.get("/enviado", Retro.getPaginaEnviado);
 
 const Accionable = require("../Controllers/accionable.controller");
 router.get("/accionables", Accionable.getAnswersCualitativa);
