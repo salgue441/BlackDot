@@ -35,8 +35,8 @@ const createLineGraph = (canvas, data, labels) => {
             label: "StoryPoints",
             data: data,
             fill: false,
-            borderColor: "rgba(251, 88, 89, 1)",
-            backgroundColor: "rgba(0, 0, 0, 0)",
+            borderColor: "rgba(6, 91, 183, 1)",
+            backgroundColor: "rgba(35, 32, 33, 1)",
             tension: 0.3,
           },
         ],
@@ -51,11 +51,11 @@ const createLineGraph = (canvas, data, labels) => {
             title: {
               display: true,
               text: "Story Points",
-              color: "white",
+              color: "black",
             },
 
-            gridlines: {
-              color: "rgba(255, 255, 255, 1)"
+            grid: {
+              color: "rgba(68, 68, 68, 1)"
                
             },
 
@@ -64,11 +64,11 @@ const createLineGraph = (canvas, data, labels) => {
             title: {
               display: true,
               text: "Sprints",
-              color: "white",
+              color: "black",
             },
 
-            gridlines: {
-              color: "rgba(255, 255, 255, 1)"
+            grid: {
+              color: "rgba(68, 68, 68, 1)"
             },
 
           },
