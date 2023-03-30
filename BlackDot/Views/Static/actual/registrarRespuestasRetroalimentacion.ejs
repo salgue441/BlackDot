@@ -16,7 +16,7 @@
           max="100"
         ></progress>
 
-        <% let cantCualitativas = 0; %> <% for (var i = 1; i < preguntas.length;
+        <% let cantCualitativas = 0; %> <% for (var i = 0; i < preguntas.length;
         i++) { %> <% if (preguntas[i].tipoPregunta === 'Cualitativa') { %> <%
         cantCualitativas++; %>
         <div class="box is-flex is-flex-direction-column">
@@ -57,14 +57,14 @@
 
 <script>
   function updateProgressBar(e) {
-    const contenido = e.target.value;
-    const valor = 100 / "<%= cantCualitativas %>";
+    const contenido = e.target.value
+    const valor = 100 / "<%= cantCualitativas %>"
     if (!contenido) {
       document.querySelector("progress").value =
-        document.querySelector("progress").value - valor;
+        document.querySelector("progress").value - valor
     } else {
       document.querySelector("progress").value =
-        document.querySelector("progress").value + valor;
+        document.querySelector("progress").value + valor
     }
   }
 </script>

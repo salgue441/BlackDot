@@ -1,12 +1,7 @@
 /**
  * @file issue.model.js
  * @brief Modelo de la tabla de issues
- * @author Carlos Salguero
- * @author Diego Sandoval
- * @author Olimpia Garcia
  * @author Diego Llaca
- * @author Yuna Chung
- * @author Ivan Paredes
  * @version 1.0
  * @date 2023-03-24
  *
@@ -57,6 +52,31 @@ module.exports = class Issue {
 
   /**
    * @brief
+   * Verifica si un issue existe en la base de datos.
+   * @returns {Promise<boolean>} - True si existe, false si no
+   * @throws {Error} - Si no se envia el nombre del issue
+   * @throws {Error} - Si el nombre del issue es muy largo
+   * @throws {Error} - Si no se envia el label del issue
+   * @throws {Error} - Si el label del issue es muy largo
+   */
+  async verify() {
+    if (!this.nombreIssue)
+      throw new Error("No se ha proporcionado un nombre de issue")
+    if (this.nombreIssue.length > 150) throw new Error("El nombre es muy largo")
+    if (!this.labelIssue)
+      throw new Error("No se ha proporcionado un label de issue")
+    if (this.labelIssue.length > 50) throw new Error("El label es muy largo")
+
+    const [issue] = await dataBase.query(
+      "select * from Issue where nombreIssue = ? and labelIssue = ?",
+      [this.nombreIssue, this.labelIssue]
+    )
+
+    return Boolean(issue)
+  }
+
+  /**
+   * @brief
    * Guarda un issue en la base de datos.
    * @returns {Promise<Issue>} - Query del issue guardado
    * @throws {Error} - Si no se ha proporcionado un nombre de Issue
@@ -79,29 +99,6 @@ module.exports = class Issue {
         this.fechaCreacion,
         this.fechaFinalizacion,
       ]
-    )
-  }
-
-  /**
-   * @brief
-   * Verifica si un issue existe en la base de datos.
-   * @returns {Promise<boolean>} - True si existe, false si no
-   * @throws {Error} - Si no se envia el nombre del issue
-   * @throws {Error} - Si el nombre del issue es muy largo
-   * @throws {Error} - Si no se envia el label del issue
-   * @throws {Error} - Si el label del issue es muy largo
-   */
-  static async verify() {
-    if (!this.nombreIssue)
-      throw new Error("No se ha proporcionado un nombre de issue")
-    if (this.nombreIssue.length > 150) throw new Error("El nombre es muy largo")
-    if (!this.labelIssue)
-      throw new Error("No se ha proporcionado un label de issue")
-    if (this.labelIssue.length > 50) throw new Error("El label es muy largo")
-
-    const [issue] = await dataBase.query(
-      "select * from Issue where nombreIssue = ? and labelIssue = ?",
-      [this.nombreIssue, this.labelIssue]
     )
   }
 }
