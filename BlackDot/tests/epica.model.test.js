@@ -14,7 +14,13 @@ describe("Epica", () => {
   beforeEach(() => {
     jest.resetModules()
   })
+  beforeEach(() => {
+    jest.resetModules()
+  })
 
+  describe("Constructor", () => {
+    test("Crear una instancia Epica", () => {
+      const epic = new Epica({
   describe("Constructor", () => {
     test("Crear una instancia Epica", () => {
       const epic = new Epica({
@@ -22,7 +28,12 @@ describe("Epica", () => {
         contenido: "Rovin en Mappa",
       })
       expect(epic).toBeInstanceOf(Epica)
+      })
+      expect(epic).toBeInstanceOf(Epica)
     })
+
+    describe("geByID", () => {
+      test("Debe devolver una epica", async () => {
 
     describe("geByID", () => {
       test("Debe devolver una epica", async () => {
@@ -32,6 +43,7 @@ describe("Epica", () => {
     })
 
     describe("getAll", () => {
+    describe("getAll", () => {
       test("Debe devolver un arreglo de epicas", async () => {
         const epicas = await Epica.getAll()
         
@@ -40,3 +52,4 @@ describe("Epica", () => {
     })
   })
 })
+
