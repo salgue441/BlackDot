@@ -28,11 +28,22 @@
                 <% if(accionables[i].nombreAccionable !== '') { %>
                     <% numAccionable++ %>
                     <div class="columns">
-                        <div class = "column is-11">
-                            <div class = "content">
-                                <p>
-                                    <%= accionables[i].nombreAccionable %>
-                                </p>
+                        <div class="column is-11">
+                            <div class="box is-black"> 
+                                <div class="content">
+                                    <p class="is-white">
+                                        <%= accionables[i].nombreAccionable %>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="column is-1">
+                            <div class="box is-black">
+                                <article class="media">
+                                    <figure class="image is-64x64">
+                                        <img src = "../../assets/approval.png">
+                                    </figure>
+                                </article>
                             </div>
                         </div>
                     </div>
@@ -42,3 +53,14 @@
         </section>
     </body>
 </html>
+
+<style>
+    /* Custom CSS by Yuna */
+    .is-black {
+        background-color: #232021 !important;
+    }
+
+    .is-white {
+        color: #FFFFFF !important;
+    }
+</style>
