@@ -38,7 +38,11 @@
                 <div class="dropdown-content">
                   <!-- <a href="#" class="dropdown-item is-center"> Overview </a> //onclick llama funcion y cambia idretro -->
                   <% for (let i = 0; i < retros.length; i++) { %>
-                  <a href="#" class="dropdown-item">
+                  <a
+                    href="/actual/verRespuestas/<%= retros[i].idRetroalimentacion  %>"
+                    class="dropdown-item is-center"
+                    onclick=""
+                  >
                     Retroalimentacion <%= retros[i].idRetroalimentacion %>
                   </a>
                   <% } %>
