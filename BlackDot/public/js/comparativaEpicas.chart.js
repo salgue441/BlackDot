@@ -20,6 +20,7 @@ const fetchEpicasData = async () => {
  * Creates the graph
  * @param {HTMLCanvasElement} canvas - Canvas element
  * @param {Array} data - Data to be displayed
+ * @param {Array} labels - Labels for the data
  */
 const createBarChart = (canvas, data, labels) => {
   const ctx = canvas.getContext("2d")
@@ -69,13 +70,78 @@ const createBarChart = (canvas, data, labels) => {
 
 /**
  * @brief
+ * Creates a bar chart with multiple bars per epic.
+ * @param {HTMLCanvasElement} canvas - Canvas element
+ * @param {Array} data - Data to be displayed
+ * @param {Array} labels - Labels for the data
+ */
+const createStackBarChart = (canvas, epicasData, labels) => {
+  const ctx = canvas.getContext("2d")
+
+  const datasets = epicasData.map((epic, index) => {
+    const backgroundColor = `rgba(${100 + index * 30}, ${
+      index * 50 + 100
+    }, 132, 0.6)`
+    const borderColor = `rgba(${100 + index * 30}, ${index * 50 + 100}, 132, 1)`
+
+    const storyPointsPerSprint = epic.sprints.map((sprint) => {
+      const doneIssues = sprint.issues.filter(
+        (issue) => issue.estadoIssue === "Done"
+      )
+      return doneIssues.reduce((total, issue) => total + issue.storyPoints, 0)
+    })
+
+    return {
+      label: epic.nombreEpica,
+      data: storyPointsPerSprint,
+      backgroundColor: backgroundColor,
+      borderColor: borderColor,
+      borderWidth: 1,
+    }
+  })
+
+  return new Chart(ctx, {
+    type: "bar",
+    data: {
+      labels: labels,
+      datasets: datasets,
+    },
+    options: {
+      scales: {
+        y: {
+          stacked: true,
+          beginAtZero: true,
+          title: {
+            display: true,
+            text: "Story Points",
+          },
+        },
+        x: {
+          stacked: true,
+          title: {
+            display: true,
+            text: "Sprints",
+          },
+        },
+      },
+      plugins: {
+        legend: {
+          display: true,
+          position: "top",
+        },
+      },
+    },
+  })
+}
+
+/**
+ * @brief
  * Renders the graph. This function is called when the page is loaded
  * or refreshed
  * @todo Add token when authentication is implemented
  */
 ;(async function renderGraph() {
   const data = await fetchEpicasData()
-  console.log(data)
 
   const canvas = document.getElementById("EpicaComparison")
   let allStoryPoints = []
@@ -100,24 +166,21 @@ const createBarChart = (canvas, data, labels) => {
 
   createBarChart(canvas, allStoryPoints, epicasNames)
 })()
-
 /**
  * @brief
  * Renders the sprint-comparison graph. This function is called when the page
  * is loaded or refreshed
  * @todo Add token when authentication is implemented
  */
-;(async function renderGraph() {
+// Updated calling function
+;(async function renderStackGraph() {
   const data = await fetchEpicasData()
   console.log(data)
 
   const canvas = document.getElementById("SprintComparison")
-  let allStoryPoints = []
-  let epicasNames = []
+  const sprintsLabels = data.epicas[0].sprints.map((sprint) => sprint.idSprint)
 
-  data.epicas.forEach((set) => {
-  })
-
+  createStackBarChart(canvas, data.epicas, sprintsLabels)
 })()
 
 /**
@@ -136,7 +199,7 @@ const change = (event) => {
   )
 
   // Change the colors of the buttons
-  button.classList.remove("is-link")
+  button.classList.remove("is-fill")
   button.classList.add("is-link")
   otherButton.classList.remove("is-link")
   otherButton.classList.add("is-fill")
