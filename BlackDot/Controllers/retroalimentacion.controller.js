@@ -86,8 +86,9 @@ function countDuplicates(data) {
  */
 exports.getCurretRetroalimentacion = async (req, res) => {
   try {
+    const idRetro = req.params.id || 3;
     // Quantitative answers
-    const quantitative = await retroPregunta.getQuantitativeAnswerByID(5);
+    const quantitative = await retroPregunta.getQuantitativeAnswerByID(idRetro);
     const simplifiedQuantitative = simplifyAnswers(quantitative);
 
     for (const question of simplifiedQuantitative) {
@@ -95,7 +96,7 @@ exports.getCurretRetroalimentacion = async (req, res) => {
     }
 
     // Qualitative answers
-    const qualitative = await retroPregunta.getQualitativeAnswersByID(5);
+    const qualitative = await retroPregunta.getQualitativeAnswersByID(idRetro);
     const simplifiedQualitative = simplifyAnswers(qualitative);
 
     // Questions
