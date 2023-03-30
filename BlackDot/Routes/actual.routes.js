@@ -13,6 +13,6 @@ router.get("/retroalimentacion", Retro.getRegistrarRespuestas)
 router.get("/respuestasRetro", Retro.getCurretRetroalimentacionAPI)
 
 const Accionable = require("../Controllers/accionable.controller");
-router.get("/verAccionables", Accionable.getAllAccionables);
+router.get("/aprobarAccionables", Accionable.getAllAccionables);
 
 module.exports = router
