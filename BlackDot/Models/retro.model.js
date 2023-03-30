@@ -64,9 +64,9 @@ module.exports = class Retroalimentacion {
       ]
     );
   }
-
+  //?arreglar
   static async getRetroActual() {
-    const fechaActual = new Date().toISOString().split("T")[0];
+    const fechaActual = new Date().toISOString().split("T")[0].toString();
 
     const retro = await dataBase.query(
       "select * from retroalimentacion where FechaCreacion <= ? and FechaFinalizacion >= ?",

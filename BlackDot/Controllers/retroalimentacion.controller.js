@@ -89,9 +89,10 @@ exports.getRegistrarRespuestas = async (req, res) => {
 
 exports.postRegistrarRespuestas = async (req, res) => {
   const respuestas = req.body;
+  const idRetroalimentacion = 5;
 
   for (i in respuestas) {
-    respuestas[i] = [i, respuestas[i], 1];
+    respuestas[i] = [i, respuestas[i], idRetroalimentacion];
     respuestas[i][0] = parseInt(respuestas[i][0]);
 
     if (respuestas[i][1].length > 2) {
@@ -100,7 +101,7 @@ exports.postRegistrarRespuestas = async (req, res) => {
         idPregunta: respuestas[i][0],
         idRetroalimentacion: respuestas[i][2],
       });
-      console.log(resCuali);
+      await resCuali.save();
     } else {
       respuestas[i][1] = parseInt(respuestas[i][1]);
       const resCuant = new Cuantitativa({
@@ -108,6 +109,7 @@ exports.postRegistrarRespuestas = async (req, res) => {
         idPregunta: respuestas[i][0],
         idRetroalimentacion: respuestas[i][2],
       });
+      resCuant.save();
     }
   }
 
