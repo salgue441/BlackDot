@@ -156,6 +156,7 @@ const change = (event) => {
   // Change the graph-title and graph-canvas
   const graphTitle = document.getElementsByClassName("graph-title")
   const graphCanvas = document.getElementsByClassName("graph-canvas")
+  
   for (let i = 0; i < graphTitle.length; i++) {
     graphTitle[i].style.display =
       graphTitle[i].style.display === "none" ? "block" : "none"
