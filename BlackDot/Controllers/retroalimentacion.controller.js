@@ -84,13 +84,20 @@ function countDuplicates(data) {
  * @returns {Response} - Response object
  * @throws {Error} - Error message
  */
+
+let retroObj = {};
+
 exports.getCurretRetroalimentacion = async (req, res) => {
   try {
     const idRetro = req.params.id || 3;
+    // req.idRetro = idRetro;
+
+    retroObj.id = idRetro;
+
     // Quantitative answers
     const quantitative = await retroPregunta.getQuantitativeAnswerByID(idRetro);
     const simplifiedQuantitative = simplifyAnswers(quantitative);
-    
+
     for (const question of simplifiedQuantitative) {
       question.respuestas = countDuplicates(question.respuestas);
     }
@@ -102,7 +109,6 @@ exports.getCurretRetroalimentacion = async (req, res) => {
     // Questions
 
     retros = await Retro.getAll();
-
 
     res.render(
       path.join(__dirname, "../Views/Static/actual/verRetroalimentacion.ejs"),
@@ -131,10 +137,10 @@ exports.getCurretRetroalimentacion = async (req, res) => {
  */
 exports.getCurretRetroalimentacionAPI = async (req, res) => {
   try {
+    const idRetro = retroObj.id;
     // Quantitative answers
-    const quantitative = await retroPregunta.getQuantitativeAnswerByID(5);
+    const quantitative = await retroPregunta.getQuantitativeAnswerByID(idRetro);
     const simplifiedQuantitative = simplifyAnswers(quantitative);
-
 
     for (const question of simplifiedQuantitative) {
       question.respuestas = countDuplicates(question.respuestas);
@@ -193,7 +199,7 @@ exports.getRegistrarRespuestas = async (req, res) => {
 
 exports.postRegistrarRespuestas = async (req, res) => {
   const respuestas = req.body;
-  const idRetroalimentacion = 5;
+  const idRetroalimentacion = 5; //Cambiar
 
   for (i in respuestas) {
     respuestas[i] = [i, respuestas[i], idRetroalimentacion];
