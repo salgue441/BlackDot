@@ -99,7 +99,7 @@ module.exports = class Empleado {
      * @throws {Error} - Si no se envia id de Google Authenticator
      * @throws {Error} - Si no se envia el correo electronico de Google
      */
-    static async verify(Empleado) {
+    async verify(Empleado) {
         if (!this.primerNombre) 
             throw new Error("No se ha proporcionado el primer nombre");
         if (!this.apellidoPaterno)
