@@ -54,8 +54,9 @@ const createLineGraph = (canvas, data, labels) => {
               color: "white",
             },
 
-            grid: {
+            gridlines: {
               color: "rgba(255, 255, 255, 1)"
+               
             },
 
           },
@@ -66,7 +67,7 @@ const createLineGraph = (canvas, data, labels) => {
               color: "white",
             },
 
-            grid: {
+            gridlines: {
               color: "rgba(255, 255, 255, 1)"
             },
 
