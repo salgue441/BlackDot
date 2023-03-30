@@ -4,10 +4,28 @@
     <body>
         <%- include('../../include/navbar.ejs') %>
 
-        <section class = "container">
-            <div class = "columns">
-                <div class = "column is-11">"Hello"</div>
-                <div class = "column">"1"</div>
+        <section class = "hero is-medium is-bold">
+            <div class = "hero-body has-text-centered">
+            <!-- Title & Button to Accept -->
+                <div class="columns">
+                    <div class="column is-half is-flex">
+                        <h1 class = "title is-1">Accionables</h1>
+                    </div>
+
+                    <div class = "column is-half is-flex is-justify-content-end">
+                        <div class="is-grouped is-grouped-centered">
+                            <a class = "button is-danger reporte-button" href="#">
+                                Aceptar
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <!-- End of Title & Button -->
+
+                <!-- Accionables -->
+                <% if(accionables.length > 0){ %>
+                
+                <% } %>
             </div>
         </section>
     </body>
