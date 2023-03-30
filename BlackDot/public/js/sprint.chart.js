@@ -53,6 +53,11 @@ const createLineGraph = (canvas, data, labels) => {
               text: "Story Points",
               color: "white",
             },
+
+            grid: {
+              color: "rgba(255, 255, 255, 1)"
+            },
+
           },
           x: {
             title: {
@@ -61,6 +66,10 @@ const createLineGraph = (canvas, data, labels) => {
               color: "white",
             },
           },
+        },
+
+        grid: {
+          color: "rgba(255, 255, 255, 1)"
         },
   
         plugins: {
