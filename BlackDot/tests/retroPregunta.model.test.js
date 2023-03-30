@@ -1,6 +1,6 @@
 /**
  * @file retroPregunta.model.test.js
- * @brief Archivo de pruebas unitarias para el modelo retroPregunta.model.js
+ * @brief Test suite for retroPregunta model
  * @author Carlos Salguero
  * @date 2023-03-27
  * @version 1.0
@@ -8,13 +8,13 @@
  * @copyright Copyright (c) 2023 - MIT License
  */
 
-const RetroPregunta = require("../models/retro-pregunta.model")
+const retroPregunta = require("../models/retro-pregunta.model")
 
 /**
  * @brief
- * Test para RetroPregunta
+ * Test suite for retroPregunta model
  */
-describe("RetroPregunta", () => {
+describe("retroPregunta", () => {
   beforeEach(() => {
     jest.resetModules()
   })
@@ -22,64 +22,65 @@ describe("RetroPregunta", () => {
   describe("Constructor", () => {
     /**
      * @brief
-     * Test para el constructor de RetroPregunta
-     * @param {int} idRetro - ID del retro
-     * @param {int} idPregunta - ID de la pregunta
+     * Unit test for retroPregunta constructor
+     * @param {int} idRetro - ID of the retro
+     * @param {int} idPregunta - ID of the pregunta
+     * @param {boolean} required - If the pregunta is required
      */
-    test("Debe crear una instancia de RetroPregunta", () => {
-      const retroPregunta = new RetroPregunta({
-        idRetro: 1,
+    test("Debe crear una instancia de retroPregunta", () => {
+      const retroalimentacionPregunta = new retroPregunta({
+        idRetroalimentacion: 1,
         idPregunta: 1,
+        required: true,
       })
-      expect(retroPregunta).toBeInstanceOf(RetroPregunta)
-    })
-  })
 
-  /**
-   * @brief
-   * Test para el metodo de GetByIDR
-   * @param {int} idRetro - ID del retro
-   */
-  describe("getByIDR", () => {
-    test("Debe devolver un arreglo de preguntas", async () => {
-      const preguntas = await RetroPregunta.getByIDR(1)
-      expect(preguntas).toBeInstanceOf(RetroPregunta)
+      expect(retroalimentacionPregunta).toBeInstanceOf(retroPregunta)
     })
-  })
 
-  /**
-   * @brief
-   * Test para el metodo de GetByIDR
-   * @param {int} idRetro - ID del retro
-   */
-  describe("getByIDP", () => {
-    test("Debe devolver un arreglo de retroalimentaciones", async () => {
-      const retro = await RetroPregunta.getByIDP(1)
-      expect(retro).toBeInstanceOf(RetroPregunta)
+    /**
+     * @brief
+     * Unit test for retroPregunta constructor
+     * @param {int} idRetro - ID of the retro
+     */
+    describe("getByIDRetro", () => {
+      test("Debe devolver un arreglo de preguntas", async () => {
+        const preguntas = await retroPregunta.getByRetroalimentacion(1)
+        expect(preguntas).toBeInstanceOf(retroPregunta)
+      })
     })
-  })
 
-  /**
-   * @brief
-   * Test para el metodo de getAllCualitativas de RetroPregunta
-   */
-  describe("getAllCualitativas", () => {
-    test("Debe devolver un arreglo de retroPregunta", async () => {
-      const retroPregunta = await RetroPregunta.getAllCuali()
-      expect(retroPregunta).toBeInstanceOf(Array)
-      expect(retroPregunta[0]).toBeInstanceOf(RetroPregunta)
+    /**
+     * @brief
+     * Unit test for retroPregunta constructor
+     * @param {int} idPregunta - ID of the pregunta
+     */
+    describe("getByIDP", () => {
+      test("Debe devolver un arreglo de retroalimentaciones", async () => {
+        const retro = await retroPregunta.getByPregunta(1)
+        expect(retro).toBeInstanceOf(retroPregunta)
+      })
     })
-  })
 
-  /**
-   * @brief
-   * Test para el metodo de getAllCuantitativas de RetroPregunta
-   */
-  describe("getAllCuantitativas", () => {
-    test("Debe devolver un arreglo de retroPregunta", async () => {
-      const retroPregunta = await RetroPregunta.getAllCuali()
-      expect(retroPregunta).toBeInstanceOf(Array)
-      expect(retroPregunta[0]).toBeInstanceOf(RetroPregunta)
+    /**
+     * @brief
+     * Unit test for retroPregunta constructor
+     */
+    describe("getQualitativeAnswers", () => {
+      test("Debe devolver un arreglo de retroPregunta", async () => {
+        const qualitative = await retroPregunta.getQualitativeAnswers()
+        expect(Array.isArray(qualitative)).toBe(true)
+      })
+    })
+
+    /**
+     * @brief
+     * Unit test for retroPregunta constructor
+     */
+    describe("getQuantitativeAnswers", () => {
+      test("Debe devolver un arreglo de retroPregunta", async () => {
+        const quantitative = await retroPregunta.getQuantitativeAnswers()
+        expect(Array.isArray(quantitative)).toBe(true)
+      })
     })
   })
 })

@@ -11,44 +11,41 @@
 const dataBase = require("../utils/dataBase")
 
 module.exports = class Issue {
-    constructor(Issue) {
-        this.idIssue = Issue.idIssue
-        this.nombreIssue = Issue.nombreIssue
-        this.storyPoints = Issue.storyPoints
-        this.labelIssue = Issue.labelIssue
-        this.prioridadIssue = Issue.prioridadIssue
-        this.estadoIssue = Issue.estadoIssue
-        this.fechaCreacion = Issue.fechaCreacion
-        this.fechaFinalizacion = Issue.fechaFinalizacion
-    }
+  constructor(Issue) {
+    this.idIssue = Issue.idIssue
+    this.nombreIssue = Issue.nombreIssue
+    this.storyPoints = Issue.storyPoints
+    this.labelIssue = Issue.labelIssue
+    this.prioridadIssue = Issue.prioridadIssue
+    this.estadoIssue = Issue.estadoIssue
+    this.fechaCreacion = Issue.fechaCreacion
+    this.fechaFinalizacion = Issue.fechaFinalizacion
+  }
 
-    /**
-     * @brief
-     * Obtiene un issue de acuerdo con el ID.
-     * @param {*} idIssue - ID del issue
-     * @returns {object} - Objeto de tipo Issue
-     */
-    static async getByID(idIssue) {
-        if (!idIssue) throw new Error("No se ha proporcionado un ID")
+  /**
+   * @brief
+   * Obtiene un issue de acuerdo con el ID.
+   * @param {*} idIssue - ID del issue
+   * @returns {object} - Objeto de tipo Issue
+   */
+  static async getByID(idIssue) {
+    if (!idIssue) throw new Error("No se ha proporcionado un ID")
 
-        const [issue] = await dataBase.query(
-            "select * from Issue where idIssue = ?",
-            [idIssue]
-        )
+    const [issue] = await dataBase.query(
+      "select * from Issue where idIssue = ?",
+      [idIssue]
+    )
 
-        return new Issue(issue)
-    }
+    return new Issue(issue)
+  }
 
-    /**
-     * @brief
-     * Obtiene todos los Issues.
-     * @returns {Promise<Issue[]>} - Arreglo de objetos de tipo Issue
-     */
-    static async getAll() {
-        const issues = await dataBase.query("select * from Issue")
-
-        return issues
-    }
+  /**
+   * @brief
+   * Obtiene todos los Issues.
+   * @returns {Promise<Issue[]>} - Arreglo de objetos de tipo Issue
+   */
+  static async getAll() {
+    const [issues, _] = await dataBase.query("select * from Issue")
 
     /**
      * @brief
@@ -78,3 +75,32 @@ module.exports = class Issue {
     }
 
 }
+    return issues
+  }
+
+  /**
+   * @brief
+   * Guarda un issue en la base de datos.
+   * @returns {Promise<Issue>} - Query del issue guardado
+   * @throws {Error} - Si no se ha proporcionado un nombre de Issue
+   * @throws {Error} - Si no se ha proporcionado un label de Issue
+   */
+  save() {
+    if (!this.nombreIssue)
+      throw new Error("No se ha proporcionado nombre de issue")
+    if (!this.labelIssue)
+      throw new Error("No se ha proporcionado un label de issue")
+
+    return dataBase.query(
+      "insert into Issue (nombreIssue, storyPoints, labelIssue, prioridadIssue, estadoIssue, fechaCreacion, fechaFinalizacion) values (?, ?, ?, ?, ?, ?, ?)",
+      [
+        this.nombreIssue,
+        this.storyPoints,
+        this.labelIssue,
+        this.prioridadIssue,
+        this.estadoIssue,
+        this.fechaCreacion,
+        this.fechaFinalizacion,
+      ]
+    )
+  }
