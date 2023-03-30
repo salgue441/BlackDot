@@ -286,4 +286,7 @@ const change = (event) => {
     graphCanvas[i].style.display =
       graphCanvas[i].style.display === "none" ? "block" : "none"
   }
+
+  // Prevent the event from propagating to other elements
+  event.stopPropagation()
 }
