@@ -21,7 +21,7 @@ const SprintActual = require("../Controllers/metricaActual.controller")
 router.get("/metricasSprint", SprintActual.getActual)
 
 // Fetches all the epicas and their metrics for the actual sprint
-
+/*router.get("/sprintData", SprintActual.)*/
 
 
 module.exports = router

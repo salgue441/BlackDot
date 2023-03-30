@@ -27,16 +27,18 @@ const SprintEpica = require("../models/sprintEpica.model")
  */
 exports.getActual = async (req, res) => {
     try {
-        /*const sprint = await Sprint.getSprintActual()
-        const sprintIssues = await SprintIssue.getByIDS(sprint.idSprint)
-        const sprintEpicas = await SprintEpica.getByIDS(sprint.idSprint)*/
+        const sprint = await Sprint.getSprintActual()
+        console.log(sprint.idSprint)
+        /*const sprintIssues = await SprintIssue.getByIDS(sprintid)
+        const sprintEpicas = await SprintprintEpica.getByIDS(sprintid)
 
-
+        console.log(sprintIssues)
+        console.log(sprintEpicas)*/
 
         res.render(
             path.join(__dirname, "../Views/Static/actual/verMetricasActuales.ejs"),
             {
-                epicas: epicas,
+                /*epicas: epicas,*/
             }
         )
     }

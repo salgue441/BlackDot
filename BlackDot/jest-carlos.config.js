@@ -9,6 +9,6 @@ module.exports = {
     USER: "root",
     PASSWORD: "",
     DATABASE: "blackDot",
-    PORT: 8000,
+    PORT: 3306,
   },
 }
