@@ -60,13 +60,10 @@ module.exports = class Rol {
      * Guarda un Rol en la base de datos.
      * @returns {Promise<Rol>} - Query del rol guardado
      * @throws {Error} - Si no se ha proporcionado un nombre de Rol
-     * @throws {Error} - Si no se ha proporcionado un label de Rol
      */
     save() {
         if (!this.nombreRol) 
             throw new Error("No se ha proporcionado nombre de rol")
-        if (!this.labelRol)
-            throw new Error("No se ha proporcionado un label de rol")
 
         return dataBase.query(
             "insert into Rol (nombreRol) values (?)",
@@ -76,22 +73,43 @@ module.exports = class Rol {
 
     /**
      * @brief
-     * Verifica que el objeto sea de tipo Rol
-     * @param {*} Rol
-     * @returns {boolean}
+     * Verifica si una rol existe en la base de datos.
+     * @returns {Promise<boolean>} - True si existe, false si no
+     * @throws {Error} - Si no se envia el nombreRol
+     * @throws {Error} - Si nombreRol es muy largo
      */
-    static async verify(Rol) {}
+    async verify() {
+        if (!this.nombreRol) throw new Error("No se ha proporcionado un nombreRol");
+        if (this.nombreRol.length > 25)
+        throw new Error("El nombreRol es muy largo");
+
+        const [rol] = await dataBase.query(
+            "select * from Rol where nombreRol = ?",
+            [this.nombreRol]
+        );
+
+        return Boolean(rol);
+    }
 
     /**
      * @brief
-     * Elimina un rol de acuerdo con el ID
-     * @param {*} idRol - id del rol
-     * @returns {Promise<void>} - Query del rol eliminado
+     * Elimina un rol segun su ID de la base de datos.
+     * @param {number} idRol - ID del rol
+     * @returns {boolean} - True si se elimino, false si no
+     * @throws {Error} - Si no se envia el ID
+     * @throws {Error} - Si el ID no es un numero
      */
-    static async deleteByID(idRol) {
-        const query = `delete from Rol where idRol = ?`
+    async deleteByID(idRol) {
+        if (!idRol) throw new Error("No se envio el ID");
+        if (typeof idRol !== "number")
+        throw new Error("El ID debe ser un numero");
 
-        await dataBase.execute(query, [idRol])
+        const result = await dataBase.query(
+        `delete from Rol where idRol = $1`,
+        [idRol]
+        );
+
+        return result.rowCount > 0;
     }
 }
 
