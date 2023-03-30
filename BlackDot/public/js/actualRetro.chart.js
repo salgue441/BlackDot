@@ -62,6 +62,11 @@ const states = [
 /**
  * @brief
  * Creates the graph
+ * @param {HTMLCanvasElement} canvas - Canvas element
+ * @param {Array} labels - Array of labels
+ * @param {Array} data - Array of data
+ * @returns {Chart} - Chart object
+ * @todo Add token when authentication is implemented
  */
 const createBarChart = (canvas, labels, data) => {
   const ctx = canvas.getContext("2d")
@@ -108,6 +113,12 @@ const createBarChart = (canvas, labels, data) => {
   })
 }
 
+/**
+ * @brief
+ * Renders the graphs. This function is called when the page
+ * is loaded or refreshed
+ * @todo Add token when authentication is implemented
+ */
 ;(async function renderGraphs() {
   const data = await fetchAnswersData()
   console.log(data)
@@ -120,10 +131,4 @@ const createBarChart = (canvas, labels, data) => {
 
     createBarChart(canvas, labels, data)
   })
-
-  /*   const labels = data.map((item) => item.pregunta)
-  const answers = data.map((item) => item.respuesta)
-
-  const canvas = document.getElementById("myChart")
-  createBarChart(canvas, labels, answers) */
 })()

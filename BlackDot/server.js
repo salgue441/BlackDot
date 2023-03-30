@@ -1,6 +1,10 @@
-const express = require("express")
-const app = express()
-require("dotenv").config()
+const express = require("express");
+const app = express();
+require("dotenv").config();
+
+const bodyparser = require("body-parser");
+app.use(bodyparser.json());
+app.use(bodyparser.urlencoded({ extended: true }));
 
 // View engine
 app.set("view engine", "ejs")
@@ -28,7 +32,7 @@ const actual = require("./routes/actual.routes")
  * @brief
  * Route for the historico section
  */
-app.use("/historico", historico)
+app.use("/historico", historico);
 
 /**
  * @brief

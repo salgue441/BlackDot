@@ -60,36 +60,44 @@ module.exports = class EquipoTrabajo {
      */
     save() {
         return dataBase.query(
-            "insert into EquipoTrabajo (idEquipoTrabajo) values (?)",
-            [this.idEquipoTrabajo]
+            "INSERT INTO equipotrabajo VALUES(DEFAULT)"
         )
     }
 
     /**
      * @brief
-     * Verifica si un equipoTrabajo existe en la base de datos.
+     * Verifica si una equipoTrabajo existe en la base de datos.
      * @returns {Promise<boolean>} - True si existe, false si no
-     * @throws {Error} - Si no se envia el id de equipoTrabajo
+     * @throws {Error} - Si no se envia el idEquipoTrabajo
      */
-    static async verify(EquipoTrabajo) {
-        if (!EquipoTrabajo.idEquipoTrabajo) 
-            throw new Error("No se ha proporcionado un id de equipoTrabajo")
+    async verify() {
 
         const [equipoTrabajo] = await dataBase.query(
             "select * from EquipoTrabajo where idEquipoTrabajo = ?",
-            [EquipoTrabajo.idEquipoTrabajo]
-        )
+            [this.idEquipoTrabajo]
+        );
+
+        return Boolean(equipoTrabajo);
     }
 
     /**
      * @brief
-     * Elimina un equipoTrabajo de acuerdo con el ID
-     * @param {*} idEquipoTrabajo - id del equipoTrabajo
-     * @returns {Promise<void>} - Query del equipoTrabajo eliminado
+     * Elimina un rol segun su ID de la base de datos.
+     * @param {number} idEquipoTrabajo - ID del equipoTrabajo
+     * @returns {boolean} - True si se elimino, false si no
+     * @throws {Error} - Si no se envia el ID
+     * @throws {Error} - Si el ID no es un numero
      */
-    static async deleteByID(idEquipoTrabajo) {
-        const query = `delete from EquipoTrabajo where idEquipoTrabajo = ?`
+    async deleteByID(idEquipoTrabajo) {
+        if (!idEquipoTrabajo) throw new Error("No se envio el ID");
+        if (typeof idEquipoTrabajo !== "number")
+        throw new Error("El ID debe ser un numero");
 
-        await dataBase.execute(query, [idEquipoTrabajo])
+        const result = await dataBase.query(
+        `delete from Rol where idEquipoTrabajo = $1`,
+        [idEquipoTrabajo]
+        );
+
+        return result.rowCount > 0;
     }
 }
