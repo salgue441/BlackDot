@@ -44,8 +44,8 @@ module.exports = class Retroalimentacion {
    * @returns {Retroalimentacion[]} - Arreglo de objetos de tipo retroalimentacion
    * */
   static async getAll() {
-    const retros = await dataBase.query("select * from retroalimentacion");
-    return retros.map((retro) => new Retroalimentacion(retro));
+    const [retros, _] = await dataBase.query("select * from retroalimentacion");
+    return retros;
   }
 
   /**
