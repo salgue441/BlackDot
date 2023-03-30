@@ -23,8 +23,20 @@
                 <!-- End of Title & Button -->
 
                 <!-- Accionables -->
-                <% if(accionables.length > 0){ %>
-                
+                <% let numAccionable = 0 %>
+                <% for(var i = 0; i < accionables.length; i++) { %>
+                <% if(accionables[i].nombreAccionable !== '') { %>
+                    <% numAccionable++ %>
+                    <div class="columns">
+                        <div class = "column is-11">
+                            <div class = "content">
+                                <p>
+                                    <%= accionables[i].nombreAccionable %>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                <% } %>
                 <% } %>
             </div>
         </section>
