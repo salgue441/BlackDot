@@ -4,120 +4,149 @@
  * @author Yuna Chung
  * @version 1.0
  * @date 2023.03.28
- * 
+ *
  * @copyright Copyright (c) 2023 - MIT License
  **/
 
-const Empleado = require("../Models/empleado.model");
+const Empleado = require("../Models/empleado.model")
 
 /**
  * @brief
- * Test para Empleado
+ * Test for Empleado
  **/
 
 describe("Empleado", () => {
-    beforeEach(() => {
-        jest.resetModules()
-    })
+  beforeEach(() => {
+    jest.resetModules()
+  })
 
-    describe("Constructor", () => {
-        /**
-         * @brief
-         * Test para el constructor del Empleado
-         * @param {int} idEmpleado - Identificador del empleado
-         * @param {varchar} primerNombre - Contenido del primer nombre
-         * @param {varchar} segundoNombre - Contenido del segundo nombre
-         * @param {varchar} apellidoPaterno - Contenido del apellido paterno
-         * @param {varchar} apellidoMaterno - Contenido del apellido materno
-         * @param {binary} idGoogleAuth - Identificador de la autenticación de Google
-         * @param {varchar} googleEmail - Correo electrónico de Google
-         * @param {int} idRol - Identificador de Rol
-         * @param {int} idEquipoTrabajo - Identificdor del Equipo de Trabajo
-         **/
+  describe("Constructor", () => {
+    /**
+     * @brief
+     * Test for the constructor of Empleado
+     * @param {int} idEmpleado - Identifier of Empleado
+     * @param {varchar} primerNombre - Content of first name
+     * @param {varchar} segundoNombre - Content of second name
+     * @param {varchar} apellidoPaterno - Content of father's last name
+     * @param {varchar} apellidoMaterno - Content of mother's last name
+     * @param {binary} idGoogleAuth - Identificador de la autenticación de Google
+     * @param {varchar} googleEmail - E-mail of Google
+     * @param {varchar} googleProfilePicture - Profile picture of Google
+     **/
 
-        test("Debe crear una instancia de Empleado", () => {
-            const empleado = new Empleado({
-                primerNombre: "Diego",
-                segundoNombre: "Ernesto",
-                apellidoMaterno: "Sandoval",
-                apellidoMaterno: "Vargas",
-                googleEmail: "ABC1234@zeb.mx",
-                idRol: 1,
-                idEquipoTrabajo: 1,
-            })
+    test("Debe crear una instancia de Empleado", () => {
+      const bin = 0xdba6a8c07b84449894cc524f047b42e2
 
-            expect(empleado).toBeInstanceOf(Empleado)
-        })
+      const empleado = new Empleado({
+        primerNombre: "Diego",
+        segundoNombre: "Ernesto",
+        apellidoPaterno: "Sandoval",
+        apellidoMaterno: "Vargas",
+        idGoogleAuth: bin.toString(2),
+        googleEmail: "ABC1234@zeb.mx",
+        googleProfilePicture:
+          "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80",
+      })
+
+      expect(empleado).toBeInstanceOf(Empleado)
     })
 
     describe("getByID", () => {
-        /**
-         * @brief
-         * Test para el método getByID del Empleado
-         * @param {int} idEmpleado - ID del Empleado
-         **/
+      /**
+       * @brief
+       * Test for the getByID method of Empleado
+       * @param {int} idEmpleado - ID of Empleado
+       **/
 
-        test("Debe obtener un Empleado por su ID", async () => {
-            const empleado = await Empleado.getByID(1)
-            expect(empleado).toBeInstanceOf(Empleado)
-        })
+      test("Debe obtener un Empleado por su ID", async () => {
+        const empleado = await Empleado.getByID(1)
+        expect(empleado).toBeInstanceOf(Empleado)
+      })
     })
 
     describe("getAll", () => {
-        /**
-         * @brief
-         * Test para el método getAll del Empleado
-         **/
+      /**
+       * @brief
+       * Test for the getAll method of Empleado
+       **/
 
-        test("Debe obtener todos los Empleados", async () => {
-            const empleados = await Empleado.getAll()
-            expect(empleados).toBeInstanceOf(Array)
-        })
+      test("Debe obtener todos los Empleados", async () => {
+        const empleados = await Empleado.getAll()
+        expect(empleados).toBeInstanceOf(Array)
+      })
     })
 
     describe("save", () => {
-        /**
-         * @brief
-         * Test para el método save del Empleado
-         **/
-
-        test("Debe guardar un Empleado", async () => {
-            const empleado = new Empleado({
-                primerNombre: "Carlos",
-                segundoNombre: "Rodrigo",
-                apellidoMaterno: "Salguero",
-                apellidoMaterno: "Alcántara",
-                googleEmail: "DEF5678@zeb.mx",
-                idRol: 2,
-                idEquipoTrabajo: 1,
-            })
-
-            await empleado.save()
-            expect(empleado.idEmpleado).toBeGreaterThan(0)
+      /**
+       * @brief
+       * Test for the save method of Empleado
+       **/
+      test("Debe guardar un Empleado", async () => {
+        const nuevoEmpleado = new Empleado({
+          primerNombre: "Carlos",
+          segundoNombre: "Rodrigo",
+          apellidoPaterno: "Salguero",
+          apellidoMaterno: "Alcántara",
+          idGoogleAuth: 0xdba6a8c07b84449894cc524f047b42e1,
+          googleEmail: "carlos.salguero@zeb.mx",
+          googleProfilePicture:
+            "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80",
         })
+
+        await nuevoEmpleado.save()
+        expect(nuevoEmpleado).toBeInstanceOf(Empleado)
+      })
     })
 
-    describe("delete", () => {
-        /**
-         * @brief
-         * Test para el método delete del Empleado
-         **/
+    describe("verify", () => {
+      /**
+       * @brief
+       * Test for the verify method of Empleado
+       **/
 
-        test("Debe boarrar un Empleado", async () => {
-            const empleado = new Empleado({
-                primerNombre: "Carlos",
-                segundoNombre: "Rodrigo",
-                apellidoMaterno: "Salguero",
-                apellidoMaterno: "Alcántara",
-                googleEmail: "DEF5678@zeb.mx",
-                idRol: 2,
-                idEquipoTrabajo: 1,
-            })
-
-            await empleado.save()
-
-            await Empleado.deleteByID(empleado.idEmpleado)
-            expect(empleado.idEmpleado).toBeGreaterThan(0)
+      test("Debe verificar si existe un Empleado", async () => {
+        const nuevoEmpleado = new Empleado({
+          primerNombre: "Carlos",
+          segundoNombre: "Rodrigo",
+          apellidoPaterno: "Salguero",
+          apellidoMaterno: "Alcántara",
+          idGoogleAuth: 0xdba6a8c07b84449894cc524f047b42e1,
+          googleEmail: "DEF5678@zeb.mx",
+          googleProfilePicture:
+            "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80",
         })
+
+        await nuevoEmpleado.save()
+        await nuevoEmpleado.verify(nuevoEmpleado)
+
+        expect(nuevoEmpleado).toBeInstanceOf(Empleado)
+      })
     })
+
+    describe("deleteByID", () => {
+      /**
+       * @brief
+       * Test for the deleteByID method of Empleado
+       * @param {int} idEmpleado - ID of Empleao
+       **/
+
+      test("Debe eliminar un Empleado", async () => {
+        const empleado = new Empleado({
+          primerNombre: "Carlos",
+          segundoNombre: "Rodrigo",
+          apellidoPaterno: "Salguero",
+          apellidoMaterno: "Alcántara",
+          idGoogleAuth: 0xdba6a8c07b84449894cc524f047b42e1,
+          googleEmail: "DEF5678@zeb.mx",
+          googleProfilePicture:
+            "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80",
+        })
+
+        await empleado.save()
+        await empleado.deleteByID(empleado.idEmpleado)
+
+        expect(empleado).toBeInstanceOf(Empleado)
+      })
+    })
+  })
 })
