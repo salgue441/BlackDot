@@ -25,6 +25,36 @@ const fetchEpicasData = async () => {
 const createBarChart = (canvas, data, labels) => {
   const ctx = canvas.getContext("2d")
 
+  const colors = [
+    {
+      backgroundColor: "rgba(255, 99, 132, 0.6)",
+      borderColor: "rgba(255, 99, 132, 1)",
+    },
+    {
+      backgroundColor: "rgba(54, 162, 235, 0.6)",
+      borderColor: "rgba(54, 162, 235, 1)",
+    },
+    {
+      backgroundColor: "rgba(255, 206, 86, 0.6)",
+      borderColor: "rgba(255, 206, 86, 1)",
+    },
+    {
+      backgroundColor: "rgba(75, 192, 192, 0.6)",
+      borderColor: "rgba(75, 192, 192, 1)",
+    },
+    {
+      backgroundColor: "rgba(153, 102, 255, 0.6)",
+      borderColor: "rgba(153, 102, 255, 1)",
+    },
+  ]
+
+  const backgroundColors = data.map(
+    (_, index) => colors[index % colors.length].backgroundColor
+  )
+  const borderColors = data.map(
+    (_, index) => colors[index % colors.length].borderColor
+  )
+
   return new Chart(ctx, {
     type: "bar",
     data: {
@@ -33,8 +63,8 @@ const createBarChart = (canvas, data, labels) => {
         {
           label: "StoryPoints",
           data: data,
-          backgroundColor: "rgba(255, 99, 132, 0.6)",
-          borderColor: "rgba(255, 99, 132, 1)",
+          backgroundColor: backgroundColors,
+          borderColor: borderColors,
           borderWidth: 1,
         },
       ],
@@ -45,7 +75,6 @@ const createBarChart = (canvas, data, labels) => {
           ticks: {
             beginAtZero: true,
           },
-
           title: {
             display: true,
             text: "Story Points",
@@ -58,7 +87,6 @@ const createBarChart = (canvas, data, labels) => {
           },
         },
       },
-
       plugins: {
         legend: {
           display: false,
