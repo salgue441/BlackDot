@@ -13,9 +13,9 @@
  * @copyright Copyright (c) 2023 - MIT License
  **/
 
-const Accionable = require("../Models/accionable.model");
+ const path = require("path");
 
-const path = require("path");
+const Accionable = require("../Models/accionable.model");
 
 /**
  * @brief
