@@ -34,8 +34,8 @@ exports.getAllEpicas = async (req, res) => {
     const epicas = await Epica.getAll()
     const issues = await Issue.getAll()
     const sprints = await Sprint.getAll()
-    const sprintNames = await Sprint.getAll()
     const sprintIssues = await SprintIssue.getAll()
+    const sprintNames = await Sprint.getAll()
 
     // Relating sprints and issues
     const sprintIssuesMap = {}
