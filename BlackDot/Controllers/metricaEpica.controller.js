@@ -34,6 +34,7 @@ exports.getAllEpicas = async (req, res) => {
     const epicas = await Epica.getAll()
     const issues = await Issue.getAll()
     const sprints = await Sprint.getAll()
+    const sprintNames = await Sprint.getAll()
     const sprintIssues = await SprintIssue.getAll()
 
     // Relating sprints and issues
@@ -83,6 +84,7 @@ exports.getAllEpicas = async (req, res) => {
       path.join(__dirname, "../Views/Static/historico/verMetricasEpicas.ejs"),
       {
         epicas: epicas,
+        sprints: sprintNames,
       }
     )
   } catch (error) {
