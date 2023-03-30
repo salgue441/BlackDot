@@ -25,12 +25,13 @@
     <section class="section">
       <!-- Graph  -->
       <% if (sprint.length > 0) { %>
-      <div class="container is-fluid" style="z-index: 10;">
-        <div class="box has-background-white has-text-centered sprint-graph" style="height: 400px;">
+      <div class="container is-fluid" style="z-index: 10">
+        <div class="box has-background-black has-text-centered sprint-graph" style="height: 400px;">
           <div class="sprint-title">
-            <p class="subtitle is-2">Sprint</p>
+            <p class="subtitle is-2 has-text-white">Sprint</p>
+            <br />
           </div>
-          <canvas id="Sprints" style="width: 100%; height: calc(100% - 50px);"></canvas>
+          <canvas id="Sprints" style="width: 100%; height: calc(100% - 100px);"></canvas>
         </div>
       </div>
     
@@ -65,12 +66,7 @@
 
   .sprint-graph {
     margin-top: 30x;
-    height: 500px;
-  }
-
-  .Sprints {
-    width: auto;
-    height: auto;
+    height: 600px !important;
   }
 
   .title {
