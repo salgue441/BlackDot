@@ -96,12 +96,28 @@ const createBarChart = (canvas, data, labels) => {
 
     allStoryPoints.push(epicStoryPoints)
     epicasNames.push(set.nombreEpica)
-
-    console.log()
-    console.log(epicasNames)
   })
 
   createBarChart(canvas, allStoryPoints, epicasNames)
+})()
+
+/**
+ * @brief
+ * Renders the sprint-comparison graph. This function is called when the page
+ * is loaded or refreshed
+ * @todo Add token when authentication is implemented
+ */
+;(async function renderGraph() {
+  const data = await fetchEpicasData()
+  console.log(data)
+
+  const canvas = document.getElementById("SprintComparison")
+  let allStoryPoints = []
+  let epicasNames = []
+
+  data.epicas.forEach((set) => {
+  })
+
 })()
 
 /**
@@ -156,7 +172,7 @@ const change = (event) => {
   // Change the graph-title and graph-canvas
   const graphTitle = document.getElementsByClassName("graph-title")
   const graphCanvas = document.getElementsByClassName("graph-canvas")
-  
+
   for (let i = 0; i < graphTitle.length; i++) {
     graphTitle[i].style.display =
       graphTitle[i].style.display === "none" ? "block" : "none"
