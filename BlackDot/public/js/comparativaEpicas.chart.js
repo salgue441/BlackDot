@@ -103,3 +103,63 @@ const createBarChart = (canvas, data, labels) => {
 
   createBarChart(canvas, allStoryPoints, epicasNames)
 })()
+
+/**
+ * @brief
+ * Changes the graph-title and graph-canvas to show the other graph.
+ * As well as the section-title that controls the available graphs.
+ * Also, changes the colors of the buttons accordingly.
+ * @param {Event} event - The event that triggered the function.
+ */
+const change = (event) => {
+  const button = event.target
+  const otherButton = document.getElementById(
+    button.id === "toggleEpicaComparison"
+      ? "toggleSprintComparison"
+      : "toggleEpicaComparison"
+  )
+
+  // Change the colors of the buttons
+  button.classList.remove("is-link")
+  button.classList.add("is-link")
+  otherButton.classList.remove("is-link")
+  otherButton.classList.add("is-fill")
+
+  // Change the section-title and input boxes
+  const sectionTitle = document.getElementById("section-title")
+  const liSprint = [...document.getElementsByClassName("sprint")]
+  const liEpica = [...document.getElementsByClassName("epica")]
+
+  sectionTitle.innerHTML =
+    sectionTitle.innerHTML === "Comparativa de Epicas"
+      ? "Comparativa de Sprints"
+      : "Comparativa de Epicas"
+
+  if (button.id === "toggleEpicaComparison") {
+    liSprint.forEach((li) => {
+      li.style.display = li.style.display === "none" ? "block" : "none"
+    })
+
+    liEpica.forEach((li) => {
+      li.style.display = li.style.display === "none" ? "block" : "none"
+    })
+  } else {
+    liSprint.forEach((li) => {
+      li.style.display = li.style.display === "none" ? "block" : "none"
+    })
+
+    liEpica.forEach((li) => {
+      li.style.display = li.style.display === "none" ? "block" : "none"
+    })
+  }
+
+  // Change the graph-title and graph-canvas
+  const graphTitle = document.getElementsByClassName("graph-title")
+  const graphCanvas = document.getElementsByClassName("graph-canvas")
+  for (let i = 0; i < graphTitle.length; i++) {
+    graphTitle[i].style.display =
+      graphTitle[i].style.display === "none" ? "block" : "none"
+    graphCanvas[i].style.display =
+      graphCanvas[i].style.display === "none" ? "block" : "none"
+  }
+}
