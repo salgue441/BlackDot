@@ -1,14 +1,9 @@
 /**
  * @file sprint-issue.model.js
  * @brief Modelo de la tabla de sprint-issue
- * @author Carlos Salguero
- * @author Diego Sandoval
- * @author Olimpia Garcia
  * @author Diego Llaca
- * @author Yuna Chung
- * @author Ivan Paredes
  * @version 1.0
- * @date 2023-03-24
+ * @date 2023-03-29
  *
  * @copyright Copyright (c) 2023 - MIT License
  */
