@@ -9,10 +9,10 @@
  **/
 
  const path = require("path")
- const bodyParser = require("body-parser")
 
 const Accionable = require("../Models/accionable.model")
 const Cualitativa = require("../Models/cualitativa.model")
+const retroPregunta = require('../Models/retro-pregunta.model')
 const CualiAccionable = require("../Models/cuali-accionable.model")
 
 /**
@@ -27,7 +27,7 @@ const CualiAccionable = require("../Models/cuali-accionable.model")
 exports.getAnswersCualitativa = async (req, res) => {
     try{
         
-        const waitingAnswers = await Cualitativa.getAll()
+        const waitingAnswers = await retroPregunta.getQualitativeAnswersByIDPregunta(8)
 
         res.render(
             path.join(__dirname, "../Views/Static/actual/aprobarAccionable.ejs"), 

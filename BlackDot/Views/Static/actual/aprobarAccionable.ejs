@@ -2,10 +2,10 @@
     <%- include('../../include/header.ejs') %>
 
     <body>
-        <%- include('../../include/navbar.ejs') %>
-
+        <%- include('../../include/navbar.ejs') %>     
         <section class = "hero is-medium is-bold">
             <div class = "hero-body has-text-centered">
+            <form method="POST" action="/actual/aprobacion">
             <!-- Title & Button to Accept -->
                 <div class="columns">
                     <div class="column is-half is-flex">
@@ -14,9 +14,7 @@
 
                     <div class = "column is-half is-flex is-justify-content-end">
                         <div class="is-grouped is-grouped-centered">
-                            <a class = "button is-danger reporte-button" href="#">
-                                Aceptar
-                            </a>
+                            <input class = "button is-danger reporte-button" type = "submit" value="Aceptar">
                         </div>
                     </div>
                 </div>
@@ -33,7 +31,7 @@
                                 
                                 <!-- Image -->
                                 <div class="column is-2">
-                                    <img src="" alt="Yuna Image" />
+                                    <img src="" alt="User Image" />
                                 </div>
                                 <!-- End of Image -->
 
@@ -41,7 +39,7 @@
                                 <div class="column is-2">
                                     <div class="content user">
                                         <p class="is-white" style="font-size: 1.2rem;">
-                                            Yuna Chung
+                                            User
                                         </p>
                                     </div>
                                 </div>
@@ -70,6 +68,7 @@
                     </div>
                 <% } %>
                 <% } %>
+            </form>
             </div>
         </section>
     </body>
