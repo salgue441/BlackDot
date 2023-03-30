@@ -13,16 +13,8 @@ app.set("view engine", "ejs")
 app.use(express.static("public"))
 
 // Routes
-/**
- * @brief
- * Landing page rout for the app
- * @param {Request} req - Request object
- * @param {Response} res - Response object
- * @returns {Response} - Response object
- */
-app.get("/", (req, res) => {
-  res.render("static/index")
-})
+const main = require('./Routes/main.routes')
+app.use('/', main)
 
 // Section routes
 const historico = require("./routes/historico.routes")
