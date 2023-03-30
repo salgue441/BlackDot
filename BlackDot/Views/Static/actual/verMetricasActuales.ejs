@@ -12,5 +12,35 @@
                 </div>
             </div>
             <!-- End of Title -->
+
+            <!-- Graph -->
+            <% if (epicas.length > 0) { %>
+
+            <div class="columns">
+                <div class="column is-9">
+                    <div class="container">
+                        <div
+                            class="box has-background-white has-text-centered"
+                            style="width: 100%"
+                        >
+                            <p class="subtitle is-4">Comparativa de Epicas</p>
+                            <canvas id="ActualSprint"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <% } else { %>
+                <div class="container">
+                    <div class="box has-background-white has-text-centered">
+                        <p class="subtitle is-4">No hay epicas disponibles</p>
+                    </div>
+                </div>
+            <% } %>
+            <!-- End of Graph -->
         </div>
-    
+    </section>
+
+    <script src="/js/actualSprint.chart.js"></script>
+</body>
+
+        

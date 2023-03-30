@@ -36,7 +36,7 @@ exports.getActual = async (req, res) => {
         res.render(
             path.join(__dirname, "../Views/Static/actual/verMetricasActuales.ejs"),
             {
-
+                epicas: epicas,
             }
         )
     }
