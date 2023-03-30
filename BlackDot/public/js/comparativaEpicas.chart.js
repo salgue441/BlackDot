@@ -22,7 +22,6 @@ const fetchEpicasData = async () => {
  * @param {Array} data - Data to be displayed
  */
 const createBarChart = (canvas, data, labels) => {
-  console.log(data)
   const ctx = canvas.getContext("2d")
 
   return new Chart(ctx, {
