@@ -22,7 +22,6 @@ const fetchEpicasData = async () => {
  * @param {Array} data - Data to be displayed
  */
 const createBarChart = (canvas, data, labels) => {
-  console.log(data)
   const ctx = canvas.getContext("2d")
 
   return new Chart(ctx, {
@@ -104,3 +103,34 @@ const createBarChart = (canvas, data, labels) => {
 
   createBarChart(canvas, allStoryPoints, epicasNames)
 })()
+
+/**
+ * @brief
+ * Changes the graph-title and graph-canvas to show the other graph.
+ * Also, changes the colors of the buttons accordingly.
+ * @param {Event} event - The event that triggered the function.
+ */
+const change = (event) => {
+  const button = event.target
+  const otherButton = document.getElementById(
+    button.id === "toggleEpicaComparison"
+      ? "toggleSprintComparison"
+      : "toggleEpicaComparison"
+  )
+
+  // Change the colors of the buttons
+  button.classList.remove("is-link")
+  button.classList.add("is-link")
+  otherButton.classList.remove("is-link")
+  otherButton.classList.add("is-fill")
+
+  // Change the graph-title and graph-canvas
+  const graphTitle = document.getElementsByClassName("graph-title")
+  const graphCanvas = document.getElementsByClassName("graph-canvas")
+  for (let i = 0; i < graphTitle.length; i++) {
+    graphTitle[i].style.display =
+      graphTitle[i].style.display === "none" ? "block" : "none"
+    graphCanvas[i].style.display =
+      graphCanvas[i].style.display === "none" ? "block" : "none"
+  }
+}

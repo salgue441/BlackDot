@@ -27,6 +27,8 @@ Ricardo Cortés Espinosa
 
 ### WebPage
 
+a
+
 ### Data Base
 
 La base de datos que se utiliza en este proyecto es una base de datos de MariaDB, la cual se encuentra alojada en un servidor de Amazon Web Services (AWS). La base de datos contiene las siguientes tablas:
