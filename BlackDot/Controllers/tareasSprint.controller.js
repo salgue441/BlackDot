@@ -26,7 +26,7 @@ exports.getLanding = async (req, res) => {
     const sprints = await Sprint.getAll()
     const sprintIssues = await SprintIssue.getAll()
 
-    // Relating sprints and issues
+    // Relating sprints and issues 
     const sprintIssuesMap = {}
 
     sprintIssues.forEach((sprintIssue) => {
