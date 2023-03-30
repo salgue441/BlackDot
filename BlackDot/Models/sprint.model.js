@@ -55,12 +55,15 @@ module.exports = class Sprint {
 
   static async getSprintActual() {
     const fechaActual = new Date().toISOString().split("T")[0]
+    console.log(fechaActual)
 
     const sprint = await dataBase.query(
       "select * from Sprint where FechaCreacion <= ? and FechaFinalizacion >= ?",
       [fechaActual, fechaActual]
     )
 
+    const sprintnew = new Sprint(sprint)
+    console.log(sprintnew)
     return new Sprint(sprint)
   }
 }
