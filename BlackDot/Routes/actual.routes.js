@@ -15,8 +15,11 @@ router.post("/retroalimentacion", Retro.postRegistrarRespuestas);
 router.get("/respuestasRetro", Retro.getCurretRetroalimentacionAPI)
 
 // Sprint Actual
-
 const SprintActual = require("../Controllers/metricaActual.controller")
 router.get("/metricasSprint", SprintActual.getActual)
+
+// Fetches all the epicas and their metrics for the actual sprint
+
+
 
 module.exports = router
