@@ -65,12 +65,15 @@ const createLineGraph = (canvas, data, labels) => {
               text: "Sprints",
               color: "white",
             },
+
+            grid: {
+              color: "rgba(255, 255, 255, 1)"
+            },
+
           },
         },
 
-        grid: {
-          color: "rgba(255, 255, 255, 1)"
-        },
+        
   
         plugins: {
           legend: {
