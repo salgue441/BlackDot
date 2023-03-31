@@ -52,13 +52,12 @@ module.exports = class SprintEpica {
       [idsprint]
     );
 
-    console.log(sprint);
-    // const sprintEpicaNew = new SprintEpica({
-    //   idEpica: sprint[0].id,
-    //   idsprint: sprint[0].idsprint,
-    // });
+    const sprintEpicaNew = new SprintEpica({
+        idEpica: sprint[0].idEpica,
+        idsprint: sprint[0].idSprint,
+    });
 
-    return new SprintEpica(sprint);
+    return sprintEpicaNew;
   }
 
   /**

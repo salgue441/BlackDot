@@ -78,29 +78,45 @@
     console.log(data)
   
     const canvas = document.getElementById("ActualSprint")
-    let allStoryPoints = []
-    let epicasNames = []
+    let labels = ["Done", "To Do", "In Progress"];
+    let allStoryPoints = [];
+    let doneIssues = [];
+    let todoIssues = [];
+    let inprogressIssues = [];
+    let doneStoryPoints = 0;
+    let todoStoryPoints = 0;
+    let inprogressStoryPoints = 0;
+
+
+    for (let i = 0; i < data.issues.length; i++) {
+        //doneStoryPoints = doneStoryPoints + data.issues[i].storyPoints;
+        if (data.issues[i].estadoIssue === "Done") {
+            doneIssues.push(data.issues[i].storyPoints)
+        }
+        if (data.issues[i].estadoIssue === "To Do") {
+            todoIssues.push(data.issues[i].storyPoints)
+        }
+        if (data.issues[i].estadoIssue === "In Progress") {
+            inprogressIssues.push(data.issues[i].storyPoints)
+        }
+    }
+
+    for (let j = 0; j < doneIssues.length; j++) {
+        doneStoryPoints = doneStoryPoints + doneIssues[j];
+    }
+
+    for (let k = 0; k < todoIssues.length; k++) {
+        todoStoryPoints = todoStoryPoints + todoIssues[k];
+    }
+
+    for (let l = 0; l < inprogressIssues.length; l++) {
+        inprogressStoryPoints = inprogressStoryPoints + inprogressIssues[l];
+    }
   
-    data.epicas.forEach((set) => {
-      const epicStoryPoints = set.sprints.reduce((acc, sprint) => {
-        const doneIssues = sprint.issues.filter(
-          (issue) => issue.estadoIssue === "Done"
-        )
-        const sprintStoryPoints = doneIssues.reduce(
-          (total, issue) => total + issue.storyPoints,
-          0
-        )
-  
-        return acc + sprintStoryPoints
-      }, 0)
-  
-      allStoryPoints.push(epicStoryPoints)
-      epicasNames.push(set.nombreEpica)
-  
-      console.log()
-      console.log(epicasNames)
-    })
-  
-    createBarChart(canvas, allStoryPoints, epicasNames)
+    allStoryPoints.push(doneStoryPoints+10);
+    allStoryPoints.push(todoStoryPoints);
+    allStoryPoints.push(inprogressStoryPoints);
+
+    createBarChart(canvas, allStoryPoints, labels)
   })()
   
