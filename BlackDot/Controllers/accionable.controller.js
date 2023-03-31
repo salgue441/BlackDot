@@ -8,7 +8,8 @@
  * @copyright Copyright (c) 2023 - MIT License
  **/
 
- const path = require("path")
+const path = require("path")
+const axios = require("axios")
 
 const Accionable = require("../Models/accionable.model")
 const Cualitativa = require("../Models/cualitativa.model")
@@ -46,7 +47,6 @@ exports.getAnswersCualitativa = async (req, res) => {
 
 exports.getAnswersCualitativaAPI = async (req, res) => {
     try{
-        
         const waitingAnswers = await retroPregunta.getQualitativeAnswersByIDPregunta(8)
 
         res.json({waitingAnswers: waitingAnswers})
@@ -58,6 +58,8 @@ exports.getAnswersCualitativaAPI = async (req, res) => {
         })
     }
 }
+
+
 
 // /**
 //  * @brief

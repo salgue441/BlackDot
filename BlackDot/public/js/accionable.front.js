@@ -58,6 +58,8 @@ async function handleCheckBox() {
         }
       }
     }
+
+    // 떽 망해라 으휴
   
     return accionables
 }
@@ -73,4 +75,17 @@ async function sendAccionables() {
 
     console.log(accionables)
 }
-  
+
+async function sendData(){
+    const accionablesData = await handleCheckBox()
+
+    try{
+        const response = fetch('http://localhost:3000/actual/accionables', {
+            method: 'POST',
+            headers:{
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+    }
+}
