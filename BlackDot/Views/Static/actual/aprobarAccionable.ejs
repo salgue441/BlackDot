@@ -5,7 +5,6 @@
         <%- include('../../include/navbar.ejs') %>     
         <section class = "hero is-medium is-bold">
             <div class = "hero-body has-text-centered">
-            <form method="POST" action="/actual/aprobacion">
             <!-- Title & Button to Accept -->
                 <div class="columns">
                     <div class="column is-half is-flex">
@@ -60,17 +59,18 @@
                             <div class="box is-black accionable-toggle">
                                 <article class="media">
                                     <figure class="image is-24x24">
-                                        <input type="checkbox" name="accionable" value="" class="checkbox" />
+                                        <input type="checkbox" name="accionable" value="" class="checkbox" onclick="handleCheckBox(this)"/>
                                     </figure>
-                                </article>
+                                </article>a
                             </div>
                         </div>
                     </div>
                 <% } %>
                 <% } %>
-            </form>
             </div>
         </section>
+
+        <script src="/js/accionable.front.js"></script>
     </body>
 </html>
 

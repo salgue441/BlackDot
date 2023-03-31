@@ -44,6 +44,21 @@ exports.getAnswersCualitativa = async (req, res) => {
     }
 }
 
+exports.getAnswersCualitativaAPI = async (req, res) => {
+    try{
+        
+        const waitingAnswers = await retroPregunta.getQualitativeAnswersByIDPregunta(8)
+
+        res.json({waitingAnswers: waitingAnswers})
+    }
+
+    catch (error){
+        res.status(500).json({
+            message: error.message || "Error al obtener Accionables",
+        })
+    }
+}
+
 // /**
 //  * @brief
 //  * Post to register Actionables
