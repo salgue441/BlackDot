@@ -88,7 +88,7 @@ const createBarChart = (canvas, data, labels) => {
         x: {
           title: {
             display: true,
-            text: "Sprints",
+            text: "Epics",
           },
         },
       },
@@ -282,8 +282,6 @@ async function handleCheckBoxEpicas() {
       let allStoryPoints = []
       let epicasNames = []
 
-      console.log("Selected id: " + id)
-
       for (let i = 0; i < data.epicas.length; i++) {
         const epica = data.epicas[i]
         const sprint = epica.sprints[id - 1]
@@ -318,8 +316,6 @@ async function handleCheckBoxEpicas() {
       epicas.push(selectedEpica)
     }
   })
-
-  console.log(epicas)
 
   const canvas = document.getElementById("EpicaComparison")
   const epicasLabels = epicas.map((epica) => epica.nombreEpica)
