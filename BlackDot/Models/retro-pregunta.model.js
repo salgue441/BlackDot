@@ -201,6 +201,7 @@ class retroPregunta {
           retroalimentacion.idRetroalimentacion, 
           pregunta.idPregunta, 
           pregunta.contenido AS Pregunta, 
+          cualitativa.idCualitativa,
           cualitativa.idPregunta, 
           cualitativa.contenido,
           retroalimentacion.fechaFinalizacion

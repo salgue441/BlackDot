@@ -20,5 +20,6 @@ router.get("/enviado", Retro.getPaginaEnviado);
 
 const Accionable = require("../Controllers/accionable.controller");
 router.get("/accionables", Accionable.getAnswersCualitativa);
+router.get('/accionableDatos', Accionable.getAnswersCualitativaAPI)
 
 module.exports = router;
