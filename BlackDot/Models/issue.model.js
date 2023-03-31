@@ -31,12 +31,23 @@ module.exports = class Issue {
   static async getByID(idIssue) {
     if (!idIssue) throw new Error("No se ha proporcionado un ID")
 
-    const [issue] = await dataBase.query(
+    const [issue, _] = await dataBase.query(
       "select * from Issue where idIssue = ?",
       [idIssue]
     )
 
-    return new Issue(issue)
+    const IssueNew = new Issue({
+      idIssue: issue[0].idIssue,
+      nombreIssue: issue[0].nombreIssue,
+      storyPoints: issue[0].storyPoints,
+      labelIssue: issue[0].labelIssue,
+      prioridadIssue: issue[0].prioridadIssue,
+      estadoIssue: issue[0].estadoIssue,
+      fechaCreacion: issue[0].fechaCreacion,
+      fechaFinalizacion: issue[0].fechaFinalizacion,
+    });
+
+    return IssueNew;
   }
 
   /**
