@@ -13,7 +13,7 @@
 
                     <div class = "column is-half is-flex is-justify-content-end">
                         <div class="is-grouped is-grouped-centered">
-                            <input class = "button is-danger reporte-button" type = "submit" value="Aceptar">
+                            <input class = "button is-danger reporte-button" id="sendButton" type = "submit" value="Aceptar" onclick="sendAccionables()">
                         </div>
                     </div>
                 </div>
@@ -59,9 +59,11 @@
                             <div class="box is-black accionable-toggle">
                                 <article class="media">
                                     <figure class="image is-24x24">
-                                        <input type="checkbox" name="accionable" value="" class="checkbox" onclick="handleCheckBox(this)"/>
+                                        <input type="checkbox" name="accionable" value="" class="checkbox" 
+                                               onclick="handleCheckBox()"
+                                               id="checkbox-<%= waitingAnswers[i].idCualitativa %>" />
                                     </figure>
-                                </article>a
+                                </article>
                             </div>
                         </div>
                     </div>
