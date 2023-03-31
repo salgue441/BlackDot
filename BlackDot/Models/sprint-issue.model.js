@@ -50,12 +50,12 @@ module.exports = class SprintIssue {
   static async getByIDS(idSprint) {
     if (!idSprint) throw new Error("No se ha proporcionado un ID de sprint")
 
-    const [sprint] = await dataBase.query(
+    const [sprint, _] = await dataBase.query(
       "select * from SprintIssue where idSprint = ?",
       [idSprint]
     )
 
-    return new SprintIssue(sprint)
+    return sprint
   }
 
   /**

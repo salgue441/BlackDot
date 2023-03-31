@@ -55,7 +55,6 @@ module.exports = class Sprint {
 
   static async getSprintActual() {
     const fechaActual = new Date().toISOString().split("T")[0];
-
     const [sprint, _] = await dataBase.query(
       "select * from Sprint where FechaCreacion <= ? and FechaFinalizacion >= ?",
       [fechaActual, fechaActual]
