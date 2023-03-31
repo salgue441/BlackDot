@@ -4,6 +4,8 @@
 
 const express = require("express");
 const router = express.Router();
+const bodyParser = require("body-parser");
+const urlencodedParser = bodyParser.urlencoded({ extended: false });
 
 const Retro = require("../Controllers/retroalimentacion.controller");
 router.get("/verRespuestas/:id", Retro.getCurretRetroalimentacion);
@@ -19,7 +21,7 @@ router.get("/respuestasRetro", Retro.getCurretRetroalimentacionAPI);
 router.get("/enviado", Retro.getPaginaEnviado);
 
 const Accionable = require("../Controllers/accionable.controller");
-router.get("/accionables", Accionable.getAnswersCualitativa);
-router.get('/accionableDatos', Accionable.getAnswersCualitativaAPI)
+router.get("/accionables", Accionable.getRegistrarAprobacion);
+router.post("/accenviado", Accionable.postRegistrarAprobacion);
 
 module.exports = router;

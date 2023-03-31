@@ -4,17 +4,21 @@
  * @author Yuna Chung
  * @date 2023.03.28
  * @version 1.0
- * 
+ *
  * @copyright Copyright (c) 2023 - MIT License
  **/
 
-const path = require("path")
-const axios = require("axios")
+const axios = require("axios");
 
-const Accionable = require("../Models/accionable.model")
-const Cualitativa = require("../Models/cualitativa.model")
-const retroPregunta = require('../Models/retro-pregunta.model')
-const CualiAccionable = require("../Models/cuali-accionable.model")
+const bodyparser = require("body-parser");
+const express = require("express");
+const path = require("path");
+bodyparser.urlencoded({ extended: true });
+
+const Accionable = require("../Models/accionable.model");
+const Cualitativa = require("../Models/cualitativa.model");
+const retroPregunta = require("../Models/retro-pregunta.model");
+const CualiAccionable = require("../Models/cuali-accionable.model");
 
 /**
  * @brief
@@ -22,45 +26,33 @@ const CualiAccionable = require("../Models/cuali-accionable.model")
  * @param {Request} req - Request object
  * @param {Response} res - Response object
  * @returns {Response} - Response object
- * @throws {Error} - Error message 
+ * @throws {Error} - Error message
  **/
 
-exports.getAnswersCualitativa = async (req, res) => {
-    try{
-        
-        const waitingAnswers = await retroPregunta.getQualitativeAnswersByIDPregunta(8)
+exports.getRegistrarAprobacion = async (req, res) => {
+  try {
+    await Accionable.getAll().then((accionables) => {
+      res.render(
+        path.join(__dirname, "../Views/Static/actual/aprobarAccionable.ejs"),
+        {
+          accionables,
+        }
+      );
+    });
+  } catch (error) {
+    res.status(500).json({
+      message: error.message || "Error al obtener metricas epicas",
+    });
+  }
+};
 
-        res.render(
-            path.join(__dirname, "../Views/Static/actual/aprobarAccionable.ejs"), 
-            {
-                waitingAnswers: waitingAnswers,
-            }
-        )
-    }
-
-    catch (error){
-        res.status(500).json({
-            message: error.message || "Error al obtener Accionables",
-        })
-    }
-}
-
-exports.getAnswersCualitativaAPI = async (req, res) => {
-    try{
-        const waitingAnswers = await retroPregunta.getQualitativeAnswersByIDPregunta(8)
-
-        res.json({waitingAnswers: waitingAnswers})
-    }
-
-    catch (error){
-        res.status(500).json({
-            message: error.message || "Error al obtener Accionables",
-        })
-    }
-}
-
-
-
+exports.postRegistrarAprobacion = async (req, res) => {
+  const idsAccionable = req.body.accionable;
+  console.log(idsAccionable);
+  res.render(
+    path.join(__dirname, "../Views/Static/actual/enviadoAccionable.ejs")
+  );
+};
 // /**
 //  * @brief
 //  * Post to register Actionables

@@ -67,9 +67,9 @@ module.exports = class Accionable {
 
   static async getAll() {
     const query = `SELECT * FROM Accionable`;
-    const [rows] = await dataBase.execute(query);
+    const [rows,_] = await dataBase.execute(query);
 
-    return rows.map((row) => new Accionable(row));
+    return rows;
   }
 
   /**
