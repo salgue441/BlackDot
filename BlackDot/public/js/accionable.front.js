@@ -8,8 +8,6 @@
  * @copyright Copyright (c) 2023 - MIT License
  */
 
-const accionable = require('../../Models/accionable.model')
-
 /**
  * @brief 
  * Fetches the data from the ghost route. The data is obtained from the dababase.
