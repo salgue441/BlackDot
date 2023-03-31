@@ -1,3 +1,18 @@
+/**
+ * @file server.js
+ * @brief This file contains the server configuration
+ * @author Yuna Chung
+ * @author Carlos Salguero
+ * @author Olimpia Garcia
+ * @author Diego Sandoval
+ * @author Diego Llaca
+ * @author Ivan Paredes
+ * @date 2023-03-31
+ * @version 1.0
+ *
+ * @copyright Copyright (c) 2023 - MIT License
+ */
+
 const express = require("express")
 const app = express()
 const bodyparser = require("body-parser")
