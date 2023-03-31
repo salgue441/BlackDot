@@ -28,11 +28,9 @@ const SprintEpica = require("../models/sprintEpica.model");
 exports.getActual = async (req, res) => {
   try {
     const sprint = await Sprint.getSprintActual();
-    const sprintIssues = await SprintIssue.getByIDS(sprint.id)
-    const sprintEpicas = await SprintEpica.getByIDS(sprint.id)
+    const sprintEpicas = await SprintEpica.getByIDS(sprint.id);
 
-    console.log(sprintIssues)
-    console.log(sprintEpicas)
+    // console.log(sprintEpicas);
 
     res.render(
       path.join(__dirname, "../Views/Static/actual/verMetricasActuales.ejs"),
