@@ -24,6 +24,11 @@ const fetchEpicasData = async () => {
  */
 const createBarChart = (canvas, data, labels) => {
   const ctx = canvas.getContext("2d")
+  const chart = Chart.getChart(ctx)
+
+  if (chart) {
+    chart.destroy()
+  }
 
   const colors = [
     {
@@ -180,38 +185,6 @@ const createStackBarChart = (canvas, epicasData, labels) => {
 
 /**
  * @brief
- * Renders the graph. This function is called when the page is loaded
- * or refreshed
- * @todo Add token when authentication is implemented
- */
-;(async function renderGraph() {
-  const data = await fetchEpicasData()
-
-  const canvas = document.getElementById("EpicaComparison")
-  let allStoryPoints = []
-  let epicasNames = []
-
-  data.epicas.forEach((set) => {
-    const epicStoryPoints = set.sprints.reduce((acc, sprint) => {
-      const doneIssues = sprint.issues.filter(
-        (issue) => issue.estadoIssue === "Done"
-      )
-      const sprintStoryPoints = doneIssues.reduce(
-        (total, issue) => total + issue.storyPoints,
-        0
-      )
-
-      return acc + sprintStoryPoints
-    }, 0)
-
-    allStoryPoints.push(epicStoryPoints)
-    epicasNames.push(set.nombreEpica)
-  })
-
-  createBarChart(canvas, allStoryPoints, epicasNames)
-})()
-/**
- * @brief
  * Renders the sprint-comparison graph. This function is called when the page
  * is loaded or refreshed
  * @todo Add token when authentication is implemented
@@ -289,4 +262,68 @@ const change = (event) => {
 
   // Prevent the event from propagating to other elements
   event.stopPropagation()
+}
+
+/**
+ * @brief
+ * Gets the checkbox input and saves the value into an array. Only add
+ * the value if the checkbox is checked. At the end, it calls the function
+ * that renders the graph.
+ * @returns {Array} - The array with the selected epicas
+ */
+async function handleCheckBoxEpicas() {
+  const checkboxes = document.querySelectorAll("input[name=epica]:checked")
+  const data = await fetchEpicasData()
+  const epicas = []
+
+  checkboxes.forEach((checkbox) => {
+    if (checkbox.checked) {
+      const id = checkbox.value
+      let allStoryPoints = []
+      let epicasNames = []
+
+      console.log("Selected id: " + id)
+
+      for (let i = 0; i < data.epicas.length; i++) {
+        const epica = data.epicas[i]
+        const sprint = epica.sprints[id - 1]
+
+        const doneIssues = sprint.issues.filter(
+          (issue) => issue.estadoIssue === "Done"
+        )
+
+        const storyPoints = doneIssues.reduce(
+          (total, issue) => total + issue.storyPoints,
+          0
+        )
+
+        allStoryPoints.push(storyPoints)
+      }
+
+      data.epicas.forEach((epica) => {
+        epicasNames.push(epica.nombreEpica)
+      })
+
+      const selectedEpica = {
+        idEpica: id,
+        nombreEpica: epicasNames[id - 1],
+        sprints: data.epicas[0].sprints,
+        allStoryPoints: Array.from(allStoryPoints).reduce(
+          (acc, value) => acc + value || -1,
+          0
+        ),
+        epicasNames: epicasNames,
+      }
+
+      epicas.push(selectedEpica)
+    }
+  })
+
+  console.log(epicas)
+
+  const canvas = document.getElementById("EpicaComparison")
+  const epicasLabels = epicas.map((epica) => epica.nombreEpica)
+  const dataEpicas = epicas.map((epica) => epica.allStoryPoints)
+
+  createBarChart(canvas, dataEpicas, epicasLabels)
 }
