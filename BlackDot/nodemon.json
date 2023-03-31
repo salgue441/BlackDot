@@ -1,9 +1,9 @@
 {
-  "carlos": {
-    "HOST": "localhost",
-    "USER": "root",
-    "PASSWORD": "",
-    "DATABASE": "blackDot",
-    "PORT": 8000
+  "env": {
+    "NODE_ENV": "carlos",
+    "PORT": 3000
+  },
+  "execMap": {
+    "js": "node -r dotenv/config"
   }
 }
