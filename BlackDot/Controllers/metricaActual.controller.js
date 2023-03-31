@@ -8,14 +8,14 @@
  * @copyright Copyright (c) 2023 - MIT License
  */
 
-const path = require("path")
+const path = require("path");
 
 // Models
-const Epica = require("../models/Epica.model")
-const Issue = require("../models/issue.model")
-const Sprint = require("../models/sprint.model")
-const SprintIssue = require("../models/sprint-issue.model")
-const SprintEpica = require("../models/sprintEpica.model")
+const Epica = require("../models/Epica.model");
+const Issue = require("../models/issue.model");
+const Sprint = require("../models/sprint.model");
+const SprintIssue = require("../models/sprint-issue.model");
+const SprintEpica = require("../models/sprintEpica.model");
 
 /**
  * @brief
@@ -26,25 +26,24 @@ const SprintEpica = require("../models/sprintEpica.model")
  * @throws {Error} - Error message
  */
 exports.getActual = async (req, res) => {
-    try {
-        const sprint = await Sprint.getSprintActual()
-        console.log(sprint.idSprint)
-        /*const sprintIssues = await SprintIssue.getByIDS(sprintid)
+  try {
+    const sprint = await Sprint.getSprintActual();
+    console.log(sprint.id);
+    /*const sprintIssues = await SprintIssue.getByIDS(sprintid)
         const sprintEpicas = await SprintprintEpica.getByIDS(sprintid)
 
         console.log(sprintIssues)
         console.log(sprintEpicas)*/
 
-        res.render(
-            path.join(__dirname, "../Views/Static/actual/verMetricasActuales.ejs"),
-            {
-                /*epicas: epicas,*/
-            }
-        )
-    }
-    catch (error) {
-        res.status(500).json({
-            message: error.message || "Error al obtener metricas actuales"
-        })
-    }
-}
+    res.render(
+      path.join(__dirname, "../Views/Static/actual/verMetricasActuales.ejs"),
+      {
+        /*epicas: epicas,*/
+      }
+    );
+  } catch (error) {
+    res.status(500).json({
+      message: error.message || "Error al obtener metricas actuales",
+    });
+  }
+};
