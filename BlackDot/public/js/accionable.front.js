@@ -87,5 +87,8 @@ async function sendData(){
             },
             body: JSON.stringify(data)
         })
+    } 
+    catch(error){
+        throw new Error(error)
     }
-}
+} 
