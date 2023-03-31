@@ -231,23 +231,13 @@ const change = (event) => {
       ? "Comparativa de Sprints"
       : "Comparativa de Epicas"
 
-  if (button.id === "toggleEpicaComparison") {
-    liSprint.forEach((li) => {
-      li.style.display = li.style.display === "none" ? "block" : "none"
-    })
+  liSprint.forEach((li) => {
+    li.style.display = li.style.display === "none" ? "block" : "none"
+  })
 
-    liEpica.forEach((li) => {
-      li.style.display = li.style.display === "none" ? "block" : "none"
-    })
-  } else {
-    liSprint.forEach((li) => {
-      li.style.display = li.style.display === "none" ? "block" : "none"
-    })
-
-    liEpica.forEach((li) => {
-      li.style.display = li.style.display === "none" ? "block" : "none"
-    })
-  }
+  liEpica.forEach((li) => {
+    li.style.display = li.style.display === "none" ? "block" : "none"
+  })
 
   // Change the graph-title and graph-canvas
   const graphTitle = document.getElementsByClassName("graph-title")
@@ -274,6 +264,7 @@ const change = (event) => {
 async function handleCheckBoxEpicas() {
   const checkboxes = document.querySelectorAll("input[name=epica]:checked")
   const data = await fetchEpicasData()
+
   const epicas = []
 
   checkboxes.forEach((checkbox) => {
