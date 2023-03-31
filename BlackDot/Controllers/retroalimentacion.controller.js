@@ -55,7 +55,7 @@ const simplifyAnswers = (answers) => {
       return acc;
     }, []);
   } catch (error) {
-    console.log(error);
+    res.render(path.join(__dirname, "../Views/Static/error.ejs"));
   }
 };
 
@@ -121,9 +121,7 @@ exports.getCurretRetroalimentacion = async (req, res) => {
       }
     );
   } catch (error) {
-    res.status(500).json({
-      message: error.message || "Error al obtener metricas epicas",
-    });
+    res.render(path.join(__dirname, "../Views/Static/error.ejs"));
   }
 };
 
@@ -151,9 +149,7 @@ exports.getCurretRetroalimentacionAPI = async (req, res) => {
       simplifiedQuantitative: simplifiedQuantitative,
     });
   } catch (error) {
-    res.status(500).json({
-      message: error.message || "Error al obtener metricas epicas",
-    });
+    res.render(path.join(__dirname, "../Views/Static/error.ejs"));
   }
 };
 
@@ -182,9 +178,7 @@ exports.getRegistrarRespuestas = async (req, res) => {
       });
     });
   } catch (error) {
-    res.status(500).json({
-      message: error.message || "Error al obtener preguntas",
-    });
+    res.render(path.join(__dirname, "../Views/Static/error.ejs"));
   }
 };
 
