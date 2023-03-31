@@ -54,6 +54,10 @@ const { getByIDS } = require("../models/sprint.model") //validar con llaca
        const [sprint] = await dataBase.query(
         "select * from sprintepica where idSprint = ?", [idsprint]
        )
+       const sprintEpicaNew = new SprintEpica({
+        idEpica: sprint[0].idSprint,
+        idsprint: sprint[0].idsprint,
+      });
         return new SprintEpica(sprint)
     }
 
