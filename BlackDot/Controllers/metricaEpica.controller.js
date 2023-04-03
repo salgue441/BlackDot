@@ -88,7 +88,7 @@ exports.getAllEpicas = async (req, res) => {
       }
     );
   } catch (error) {
-    res.render(path.join(__dirname, "../Views/Static/error.ejs"));
+    res.render(path.join(__dirname, "../Views/Static/error.ejs"), { error });
   }
 };
 
@@ -152,6 +152,6 @@ exports.getAllEpicasAPI = async (req, res) => {
 
     res.json({ epicas: epicas });
   } catch (error) {
-    res.render(path.join(__dirname, "../Views/Static/error.ejs"));
+    res.render(path.join(__dirname, "../Views/Static/error.ejs"), { error });
   }
 };

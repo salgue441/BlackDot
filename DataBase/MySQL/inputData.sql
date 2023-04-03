@@ -1599,6 +1599,7 @@ VALUES
     (5, 1, 1),
     (3, 1, 2),
     (1, 1, 1),
+    (3, 1, 5),
 -- ¿Te sientes a gusto con tu desempeño este Sprint?
     (3, 2, 4),
     (2, 2, 2),
@@ -1614,6 +1615,7 @@ VALUES
     (1, 2, 2),
     (3, 2, 3),
     (4, 2, 1),
+    (4, 2, 5),
 -- ¿Consideras que la cantidad de Issues asignadas en este Sprint son las adecuadas?
     (1, 3, 2),
     (2, 3, 3),
@@ -1628,7 +1630,8 @@ VALUES
     (4, 3, 2),
     (5, 3, 1),
     (5, 3, 1),
-    (4, 3, 3);
+    (4, 3, 3),
+    (1, 3, 5);
 
 -- Insertando datos en Cualitativa
 INSERT INTO Cualitativa 
@@ -1648,7 +1651,7 @@ VALUES
     ('Mantuvimos una buena gestión del tiempo y la productividad durante todo el Sprint.', 4, 2),
     ('Mejoramos la coordinación con otros equipos que dependen de nuestro trabajo.', 4, 3),
     ('Realizamos una excelente planificación y organización de nuestras tareas para garantizar la eficiencia del equipo.', 4, 3),
-    ('Realizamos una buena revisión y mejora continua del trabajo realizado en este Sprint.', 4, 1),
+    ('Realizamos una buena revisión y mejora continua del trabajo realizado en este Sprint.', 4, 5),
 -- ¿Qué hicimos mal que debemos hacer diferente?
     ('No esperar hasta el último momento donde se amontonan las cosas.', 5, 2),
     ('No comunicarnos adecuadamente.', 5, 2),
@@ -1663,7 +1666,7 @@ VALUES
     ('No delegar tareas de manera efectiva.', 5, 3),
     ('No tener en cuenta las opiniones de los clientes.', 5, 3),
     ('No ser flexibles ante cambios y nuevos desafíos.', 5, 3),
-    ('No dar suficiente importancia al trabajo en equipo.', 5, 1),
+    ('No dar suficiente importancia al trabajo en equipo.', 5, 5),
 -- ¿Qué nos causa ruido?
     ('Injusta distribución de trabajos', 6, 2),
     ('Interrupciones frecuentes en forma de llamadas telefónicas o correos electrónicos.', 6, 2),
@@ -1678,7 +1681,7 @@ VALUES
     ('Las discrepancias en las expectativas del equipo y la gestión del proyecto.', 6, 2),
     ('Los problemas con el equipo, como fallas técnicas o conflictos interpersonales', 6, 2),
     ('La falta de habilidades o experiencia en el equipo para llevar a cabo algunas tareas.', 6, 2),
-    ('Los cambios de prioridad frecuentes que dificultaron la planificación y el progreso del proyecto.', 6, 1),
+    ('Los cambios de prioridad frecuentes que dificultaron la planificación y el progreso del proyecto.', 6, 5),
 -- ¿Qué impedimiento tuvimos en este Sprint?
     ('Un integrante del equipo estuvo muy perdido durante todo el Sprint.', 7, 1),
     ('Problemas con la infraestructura de la red', 7, 2),
@@ -1693,7 +1696,7 @@ VALUES
     ('Conflictos entre los miembros del equipo', 7, 3),
     ('Falta de motivación de los miembros del equipo', 7, 2),
     ('Falta de experiencia en el trabajo asignado', 7, 1),
-    ('Problemas de gestión del tiempo', 7, 1),
+    ('Problemas de gestión del tiempo', 7, 5),
 -- ¿Qué podemos mejorar?
     ('Para que todos los miembros del equipo se sientan unidos entre todos, tendríamos que hacer una noche de Pizza', 8, 3),
     ('Establecer una reunión diaria para el equipo para discutir el progreso y cualquier problema que surja.', 8, 2),
@@ -1708,7 +1711,7 @@ VALUES
     ('Evaluar y revisar el éxito del Sprint al final de una Épia para identificar áreas de mejora y aplicarlas en proyectos futuros', 8, 1),
     ('Revisar y mejorar los procesos de colaboración para fomentar la creatividad y la innovación en el equipo.', 8, 3),
     ('Tener sesiones de retroalimentación individual para revisar desempeño de cada uno', 8, 1),
-    ('Para que todos puedan energía mientras que trabajamos, tener un Snack Bar en la oficina', 8, 1);
+    ('Para que todos puedan energía mientras que trabajamos, tener un Snack Bar en la oficina', 8, 5);
 
 -- Insertando datos en Accionables
 insert into Accionable
