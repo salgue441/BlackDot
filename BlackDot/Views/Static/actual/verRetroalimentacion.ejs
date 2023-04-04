@@ -137,12 +137,12 @@
 </style>
 
 <script>
-  var dropdown = document.getElementById("dropdown")
+  var dropdown = document.getElementById("dropdown");
   dropdown.addEventListener("click", function (event) {
-    event.stopPropagation()
-    dropdown.classList.toggle("is-active")
-  })
+    event.stopPropagation();
+    dropdown.classList.toggle("is-active");
+  });
   document.addEventListener("click", function (event) {
-    dropdown.classList.remove("is-active")
-  })
+    dropdown.classList.remove("is-active");
+  });
 </script>
