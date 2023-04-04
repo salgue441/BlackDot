@@ -15,12 +15,20 @@ const router = express.Router()
 
 /**
  * @brief
- * Route to fetch Jira Issues
+ * Route to fetch Jira Issues. This route is protected by the auth middleware.
+ * The auth middleware will check if the user is authenticated and will return
+ * a 401 if the user is not authenticated.
+ * @name GET /jiraIssues - Fetch Jira Issues
  * @param {String} "/jiraIssues" - Route
  * @param {Function} (req, res) - Callback function
  * @return {Object} - Returns the Jira Issues
  */
 router.get("/jiraIssues", async (req, res) => {
+  //   if (!req.user) {
+  //     res.status(401).json({ message: "Error: user not authenticated" })
+  //     return
+  //   }
+
   const jiraUrl = process.env.JIRA_URL
   const jiraUser = process.env.JIRA_USER
   const apiToken = process.env.JIRA_API_TOKEN
@@ -30,15 +38,41 @@ router.get("/jiraIssues", async (req, res) => {
   const jqlQuery = "assignee=currentUser()"
 
   // Fields to retrieve
-  const fields = ""
+  const fields =
+    "summary,customfield_10002,labels,priority,status,created,resolutiondate"
   const maxResults = 1000
 
   // URL to fetch
-  const url = `${jiraUrl}${apiEndPoint}?jql=${jqlQuery}&fields=${fields}&maxResults=${maxResults}`
+  const apiUrl = `${jiraUrl}${apiEndPoint}?jql=${jqlQuery}&fields=${fields}&maxResults=${maxResults}`
 
   try {
+    // API request
+    const response = await fetch(apiUrl, {
+      headers: {
+        Authorization: `Bearer ${apiToken}`,
+      },
+    })
+
+    // Parsing JSON response
+    const data = await response.json()
+    const issues = data.issues.map((issue) => {
+      return {
+        key: issue.key,
+        summary: issue.fields.summary,
+        status: issue.fields.status.name,
+        priority: issue.fields.priority.name,
+        labels: issue.fields.labels,
+        created: issue.fields.created,
+        resolutionDate: issue.fields.resolutiondate,
+        storyPoints: issue.fields.customfield_10002,
+      }
+    })
+
+    res.json(issues)
   } catch (error) {
     console.log(error)
     res.status(500).json({ message: "Error: fetching jira issues" })
   }
 })
+
+module.exports = router
