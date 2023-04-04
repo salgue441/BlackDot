@@ -34,10 +34,11 @@ router.get("/jiraIssues", async (req, res) => {
   const maxResults = 1000
 
   // URL to fetch
-    const url = `${jiraUrl}${apiEndPoint}?jql=${jqlQuery}&fields=${fields}&maxResults=${maxResults}`
-    
-    try {
+  const url = `${jiraUrl}${apiEndPoint}?jql=${jqlQuery}&fields=${fields}&maxResults=${maxResults}`
 
-    }
-    catch (error) {
+  try {
+  } catch (error) {
+    console.log(error)
+    res.status(500).json({ message: "Error: fetching jira issues" })
+  }
 })
