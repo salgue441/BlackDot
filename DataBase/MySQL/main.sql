@@ -68,6 +68,7 @@ create table if not exists Sprint
 create table if not exists Issue
 (
     idIssue int not null auto_increment primary key,
+    issueKey varchar(30),
     nombreIssue varchar (150) not null, 
     storyPoints int not null default 0,
     labelIssue varchar (50),
