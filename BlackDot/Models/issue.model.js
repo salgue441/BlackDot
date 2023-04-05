@@ -9,7 +9,6 @@
  */
 
 const dataBase = require("../utils/dataBase")
-const { getJiraIssues } = require("../Controllers/jiraIssues.controller")
 
 /**
  * @class

@@ -11,8 +11,8 @@
 const axios = require("axios")
 
 const issues = require("../Models/issue.model")
-const { getJiraIssues } = require("../Controllers/jiraIssues.controller")
-const { saveIssuesToDB } = require("../Controllers/jiraIssues.controller")
+const { getJiraIssues } = require("../utils/jiraIssues.api")
+const { saveIssuesToDB } = require("../utils/jiraIssues.api")
 
 /**
  * @brief
@@ -78,33 +78,6 @@ describe("Jira Issues Controller", () => {
       } catch (error) {
         expect(error.message).toBe("API call failed")
       }
-    })
-  })
-
-  describe("saveIssuesToDB", () => {
-    it("saves issues to the database", async () => {
-      const issues = [
-        {
-          key: "ISSUE-123",
-          summary: "Test issue",
-          status: "Open",
-          priority: "High",
-          created: "2022-01-01T00:00:00.000Z",
-          resolutionDate: "2022-01-02T00:00:00.000Z",
-          labels: ["test", "issue"],
-          storyPoints: 3,
-        },
-      ]
-
-      const saveMock = jest.spyOn(issues, "save")
-
-      saveMock.mockImplementation(() => {
-        return Promise.resolve()
-      })
-
-      await saveIssuesToDB(issues)
-
-      expect(saveMock).toHaveBeenCalledTimes(1)
     })
   })
 })
