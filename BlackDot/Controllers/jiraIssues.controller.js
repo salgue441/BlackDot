@@ -100,4 +100,3 @@ exports.saveIssuesToDB = async () => {
     console.log(error)
   }
 }
-
