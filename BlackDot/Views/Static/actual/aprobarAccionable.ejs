@@ -1,5 +1,3 @@
-<script></script>
-
 <html>
   <%- include('../../include/header.ejs') %>
 
@@ -12,19 +10,8 @@
           <div class="column is-half is-flex">
             <h1 class="title is-1">Aprobar Accionables</h1>
           </div>
-          <% let idsAccionables=[] %>
           <div class="column is-half is-flex is-justify-content-end">
-            <div class="is-grouped is-grouped-centered">
-              <form action="/actual/accEnviado" method="POST">
-                <input type="hidden" name="accionable" value="5" />
-                <input
-                  class="button is-danger reporte-button"
-                  id="sendButton"
-                  type="submit"
-                  value="Aceptar"
-                />
-              </form>
-            </div>
+            <div class="is-grouped is-grouped-centered"></div>
           </div>
         </div>
 
@@ -84,36 +71,51 @@
         </div>
         <% } %> <% } %>
       </div>
+
+      <% let idsAccionables = 0 %>
+
+      <script>
+        function handleCheckBox() {
+          const checkboxes = document.querySelectorAll(
+            'input[type="checkbox"][name="accionable"]'
+          )
+
+          accionables = "<%= ids %>"
+
+          idsAccionables = []
+
+          const input = document.querySelector('input[name="puente"]')
+
+          for (let i = 0; i < checkboxes.length; i++) {
+            const checkbox = checkboxes[i]
+            const id = checkbox.id.split("-").pop()
+            const isChecked = checkbox.checked
+
+            // Add the checkbox to the accionables array if it's checked
+            if (isChecked) {
+              idsAccionables.push(id)
+              input.value = idsAccionables
+            } else {
+              // Remove the checkbox from the accionables array if it's unchecked
+              idsAccionables = idsAccionables.filter((item) => item !== id)
+              input.value = idsAccionables
+            }
+          }
+        }
+      </script>
+
+      <form action="/actual/accEnviado" method="POST">
+        <input type="hidden" name="puente" value="" />
+        <input
+          class="button is-danger reporte-button"
+          id="sendButton"
+          type="submit"
+          value="Aceptar"
+        />
+      </form>
     </section>
   </body>
 </html>
-
-<script>
-  function handleCheckBox() {
-    const checkboxes = document.querySelectorAll(
-      'input[type="checkbox"][name="accionable"]'
-    );
-
-    accionables = "<%= ids %>";
-
-    idsAccionables = [];
-
-    for (let i = 0; i < checkboxes.length; i++) {
-      const checkbox = checkboxes[i];
-      const id = checkbox.id.split("-").pop();
-      const isChecked = checkbox.checked;
-
-      // Add the checkbox to the accionables array if it's checked
-      if (isChecked) {
-        idsAccionables.push(id);
-        console.log(idsAccionables);
-      } else {
-        // Remove the checkbox from the accionables array if it's unchecked
-        idsAccionables = idsAccionables.filter((item) => item !== id);
-      }
-    }
-  }
-</script>
 
 <style>
   /* Custom CSS by Yuna */

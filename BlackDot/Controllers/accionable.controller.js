@@ -8,17 +8,17 @@
  * @copyright Copyright (c) 2023 - MIT License
  **/
 
-const axios = require("axios");
+const axios = require("axios")
 
-const bodyparser = require("body-parser");
-const express = require("express");
-const path = require("path");
-bodyparser.urlencoded({ extended: true });
+const bodyparser = require("body-parser")
+const express = require("express")
+const path = require("path")
+bodyparser.urlencoded({ extended: true })
 
-const Accionable = require("../Models/accionable.model");
-const Cualitativa = require("../Models/cualitativa.model");
-const retroPregunta = require("../Models/retro-pregunta.model");
-const CualiAccionable = require("../Models/cuali-accionable.model");
+const Accionable = require("../Models/accionable.model")
+const Cualitativa = require("../Models/cualitativa.model")
+const retroPregunta = require("../Models/retro-pregunta.model")
+const CualiAccionable = require("../Models/cuali-accionable.model")
 
 /**
  * @brief
@@ -37,22 +37,22 @@ exports.getRegistrarAprobacion = async (req, res) => {
         {
           accionables,
         }
-      );
-    });
+      )
+    })
   } catch (error) {
     res.status(500).json({
       message: error.message || "Error al obtener metricas epicas",
-    });
+    })
   }
-};
+}
 
 exports.postRegistrarAprobacion = async (req, res) => {
-  const idsAccionable = req.body.accionable;
-  console.log(idsAccionable);
+  const idsAccionable = req.body.puente
+  console.log(idsAccionable)
   res.render(
     path.join(__dirname, "../Views/Static/actual/enviadoAccionable.ejs")
-  );
-};
+  )
+}
 // /**
 //  * @brief
 //  * Post to register Actionables
