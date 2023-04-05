@@ -75,7 +75,7 @@ create table if not exists Issue
     prioridadIssue enum ('Highest', 'High', 'Medium', 'Low', 'Lowest') not null default 'Lowest',
     estadoIssue enum ('To Do', 'En curso', 'Pull request', 'QA', 'Blocked', 'Done') not null default 'To Do',
     fechaCreacion timestamp not null default current_timestamp,
-    fechaFinalizacion timestamp not null default current_timestamp
+    fechaFinalizacion timestamp null default null
 );
 
 create table if not exists Retroalimentacion
