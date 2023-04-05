@@ -28,7 +28,7 @@ exports.getJiraIssues = async () => {
         password: apiToken,
       },
       params: {
-        jql: "",
+        jql: `project = TPECG`,
         maxResults: 50,
         fields: [
           "summary",
@@ -59,15 +59,14 @@ exports.getJiraIssues = async () => {
         key: issue.key,
         summary: issue.fields.summary,
         status: issue.fields.status.name,
-        priority: issue.fields.priority.name,
+        priority: issue.fields.priority?.name || "No priority",
         created: issue.fields.created,
         resolutionDate: issue.fields.resolutiondate,
         labels: issue.fields.labels,
-        storyPoints: issue.fields.customfield_10042,
+        storyPoints: issue.fields.customfield_10004,
       }
     })
 
-    console.log(issuesFormatted)
     return issuesFormatted
   } catch (error) {
     console.log(error)
@@ -83,24 +82,24 @@ exports.getJiraIssues = async () => {
 exports.saveIssuesToDB = async () => {
   try {
     const issues = await this.getJiraIssues()
-    const issuesFormatted = issues.map((issue) => {
-      return {
-        idIssue: issue.key,
+
+    issues.forEach(async (issue) => {
+      const newIssue = new Issue({
+        issueKey: issue.key,
         nombreIssue: issue.summary,
         storyPoints: issue.storyPoints,
+        labelIssue: issue.labels,
         prioridadIssue: issue.priority,
         estadoIssue: issue.status,
         fechaCreacion: issue.created,
-        fechaFinalizacion: issue.resolutionDate,
-      }
-    })
+        fechaResolucion: issue.resolutionDate,
+      })
 
-    const issuesToSave = issuesFormatted.map((issue) => {
-      return new Issue(issue)
-    })
+      console.log(newIssue)
 
-    issuesToSave.forEach(async (issue) => {
-      await issue.save()
+      await newIssue.save()
+
+      console.log("Issue saved to DB")
     })
   } catch (error) {
     console.log(error)

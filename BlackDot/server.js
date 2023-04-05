@@ -61,7 +61,7 @@ app.use("/historico", historico)
 
 // Starting the server
 const PORT = 3000
-const { saveIssuesToDB } = require("./utils/jiraIssues.api")
+const { getJiraIssues } = require("./utils/jiraIssues.api")
 
 /**
  * @brief
@@ -72,5 +72,5 @@ const { saveIssuesToDB } = require("./utils/jiraIssues.api")
  */
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`)
-  saveIssuesToDB()
+  getJiraIssues()
 })
