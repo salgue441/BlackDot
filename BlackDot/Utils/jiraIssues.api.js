@@ -1,5 +1,5 @@
 /**
- * @file jiraIssues.controller.js
+ * @file jiraIssues.api.js
  * @brief This file contains the controller for the jira issues
  * @author Carlos Salguero
  * @date 2023-04-04
@@ -29,7 +29,7 @@ exports.getJiraIssues = async () => {
       },
       params: {
         jql: "",
-        maxResults: 100,
+        maxResults: 50,
         fields: [
           "summary",
           "status",
@@ -63,7 +63,7 @@ exports.getJiraIssues = async () => {
         created: issue.fields.created,
         resolutionDate: issue.fields.resolutiondate,
         labels: issue.fields.labels,
-        storyPoints: issue.fields.customfield_10004,
+        storyPoints: issue.fields.customfield_10042,
       }
     })
 

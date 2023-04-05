@@ -29,6 +29,7 @@ module.exports = class Issue {
   constructor(Issue) {
     this.idIssue = Issue.idIssue
     this.nombreIssue = Issue.nombreIssue
+    this.issueKey = Issue.issueKey
     this.storyPoints = Issue.storyPoints
     this.prioridadIssue = Issue.prioridadIssue
     this.estadoIssue = Issue.estadoIssue
@@ -129,9 +130,10 @@ module.exports = class Issue {
    */
   async save() {
     try {
-      const query = `insert into issue (nombreIssue, storyPoints, prioridadIssue, estadoIssue, fechaCreacion, fechaFinalizacion) values (?, ?, ?, ?, ?, ?)`
+      const query = `insert into issue (issueKey, nombreIssue, storyPoints, prioridadIssue, estadoIssue, fechaCreacion, fechaFinalizacion) values (?, ?, ?, ?, ?, ?)`
 
       const [result] = await dataBase.query(query, [
+        this.issueKey,
         this.nombreIssue,
         this.storyPoints,
         this.prioridadIssue,
