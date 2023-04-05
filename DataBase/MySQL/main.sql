@@ -72,8 +72,8 @@ create table if not exists Issue
     nombreIssue varchar (150) not null, 
     storyPoints int not null default 0,
     labelIssue varchar (50),
-    prioridadIssue enum ('Alta', 'Media-Alta', 'Media', 'Media-Baja', 'Baja') not null default 'Baja',
-    estadoIssue enum ('To Do', 'In Progress', 'Done') not null default 'To Do',
+    prioridadIssue enum ('Highest', 'High', 'Medium', 'Low', 'Lowest') not null default 'Lowest',
+    estadoIssue enum ('To Do', 'En curso', 'Pull request', 'QA', 'Blocked', 'Done') not null default 'To Do',
     fechaCreacion timestamp not null default current_timestamp,
     fechaFinalizacion timestamp not null default current_timestamp
 );
