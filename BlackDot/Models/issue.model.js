@@ -31,7 +31,7 @@ module.exports = class Issue {
     this.nombreIssue = Issue.nombreIssue || null
     this.issueKey = Issue.issueKey || null
     this.storyPoints = Issue.storyPoints || 0
-    this.prioridadIssue = Issue.prioridadIssue || "Baja"
+    this.prioridadIssue = Issue.prioridadIssue || "Lowest"
     this.estadoIssue = Issue.estadoIssue || "To Do"
     this.fechaCreacion =
       Issue.fechaCreacion ||
@@ -134,12 +134,13 @@ module.exports = class Issue {
    */
   async save() {
     try {
-      const query = `insert into issue (issueKey, nombreIssue, storyPoints, prioridadIssue, estadoIssue, fechaCreacion, fechaFinalizacion) values (?, ?, ?, ?, ?, ?)`
+      const query = `insert into issue (issueKey, nombreIssue, storyPoints, labelIssue, prioridadIssue, estadoIssue, fechaCreacion, fechaFinalizacion) values (?, ?, ?, ?, ?, ?, ?, ?)`
 
       const [result] = await dataBase.query(query, [
         this.issueKey,
         this.nombreIssue,
         this.storyPoints,
+        this.labelIssue,
         this.prioridadIssue,
         this.estadoIssue,
         this.fechaCreacion,
