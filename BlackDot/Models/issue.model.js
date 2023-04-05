@@ -27,14 +27,18 @@ module.exports = class Issue {
    * Constructs a new instance.
    */
   constructor(Issue) {
-    this.idIssue = Issue.idIssue
-    this.nombreIssue = Issue.nombreIssue
-    this.issueKey = Issue.issueKey
-    this.storyPoints = Issue.storyPoints
-    this.prioridadIssue = Issue.prioridadIssue
-    this.estadoIssue = Issue.estadoIssue
-    this.fechaCreacion = Issue.fechaCreacion
-    this.fechaFinalizacion = Issue.fechaFinalizacion
+    this.idIssue = Issue.idIssue || null
+    this.nombreIssue = Issue.nombreIssue || null
+    this.issueKey = Issue.issueKey || null
+    this.storyPoints = Issue.storyPoints || 0
+    this.prioridadIssue = Issue.prioridadIssue || "Baja"
+    this.estadoIssue = Issue.estadoIssue || "To Do"
+    this.fechaCreacion =
+      Issue.fechaCreacion ||
+      new Date().toISOString().slice(0, 19).replace("T", " ")
+    this.fechaFinalizacion =
+      Issue.fechaFinalizacion ||
+      new Date().toISOString().slice(0, 19).replace("T", " ")
   }
 
   /**
