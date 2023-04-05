@@ -1,0 +1,46 @@
+<html>
+    <%- include('../../include/header.ejs') %>
+
+    <body>
+        <%- include('../../include/navbar.ejs') %>
+
+        <section class="hero is-medium is-bold">
+            <div class="hero-body has-text-centered">
+                <!-- Title & Report Button -->
+                <div class="columns">
+                    <div class="column is-half is-flex">
+                        <h1 class="title is-1">Histórico de Accionables</h1>
+                    </div>
+
+                    <div class="column is-half is-flex is-justify-content-end">
+                        <div class="is-grouped is-grouped-centered">
+                            <a class="button is-danger reporte-button" href="#">Generar Reporte</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- End of Title & Button -->
+
+            <!-- Accionables -->
+            <% let numAccionable = 0 %>
+            <% for(var i = 0; i < accionables.length; i++){ %>
+                <% if(accionables[i].nombreAccioanble !== ''){ %>
+                    <% numAccionable++ %>
+                    <div class="columns">
+                        <div class="column is-11">
+                            <div class="box is-flex is-align-items-center" style="height: 100px !important;">
+                                <div class="column is-8">
+                                    <div class="content">
+                                        <p style="font-size: 1.1rem;">
+                                            <%= accionables[i].nombreAccioanble %>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+        </section>
+    </body>
+</html>
