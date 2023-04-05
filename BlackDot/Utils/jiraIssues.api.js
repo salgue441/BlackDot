@@ -63,7 +63,7 @@ exports.getJiraIssues = async () => {
         created: issue.fields.created,
         resolutionDate: issue.fields.resolutiondate,
         labels: issue.fields.labels,
-        storyPoints: issue.fields.customfield_10004,
+        storyPoints: issue.fields.customfield_10042,
       }
     })
 
@@ -95,11 +95,7 @@ exports.saveIssuesToDB = async () => {
         fechaResolucion: issue.resolutionDate,
       })
 
-      console.log(newIssue)
-
       await newIssue.save()
-
-      console.log("Issue saved to DB")
     })
   } catch (error) {
     console.log(error)
