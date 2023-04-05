@@ -8,57 +8,103 @@
  * @copyright Copyright (c) 2023 - MIT License
  */
 
+const axios = require("axios")
+
+const issues = require("../Models/issue.model")
 const { getJiraIssues } = require("../Controllers/jiraIssues.controller")
 const { saveIssuesToDB } = require("../Controllers/jiraIssues.controller")
 
+/**
+ * @brief
+ * Tests for the jira issues controller
+ * @test {getJiraIssues} - Tests the getJiraIssues function
+ * @test {saveIssuesToDB} - Tests the saveIssuesToDB function
+ */
 describe("Jira Issues Controller", () => {
-  describe("getJiraIssues", () => {
-    /**
-     * @brief
-     * Unit test for the getJiraIssues function
-     * @name GET /jiraIssues - Fetch Jira Issues
-     * @param {String} "Returns a list of Jira issues from Zebrands" - Test name
-     * @param {Function} (req, res) - Callback function
-     * @return {Object} - Returns the Jira Issues
-     */
-    test("Returns a list of Jira issues from Zebrands", async () => {
-      const req = {}
-      const statusMock = jest.fn().mockReturnThis()
-      const jsonMock = jest.fn()
+  let mockedAxios
 
-      const res = {
-        status: statusMock,
-        json: jsonMock,
+  beforeEach(() => {
+    mockedAxios = jest.spyOn(axios, "get")
+  })
+
+  afterEach(() => {
+    mockedAxios.mockRestore()
+  })
+
+  describe("getJiraIssues", () => {
+    it("returns formatted issues when API call is successful", async () => {
+      const response = {
+        data: {
+          issues: [
+            {
+              key: "ISSUE-123",
+              fields: {
+                summary: "Test issue",
+                status: { name: "Open" },
+                priority: { name: "High" },
+                created: "2022-01-01T00:00:00.000Z",
+                resolutiondate: "2022-01-02T00:00:00.000Z",
+                labels: ["test", "issue"],
+                customfield_10004: 3,
+              },
+            },
+          ],
+        },
       }
 
-      await getJiraIssues(req, res)
-      saveIssuesToDB()
+      mockedAxios.mockResolvedValue(response)
 
-      expect(statusMock).toHaveBeenCalledWith(expect.any(Number))
-      expect(jsonMock).toHaveBeenCalled()
+      const result = await getJiraIssues()
+
+      expect(result).toEqual([
+        {
+          key: "ISSUE-123",
+          summary: "Test issue",
+          status: "Open",
+          priority: "High",
+          created: "2022-01-01T00:00:00.000Z",
+          resolutionDate: "2022-01-02T00:00:00.000Z",
+          labels: ["test", "issue"],
+          storyPoints: 3,
+        },
+      ])
     })
 
-    test("Returns an error message when there's an error fetching Jira Issues", async () => {
-      const req = {}
-      const statusMock = jest.fn().mockReturnThis()
-      const jsonMock = jest.fn()
+    it("throws an error when API call fails", async () => {
+      mockedAxios.mockRejectedValueOnce(new Error("API call failed"))
 
-      const res = {
-        status: statusMock,
-        json: jsonMock,
+      try {
+        await getJiraIssues()
+      } catch (error) {
+        expect(error.message).toBe("API call failed")
       }
-
-      jest.spyOn(global, "fetch").mockImplementation(() => Promise.reject())
-
-      await getJiraIssues(req, res)
-
-      expect(statusMock).toHaveBeenCalledWith(500)
-      expect(jsonMock).toHaveBeenCalledWith({
-        message: "Error: fetching jira issues",
-      })
     })
   })
 
   describe("saveIssuesToDB", () => {
+    it("saves issues to the database", async () => {
+      const issues = [
+        {
+          key: "ISSUE-123",
+          summary: "Test issue",
+          status: "Open",
+          priority: "High",
+          created: "2022-01-01T00:00:00.000Z",
+          resolutionDate: "2022-01-02T00:00:00.000Z",
+          labels: ["test", "issue"],
+          storyPoints: 3,
+        },
+      ]
+
+      const saveMock = jest.spyOn(issues, "save")
+
+      saveMock.mockImplementation(() => {
+        return Promise.resolve()
+      })
+
+      await saveIssuesToDB(issues)
+
+      expect(saveMock).toHaveBeenCalledTimes(1)
+    })
   })
 })
