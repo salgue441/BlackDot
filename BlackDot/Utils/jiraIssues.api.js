@@ -8,6 +8,7 @@
  * @copyright Copyright (c) 2023 - MIT License
  */
 const axios = require("axios")
+const Issue = require("../models/issue.model")
 
 /**
  * @brief
@@ -66,6 +67,7 @@ exports.getJiraIssues = async () => {
       }
     })
 
+    console.log(issuesFormatted)
     return issuesFormatted
   } catch (error) {
     console.log(error)
@@ -80,14 +82,27 @@ exports.getJiraIssues = async () => {
  */
 exports.saveIssuesToDB = async () => {
   try {
-    const issuesData = await getJiraIssues()
+    const issues = await this.getJiraIssues()
+    const issuesFormatted = issues.map((issue) => {
+      return {
+        idIssue: issue.key,
+        nombreIssue: issue.summary,
+        storyPoints: issue.storyPoints,
+        prioridadIssue: issue.priority,
+        estadoIssue: issue.status,
+        fechaCreacion: issue.created,
+        fechaFinalizacion: issue.resolutionDate,
+      }
+    })
 
-    for (const issueData of issuesData) {
-      const issue = new Issue(issueData)
+    const issuesToSave = issuesFormatted.map((issue) => {
+      return new Issue(issue)
+    })
+
+    issuesToSave.forEach(async (issue) => {
       await issue.save()
-    }
+    })
   } catch (error) {
     console.log(error)
   }
 }
-

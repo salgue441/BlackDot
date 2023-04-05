@@ -10,7 +10,6 @@
  */
 
 const Issue = require("../models/issue.model")
-const dataBase = require("../utils/dataBase")
 
 describe("issue", () => {
   beforeEach(() => {
