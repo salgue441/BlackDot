@@ -7,11 +7,7 @@
  *
  * @copyright Copyright (c) 2023 - MIT License
  */
-
-const express = require("express")
 const fetch = require("node-fetch")
-
-const router = express.Router()
 
 /**
  * @brief
@@ -23,7 +19,7 @@ const router = express.Router()
  * @param {Function} (req, res) - Callback function
  * @return {Object} - Returns the Jira Issues
  */
-router.get("/jiraIssues", async (req, res) => {
+exports.getJiraIssues = async (req, res) => {
   //   if (!req.user) {
   //     res.status(401).json({ message: "Error: user not authenticated" })
   //     return
@@ -46,14 +42,12 @@ router.get("/jiraIssues", async (req, res) => {
   const apiUrl = `${jiraUrl}${apiEndPoint}?jql=${jqlQuery}&fields=${fields}&maxResults=${maxResults}`
 
   try {
-    // API request
     const response = await fetch(apiUrl, {
       headers: {
         Authorization: `Bearer ${apiToken}`,
       },
     })
 
-    // Parsing JSON response
     const data = await response.json()
     const issues = data.issues.map((issue) => {
       return {
@@ -73,6 +67,37 @@ router.get("/jiraIssues", async (req, res) => {
     console.log(error)
     res.status(500).json({ message: "Error: fetching jira issues" })
   }
-})
+}
 
-module.exports = router
+/**
+ * @brief
+ * Calls the dataBase table corresponding to the jira issue
+ * and saves the data in the table
+ * @param {}
+ */
+exports.saveIssuesToDB = async () => {
+  try {
+    const issues = await getJiraIssues()
+    const issuesModel = require("../models/issue.model")
+
+    for (const issue of issues) {
+      const issueNew = new issuesModel({
+        idIssue: issue.key,
+        nombreIssue: issue.summary,
+        storyPoints: issue.storyPoints,
+        labelIssue: issue.labels,
+        prioridadIssue: issue.priority,
+        estadoIssue: issue.status,
+        fechaCreacion: issue.created,
+        fechaFinalizacion: issue.resolutionDate,
+      })
+
+      await issueNew.save()
+    }
+
+    return issues
+  } catch (error) {
+    console.log(error)
+  }
+}
+
