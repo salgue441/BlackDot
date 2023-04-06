@@ -1,7 +1,58 @@
 <html>
   <%- include('../../include/header.ejs') %>
-
   <body>
     <%- include('../../include/navbar.ejs') %>
+
+    <section class="container  is-flex is-align-items-center is-flex-direction-column">
+        <% let cantCualitativas = 0; %> <% for (var i = 0; i < preguntas.length;
+        i++) { %> <% if (preguntas[i].tipoPregunta === 'Cualitativa') { %> <%
+        cantCualitativas++; %>
+        <div class="box PreguntaContainer is-flex is-justify-content-space-between">
+          <div class="">
+            <label class="label" for="respuestaCualitativa"
+            ><%= preguntas[i].contenido %></label
+          >
+         <p>Respuesta Abierta</p>
+         </div>
+
+          <div class="">
+            <button class="button is-primary mr-4">Editar</button>
+          <button class="button is-danger">Eliminar</button> 
+          </div>
+
+        </div>
+        <% } else { %>
+        <div class="box preguntaContainer is-flex is-justify-content-space-between">
+          <div>
+            <label class="label" for="respuestaCuantitativa"
+            ><%= preguntas[i].contenido %></label
+          >
+          <p>Respuesta 1 a 5</p></div>
+     
+
+          <div class="">
+            <button class="button is-primary mr-4">Editar</button>
+          <button class="button is-danger">Eliminar</button> 
+          </div>
+        </div>
+        <%} %> <% } %>
+
+        <div class="is-flex is-justify-content-center">
+          <input
+            class="button is-danger is-rounded is-medium"
+            type="submit"
+            value="Enviar"
+          />
+        </div>
+      </form>
+    </section>
   </body>
 </html>
+
+
+<style>
+  .preguntaContainer {
+    width: 70%;
+  }
+  
+  </style>

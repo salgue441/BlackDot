@@ -240,10 +240,14 @@ exports.getPaginaEnviado = async (req, res) => {
 }
 
 exports.getCrearRetroalimentacion = async (req, res) => {
-  res.render(
-    path.join(
-      __dirname,
-      "../Views/Static/crearRetro/crearRetroalimentacion.ejs"
-    )
-  )
+  try {
+    await Pregunta.getAll().then((preguntas) => {
+      // Render the EJS template with the preguntas and progress variables
+      res.render("Static/crearRetro/crearRetroalimentacion.ejs", {
+        preguntas,
+      })
+    })
+  } catch (error) {
+    res.render(path.join(__dirname, "../Views/Static/error.ejs"), { error })
+  }
 }
