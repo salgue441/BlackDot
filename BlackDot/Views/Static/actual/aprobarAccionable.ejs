@@ -3,7 +3,7 @@
 
   <body>
     <%- include('../../include/navbar.ejs') %>
-    <section class="hero is-medium is-bold">
+    <section class="hero is-medium is-bold is-flex is-justify-content-center">
       <div class="hero-body has-text-centered">
         <!-- Title & Button to Accept -->
         <div class="columns">
@@ -19,7 +19,8 @@
 
         <!-- Quantitative Answers -->
         <% const ids = [] %> <% let numAccionable = 0 %> <% for(var i = 0; i <
-        accionables.length; i++) { %> <% if(accionables[i].contenido !== '') {
+        accionables.length; i++) { %> <% if(accionables[i].contenido !== '' &&
+        accionables[i].estadoAccionable === 'No aprobado') { %> <%
         ids.push(accionables[i].idAccionable) %> <% numAccionable++ %> <% %>
         <div class="columns">
           <div class="column">
@@ -70,7 +71,6 @@
           </div>
         </div>
         <% } %> <% } %>
-      </div>
 
       <% let idsAccionables = 0 %>
 
@@ -84,6 +84,7 @@
 
           idsAccionables = []
 
+          //Selects the input that will send the ids of the checked checkboxes
           const input = document.querySelector('input[name="puente"]')
 
           for (let i = 0; i < checkboxes.length; i++) {
@@ -107,7 +108,7 @@
       <form action="/actual/accEnviado" method="POST">
         <input type="hidden" name="puente" value="" />
         <input
-          class="button is-danger reporte-button"
+          class="Enviar button is-danger reporte-button"
           id="sendButton"
           type="submit"
           value="Aceptar"
@@ -174,5 +175,11 @@
 
   .checkbox:checked::before {
     opacity: 1;
+  }
+
+  .Enviar{
+    width: 10rem;
+    height: 4rem;
+    font-size: 1.2rem;
   }
 </style>
