@@ -32,7 +32,7 @@ exports.getJiraIssuesFromSprint = async (sprintType) => {
       },
       params: {
         jql,
-        maxResults: 50,
+        maxResults: 1000,
         fields: [
           "summary",
           "status",
