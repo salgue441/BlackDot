@@ -253,12 +253,24 @@ exports.getCrearRetroalimentacion = async (req, res) => {
 }
 
 exports.getEditarPreguntas = async (req, res) => {
-  const idPregunta = req.params.id || 0
+  const idPregunta = req.params.id || -1
 
-  if (idPregunta == 0) {
+  if (idPregunta == -1) {
     res.render(path.join(__dirname, "../Views/Static/error.ejs"), {
       error: "No se ha especificado una pregunta",
     })
+  } else if (idPregunta == 0) {
+    pregunta = new Pregunta({
+      contenido: "",
+      tipoPregunta: "",
+    })
+
+    res.render(
+      path.join(__dirname, "../Views/Static/crearRetro/editarPregunta.ejs"),
+      {
+        pregunta,
+      }
+    )
   } else {
     const pregunta = await Pregunta.getByID(idPregunta)
 
@@ -271,25 +283,48 @@ exports.getEditarPreguntas = async (req, res) => {
 exports.postEditarPreguntas = async (req, res) => {
   const preguntatest = req.body
 
-  const pregunta = new Pregunta({
-    idPregunta: preguntatest.idPregunta,
-    contenido: preguntatest.contenido,
-    tipoPregunta: preguntatest.tipoPregunta,
-  })
+  if (preguntatest.idPregunta == 0) {
+    const pregunta = new Pregunta({
+      contenido: preguntatest.contenido,
+      tipoPregunta: preguntatest.tipoPregunta,
+    })
 
-  try {
-    await pregunta.update()
     try {
-      await Pregunta.getAll().then((preguntas) => {
-        // Render the EJS template with the preguntas and progress variables
-        res.render("Static/crearRetro/crearRetroalimentacion.ejs", {
-          preguntas,
+      await pregunta.save()
+      try {
+        await Pregunta.getAll().then((preguntas) => {
+          // Render the EJS template with the preguntas and progress variables
+          res.render("Static/crearRetro/crearRetroalimentacion.ejs", {
+            preguntas,
+          })
         })
-      })
+      } catch (error) {
+        res.render(path.join(__dirname, "../Views/Static/error.ejs"), { error })
+      }
     } catch (error) {
       res.render(path.join(__dirname, "../Views/Static/error.ejs"), { error })
     }
-  } catch (error) {
-    res.render(path.join(__dirname, "../Views/Static/error.ejs"), { error })
+  } else {
+    const pregunta = new Pregunta({
+      idPregunta: preguntatest.idPregunta,
+      contenido: preguntatest.contenido,
+      tipoPregunta: preguntatest.tipoPregunta,
+    })
+
+    try {
+      await pregunta.update()
+      try {
+        await Pregunta.getAll().then((preguntas) => {
+          // Render the EJS template with the preguntas and progress variables
+          res.render("Static/crearRetro/crearRetroalimentacion.ejs", {
+            preguntas,
+          })
+        })
+      } catch (error) {
+        res.render(path.join(__dirname, "../Views/Static/error.ejs"), { error })
+      }
+    } catch (error) {
+      res.render(path.join(__dirname, "../Views/Static/error.ejs"), { error })
+    }
   }
 }

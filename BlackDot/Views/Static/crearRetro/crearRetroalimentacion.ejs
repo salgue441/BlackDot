@@ -30,19 +30,21 @@
           <p>Respuesta Abierta</p>
         </div>
 
-        <div class="">
+        <div class="is-flex">
           <a
             class="button is-success mr-4"
             href="preguntas/<%= preguntas[i].idPregunta %>"
           >
             Editar
           </a>
-          <button class="button is-danger">
-            <span>Eliminar</span>
-            <span class="icon is-small">
-              <i class="fas fa-times"></i>
-            </span>
-          </button>
+          <form>
+            <button class="button is-danger">
+              <span>Eliminar</span>
+              <span class="icon is-small">
+                <i class="fas fa-times"></i>
+              </span>
+            </button>
+          </form>
         </div>
       </div>
       <% } else { %>
@@ -56,29 +58,32 @@
           <p>Respuesta 1 a 5</p>
         </div>
 
-        <div class="">
+        <div class="is-flex">
           <a
             class="button is-success mr-4"
             href="preguntas/<%= preguntas[i].idPregunta %>"
           >
             Editar
           </a>
-          <button class="button is-danger">
-            <span>Eliminar</span>
-            <span class="icon is-small">
-              <i class="fas fa-times"></i>
-            </span>
-          </button>
+          <form>
+            <button class="button is-danger">
+              <span>Eliminar</span>
+              <span class="icon is-small">
+                <i class="fas fa-times"></i>
+              </span>
+            </button>
+          </form>
         </div>
       </div>
       <%} %> <% } %>
-
-      <div class="is-flex is-justify-content-center">
-        <input
+      <div class="mt-5 mb-5">
+        <a
           class="button is-danger is-rounded is-medium"
           type="submit"
-          value="Crear Retroalimentacion"
-        />
+          href="preguntas/0"
+        >
+          Crear Pregunta
+        </a>
       </div>
     </section>
   </body>
