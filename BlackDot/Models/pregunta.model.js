@@ -13,7 +13,7 @@
  * @copyright Copyright (c) 2023 - MIT License
  */
 
-const dataBase = require("../utils/dataBase")
+const dataBase = require("../Utils/dataBase")
 
 module.exports = class Pregunta {
   constructor(Pregunta) {
@@ -122,5 +122,34 @@ module.exports = class Pregunta {
     )
 
     return result.rowCount > 0
+  }
+
+  /**
+   * @brief
+   * Actualiza una pregunta en la base de datos.
+   * @returns {Promise<Pregunta>} - Query de la pregunta actualizada
+   * @throws {Error} - Si no se ha proporcionado un ID
+   * @throws {Error} - Si no se ha proporcionado un contenido
+   * @throws {Error} - Si no se ha proporcionado un tipo de pregunta
+   * */
+
+  async update() {
+    if (!this.idPregunta) throw new Error("No se ha proporcionado un ID")
+    if (!this.contenido || this.contenido.trim().length === 0)
+      throw new Error("No se ha proporcionado un contenido")
+    if (!this.tipoPregunta)
+      throw new Error("No se ha proporcionado el tipo de Pregunta")
+
+    const query = `update Pregunta set contenido = ?, tipoPregunta = ? where idPregunta = ?`
+    const result = await dataBase.query(query, [
+      this.contenido,
+      this.tipoPregunta,
+      this.idPregunta,
+    ])
+
+    if (result.affectedRows === 0)
+      throw new Error("La pregunta no se pudo actualizar")
+
+    return this
   }
 }
