@@ -152,4 +152,20 @@ module.exports = class Issue {
       throw new Error(`Error al guardar el issue: ${error.message}`)
     }
   }
+
+  /**
+   * @brief
+   * Finds an issue by query
+   * @param {*} query  - Query to find the issue
+   * @returns {Object} - Returns the issue found
+   */
+  static async findOne(query) {
+    try {
+      const [issue] = await dataBase.query("select * from issue where ?", query)
+
+      return issue
+    } catch (error) {
+      throw new Error(`Error al buscar el issue: ${error.message}`)
+    }
+  }
 }
