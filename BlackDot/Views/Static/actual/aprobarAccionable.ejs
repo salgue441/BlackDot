@@ -18,7 +18,7 @@
         <!-- End of Title & Button -->
 
         <!-- Quantitative Answers -->
-        <% const ids = [] %> <% let numAccionable = 0 %> <% for(var i = 0; i <
+        <% const ids = [] %> <% let numAccionable = 0 %> <% let numAccionablesNoAprobados = 0%> <% for(var i = 0; i <
         accionables.length; i++) { %> <% if(accionables[i].contenido !== '' &&
         accionables[i].estadoAccionable === 'No aprobado') { %> <%
         ids.push(accionables[i].idAccionable) %> <% numAccionable++ %> <% %>
@@ -70,7 +70,7 @@
             </div>
           </div>
         </div>
-        <% } %> <% } %>
+        <% }else{numAccionablesNoAprobados++} %> <% } %>
 
       <% let idsAccionables = 0 %>
 
@@ -104,8 +104,8 @@
           }
         }
       </script>
-
-      <form action="/actual/accEnviado" method="POST">
+      <% if(accionables.length != numAccionablesNoAprobados) { %>
+        <form action="/actual/accEnviado" method="POST">
         <input type="hidden" name="puente" value="" />
         <input
           class="Enviar button is-danger reporte-button"
@@ -114,6 +114,12 @@
           value="Aceptar"
         />
       </form>
+      <% }else{%>
+        <br>
+        <br>
+        <h1 class="title">No hay accionables por aprobar</h1>
+      <%}%>
+
     </section>
   </body>
 </html>
