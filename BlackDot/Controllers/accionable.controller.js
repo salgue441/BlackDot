@@ -9,7 +9,6 @@
  **/
 
 const path = require("path")
-const axios = require("axios")
 
 const Accionable = require("../Models/accionable.model")
 const Cualitativa = require("../Models/cualitativa.model")
@@ -58,35 +57,6 @@ exports.getAnswersCualitativaAPI = async (req, res) => {
         })
     }
 }
-
-/**
- * @brief
- * Gets all Accioanbles
- * @param {Request} req - Request object
- * @param {Response} res - Response object
- * @returns {Response} - Response object
- * @throws {Error} - Error message
- **/
-
-exports.getAllAccionables = async (req, res) => {
-    try{
-        const accionables = await Accionable.getAll()
-
-        res.render(
-            path.join(__dirname, "../Views/Static/Historico/historicoAccionable.ejs"),
-            {
-                accionables: accionables,
-            }
-        )
-    }
-
-    catch(error){
-        res.status(500).json({
-            message: error.message || "Error al obtener Accionables",
-        })
-    }
-}
-
 
 
 // /**

@@ -23,12 +23,8 @@ router.get("/metricasSprint", SprintActual.getActual)
 // Fetches all the epicas and their metrics for the actual sprint
 router.get("/sprintData", SprintActual.getActualAPI)
 
-<<<<<<< HEAD
-module.exports = router
-=======
 const Accionable = require("../Controllers/accionable.controller");
 router.get("/accionables", Accionable.getAnswersCualitativa);
 router.get('/accionableDatos', Accionable.getAnswersCualitativaAPI)
 
 module.exports = router;
->>>>>>> 916f76a5cdafd0c5bdfc34d30a2406d23a5d217f
