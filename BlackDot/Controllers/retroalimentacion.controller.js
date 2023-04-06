@@ -267,3 +267,19 @@ exports.getEditarPreguntas = async (req, res) => {
     })
   }
 }
+
+exports.postEditarPreguntas = async (req, res) => {
+  const preguntatest = req.body
+  console.log(preguntatest)
+
+  try {
+    await Pregunta.getAll().then((preguntas) => {
+      // Render the EJS template with the preguntas and progress variables
+      res.render("Static/crearRetro/crearRetroalimentacion.ejs", {
+        preguntas,
+      })
+    })
+  } catch (error) {
+    res.render(path.join(__dirname, "../Views/Static/error.ejs"), { error })
+  }
+}

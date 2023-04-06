@@ -10,7 +10,7 @@
       <h1 class="title">Editar Pregunta</h1>
       <section class="">
         <section class="box ">
-            <form class="formContainer is-flex is-flex-direction-column p-2" action="/preguntas/<%= pregunta.idPregunta %>" method="POST">
+            <form class="formContainer is-flex is-flex-direction-column p-2" action="/editar/crearRetroalimentacion" method="POST">
                 <div class="field">
                 <label class="label m-2 mb-3 is-size-5" for="contenido">Contenido</label>
                 <div class="control m-2">
@@ -28,8 +28,8 @@
                 <div class="control mb-3 ">
                     <div class="select mb-3">
                     <select name="tipoPregunta " id="tipoPregunta">
-                        <option value="Cualitativa">Cualitativa</option>
-                        <option value="Cuantitativa">Cuantitativa</option>
+                        <option value="Cualitativa">Abierta</option>
+                        <option value="Cuantitativa">1 a 5</option>
                     </select>
                     </div>
                 </div>
@@ -38,8 +38,8 @@
             
                 <div class="field">
                 <div class="control ">
-                    <input class="button guardar m-2" value="Guardar Cambios" type="submit"></input>
-                    <a class="button is-danger m-2">Cancelar</a>
+                    <input class="button guardar m-2" value="Guardar Cambios" type="submit">
+                    <a class="button is-danger m-2" href="/editar/crearRetroalimentacion">Cancelar</a>
                 </div>
                 </div>
         </section>
