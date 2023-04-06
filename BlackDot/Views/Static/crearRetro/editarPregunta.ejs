@@ -1,0 +1,76 @@
+<html>
+  <%- include('../../include/header.ejs') %>
+  <body>
+    <%- include('../../include/navbar.ejs') %>
+    <br />
+    <br />
+    <br />
+
+    <section class="container mt-6">
+      <h1 class="title">Editar Pregunta</h1>
+      <section class="">
+        <section class="box ">
+            <form class="formContainer is-flex is-flex-direction-column p-2" action="/preguntas/<%= pregunta.idPregunta %>" method="POST">
+                <div class="field">
+                <label class="label m-2 mb-3 is-size-5" for="contenido">Contenido</label>
+                <div class="control m-2">
+                    <input
+                    class="input textInput"
+                    type="text"
+                    name="contenido"
+                    id="contenido"
+                    value="<%= pregunta.contenido %>"
+                    />
+                </div>
+                </div>
+                <div class="field m-2">
+                <label class="label mb-3 is-size-5" for="tipoPregunta">Tipo de Pregunta</label>
+                <div class="control mb-3 ">
+                    <div class="select mb-3">
+                    <select name="tipoPregunta " id="tipoPregunta">
+                        <option value="Cualitativa">Cualitativa</option>
+                        <option value="Cuantitativa">Cuantitativa</option>
+                    </select>
+                    </div>
+                </div>
+                </div>
+            
+            
+                <div class="field">
+                <div class="control ">
+                    <input class="button guardar m-2" value="Guardar Cambios" type="submit"></input>
+                    <a class="button is-danger m-2">Cancelar</a>
+                </div>
+                </div>
+        </section>
+      </section>
+    </section>
+  </body>
+</html>
+
+<style>
+  .container {
+    width: 65%;
+  }
+
+  .textInput{
+    width: 80%;
+  }
+
+  .guardar{
+    background-color: #356959;
+    color: white;
+  }
+
+  .guardar:hover{
+    color: white;
+    background-color: #2C4F4F;
+  }
+
+  .cancelar{
+    background-color: #FB5859;
+    color: white;
+  }
+
+
+</style>    
