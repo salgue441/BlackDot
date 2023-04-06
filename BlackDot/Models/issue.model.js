@@ -27,18 +27,15 @@ module.exports = class Issue {
    * Constructs a new instance.
    */
   constructor(Issue) {
-    this.idIssue = Issue.idIssue || null
-    this.nombreIssue = Issue.nombreIssue || null
-    this.issueKey = Issue.issueKey || null
+    this.idIssue = Issue.idIssue
+    this.issueKey = Issue.issueKey || ""
+    this.nombreIssue = Issue.nombreIssue || ""
     this.storyPoints = Issue.storyPoints || 0
+    this.labelIssue = Issue.labelIssue || ""
     this.prioridadIssue = Issue.prioridadIssue || "Lowest"
     this.estadoIssue = Issue.estadoIssue || "To Do"
-    this.fechaCreacion =
-      Issue.fechaCreacion ||
-      new Date().toISOString().slice(0, 19).replace("T", " ")
-    this.fechaFinalizacion =
-      Issue.fechaFinalizacion ||
-      new Date().toISOString().slice(0, 19).replace("T", " ")
+    this.fechaCreacion = Issue.fechaCreacion || new Date()
+    this.fechaFinalizacion = Issue.fechaFinalizacion || null
   }
 
   /**
@@ -134,7 +131,8 @@ module.exports = class Issue {
    */
   async save() {
     try {
-      const query = `insert into issue (issueKey, nombreIssue, storyPoints, labelIssue, prioridadIssue, estadoIssue, fechaCreacion, fechaFinalizacion) values (?, ?, ?, ?, ?, ?, ?, ?)`
+      const query = `insert into issue (issueKey, nombreIssue, storyPoints,
+        labelIssue, prioridadIssue, estadoIssue, fechaCreacion, fechaFinalizacion) values (?, ?, ?, ?, ?, ?, ?, ?)`
 
       const [result] = await dataBase.query(query, [
         this.issueKey,
@@ -147,9 +145,9 @@ module.exports = class Issue {
         this.fechaFinalizacion,
       ])
 
-      this.idIssue = result.insertId
+      const newIssue = await Issue.getByID(result.insertId)
 
-      return this
+      return newIssue
     } catch (error) {
       throw new Error(`Error al guardar el issue: ${error.message}`)
     }
