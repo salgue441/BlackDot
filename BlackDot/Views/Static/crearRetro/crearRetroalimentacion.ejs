@@ -2,10 +2,21 @@
   <%- include('../../include/header.ejs') %>
   <body>
     <%- include('../../include/navbar.ejs') %>
+    <br />
+    <br />
+    <br />
+    <br />
 
+    <div class="is-flex is-justify-content-space-between">
+      <h1 class="title ml-6">Crear Retroalimentacion</h1>
+      <a class="button is-primary mr-6 is-danger">Crear Retroalimentacion</a>
+    </div>
     <section
       class="container is-flex is-align-items-center is-flex-direction-column"
     >
+      <br />
+      <h2 class="subtitle">Banco de preguntas</h2>
+
       <% let cantCualitativas = 0; %> <% for (var i = 0; i < preguntas.length;
       i++) { %> <% if (preguntas[i].tipoPregunta === 'Cualitativa') { %> <%
       cantCualitativas++; %>
@@ -20,8 +31,18 @@
         </div>
 
         <div class="">
-          <button class="button is-primary mr-4">Editar</button>
-          <button class="button is-danger">Eliminar</button>
+          <a
+            class="button is-success mr-4"
+            href="preguntas/<%= preguntas[i].idPregunta %>"
+          >
+            Editar
+          </a>
+          <button class="button is-danger">
+            <span>Eliminar</span>
+            <span class="icon is-small">
+              <i class="fas fa-times"></i>
+            </span>
+          </button>
         </div>
       </div>
       <% } else { %>
@@ -36,8 +57,18 @@
         </div>
 
         <div class="">
-          <button class="button is-primary mr-4">Editar</button>
-          <button class="button is-danger">Eliminar</button>
+          <a
+            class="button is-success mr-4"
+            href="preguntas/<%= preguntas[i].idPregunta %>"
+          >
+            Editar
+          </a>
+          <button class="button is-danger">
+            <span>Eliminar</span>
+            <span class="icon is-small">
+              <i class="fas fa-times"></i>
+            </span>
+          </button>
         </div>
       </div>
       <%} %> <% } %>
@@ -46,7 +77,7 @@
         <input
           class="button is-danger is-rounded is-medium"
           type="submit"
-          value="Enviar"
+          value="Crear Retroalimentacion"
         />
       </div>
     </section>

@@ -251,3 +251,19 @@ exports.getCrearRetroalimentacion = async (req, res) => {
     res.render(path.join(__dirname, "../Views/Static/error.ejs"), { error })
   }
 }
+
+exports.getEditarPreguntas = async (req, res) => {
+  const idPregunta = req.params.id || 0
+
+  if (idPregunta == 0) {
+    res.render(path.join(__dirname, "../Views/Static/error.ejs"), {
+      error: "No se ha especificado una pregunta",
+    })
+  } else {
+    const pregunta = await Pregunta.getByID(idPregunta)
+
+    res.render("Static/crearRetro/editarPregunta.ejs", {
+      pregunta,
+    })
+  }
+}
