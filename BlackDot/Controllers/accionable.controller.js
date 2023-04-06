@@ -60,7 +60,6 @@ exports.postRegistrarAprobacion = async (req, res) => {
     try {
       //Gets the actionable by id
       Accionable.getbyId(idsAccionable[i]).then((accionable) => {
-        console.log(accionable)
         try {
           //Updates the state of the actionable
           accionable.estadoAccionable = "Aprobado"
