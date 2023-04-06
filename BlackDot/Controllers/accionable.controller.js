@@ -47,8 +47,33 @@ exports.getRegistrarAprobacion = async (req, res) => {
 }
 
 exports.postRegistrarAprobacion = async (req, res) => {
-  const idsAccionable = req.body.puente
-  console.log(idsAccionable)
+  //Colects the ids of the actionables
+  const idsAccionableStr = req.body.puente
+
+  //Splits the string into an array
+  const idsAccionable = idsAccionableStr.split(",")
+
+  for (let i = 0; i < idsAccionable.length; i++) {
+    //Converts the string into an integer
+    idsAccionable[i] = parseInt(idsAccionable[i])
+
+    try {
+      //Gets the actionable by id
+      Accionable.getbyId(idsAccionable[i]).then((accionable) => {
+        console.log(accionable)
+        try {
+          //Updates the state of the actionable
+          accionable.estadoAccionable = "Aprobado"
+          accionable.updateEstadoAprobado()
+        } catch (error) {
+          console.log(error)
+        }
+      })
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   res.render(
     path.join(__dirname, "../Views/Static/actual/enviadoAccionable.ejs")
   )
@@ -61,6 +86,3 @@ exports.postRegistrarAprobacion = async (req, res) => {
 //  * @returns {Response} - Response object
 //  * @throws {Error} - Error message
 //  **/
-
-// exports.postAccionables = async (req, res) => {
-// }
