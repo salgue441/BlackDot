@@ -14,12 +14,15 @@ const Issue = require("../models/issue.model")
  * @brief
  * Fetches the Jira issues from Zebrands Jira board.
  * @name GET /jiraIssues - Fetch Jira Issues
+ * @param {String} sprintType - Sprint type ("open" or "closed")
  * @return {Object} - Returns the Jira Issues
  */
-exports.getJiraIssues = async () => {
+exports.getJiraIssuesFromSprint = async (sprintType) => {
   const jiraUrl = process.env.JIRA_URL
   const jiraUser = process.env.JIRA_USER
   const apiToken = process.env.JIRA_API_TOKEN
+
+  const jql = `project = TPECG AND sprint in ${sprintType}Sprints()`
 
   try {
     const response = await axios.get(`${jiraUrl}/rest/api/3/search`, {
@@ -28,7 +31,7 @@ exports.getJiraIssues = async () => {
         password: apiToken,
       },
       params: {
-        jql: `project = TPECG`,
+        jql,
         maxResults: 50,
         fields: [
           "summary",
@@ -63,7 +66,7 @@ exports.getJiraIssues = async () => {
         created: issue.fields.created,
         resolutionDate: issue.fields.resolutiondate,
         labels: issue.fields.labels,
-        storyPoints: issue.fields.customfield_10004,
+        storyPoints: issue.fields.customfield_10042,
       }
     })
 
@@ -81,9 +84,25 @@ exports.getJiraIssues = async () => {
  */
 exports.saveIssuesToDB = async () => {
   try {
-    const issues = await this.getJiraIssues()
+    const issuesOpenSprint = await this.getJiraIssuesFromSprint("open")
+    const issuesClosedSprint = await this.getJiraIssuesFromSprint("closed")
 
-    for (const issue of issues) {
+    for (const issue of issuesOpenSprint) {
+      const newIssue = new Issue({
+        issueKey: issue.key,
+        nombreIssue: issue.summary,
+        storyPoints: issue.storyPoints,
+        labelIssue: issue.labels.join(", "),
+        prioridadIssue: issue.priority,
+        estadoIssue: issue.status,
+        fechaCreacion: issue.created,
+        fechaFinalizacion: issue.resolutionDate,
+      })
+
+      await newIssue.save()
+    }
+
+    for (const issue of issuesClosedSprint) {
       const newIssue = new Issue({
         issueKey: issue.key,
         nombreIssue: issue.summary,
