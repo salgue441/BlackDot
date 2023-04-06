@@ -11,6 +11,11 @@ router.get(
   crearRetroalimentacion.getCrearRetroalimentacion
 )
 
+router.post(
+  "/crearRetroalimentacion",
+  crearRetroalimentacion.postEditarPreguntas
+)
+
 router.get("/preguntas/:id", crearRetroalimentacion.getEditarPreguntas)
 
 module.exports = router
