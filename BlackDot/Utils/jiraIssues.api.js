@@ -8,7 +8,10 @@
  * @copyright Copyright (c) 2023 - MIT License
  */
 const axios = require("axios")
+
+// Data Models
 const Issue = require("../models/issue.model")
+const Sprint = require("../models/sprint.model")
 
 /**
  * @brief
@@ -34,13 +37,15 @@ exports.getJiraIssuesFromSprint = async (sprintType) => {
         jql,
         maxResults: 1000,
         fields: [
+          "parent", // Epics
           "summary",
           "status",
           "priority",
           "created",
           "resolutiondate",
           "labels",
-          "customfield_10004",
+          "customfield_10042", // Story points
+          "customfield_10010", // Sprint
         ],
       },
 
@@ -55,22 +60,25 @@ exports.getJiraIssuesFromSprint = async (sprintType) => {
       },
     })
 
-    const issues = response.data.issues
+    const outputData = response.data.issues
 
-    const issuesFormatted = issues.map((issue) => {
+    const outputFormatted = outputData.map((output) => {
       return {
-        key: issue.key,
-        summary: issue.fields.summary,
-        status: issue.fields.status.name,
-        priority: issue.fields.priority?.name || "No priority",
-        created: issue.fields.created,
-        resolutionDate: issue.fields.resolutiondate,
-        labels: issue.fields.labels,
-        storyPoints: issue.fields.customfield_10042,
+        key: output.key,
+        summary: output.fields.summary,
+        status: output.fields.status.name,
+        priority: output.fields.priority?.name || "No priority",
+        created: output.fields.created,
+        resolutionDate: output.fields.resolutiondate,
+        labels: output.fields.labels,
+        storyPoints: output.fields.customfield_10042,
+        sprints: output.fields?.customfield_10010 || "No sprint",
+        epicas: output.fields?.parent?.fields || "No epica",
       }
     })
 
-    return issuesFormatted
+    // console.log(outputFormatted)
+    return outputFormatted
   } catch (error) {
     console.log(error)
   }
@@ -99,22 +107,23 @@ exports.saveIssuesToDB = async () => {
         fechaFinalizacion: issue.resolutionDate,
       })
 
-      await newIssue.save()
-    }
+      console.log(issue.sprints)
 
-    for (const issue of issuesClosedSprint) {
-      const newIssue = new Issue({
-        issueKey: issue.key,
-        nombreIssue: issue.summary,
-        storyPoints: issue.storyPoints,
-        labelIssue: issue.labels.join(", "),
-        prioridadIssue: issue.priority,
-        estadoIssue: issue.status,
-        fechaCreacion: issue.created,
-        fechaFinalizacion: issue.resolutionDate,
+      const sprint = new Sprint({
+        sprintName: issue.sprints[0].name,
+        state: issue.sprints[0].state,
+        boardID: issue.sprints[0].boardId,
+        fechaCreacion: issue.sprints?.[0]?.startDate
+          ? new Date(issue.sprints[0].startDate)
+          : undefined,
+        fechaFinalizacion: issue.sprints[0].endDate,
+        idEpica: issue.epicas[0]?.status?.id || 0,
       })
 
-      await newIssue.save()
+      console.log(sprint)
+
+      // await newIssue.save()
+      // await sprint.save()
     }
   } catch (error) {
     console.log(error)
