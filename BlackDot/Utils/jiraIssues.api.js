@@ -15,6 +15,121 @@ const Sprint = require("../models/sprint.model")
 
 /**
  * @brief
+ * Gets the board ID from a Jira board name
+ * @param {*} jiraUrl - Jira URL to access the API
+ * @param {*} jiraUser - Jira user to access the API
+ * @param {*} apiToken - Jira API token to access the API
+ * @param {*} projectKey - Jira project key to access the API
+ */
+async function getBoardID(jiraUrl, jiraUser, apiToken, projectKey) {
+  try {
+    const response = await axios.get(`${jiraUrl}/rest/agile/1.0/board`, {
+      auth: {
+        username: jiraUser,
+        password: apiToken,
+      },
+      params: {
+        projectKeyOrId: projectKey,
+      },
+      headers: {
+        Accept: "application/json",
+      },
+      responseType: "json",
+
+      validateStatus: function (status) {
+        return status >= 200 && status < 300
+      },
+    })
+
+    const boardId = response.data.issues[0].fields["customfield_10104"].id
+
+    return boardId
+  } catch (error) {
+    throw new Error("Error getting the board ID")
+  }
+}
+
+/**
+ * @brief
+ * Gets the maximum number of issues to request based on a board
+ * and sprint type
+ * @param {*} sprintID - Sprint ID to get the maximum number of issues
+ * @param {*} jiraUrl - Jira URL to access the API
+ * @param {*} jiraUser - Jira user to access the API
+ * @param {*} apiToken - Jira API token to access the API
+ * @param {*} projectKey - Jira project key to access the API
+ * @returns {int} - Maximum number of issues
+ */
+async function getMaxResults(
+  sprintID,
+  jiraUrl,
+  jiraUser,
+  apiToken,
+  projectKey
+) {
+  try {
+    // Board information
+    const boardID =
+      (await getBoardID(jiraUrl, jiraUser, apiToken, projectKey)) || 0
+
+    const boardResponse = await axios.get(
+      `${jiraUrl}/rest/agile/1.0/board/${boardID}/sprint`,
+      {
+        auth: {
+          username: jiraUser,
+          password: apiToken,
+        },
+        headers: {
+          Accept: "application/json",
+        },
+
+        responseType: "json",
+
+        validateStatus: function (status) {
+          return status >= 200 && status < 300
+        },
+      }
+    )
+
+    const maxResults = boardResponse.data.maxResults || 1000
+
+    // Sprint information
+    const sprintResponse = await axios.get(
+      `${jiraUrl}/rest/agile/1.0/sprint/${sprintID}`,
+      {
+        auth: {
+          username: jiraUser,
+          password: apiToken,
+        },
+        headers: {
+          Accept: "application/json",
+        },
+        responseType: "json",
+
+        validateStatus: function (status) {
+          return status >= 200 && status < 300
+        },
+      }
+    )
+
+    const issuesTotal = sprintResponse.data.contents.issuesTotal || 0
+    const maxResultsPerRequest =
+      sprintResponse.data.contents.maxResultsPerRequest
+
+    // Calculating the max number of results to request
+    const maxResultsFromSprint =
+      issuesTotal < maxResultsPerRequest ? issuesTotal : maxResultsPerRequest
+    const maxResultsFromBoard =
+      maxResults < maxResultsFromSprint ? maxResults : maxResultsFromSprint
+
+    return maxResultsFromBoard
+  } catch (error) {
+    throw new Error("Error getting the maximum number of issues")
+  }
+}
+
+/**
+ * @brief
  * Fetches the Jira issues from Zebrands Jira board.
  * @name GET /jiraIssues - Fetch Jira Issues
  * @param {String} sprintType - Sprint type ("open" or "closed")
@@ -27,6 +142,8 @@ exports.getJiraIssuesFromSprint = async (sprintType) => {
 
   const jql = `project = TPECG AND sprint in ${sprintType}Sprints()`
 
+  const boardID = await getBoardID(jiraUrl, jiraUser, apiToken, "TPECG")
+
   try {
     const response = await axios.get(`${jiraUrl}/rest/api/3/search`, {
       auth: {
@@ -35,7 +152,7 @@ exports.getJiraIssuesFromSprint = async (sprintType) => {
       },
       params: {
         jql,
-        maxResults: 1000,
+        maxResults: 100,
         fields: [
           "parent", // Epics
           "summary",
