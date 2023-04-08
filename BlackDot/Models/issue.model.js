@@ -126,28 +126,26 @@ module.exports = class Issue {
 
   /**
    * @brief
-   * Saves an issue in the database
+   * Saves an issue in the database. If the issue already exists, it updates it.
    * @return {Object} - Returns the issue saved
    */
   async save() {
     try {
-      const query = `insert into issue (issueKey, nombreIssue, storyPoints,
-        labelIssue, prioridadIssue, estadoIssue, fechaCreacion, fechaFinalizacion) values (?, ?, ?, ?, ?, ?, ?, ?)`
+      const issueExists = await Issue.getByID(this.idIssue)
 
-      const [result] = await dataBase.query(query, [
-        this.issueKey,
-        this.nombreIssue,
-        this.storyPoints,
-        this.labelIssue,
-        this.prioridadIssue,
-        this.estadoIssue,
-        this.fechaCreacion,
-        this.fechaFinalizacion,
-      ])
+      if (issueExists) {
+        const query = `update issue set ? where idIssue = ?`
+        await dataBase.query(query, [this, this.idIssue])
 
-      const newIssue = await Issue.getByID(result.insertId)
+        return this
+      }
 
-      return newIssue
+      const query = `insert into issue set ?`
+      const [result] = await dataBase.query(query, this)
+
+      this.idIssue = result.insertId
+
+      return this
     } catch (error) {
       throw new Error(`Error al guardar el issue: ${error.message}`)
     }
