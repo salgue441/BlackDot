@@ -1,3 +1,13 @@
+/**
+ * @file sprint.model.js
+ * @brief Data model for the Sprint table
+ * @author Carlos Salguero (fixes)
+ * @version 1.0
+ * @date 2021-03-24
+ *
+ * @copyright Copyright (c) 2023 - MIT License
+ */
+
 const dataBase = require("../utils/dataBase")
 
 /**
@@ -12,18 +22,18 @@ const dataBase = require("../utils/dataBase")
 module.exports = class Sprint {
   /**
    * @brief
-   * Constructor de la clase Sprint
+   * Creaates a new instance of Sprint. If no parameters are provided,
+   * the default values are used
    * @param {*} Sprint - Objeto de tipo Sprint
    */
-
   constructor(Sprint) {
     this.id = Sprint.id
-    this.sprintName = Sprint.sprintName
-    this.state = Sprint.state
-    this.boardID = Sprint.boardID
-    this.FechaCreacion = Sprint.FechaCreacion
-    this.FechaFinalizacion = Sprint.FechaFinalizacion
-    this.idEpica = Sprint.idEpica
+    this.sprintName = Sprint.sprintName || ""
+    this.state = Sprint.state || "To Do"
+    this.boardID = Sprint.boardID || 0
+    this.FechaCreacion = Sprint.FechaCreacion || new Date()
+    this.FechaFinalizacion = Sprint.FechaFinalizacion || null
+    this.idEpica = Sprint.idEpica || 0
   }
 
   /**

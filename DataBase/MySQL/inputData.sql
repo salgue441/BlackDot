@@ -196,7 +196,7 @@ values
     ('[ZeCommerce Tech] Sprint 16', 'closed', 1, '2021-10-18', '2021-11-01', 2),
     ('[ZeCommerce Tech] Sprint 17', 'closed', 1, '2021-11-01', '2021-11-15', 3),
     ('[ZeCommerce Tech] Sprint 18', 'closed', 1, '2021-11-15', '2021-11-29', 3),
-    ('[ZeCommerce Tech] Sprint 19', 'closed', 1, '2021-11-29', '2021-12-13',  3),    
+    ('[ZeCommerce Tech] Sprint 19', 'closed', 1, '2021-11-29', '2021-12-13', 3),    
     ('[ZeCommerce Tech] Sprint 20', 'closed', 1, '2021-12-13', '2021-12-27', 3),
     ('[ZeCommerce Tech] Sprint 21', 'closed', 1, '2021-12-27', '2022-01-10', 3),
     ('[ZeCommerce Tech] Sprint 22', 'closed', 1, '2022-01-10', '2022-01-24', 3),
