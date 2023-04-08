@@ -107,8 +107,6 @@ exports.saveIssuesToDB = async () => {
         fechaFinalizacion: issue.resolutionDate,
       })
 
-      console.log(issue.sprints)
-
       const sprint = new Sprint({
         sprintName: issue.sprints[0].name,
         state: issue.sprints[0].state,
@@ -120,10 +118,8 @@ exports.saveIssuesToDB = async () => {
         idEpica: issue.epicas[0]?.status?.id || 0,
       })
 
-      console.log(sprint)
-
-      // await newIssue.save()
-      // await sprint.save()
+      await newIssue.save()
+      await sprint.save()
     }
   } catch (error) {
     console.log(error)

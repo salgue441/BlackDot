@@ -84,27 +84,28 @@ module.exports = class Sprint {
 
   /**
    * @brief
-   * Saves a sprint in the database
-   * @returns {Sprint} - Returns the saved sprint
+   * Saves a sprint in the database if it doesn't exist. If it does exist,
+   * it updates the sprint.
+   * @returns {Sprint} - Returns the saved sprint object
+   * @throws {Error} - Throws an error if the sprint couldn't be saved
    */
   static async save() {
     try {
-      const query = `insert into Sprint (sprintName, state, boardID, fechaCreacion, fechaFinalizacion, idEpica) values (?, ?, ?, ?, ?, ?)`
+      const sprintExist = await Sprint.getbyID(this.id)
 
-      const [result] = await dataBase.query(query, [
-        this.sprintName,
-        this.state,
-        this.boardID,
-        this.FechaCreacion,
-        this.FechaFinalizacion,
-        this.idEpica,
-      ])
+      if (sprintExist.id) {
+        const [sprint, _] = await dataBase.query(
+          "update Sprint set ? where idSprint = ?",
+          [this, this.id]
+        )
+        return sprint
+      }
 
-      const newSprint = await Sprint.getByID(result.insertId)
+      const [sprint, _] = await dataBase.query("insert into Sprint set ?", this)
 
-      return newSprint
+      return sprint
     } catch (error) {
-      throw new Error(`Error al guardar el sprint: ${error.message}`)
+      throw new Error(error)
     }
   }
 }
