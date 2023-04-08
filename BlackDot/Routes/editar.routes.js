@@ -18,4 +18,9 @@ router.post(
 
 router.get("/preguntas/:id", crearRetroalimentacion.getEditarPreguntas)
 
+router.get(
+  "/preguntas/eliminar/:id",
+  crearRetroalimentacion.getEliminarPreguntas
+)
+
 module.exports = router

@@ -117,7 +117,7 @@ module.exports = class Pregunta {
       throw new Error("El ID debe ser un numero")
 
     const result = await dataBase.query(
-      `delete from Preguntas where idPregunta = $1`,
+      `delete from Pregunta where idPregunta = ?`,
       [idPregunta]
     )
 
