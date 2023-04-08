@@ -9,7 +9,11 @@
 
     <div class="is-flex is-justify-content-space-between">
       <h1 class="title ml-6">Crear Retroalimentacion</h1>
-      <a class="button is-primary mr-6 is-danger">Crear Retroalimentacion</a>
+      <div class="">
+        <a class="button is-danger mr-6" type="submit" href="preguntas/0">
+          Crear Pregunta
+        </a>
+      </div>
     </div>
     <section
       class="container is-flex is-align-items-center is-flex-direction-column"
@@ -18,8 +22,9 @@
       <h2 class="subtitle">Banco de preguntas</h2>
 
       <% let cantCualitativas = 0; %> <% for (var i = 0; i < preguntas.length;
-      i++) { %> <% if (preguntas[i].tipoPregunta === 'Cualitativa') { %> <%
-      cantCualitativas++; %>
+      i++) { %> <%if(preguntas[i].idPregunta != 8) { %> <% if
+      (preguntas[i].tipoPregunta === 'Cualitativa') { %> <% cantCualitativas++;
+      %>
       <div
         class="box PreguntaContainer is-flex is-justify-content-space-between"
       >
@@ -37,14 +42,20 @@
           >
             Editar
           </a>
-          <form>
-            <button class="button is-danger">
-              <span>Eliminar</span>
-              <span class="icon is-small">
-                <i class="fas fa-times"></i>
-              </span>
-            </button>
-          </form>
+          <a
+            class="button is-danger"
+            href="preguntas/eliminar/<%= preguntas[i].idPregunta %>"
+          >
+            <input
+              type="hidden"
+              name="idPregunta"
+              value="<%= preguntas[i].idPregunta %>"
+            />
+            <span>Eliminar</span>
+            <span class="icon is-small">
+              <i class="fas fa-times"></i>
+            </span>
+          </a>
         </div>
       </div>
       <% } else { %>
@@ -65,26 +76,26 @@
           >
             Editar
           </a>
-          <form>
-            <button class="button is-danger">
-              <span>Eliminar</span>
-              <span class="icon is-small">
-                <i class="fas fa-times"></i>
-              </span>
-            </button>
-          </form>
+          <a
+            class="button is-danger"
+            href="preguntas/eliminar/<%= preguntas[i].idPregunta %>"
+          >
+            <input
+              type="hidden"
+              name="idPregunta"
+              value="<%= preguntas[i].idPregunta %>"
+            />
+            <span>Eliminar</span>
+            <span class="icon is-small">
+              <i class="fas fa-times"></i>
+            </span>
+          </a>
         </div>
       </div>
-      <%} %> <% } %>
-      <div class="mt-5 mb-5">
-        <a
-          class="button is-danger is-rounded is-medium"
-          type="submit"
-          href="preguntas/0"
-        >
-          Crear Pregunta
-        </a>
-      </div>
+      <%} %> <% } %> <% } %>
+      <a class="button is-danger mt-5 mb-5 is-medium"
+        >Crear Retroalimentacion</a
+      >
     </section>
   </body>
 </html>

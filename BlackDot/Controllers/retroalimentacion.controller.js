@@ -328,3 +328,18 @@ exports.postEditarPreguntas = async (req, res) => {
     }
   }
 }
+
+//prueba
+exports.getEliminarPreguntas = async (req, res) => {
+  const idPregunta = parseInt(req.params.id) || -1
+
+  console.log(idPregunta)
+
+  try {
+    pregunta = new Pregunta({})
+    await pregunta.deleteByID(idPregunta)
+    res.redirect("/editar/crearRetroalimentacion")
+  } catch (error) {
+    res.render(path.join(__dirname, "../Views/Static/error.ejs"), { error })
+  }
+}
