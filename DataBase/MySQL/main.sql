@@ -100,6 +100,13 @@ create table if not exists Pregunta
     tipoPregunta enum ('Cuantitativa', 'Cualitativa')
 );
 
+create table if not exists BancoPreguntas
+(
+    idPreguntaBanco int not null auto_increment primary key, 
+    contenido varchar (300) not null, 
+    tipoPregunta enum ('Cuantitativa', 'Cualitativa')
+);
+
 create table if not exists Cuantitativa
 (
     idCuantitativa int not null auto_increment primary key, 

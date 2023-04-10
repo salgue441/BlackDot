@@ -1525,6 +1525,19 @@ values
     ('2022-05-05', '2022-05-06', 20, 20);
 
 -- Insertando datos en pregunta
+insert into BancoPreguntas
+    (contenido, tipoPregunta)
+values
+    ('¿Cómo te sientes?', 'Cuantitativa'),
+    ('¿Te sientes a gusto con tu desempeño este sprint?', 'Cuantitativa'),
+    ('¿Consideras que la cantidad de issues asignadas en este sprint son las adecuadas?', 'Cuantitativa'),
+    ('¿Que hicimos bien este sprint', 'Cualitativa'),
+    ('¿Que hicimos mal que debemos hacer diferente?', 'Cualitativa'),
+    ('¿Que nos causa ruido?', 'Cualitativa'),
+    ('¿Que impedimiento tuvimos en este sprint?', 'Cualitativa'),
+    ('¿Qué podemos mejorar?', 'Cualitativa');
+
+-- Insertando datos en banco de preguntas
 insert into Pregunta
     (contenido, tipoPregunta)
 values
