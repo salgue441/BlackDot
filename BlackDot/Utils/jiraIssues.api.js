@@ -54,14 +54,13 @@ const getBoardID = async (
     })
 
     const boards = response.data.values
+    const board = boards.find((board) => board.name === boardName)
 
-    if (boards.length > 0) {
-      for (let i = 0; i < boards.length; i++) {
-        if (boards[i].name === boardName) return boards[i].id
-      }
+    if (!board) {
+      throw new Error("Board not found")
     }
 
-    return null
+    return board.id
   } catch (error) {
     console.log(error)
     throw new Error(error)
@@ -110,6 +109,11 @@ const getSprints = async (
     )
 
     const sprints = response.data.values
+
+    if (sprints.length === 0) {
+      throw new Error(`No sprints found for board ${boardName}`)
+    }
+
     return sprints
   } catch (error) {
     console.log(error)
@@ -195,7 +199,7 @@ const getTotalNumberOfIssuesPerSprint = async (
  * @brief
  * Fetches the Jira issues from the sprints in the Jira board.
  * @name GET /jiraIssues - Fetch Jira Issues
- * @param {String} sprintType - Sprint type ("open" or "closed")
+ * @param {String} sprintType - Sprint type ("active" or "closed")
  * @return {Object} - Returns the Jira Issues
  */
 exports.getJiraIssuesFromSprint = async (sprintType) => {
@@ -214,69 +218,84 @@ exports.getJiraIssuesFromSprint = async (sprintType) => {
       boardName
     )
 
-    const jql = `project = ${projectName} AND sprint in openSprints() ORDER BY created DESC`
-    const issuesArray = []
+    const sprintArray = []
+    const addedSprintIDs = new Set()
 
     for (let i = 0; i < sprintIssues.length; i++) {
       const sprint = sprintIssues[i]
 
-      if (sprint.sprintState === sprintType) continue
+      if (sprint.sprintState !== sprintType) continue
 
       const sprintID = sprint.sprintID
-      const response = await axios.get(
-        `${jiraUrl}/rest/agile/1.0/sprint/${sprintID}/issue`,
-        {
-          auth: {
-            username: jiraUser,
-            password: apiToken,
-          },
+      if (addedSprintIDs.has(sprintID)) continue
 
-          params: {
-            jql: jql,
-            maxResults: 1000,
-            fields: [
-              "parent", // Epics
-              "summary",
-              "status",
-              "priority",
-              "created",
-              "resolutiondate",
-              "labels",
-              "customfield_10042", // Story Points
-              "customfield_10010", // Sprint
-            ],
-          },
+      let startAt = 0
+      let issues = []
 
-          headers: {
-            Accept: "application/json",
-          },
+      do {
+        const response = await axios.get(
+          `${jiraUrl}/rest/agile/1.0/sprint/${sprintID}/issue`,
+          {
+            auth: {
+              username: jiraUser,
+              password: apiToken,
+            },
+            params: {
+              jql: `project = ${projectName} AND sprint = ${sprintID} ORDER BY created DESC`,
+              maxResults: 1000,
+              fields: [
+                "parent", // Epics
+                "summary",
+                "status",
+                "priority",
+                "created",
+                "resolutiondate",
+                "labels",
+                "customfield_10042", // Story Points
+                "customfield_10010", // Sprint
+              ],
+              startAt,
+            },
+            headers: {
+              Accept: "application/json",
+            },
+            validateStatus: (status) => {
+              return status >= 200 && status < 300
+            },
+          }
+        )
 
-          validateStatus: (status) => {
-            return status >= 200 && status < 300
-          },
-        }
-      )
+        issues = response.data.issues
+        const issuesFormatted = issues.map((issue) => {
+          return {
+            key: issue.key,
+            summary: issue.fields.summary,
+            status: issue.fields.status.name,
+            priority: issue.fields.priority?.name || "None",
+            created: issue.fields.created,
+            resolutiondate: issue.fields.resolutiondate,
+            labels: issue.fields.labels,
+            storyPoints: issue.fields.customfield_10042,
+            sprints: issue.fields?.customfield_10010 || "None",
+            epic: issue.fields?.parent?.fields || "None",
+          }
+        })
 
-      const issues = response.data.issues
-      const issuesFormatted = issues.map((issue) => {
-        return {
-          key: issue.key,
-          summary: issue.fields.summary,
-          status: issue.fields.status.name,
-          priority: issue.fields.priority?.name || "None",
-          created: issue.fields.created,
-          resolutiondate: issue.fields.resolutiondate,
-          labels: issue.fields.labels,
-          storyPoints: issue.fields.customfield_10042,
-          sprints: issue.fields?.customfield_10010 || "None",
-          epic: issue.fields?.parent?.fields || "None",
-        }
-      })
+        sprintArray.push({
+          sprintID: sprint.sprintID,
+          sprintName: sprint.sprintName,
+          sprintState: sprint.sprintState,
+          totalIssues: sprint.totalIssues,
+          issues: issuesFormatted,
+        })
 
-      issuesArray.push(...issuesFormatted)
+        startAt += issues.length
+      } while (issues.length > 0 && startAt < sprint.totalIssues)
+
+      addedSprintIDs.add(sprintID)
     }
 
-    return issuesArray
+    return sprintArray
   } catch (error) {
     console.log(error)
     throw new Error(error)
@@ -290,7 +309,17 @@ exports.getJiraIssuesFromSprint = async (sprintType) => {
  * @param {}
  */
 exports.saveIssuesToDB = async () => {
-  const jiraIssues = await exports.getJiraIssuesFromSprint("open")
+  const activesIssues = await exports.getJiraIssuesFromSprint("active")
+  const closedIssues = await exports.getJiraIssuesFromSprint("closed")
+
+  console.log(activesIssues)
+  console.log(closedIssues)
+
+  // Saving activeIssues
+  for (let i = 0; i < activesIssues.length; i++) {}
+
+  // Saving closedIssues
+  for (let i = 0; i < closedIssues.length; i++) {}
 }
 
 /**
@@ -321,6 +350,10 @@ exports.createAccionables = async (accionable) => {
         },
 
         validateStatus: (status) => {
+          if (status >= 400) {
+            throw new Error("Error creating accionable")
+          }
+
           return status >= 200 && status < 300
         },
       }
