@@ -207,7 +207,8 @@ values
     ('2022-02-24', '2022-02-25', 27, 4),
     ('2022-02-25', '2022-02-26', 28, 4),
     ('2022-02-26', '2022-02-27', 29, 4),
-    ('2022-02-27', '2022-02-28', 30, 4);
+    ('2022-02-27', '2022-02-28', 30, 4),
+    ('2023-03-30', '2023-04-13', 31, 4);
 
 -- Insertando datos en la tabla de Issue
 insert into Issue
@@ -1430,7 +1431,43 @@ VALUES
     (33, 30),
     (34, 30),
     (35, 30),
-    (36, 30);
+    (36, 30),
+
+    -- Treintaiuno sprint
+    (1, 31),
+    (2, 31),
+    (3, 31),
+    (4, 31),
+    (5, 31),
+    (6, 31),
+    (7, 31),
+    (8, 31),
+    (9, 31),
+    (10, 31),
+    (11, 31),
+    (12, 31),
+    (13, 31),
+    (14, 31),
+    (15, 31),
+    (16, 31),
+    (17, 31),
+    (18, 31),
+    (19, 31),
+    (20, 31),
+    (21, 31), 
+    (24, 31),
+    (25, 31),
+    (26, 31),
+    (27, 31),
+    (28, 31),
+    (29, 31),
+    (30, 31),
+    (31, 31),
+    (32, 31),
+    (33, 31),
+    (34, 31),
+    (35, 31),
+    (36, 31);
 
 -- Insertando datos en reporte
 insert into reporte
@@ -1562,6 +1599,7 @@ VALUES
     (5, 1, 1),
     (3, 1, 2),
     (1, 1, 1),
+    (3, 1, 5),
 -- ¿Te sientes a gusto con tu desempeño este Sprint?
     (3, 2, 4),
     (2, 2, 2),
@@ -1577,6 +1615,7 @@ VALUES
     (1, 2, 2),
     (3, 2, 3),
     (4, 2, 1),
+    (4, 2, 5),
 -- ¿Consideras que la cantidad de Issues asignadas en este Sprint son las adecuadas?
     (1, 3, 2),
     (2, 3, 3),
@@ -1591,7 +1630,8 @@ VALUES
     (4, 3, 2),
     (5, 3, 1),
     (5, 3, 1),
-    (4, 3, 3);
+    (4, 3, 3),
+    (1, 3, 5);
 
 -- Insertando datos en Cualitativa
 INSERT INTO Cualitativa 
@@ -1611,7 +1651,7 @@ VALUES
     ('Mantuvimos una buena gestión del tiempo y la productividad durante todo el Sprint.', 4, 2),
     ('Mejoramos la coordinación con otros equipos que dependen de nuestro trabajo.', 4, 3),
     ('Realizamos una excelente planificación y organización de nuestras tareas para garantizar la eficiencia del equipo.', 4, 3),
-    ('Realizamos una buena revisión y mejora continua del trabajo realizado en este Sprint.', 4, 1),
+    ('Realizamos una buena revisión y mejora continua del trabajo realizado en este Sprint.', 4, 5),
 -- ¿Qué hicimos mal que debemos hacer diferente?
     ('No esperar hasta el último momento donde se amontonan las cosas.', 5, 2),
     ('No comunicarnos adecuadamente.', 5, 2),
@@ -1626,7 +1666,7 @@ VALUES
     ('No delegar tareas de manera efectiva.', 5, 3),
     ('No tener en cuenta las opiniones de los clientes.', 5, 3),
     ('No ser flexibles ante cambios y nuevos desafíos.', 5, 3),
-    ('No dar suficiente importancia al trabajo en equipo.', 5, 1),
+    ('No dar suficiente importancia al trabajo en equipo.', 5, 5),
 -- ¿Qué nos causa ruido?
     ('Injusta distribución de trabajos', 6, 2),
     ('Interrupciones frecuentes en forma de llamadas telefónicas o correos electrónicos.', 6, 2),
@@ -1641,7 +1681,7 @@ VALUES
     ('Las discrepancias en las expectativas del equipo y la gestión del proyecto.', 6, 2),
     ('Los problemas con el equipo, como fallas técnicas o conflictos interpersonales', 6, 2),
     ('La falta de habilidades o experiencia en el equipo para llevar a cabo algunas tareas.', 6, 2),
-    ('Los cambios de prioridad frecuentes que dificultaron la planificación y el progreso del proyecto.', 6, 1),
+    ('Los cambios de prioridad frecuentes que dificultaron la planificación y el progreso del proyecto.', 6, 5),
 -- ¿Qué impedimiento tuvimos en este Sprint?
     ('Un integrante del equipo estuvo muy perdido durante todo el Sprint.', 7, 1),
     ('Problemas con la infraestructura de la red', 7, 2),
@@ -1656,7 +1696,7 @@ VALUES
     ('Conflictos entre los miembros del equipo', 7, 3),
     ('Falta de motivación de los miembros del equipo', 7, 2),
     ('Falta de experiencia en el trabajo asignado', 7, 1),
-    ('Problemas de gestión del tiempo', 7, 1),
+    ('Problemas de gestión del tiempo', 7, 5),
 -- ¿Qué podemos mejorar?
     ('Para que todos los miembros del equipo se sientan unidos entre todos, tendríamos que hacer una noche de Pizza', 8, 3),
     ('Establecer una reunión diaria para el equipo para discutir el progreso y cualquier problema que surja.', 8, 2),
@@ -1671,32 +1711,27 @@ VALUES
     ('Evaluar y revisar el éxito del Sprint al final de una Épia para identificar áreas de mejora y aplicarlas en proyectos futuros', 8, 1),
     ('Revisar y mejorar los procesos de colaboración para fomentar la creatividad y la innovación en el equipo.', 8, 3),
     ('Tener sesiones de retroalimentación individual para revisar desempeño de cada uno', 8, 1),
-    ('Para que todos puedan energía mientras que trabajamos, tener un Snack Bar en la oficina', 8, 1);
+    ('Para que todos puedan energía mientras que trabajamos, tener un Snack Bar en la oficina', 8, 5);
 
 -- Insertando datos en Accionables
 insert into Accionable
     (nombreAccionable, storyPoints, labelAccionable, prioridadAccionable, estadoAccionable, estadoIssue, fechaCreacion, fechaFinalizacion)
 values
-    ('Martes de Tacos', 2, 'Front', 'Baja', 'No aprobado', 'To Do', '2023-02-03 10:30:20', '2023-02-25 05:45:15'),
-    ('Mantenimiento Página Web', 5, 'Back', 'Alta', 'Aprobado', 'In Progress', '2023-02-20 22:30:45', '2023-02-23 16:20:20'),
-    ('Mantenimiento Base de Datos', 4, 'TC1000', 'Media-Alta', 'Aprobado', 'Done', '2023-01-21 15:40:10', '2023-02-22 07:50:30'),
-    ('Actualización Productos', 3, 'Front', 'Media', 'No aprobado', 'To Do', '2023-03-10 21:20:10', '2023-03-05 20:55:35'),
-    ('Venta Fin de Año', 7, 'Front', 'Alta', 'Aprobado', 'Done', '2022-12-15 09:32:19', '2022-12-31 08:24:10'),
-    ('Buen Fin', 7, 'Back', 'Alta', 'Aprobado', 'Done', '2022-11-18 10:05:40', '2022-11-21 11:28:55'),
-    ('Mantenimiento Servidores', 4, 'Back', 'Media-Baja', 'Aprobado', 'In Progress', '2023-03-05 15:10:20', '2023-03-07 23:45:20'),
-    ('Agregar Easter Eggs', 2, 'TC1000', 'Alta', 'No aprobado', 'To Do', '2023-03-03 22:40:15', '2023-03-11 14:38:20'),
-    ('Productos Luuna', 6, 'Front', 'Media-Alta', 'Aprobado', 'In Progress', '2023-03-06 10:10:25', '2023-03-12 06:07:21'),
-    ('Productos Nooz', 4, 'TC1000', 'Media-Baja', 'Aprobado', 'Done', '2023-01-02 12:33:40', '2023-01-07 22:35:22'),
-    ('Aplicación Móvil', 5, 'Back', 'Media', 'No aprobado', 'To Do', '2023-03-01 15:35:20', '2023-03-08 03:40:16'),
-    ('Actualización de Cuentas', 3, 'Back', 'Media-Baja', 'Aprobado', 'In Progress', '2023-03-10 17:35:10', '2023-03-11 18:50:32'),
-    ('Migración de Datos', 7, 'Front', 'Media', 'Aprobado', 'Done', '2023-02-27 10:44:04', '2023-03-01 18:08:19'),
-    ('Promociones Especiales', 4, 'TC1000', 'Media-Baja', 'No aprobado', 'To Do', '2023-01-17 17:14:12', '2023-01-19 23:40:21'),
-    ('Cambio Paleta de Colores', 1, 'Back', 'Baja', 'Aprobado', 'Done', '2023-02-01 16:10:53', '2023-02-04 02:08:48'),
-    ('Compatibilidad Android', 3, 'Front', 'Alta', 'No aprobado', 'To Do', '2023-01-14 08:25:34', '2023-01-22 16:54:33'),
-    ('Realidad Aumentada', 1, 'Front', 'Baja', 'Aprobado', 'In progress', '2023-02-09 05:06:07', '2023-02-11 07:03:17'),
-    ('Datos de Envío', 3, 'Back', 'Alta', 'Aprobado', 'To Do', '2023-01-11 21:46:19', '2023-01-13 15:31:50'),
-    ('Traducción a Portugués', 2, 'Front', 'Media-Baja', 'No aprobado', 'To Do', '2023-03-01 04:12:22', '2023-03-12 08:36:20'),
-    ('Nuevos anuncios', 5, 'Front', 'Media', 'Aprobado', 'In progress', '2023-03-05 09:03:54', '2023-03-08 05:17:25');
+    ('Noche de Pizza', 2, 'Accionable', DEFAULT, 'No aprobado', 'To Do', '2023-02-03 10:30:20', '2023-02-25 05:45:15'),
+    ('Reunión Diaria', 5, 'Accionable', DEFAULT, 'Aprobado', 'To Do', '2023-02-20 22:30:45', '2023-02-23 16:20:20'),
+    ('Capacitación Adicional', 4, 'Accionable', DEFAULT, 'Aprobado', 'To Do', '2023-01-21 15:40:10', '2023-02-22 07:50:30'),
+    ('Celebrar éxitos e hitos alcanzados', 3, 'Accionable', DEFAULT, 'No aprobado', 'To Do', '2023-03-10 21:20:10', '2023-03-05 20:55:35'),
+    ('Asignar un líder de equipo', 7, 'Accionable', DEFAULT, 'Aprobado', 'To Do', '2022-12-15 09:32:19', '2022-12-31 08:24:10'),
+    ('sesiones para compartir experiencias', 7, 'Accionable', DEFAULT, 'Aprobado', 'To Do', '2022-11-18 10:05:40', '2022-11-21 11:28:55'),
+    ('Establecer un plan de contigencia', 4, 'Accionable', DEFAULT, 'Aprobado', 'To Do', '2023-03-05 15:10:20', '2023-03-07 23:45:20'),
+    ('Asignar responsabilidades y tareas específicas', 2, 'Accionable', DEFAULT, 'No aprobado', 'To Do', '2023-03-03 22:40:15', '2023-03-11 14:38:20'),
+    ('Asegurarse de que los miembros del equipo estén capacitados', 6, 'Accionable', DEFAULT, 'Aprobado', 'To Do', '2023-03-06 10:10:25', '2023-03-12 06:07:21'),
+    ('Promover una cultura de aprendizaje continuo', 4, 'Accionable', DEFAULT, 'Aprobado', 'To Do', '2023-01-02 12:33:40', '2023-01-07 22:35:22'),
+    ('Evaluar éxito del Sprint al final de una Épica', 5, 'Accionable', DEFAULT, 'No aprobado', 'To Do', '2023-03-01 15:35:20', '2023-03-08 03:40:16'),
+    ('Actualización de Cuentas', 3, 'Accionable', DEFAULT, 'Aprobado', 'To Do', '2023-03-10 17:35:10', '2023-03-11 18:50:32'),
+    ('Revisar y mejorar los procesos de colaboración', 7, 'Accionable', DEFAULT, 'Aprobado', 'To Do', '2023-02-27 10:44:04', '2023-03-01 18:08:19'),
+    ('Sesiones de retroalimentación individual', 4, 'Accionable', DEFAULT, 'No aprobado', 'To Do', '2023-01-17 17:14:12', '2023-01-19 23:40:21'),
+    ('Snack Bar en la oficina', 1, 'Accionable', DEFAULT, 'Aprobado', 'To Do', '2023-02-01 16:10:53', '2023-02-04 02:08:48');
 
 -- Insertando datos en la relación de CualitativaAccionable
 INSERT INTO CualitativaAccionable
@@ -1756,4 +1791,5 @@ VALUES
     (22, 3),
     (23, 3),
     (24, 3),
-    (25, 3);
+    (25, 3),
+    (31, 4);

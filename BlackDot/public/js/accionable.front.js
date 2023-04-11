@@ -51,3 +51,24 @@ async function handleCheckBox() {
     }
   }
 }
+
+/**
+ * @brief 
+ * Sends data to accionable to a JSON. 
+ */
+async function sendData(){
+    const accionablesData = await handleCheckBox()
+
+    try{
+        const response = fetch('http://localhost:3000/actual/accionables', {
+            method: 'POST',
+            headers:{
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+    } 
+    catch(error){
+        throw new Error(error)
+    }
+} 
