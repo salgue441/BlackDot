@@ -17,6 +17,7 @@ const express = require("express")
 const app = express()
 const session = require('express-session');
 const bodyparser = require("body-parser")
+const path = require('path')
 
 // Dotenv config
 require("dotenv").config()
@@ -82,7 +83,7 @@ app.use(session({
 }));
 
 app.get('/login', function(req, res) {
-  res.render('Static/auth');
+  res.render("../Views/Static/login.ejs")
 });
 
 // index.js
