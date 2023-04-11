@@ -321,34 +321,38 @@ exports.saveIssuesToDB = async () => {
   const activesIssues = await exports.getJiraIssuesFromSprint("active")
   const closedIssues = await exports.getJiraIssuesFromSprint("closed")
 
-  // Saving activeIssues
-  for (let issue of activesIssues[0].issues) {
-    const newIssue = new Issue({
-      issueKey: issue.key,
-      nombreIssue: issue.summary,
-      storyPoints: issue.storyPoints,
-      labelIssue: issue.labels.join(","),
-      prioridadIssue: issue.priority,
-      estadoIssue: issue.status,
-      fechaCreacion: issue.created,
-      fechaFinalizacion: issue.resolutiondate,
-    })
+  try {
+    for (let issue of activesIssues[0].issues) {
+      const newIssue = new Issue({
+        issueKey: issue.key,
+        nombreIssue: issue.summary,
+        storyPoints: issue.storyPoints,
+        labelIssue: issue.labels.join(","),
+        prioridadIssue: issue.priority,
+        estadoIssue: issue.status,
+        fechaCreacion: issue.created,
+        fechaFinalizacion: issue.resolutiondate,
+      })
 
-    const newSprint = new Sprint({
-      sprintName: activesIssues[0].sprintName,
-      state: activesIssues[0].sprintState,
-      boardID: activesIssues[0].originBoardID,
-      FechaCreacion: activesIssues[0].sprintStartDate,
-      FechaFinalizacion: activesIssues[0].sprintEndDate,
-      idEpica: issue.epic.key,
-    })
+      const newSprint = new Sprint({
+        sprintName: activesIssues[0].sprintName,
+        state: activesIssues[0].sprintState,
+        boardID: activesIssues[0].originBoardID,
+        FechaCreacion: activesIssues[0].sprintStartDate,
+        FechaFinalizacion: activesIssues[0].sprintEndDate,
+        idEpica: issue.epic.key,
+      })
 
-    console.log(newSprint)
-    await newIssue.save()
+      console.log(newSprint)
+      await newIssue.save()
+    }
+
+    // Saving closedIssues
+    for (let i = 0; i < closedIssues.length; i++) {}
+  } catch (error) {
+    console.log(error)
+    throw new Error(error)
   }
-
-  // Saving closedIssues
-  for (let i = 0; i < closedIssues.length; i++) {}
 }
 
 /**
