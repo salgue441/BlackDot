@@ -15,6 +15,7 @@
 
 const express = require("express")
 const app = express()
+const session = require('express-session');
 const bodyparser = require("body-parser")
 
 // Dotenv config
@@ -72,3 +73,63 @@ const PORT = 3000
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`)
 })
+
+//sessions
+app.use(session({
+  resave: false,
+  saveUninitialized: true,
+  secret: 'SECRET' 
+}));
+
+app.get('/login', function(req, res) {
+  res.render('pages/auth');
+});
+
+// index.js
+
+/*  PASSPORT SETUP  */
+
+const passport = require('passport');
+var userProfile;
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+app.set('view engine', 'ejs');
+
+app.get('/success', (req, res) => res.send(userProfile));
+app.get('/error', (req, res) => res.send("error logging in"));
+
+passport.serializeUser(function(user, cb) {
+  cb(null, user);
+});
+
+passport.deserializeUser(function(obj, cb) {
+  cb(null, obj);
+});
+
+/*  Google AUTH  */
+ 
+const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
+const GOOGLE_CLIENT_ID = '549053021714-vunpaljl9nn3t0qpogjeq3m6o40v8h36.apps.googleusercontent.com';
+const GOOGLE_CLIENT_SECRET = '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';
+passport.use(new GoogleStrategy({
+    clientID: GOOGLE_CLIENT_ID,
+    clientSecret: GOOGLE_CLIENT_SECRET,
+    callbackURL: "http://localhost:3000/auth/google/callback"
+  },
+  function(accessToken, refreshToken, profile, done) {
+      userProfile=profile;
+      return done(null, userProfile);
+  }
+));
+ 
+app.get('/auth/google', 
+  passport.authenticate('google', { scope : ['profile', 'email'] }));
+ 
+app.get('/auth/google/callback', 
+  passport.authenticate('google', { failureRedirect: '/error' }),
+  function(req, res) {
+    // Successful authentication, redirect success.
+    res.redirect('/success');
+  });
