@@ -41,7 +41,7 @@ module.exports = class Accionable {
     this.estadoIssue = Accionable.estadoIssue
     this.fechaCreacion = Accionable.fechaCreacion
     this.fechaFinalizacion = Accionable.fechaFinalizacion
-   }
+  }
 
   /**
    * @brief
@@ -66,10 +66,10 @@ module.exports = class Accionable {
    **/
 
   static async getAll() {
-    const query = `SELECT * FROM Accionable`;
-    const [rows] = await dataBase.execute(query);
+    const query = `SELECT * FROM Accionable`
+    const [rows, _] = await dataBase.execute(query)
 
-    return rows.map((row) => new Accionable(row));
+    return rows
   }
 
   /**
@@ -78,13 +78,13 @@ module.exports = class Accionable {
    * @returns {int} - id del ultimo accionable
    */
   static async getLastId() {
-    const query = `SELECT idAccionable FROM Accionable ORDER BY idAccionable DESC LIMIT 1`;
+    const query = `SELECT idAccionable FROM Accionable ORDER BY idAccionable DESC LIMIT 1`
 
-    const [idAccionable, _] = await dataBase.execute(query);
+    const [idAccionable, _] = await dataBase.execute(query)
 
-    const id = idAccionable[0].idAccionable;
+    const id = idAccionable[0].idAccionable
 
-    return id;
+    return id
   }
 
   /**
@@ -94,15 +94,15 @@ module.exports = class Accionable {
    **/
 
   async save() {
-    const query = `INSERT INTO Accionable(nombreAccionable, storyPoints, labelAccionable) VALUES (?, ?, ?)`;
+    const query = `INSERT INTO Accionable(nombreAccionable, storyPoints, labelAccionable) VALUES (?, ?, ?)`
 
     const [result] = await dataBase.execute(query, [
       this.nombreAccionable,
       this.storyPoints,
       this.labelAccionable,
-    ]);
+    ])
 
-    this.idAccionable = result.insertId;
+    this.idAccionable = result.insertId
   }
 
   /**
@@ -110,7 +110,7 @@ module.exports = class Accionable {
    * Modifica Accionable
    **/
   async update() {
-    const query = `UPDATE Accionable SET nombreAccionable = ?, storyPoints = ?, labelAccionable = ?, prioridadAccionable = ?, estadoAccionable = ?, estadoIssue = ?, fechaCreacion = ?, fechaFinalizacion = ? WHERE idAccionable = ?`;
+    const query = `UPDATE Accionable SET nombreAccionable = ?, storyPoints = ?, labelAccionable = ?, prioridadAccionable = ?, estadoAccionable = ?, estadoIssue = ?, fechaCreacion = ?, fechaFinalizacion = ? WHERE idAccionable = ?`
 
     await dataBase.execute(query, [
       this.nombreAccionable,
@@ -124,5 +124,15 @@ module.exports = class Accionable {
     ])
 
     this.idAccionable = result.insertId
+  }
+
+  /**
+   * @brief
+   * Modifica el estado del accionable
+   **/
+
+  async updateEstadoAprobado() {
+    const query = `UPDATE Accionable SET estadoAccionable = 'Aprobado' WHERE idAccionable = ?`
+    await dataBase.execute(query, [this.idAccionable])
   }
 }
