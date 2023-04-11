@@ -22,13 +22,12 @@
                     >
                       <span>Seleccionar Retroalimentacion </span>
                       <span class="icon is-small">
-                        <i class="fas fa-angle-down" aria-hidden="true"></i>
+                        <i class="fas fa-angle-down" aria-hidden="false"></i>
                       </span>
                     </button>
                   </div>
                   <div class="dropdown-menu" id="dropdown-menu3" role="menu">
                     <div class="dropdown-content">
-                      <!-- <a href="#" class="dropdown-item is-center"> Overview </a> //onclick llama funcion y cambia idretro -->
                       <% for (let i = 0; i < retros.length; i++) { %>
                       <a
                         href="/actual/verRespuestas/<%= retros[i].idRetroalimentacion  %>"

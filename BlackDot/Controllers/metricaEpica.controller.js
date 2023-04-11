@@ -13,13 +13,13 @@
  * @copyright Copyright (c) 2023 - MIT License
  */
 
-const path = require("path")
+const path = require("path");
 
 // Models
-const Epica = require("../models/Epica.model")
-const Issue = require("../models/issue.model")
-const Sprint = require("../models/sprint.model")
-const SprintIssue = require("../models/sprint-issue.model")
+const Epica = require("../models/Epica.model");
+const Issue = require("../models/issue.model");
+const Sprint = require("../models/sprint.model");
+const SprintIssue = require("../models/sprint-issue.model");
 
 /**
  * @brief
@@ -31,54 +31,54 @@ const SprintIssue = require("../models/sprint-issue.model")
  */
 exports.getAllEpicas = async (req, res) => {
   try {
-    const epicas = await Epica.getAll()
-    const issues = await Issue.getAll()
-    const sprints = await Sprint.getAll()
-    const sprintIssues = await SprintIssue.getAll()
-    const sprintNames = await Sprint.getAll()
+    const epicas = await Epica.getAll();
+    const issues = await Issue.getAll();
+    const sprints = await Sprint.getAll();
+    const sprintIssues = await SprintIssue.getAll();
+    const sprintNames = await Sprint.getAll();
 
     // Relating sprints and issues
-    const sprintIssuesMap = {}
+    const sprintIssuesMap = {};
 
     sprintIssues.forEach((sprintIssue) => {
-      const sprintID = sprintIssue.idSprint
-      const issueID = sprintIssue.idIssue
+      const sprintID = sprintIssue.idSprint;
+      const issueID = sprintIssue.idIssue;
 
       if (!sprintIssuesMap[sprintID]) {
-        sprintIssuesMap[sprintID] = []
+        sprintIssuesMap[sprintID] = [];
       }
 
-      sprintIssuesMap[sprintID].push(issueID)
-    })
+      sprintIssuesMap[sprintID].push(issueID);
+    });
 
     sprints.forEach((sprint) => {
-      const sprintID = sprint.idSprint
-      const sprintIssues = sprintIssuesMap[sprintID] || []
+      const sprintID = sprint.idSprint;
+      const sprintIssues = sprintIssuesMap[sprintID] || [];
 
       sprint.issues = issues.filter((issue) =>
         sprintIssues.includes(issue.idIssue)
-      )
-    })
+      );
+    });
 
     // Relating the Epicas and their sprints
-    const epicasSprintsMap = {}
+    const epicasSprintsMap = {};
 
     sprints.forEach((sprint) => {
-      const epicaID = sprint.idEpica
+      const epicaID = sprint.idEpica;
 
       if (!epicasSprintsMap[epicaID]) {
-        epicasSprintsMap[epicaID] = []
+        epicasSprintsMap[epicaID] = [];
       }
 
-      epicasSprintsMap[epicaID].push(sprint)
-    })
+      epicasSprintsMap[epicaID].push(sprint);
+    });
 
     epicas.forEach((epica) => {
-      const epicaID = epica.idEpica
-      const epicaSprints = epicasSprintsMap[epicaID] || []
+      const epicaID = epica.idEpica;
+      const epicaSprints = epicasSprintsMap[epicaID] || [];
 
-      epica.sprints = epicaSprints
-    })
+      epica.sprints = epicaSprints;
+    });
 
     res.render(
       path.join(__dirname, "../Views/Static/historico/verMetricasEpicas.ejs"),
@@ -86,13 +86,11 @@ exports.getAllEpicas = async (req, res) => {
         epicas: epicas,
         sprints: sprintNames,
       }
-    )
+    );
   } catch (error) {
-    res.status(500).json({
-      message: error.message || "Error al obtener metricas epicas",
-    })
+    res.render(path.join(__dirname, "../Views/Static/error.ejs"), { error });
   }
-}
+};
 
 /**
  * @brief
@@ -104,58 +102,56 @@ exports.getAllEpicas = async (req, res) => {
  */
 exports.getAllEpicasAPI = async (req, res) => {
   try {
-    const epicas = await Epica.getAll()
-    const issues = await Issue.getAll()
-    const sprints = await Sprint.getAll()
-    const sprintIssues = await SprintIssue.getAll()
+    const epicas = await Epica.getAll();
+    const issues = await Issue.getAll();
+    const sprints = await Sprint.getAll();
+    const sprintIssues = await SprintIssue.getAll();
 
     // Relating sprints and issues
-    const sprintIssuesMap = {}
+    const sprintIssuesMap = {};
 
     sprintIssues.forEach((sprintIssue) => {
-      const sprintID = sprintIssue.idSprint
-      const issueID = sprintIssue.idIssue
+      const sprintID = sprintIssue.idSprint;
+      const issueID = sprintIssue.idIssue;
 
       if (!sprintIssuesMap[sprintID]) {
-        sprintIssuesMap[sprintID] = []
+        sprintIssuesMap[sprintID] = [];
       }
 
-      sprintIssuesMap[sprintID].push(issueID)
-    })
+      sprintIssuesMap[sprintID].push(issueID);
+    });
 
     sprints.forEach((sprint) => {
-      const sprintID = sprint.idSprint
-      const sprintIssues = sprintIssuesMap[sprintID] || []
+      const sprintID = sprint.idSprint;
+      const sprintIssues = sprintIssuesMap[sprintID] || [];
 
       sprint.issues = issues.filter((issue) =>
         sprintIssues.includes(issue.idIssue)
-      )
-    })
+      );
+    });
 
     // Relating the Epicas and their sprints
-    const epicasSprintsMap = {}
+    const epicasSprintsMap = {};
 
     sprints.forEach((sprint) => {
-      const epicaID = sprint.idEpica
+      const epicaID = sprint.idEpica;
 
       if (!epicasSprintsMap[epicaID]) {
-        epicasSprintsMap[epicaID] = []
+        epicasSprintsMap[epicaID] = [];
       }
 
-      epicasSprintsMap[epicaID].push(sprint)
-    })
+      epicasSprintsMap[epicaID].push(sprint);
+    });
 
     epicas.forEach((epica) => {
-      const epicaID = epica.idEpica
-      const epicaSprints = epicasSprintsMap[epicaID] || []
+      const epicaID = epica.idEpica;
+      const epicaSprints = epicasSprintsMap[epicaID] || [];
 
-      epica.sprints = epicaSprints
-    })
+      epica.sprints = epicaSprints;
+    });
 
-    res.json({ epicas: epicas })
+    res.json({ epicas: epicas });
   } catch (error) {
-    res.status(500).json({
-      message: error.message || "Error al obtener metricas epicas",
-    })
+    res.render(path.join(__dirname, "../Views/Static/error.ejs"), { error });
   }
-}
+};

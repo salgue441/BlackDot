@@ -9,6 +9,7 @@
  **/
 
 const axios = require("axios")
+const path = require("path")
 
 const bodyparser = require("body-parser")
 const express = require("express")
@@ -46,6 +47,14 @@ exports.getRegistrarAprobacion = async (req, res) => {
   }
 }
 
+/**
+ * @brief
+ * Post to register Actionables
+ * @param {Request} req - Request object
+ * @param {Response} res - Response object
+ * @returns {Response} - Response object
+ * @throws {Error} - Error message
+ **/
 exports.postRegistrarAprobacion = async (req, res) => {
   //Colects the ids of the actionables
   const idsAccionableStr = req.body.puente
@@ -77,11 +86,5 @@ exports.postRegistrarAprobacion = async (req, res) => {
     path.join(__dirname, "../Views/Static/actual/enviadoAccionable.ejs")
   )
 }
-// /**
-//  * @brief
-//  * Post to register Actionables
-//  * @param {Request} req - Request object
-//  * @param {Response} res - Response object
-//  * @returns {Response} - Response object
-//  * @throws {Error} - Error message
-//  **/
+
+

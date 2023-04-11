@@ -12,6 +12,9 @@
  *
  * @copyright Copyright (c) 2023 - MIT License
  */
+const bodyparser = require("body-parser");
+const express = require("express");
+const path = require("path");
 
 // Data Models
 const Retro = require("../models/retro.model");
@@ -20,11 +23,7 @@ const Cualitativa = require("../models/cualitativa.model");
 const Cuantitativa = require("../models/cuantitativa.model");
 const Accionable = require("../models/accionable.model");
 const CualitativaAccionable = require("../models/cuali-accionable.model");
-const bodyparser = require("body-parser");
-const express = require("express");
-const path = require("path");
 const retroPregunta = require("../models/retro-pregunta.model");
-const Retroalimentacion = require("../models/retro.model");
 
 bodyparser.urlencoded({ extended: true });
 
@@ -55,7 +54,7 @@ const simplifyAnswers = (answers) => {
       return acc;
     }, []);
   } catch (error) {
-    console.log(error);
+    res.render(path.join(__dirname, "../Views/Static/error.ejs"), { error });
   }
 };
 
@@ -121,9 +120,7 @@ exports.getCurretRetroalimentacion = async (req, res) => {
       }
     );
   } catch (error) {
-    res.status(500).json({
-      message: error.message || "Error al obtener metricas epicas",
-    });
+    res.render(path.join(__dirname, "../Views/Static/error.ejs"), { error });
   }
 };
 
@@ -151,9 +148,7 @@ exports.getCurretRetroalimentacionAPI = async (req, res) => {
       simplifiedQuantitative: simplifiedQuantitative,
     });
   } catch (error) {
-    res.status(500).json({
-      message: error.message || "Error al obtener metricas epicas",
-    });
+    res.render(path.join(__dirname, "../Views/Static/error.ejs"), { error });
   }
 };
 
@@ -182,9 +177,7 @@ exports.getRegistrarRespuestas = async (req, res) => {
       });
     });
   } catch (error) {
-    res.status(500).json({
-      message: error.message || "Error al obtener preguntas",
-    });
+    res.render(path.join(__dirname, "../Views/Static/error.ejs"), { error });
   }
 };
 
@@ -196,11 +189,9 @@ exports.getRegistrarRespuestas = async (req, res) => {
  * @returns {Response} - Response object
  * @throws {Error} - Error message
  * */
-
 exports.postRegistrarRespuestas = async (req, res) => {
   const respuestas = req.body;
-  const idRetroalimentacion = 5; //Cambiar
-
+  const idRetroalimentacion = 5; //Cambiar a actual Esperar a implementar iniciar retro
   for (i in respuestas) {
     respuestas[i] = [i, respuestas[i], idRetroalimentacion];
     respuestas[i][0] = parseInt(respuestas[i][0]);

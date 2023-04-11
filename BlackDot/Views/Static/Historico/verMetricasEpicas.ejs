@@ -82,13 +82,7 @@
                   <li id="sprint-<%= sprints[i].idSprint %>" class="sprint">
                     <!-- First column -->
                     <div class="columns">
-                      <div class="column is-1">
-                        <input
-                          type="checkbox"
-                          name="sprint"
-                          value="<%= sprints[i].idSprint %>"
-                        />
-                      </div>
+                      <div class="column is-1"></div>
 
                       <div class="column is-10 has-text-left">
                         <p>Sprint: <%= sprints[i].idSprint %></p>
@@ -121,6 +115,7 @@
                           type="checkbox"
                           name="epica"
                           value="<%= epicas[i].idEpica %>"
+                          onclick="handleCheckBoxEpicas() "
                         />
                       </div>
 
