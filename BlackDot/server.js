@@ -24,12 +24,14 @@ app.use(bodyparser.json())
 app.use(bodyparser.urlencoded({ extended: true }))
 
 // View engine
-app.set("view engine", "ejs")
+app.set("view engine", "ejs");
 
 // Static Files
-app.use(express.static("public"))
+app.use(express.static("public"));
 
-// Routes
+// Section routes
+const historico = require("./Routes/historico.routes");
+const actual = require("./Routes/actual.routes");
 const main = require("./Routes/main.routes")
 
 /**
@@ -60,7 +62,7 @@ const historico = require("./routes/historico.routes")
 app.use("/historico", historico)
 
 // Starting the server
-const PORT = 3000
+const PORT = 3000;
 
 /**
  * @brief
@@ -70,5 +72,5 @@ const PORT = 3000
  * @returns {Function} - Callback function
  */
 app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`)
-})
+  console.log(`Server is running on port ${PORT}`);
+});
