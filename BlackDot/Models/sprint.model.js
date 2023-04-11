@@ -91,19 +91,32 @@ module.exports = class Sprint {
    */
   static async save() {
     try {
-      const sprintExist = await Sprint.getbyID(this.id)
+      if (this.id) {
+        const existingSprint = await Sprint.getbyID(this.id)
 
-      if (sprintExist.id) {
-        const [sprint, _] = await dataBase.query(
-          "update Sprint set ? where idSprint = ?",
-          [this, this.id]
-        )
-        return sprint
+        if (existingSprint) {
+          const query = "update Sprint set ? where idSprint = ?"
+          await dataBase.query(query, [this, this.id])
+
+          return this
+        }
       }
 
-      const [sprint, _] = await dataBase.query("insert into Sprint set ?", this)
+      const query =
+        "insert into Sprint (sprintName, state, boardID, FechaCreacion, FechaFinalizacion, idEpica) values (?, ?, ?, ?, ?, ?)"
 
-      return sprint
+      const [result, _] = await dataBase.query(query, [
+        this.sprintName,
+        this.state,
+        this.boardID,
+        this.FechaCreacion,
+        this.FechaFinalizacion,
+        this.idEpica,
+      ])
+
+      this.id = result.insertId
+
+      return this
     } catch (error) {
       throw new Error(error)
     }

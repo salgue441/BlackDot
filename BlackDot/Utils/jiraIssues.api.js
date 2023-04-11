@@ -155,6 +155,9 @@ const getTotalNumberOfIssuesPerSprint = async (
       const sprintID = sprint.id
       const sprintName = sprint.name
       const sprintState = sprint.state
+      const sprintStartDate = sprint.startDate
+      const sprintEndDate = sprint.endDate
+      const originBoardID = sprint.originBoardId
 
       const response = await axios.get(
         `${jiraUrl}/rest/agile/1.0/sprint/${sprintID}/issue?maxResults=1000`,
@@ -185,6 +188,9 @@ const getTotalNumberOfIssuesPerSprint = async (
         sprintName,
         sprintState,
         totalIssues,
+        sprintStartDate,
+        sprintEndDate,
+        originBoardID,
       })
     }
 
@@ -286,6 +292,9 @@ exports.getJiraIssuesFromSprint = async (sprintType) => {
           sprintName: sprint.sprintName,
           sprintState: sprint.sprintState,
           totalIssues: sprint.totalIssues,
+          sprintStartDate: sprint.sprintStartDate,
+          sprintEndDate: sprint.sprintEndDate,
+          originBoardID: sprint.originBoardID,
           issues: issuesFormatted,
         })
 
@@ -312,11 +321,31 @@ exports.saveIssuesToDB = async () => {
   const activesIssues = await exports.getJiraIssuesFromSprint("active")
   const closedIssues = await exports.getJiraIssuesFromSprint("closed")
 
-  console.log(activesIssues)
-  console.log(closedIssues)
-
   // Saving activeIssues
-  for (let i = 0; i < activesIssues.length; i++) {}
+  for (let issue of activesIssues[0].issues) {
+    const newIssue = new Issue({
+      issueKey: issue.key,
+      nombreIssue: issue.summary,
+      storyPoints: issue.storyPoints,
+      labelIssue: issue.labels.join(","),
+      prioridadIssue: issue.priority,
+      estadoIssue: issue.status,
+      fechaCreacion: issue.created,
+      fechaFinalizacion: issue.resolutiondate,
+    })
+
+    const newSprint = new Sprint({
+      sprintName: activesIssues[0].sprintName,
+      state: activesIssues[0].sprintState,
+      boardID: activesIssues[0].originBoardID,
+      FechaCreacion: activesIssues[0].sprintStartDate,
+      FechaFinalizacion: activesIssues[0].sprintEndDate,
+      idEpica: issue.epic.key,
+    })
+
+    console.log(newSprint)
+    await newIssue.save()
+  }
 
   // Saving closedIssues
   for (let i = 0; i < closedIssues.length; i++) {}

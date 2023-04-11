@@ -131,17 +131,40 @@ module.exports = class Issue {
    */
   async save() {
     try {
-      const issueExists = await Issue.getByID(this.idIssue)
+      if (this.idIssue) {
+        const existingIssue = await Issue.getByID(this.idIssue)
 
-      if (issueExists) {
-        const query = `update issue set ? where idIssue = ?`
-        await dataBase.query(query, [this, this.idIssue])
+        if (existingIssue) {
+          const query = `update issue set issueKey = ?, nombreIssue = ?, storyPoints = ?, labelIssue = ?, prioridadIssue = ?, estadoIssue = ?, fechaCreacion = ?, fechaFinalizacion = ? where idIssue = ?`
 
-        return this
+          await dataBase.query(query, [
+            this.issueKey,
+            this.nombreIssue,
+            this.storyPoints,
+            this.labelIssue,
+            this.prioridadIssue,
+            this.estadoIssue,
+            this.fechaCreacion,
+            this.fechaFinalizacion,
+            this.idIssue,
+          ])
+
+          return this
+        }
       }
 
-      const query = `insert into issue set ?`
-      const [result] = await dataBase.query(query, this)
+      const query = `insert into issue (issueKey, nombreIssue, storyPoints, labelIssue, prioridadIssue, estadoIssue, fechaCreacion, fechaFinalizacion) values (?, ?, ?, ?, ?, ?, ?, ?)`
+
+      const [result] = await dataBase.query(query, [
+        this.issueKey,
+        this.nombreIssue,
+        this.storyPoints,
+        this.labelIssue,
+        this.prioridadIssue,
+        this.estadoIssue,
+        this.fechaCreacion,
+        this.fechaFinalizacion,
+      ])
 
       this.idIssue = result.insertId
 
