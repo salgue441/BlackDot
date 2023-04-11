@@ -10,10 +10,8 @@
 
 const axios = require("axios")
 const path = require("path")
-
 const bodyparser = require("body-parser")
 const express = require("express")
-const path = require("path")
 bodyparser.urlencoded({ extended: true })
 
 const Accionable = require("../Models/accionable.model")
@@ -86,5 +84,3 @@ exports.postRegistrarAprobacion = async (req, res) => {
     path.join(__dirname, "../Views/Static/actual/enviadoAccionable.ejs")
   )
 }
-
-
