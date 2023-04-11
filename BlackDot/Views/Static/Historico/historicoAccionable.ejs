@@ -1,0 +1,92 @@
+<html>
+    <%- include('../../include/header.ejs') %>
+    <body>
+        <%- include('../../include/navbar.ejs') %>
+        <section class = "hero is-medium is-bold">
+            <div class = "hero-body has-text-centered">
+            <!-- Title & Button to Accept -->
+                <div class="columns">
+                    <div class="column is-half is-flex">
+                        <h1 class = "title is-1">Accionables</h1>
+                    </div>
+                    <div class = "column is-half is-flex is-justify-content-end">
+                        <div class="is-grouped is-grouped-centered">
+                            <input class = "button is-danger reporte-button" id="sendButton" type = "submit" value="Generar Reporte" onclick="">
+                        </div>
+                    </div>
+                </div>
+                <!-- End of Title & Button -->
+
+                <!-- Accionables -->
+                <% let numAccionable = 0 %>
+                <% for(var i = 0; i < accionables.length; i++) { %>
+                <% if(accionables[i].nombreAccionable !== '') { %>
+                    <% numAccionable++ %>
+                    <div class="columns">
+                        <div class = "column is-11">
+                            <div class="box is-black is-flex is-align-items-center accionable" style="height: 100px !important;">
+                                <div class = "content">
+                                    <p>
+                                        <%= accionables[i].nombreAccionable %>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="column">
+                            <% if(accionables[i].estadoAccionable === 'No aprobado') { %>
+                                <div class="box is-flex is-align-items-center accionable EstadoNoAprobado" style="height: 100px !important;">
+                                    <div class="content">
+                                        <p>
+                                            <%= accionables[i].estadoAccionable %>
+                                        </p>
+                                    </div>
+                                </div>
+                            <% } else { %>
+                                <div class="box is-flex is-align-items-center accionable EstadoAprobado" style="height: 100px !important;">
+                                    <div class="content">
+                                        <p>
+                                            <%= accionables[i].estadoAccionable %>
+                                        </p>
+                                    </div>
+                                </div>
+                                <% } %>
+                            <!-- <div class="box is-flex is-align-items-center accionable estadoContainer" style="height: 100px !important;">
+                                <div class="content ">
+                                    <p>
+                                        <%= accionables[i].estadoAccionable %>
+                                    </p>
+                                </div>
+                            </div> -->
+                        </div>
+                    </div>
+                <% } %>
+                <% } %>
+            </div>
+        </section>
+    </body>
+</html>
+
+<style>
+
+    .accionable {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100px;
+        text-align: left;
+    }
+
+    .EstadoNoAprobado {
+        background-color: hsl(348, 100%, 61%);
+        color: hsl(0, 0%, 96%);
+    }
+
+    .EstadoAprobado {
+        background-color: hsl(171, 100%, 41%);
+    }
+
+    .reporte-button {
+    height: 80px;
+    width: 300px;
+    }
+</style>
