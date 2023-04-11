@@ -261,7 +261,7 @@ exports.getEditarPreguntas = async (req, res) => {
       error: "No se ha especificado una pregunta",
     })
   } else if (idPregunta == 0) {
-    pregunta = new Pregunta({
+    pregunta = new BancoPreguntas({
       contenido: "",
       tipoPregunta: "",
     })
@@ -273,7 +273,7 @@ exports.getEditarPreguntas = async (req, res) => {
       }
     )
   } else {
-    const pregunta = await Pregunta.getByID(idPregunta)
+    const pregunta = await BancoPreguntas.getByID(idPregunta)
 
     res.render("Static/crearRetro/editarPregunta.ejs", {
       pregunta,
@@ -284,53 +284,35 @@ exports.getEditarPreguntas = async (req, res) => {
 exports.postEditarPreguntas = async (req, res) => {
   const preguntatest = req.body
 
-  if (preguntatest.idPregunta == 0) {
-    const pregunta = new Pregunta({
+  if (preguntatest.idPreguntaBanco == 0) {
+    const pregunta = new BancoPreguntas({
       contenido: preguntatest.contenido,
       tipoPregunta: preguntatest.tipoPregunta,
     })
 
     try {
       await pregunta.save()
-      try {
-        await Pregunta.getAll().then((preguntas) => {
-          // Render the EJS template with the preguntas and progress variables
-          res.render("Static/crearRetro/crearRetroalimentacion.ejs", {
-            preguntas,
-          })
-        })
-      } catch (error) {
-        res.render(path.join(__dirname, "../Views/Static/error.ejs"), { error })
-      }
+      res.redirect("/editar/crearRetroalimentacion")
     } catch (error) {
       res.render(path.join(__dirname, "../Views/Static/error.ejs"), { error })
     }
   } else {
-    const pregunta = new Pregunta({
-      idPregunta: preguntatest.idPregunta,
+    const pregunta = new BancoPreguntas({
+      idPreguntaBanco: preguntatest.idPreguntaBanco,
       contenido: preguntatest.contenido,
       tipoPregunta: preguntatest.tipoPregunta,
     })
 
+    console.log(pregunta)
     try {
       await pregunta.update()
-      try {
-        await Pregunta.getAll().then((preguntas) => {
-          // Render the EJS template with the preguntas and progress variables
-          res.render("Static/crearRetro/crearRetroalimentacion.ejs", {
-            preguntas,
-          })
-        })
-      } catch (error) {
-        res.render(path.join(__dirname, "../Views/Static/error.ejs"), { error })
-      }
+      res.redirect("/editar/crearRetroalimentacion")
     } catch (error) {
       res.render(path.join(__dirname, "../Views/Static/error.ejs"), { error })
     }
   }
 }
 
-//prueba
 exports.getEliminarPreguntas = async (req, res) => {
   const idPregunta = parseInt(req.params.id) || -1
 
