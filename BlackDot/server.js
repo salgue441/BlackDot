@@ -29,7 +29,7 @@ app.set("view engine", "ejs")
 // Static Files
 app.use(express.static("public"))
 
-// Routes
+// Section routes
 const main = require("./Routes/main.routes")
 
 /**
