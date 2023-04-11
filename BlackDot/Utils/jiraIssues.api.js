@@ -343,8 +343,10 @@ exports.saveIssuesToDB = async () => {
         idEpica: issue.epic.key,
       })
 
-      console.log(newSprint)
       await newIssue.save()
+      await newSprint.save()
+
+      console.log("Issue saved: " + issue.key)
     }
 
     // Saving closedIssues

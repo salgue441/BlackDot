@@ -89,36 +89,46 @@ module.exports = class Sprint {
    * @returns {Sprint} - Returns the saved sprint object
    * @throws {Error} - Throws an error if the sprint couldn't be saved
    */
-  static async save() {
+  async save() {
     try {
-      if (this.id) {
-        const existingSprint = await Sprint.getbyID(this.id)
-
-        if (existingSprint) {
-          const query = "update Sprint set ? where idSprint = ?"
-          await dataBase.query(query, [this, this.id])
-
-          return this
-        }
+      if (await this.exists()) {
+        await dataBase.query(
+          "update Sprint set sprintName = ?, state = ?, FechaCreacion = ?, FechaFinalizacion = ?, idEpica = ? where idSprint = ?",
+          [
+            this.sprintName,
+            this.state,
+            this.FechaCreacion,
+            this.FechaFinalizacion,
+            this.idEpica,
+            this.id,
+          ]
+        )
       }
 
-      const query =
-        "insert into Sprint (sprintName, state, boardID, FechaCreacion, FechaFinalizacion, idEpica) values (?, ?, ?, ?, ?, ?)"
-
-      const [result, _] = await dataBase.query(query, [
-        this.sprintName,
-        this.state,
-        this.boardID,
-        this.FechaCreacion,
-        this.FechaFinalizacion,
-        this.idEpica,
-      ])
+      const [result, _] = await dataBase.query(
+        "insert into Sprint (sprintName, state, FechaCreacion, FechaFinalizacion, idEpica) values (?, ?, ?, ?, ?)",
+        [
+          this.sprintName,
+          this.state,
+          this.FechaCreacion,
+          this.FechaFinalizacion,
+          this.idEpica,
+        ]
+      )
 
       this.id = result.insertId
 
       return this
     } catch (error) {
+      console.log(error)
       throw new Error(error)
     }
+  }
+
+  async exists() {
+    const query = "select * from Sprint where idSprint = ? and sprintName = ?"
+    const [result, _] = await dataBase.query(query, [this.id, this.sprintName])
+
+    return result.length > 0
   }
 }
