@@ -28,6 +28,7 @@ module.exports = class Sprint {
    */
   constructor(Sprint) {
     this.id = Sprint.id
+    this.jiraID = Sprint.jiraID || 0
     this.sprintName = Sprint.sprintName || ""
     this.state = Sprint.state || "To Do"
     this.boardID = Sprint.boardID || 0
@@ -52,6 +53,20 @@ module.exports = class Sprint {
     )
 
     return new Sprint(sprint)
+  }
+
+  /**
+   * @brief
+   * Obtains a sprint by its jira key
+   * @param {string} jiraID - Jira key of the sprint
+   */
+  static async getByJiraID(jiraID) {
+    const [sprint, _] = await dataBase.query(
+      "select * from Sprint where jiraID = ?",
+      [jiraID]
+    )
+
+    return sprint
   }
 
   /**
@@ -91,30 +106,35 @@ module.exports = class Sprint {
    */
   async save() {
     try {
-      if (await this.exists()) {
-        await dataBase.query(
-          "update Sprint set sprintName = ?, state = ?, FechaCreacion = ?, FechaFinalizacion = ?, idEpica = ? where idSprint = ?",
-          [
+      if (this.jiraID) {
+        const existingSprint = await Sprint.getByJiraID(this.jiraID)
+
+        if (existingSprint) {
+          const query = `UPDATE Sprint SET sprintName = ?, state = ?, boardID = ?, FechaCreacion = ?, FechaFinalizacion = ?, idEpica = ? WHERE jiraID = ?`
+
+          const [result] = await dataBase.query(query, [
             this.sprintName,
             this.state,
+            this.boardID,
             this.FechaCreacion,
             this.FechaFinalizacion,
             this.idEpica,
-            this.id,
-          ]
-        )
+            this.jiraID,
+          ]) 
+        }
       }
 
-      const [result, _] = await dataBase.query(
-        "insert into Sprint (sprintName, state, FechaCreacion, FechaFinalizacion, idEpica) values (?, ?, ?, ?, ?)",
-        [
-          this.sprintName,
-          this.state,
-          this.FechaCreacion,
-          this.FechaFinalizacion,
-          this.idEpica,
-        ]
-      )
+      const query = `INSERT INTO Sprint (jiraID, sprintName, state, boardID, FechaCreacion, FechaFinalizacion, idEpica) VALUES (?, ?, ?, ?, ?, ?, ?)`
+
+      const result = await dataBase.query(query, [
+        this.jiraID,
+        this.sprintName,
+        this.state,
+        this.boardID,
+        this.FechaCreacion,
+        this.FechaFinalizacion,
+        this.idEpica,
+      ])
 
       this.id = result.insertId
 
@@ -123,12 +143,5 @@ module.exports = class Sprint {
       console.log(error)
       throw new Error(error)
     }
-  }
-
-  async exists() {
-    const query = "select * from Sprint where idSprint = ? and sprintName = ?"
-    const [result, _] = await dataBase.query(query, [this.id, this.sprintName])
-
-    return result.length > 0
   }
 }

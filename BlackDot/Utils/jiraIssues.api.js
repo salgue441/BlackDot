@@ -318,39 +318,81 @@ exports.getJiraIssuesFromSprint = async (sprintType) => {
  * @param {}
  */
 exports.saveIssuesToDB = async () => {
-  const activesIssues = await exports.getJiraIssuesFromSprint("active")
-  const closedIssues = await exports.getJiraIssuesFromSprint("closed")
-
   try {
-    for (let issue of activesIssues[0].issues) {
-      const newIssue = new Issue({
-        issueKey: issue.key,
-        nombreIssue: issue.summary,
-        storyPoints: issue.storyPoints,
-        labelIssue: issue.labels.join(","),
-        prioridadIssue: issue.priority,
-        estadoIssue: issue.status,
-        fechaCreacion: issue.created,
-        fechaFinalizacion: issue.resolutiondate,
-      })
+    const activesIssues = await exports.getJiraIssuesFromSprint("active")
+    const closedIssues = await exports.getJiraIssuesFromSprint("closed")
 
-      const newSprint = new Sprint({
-        sprintName: activesIssues[0].sprintName,
-        state: activesIssues[0].sprintState,
-        boardID: activesIssues[0].originBoardID,
-        FechaCreacion: activesIssues[0].sprintStartDate,
-        FechaFinalizacion: activesIssues[0].sprintEndDate,
-        idEpica: issue.epic.key,
-      })
+    // Saving active sprints
+    const processedDataActive = new Set()
 
-      await newIssue.save()
-      await newSprint.save()
+    for (const sprint of activesIssues) {
+      if (!processedDataActive.has(sprint.sprintID)) {
+        const newSprint = new Sprint({
+          jiraID: sprint.sprintID,
+          sprintName: sprint.sprintName,
+          state: sprint.sprintState,
+          boardID: sprint.originBoardID,
+          FechaCreacion: sprint.sprintStartDate,
+          FechaFinalizacion: sprint.sprintEndDate,
+        })
 
-      console.log("Issue saved: " + issue.key)
+        await newSprint.save()
+        processedDataActive.add(sprint.sprintID)
+
+        for (const issue of sprint.issues) {
+          const newIssue = new Issue({
+            issueKey: issue.key,
+            nombreIssue: issue.summary,
+            storyPoints: issue.storyPoints,
+            labelIssue: issue.labels.join(","),
+            prioridadIssue: issue.priority,
+            estadoIssue: issue.status,
+            fechaCreacion: issue.created,
+            fechaFinalizacion: issue.resolutiondate,
+            idEpica: issue.epic.key,
+          })
+
+          await newIssue.save()
+        }
+      }
     }
 
     // Saving closedIssues
-    for (let i = 0; i < closedIssues.length; i++) {}
+    const processedDataClosed = new Set()
+
+    for (const sprint of closedIssues) {
+      if (!processedDataClosed.has(sprint.sprintID)) {
+        const newSprint = new Sprint({
+          jiraID: sprint.sprintID,
+          sprintName: sprint.sprintName,
+          state: sprint.sprintState,
+          boardID: sprint.originBoardID,
+          FechaCreacion: sprint.sprintStartDate,
+          FechaFinalizacion: sprint.sprintEndDate,
+        })
+
+        await newSprint.save()
+        processedDataClosed.add(sprint.sprintID)
+
+        for (const issue of sprint.issues) {
+          const newIssue = new Issue({
+            issueKey: issue.key,
+            nombreIssue: issue.summary,
+            storyPoints: issue.storyPoints,
+            labelIssue: issue.labels.join(","),
+            prioridadIssue: issue.priority,
+            estadoIssue: issue.status,
+            fechaCreacion: issue.created,
+            fechaFinalizacion: issue.resolutiondate,
+            idEpica: issue.epic.key,
+          })
+
+          await newIssue.save()
+        }
+      }
+    }
+
+    console.log("Issues saved to DB")
   } catch (error) {
     console.log(error)
     throw new Error(error)

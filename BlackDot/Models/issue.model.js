@@ -73,6 +73,23 @@ module.exports = class Issue {
 
   /**
    * @brief
+   * Gets an issue by its Jira ID
+   * @param {*} jiraID - Jira ID of the issue
+   */
+  static async getByJiraID(jiraID) {
+    const query = `select * from issue where issueKey = ?`
+
+    const [rows] = await dataBase.query(query, [jiraID])
+
+    if (rows.length === 0) {
+      return null
+    }
+
+    return new Issue(rows[0])
+  }
+
+  /**
+   * @brief
    * Gets all issues
    * @return {Array} - Returns an array of issues
    */
@@ -131,17 +148,29 @@ module.exports = class Issue {
    */
   async save() {
     try {
-      if (await this.exists()) {
-        const [result] = await dataBase.query(
-          "update issue set ? where idIssue = ?",
-          [this, this.idIssue]
-        )
+      if (this.issueKey) {
+        const existingIssue = await Issue.getByJiraID(this.issueKey)
 
-        return result
+        if (existingIssue) {
+          const query = `update issue set nombreIssue = ?, storyPoints = ?, labelIssue = ?, prioridadIssue = ?, estadoIssue = ?, fechaCreacion = ?, fechaFinalizacion = ? where idIssue = ? and issueKey = ?`
+
+          const [result] = await dataBase.query(query, [
+            this.nombreIssue,
+            this.storyPoints,
+            this.labelIssue,
+            this.prioridadIssue,
+            this.estadoIssue,
+            this.fechaCreacion,
+            this.fechaFinalizacion,
+            this.idIssue,
+            this.issueKey,
+          ])
+
+          return result
+        }
       }
 
-      const query =
-        "insert into issue (issueKey, nombreIssue, storyPoints, labelIssue, prioridadIssue, estadoIssue, fechaCreacion, fechaFinalizacion) values (?, ?, ?, ?, ?, ?, ?, ?)"
+      const query = `insert into issue(issueKey, nombreIssue, storyPoints, labelIssue, prioridadIssue, estadoIssue, fechaCreacion, fechaFinalizacion) values(?, ?, ?, ?, ?, ?, ?, ?)`
 
       const [result] = await dataBase.query(query, [
         this.issueKey,
@@ -160,20 +189,6 @@ module.exports = class Issue {
     } catch (error) {
       console.log(error)
       throw new Error(`Error al guardar el issue: ${error.message}`)
-    }
-  }
-
-  /**
-   * @brief
-   * Verifies if an issue exists in the database
-   */
-  async exists() {
-    try {
-      const issue = await Issue.getByID(this.idIssue)
-
-      return Boolean(issue)
-    } catch (error) {
-      return false
     }
   }
 
