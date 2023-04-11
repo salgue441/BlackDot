@@ -58,6 +58,7 @@ create table if not exists Epica
 create table if not exists Sprint
 (
     idSprint int not null auto_increment primary key, 
+    jiraID int unique,
     sprintName varchar(200),
     state varchar(50),
     boardID int not null,
@@ -70,7 +71,7 @@ create table if not exists Sprint
 create table if not exists Issue
 (
     idIssue int not null auto_increment primary key,
-    issueKey varchar(30),
+    issueKey varchar(30) unique,
     nombreIssue varchar (150) not null, 
     storyPoints int not null default 0,
     labelIssue varchar (100),
