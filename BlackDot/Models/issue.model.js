@@ -131,29 +131,17 @@ module.exports = class Issue {
    */
   async save() {
     try {
-      if (this.idIssue) {
-        const existingIssue = await Issue.getByID(this.idIssue)
+      if (await this.exists()) {
+        const [result] = await dataBase.query(
+          "update issue set ? where idIssue = ?",
+          [this, this.idIssue]
+        )
 
-        if (existingIssue) {
-          const query = `update issue set issueKey = ?, nombreIssue = ?, storyPoints = ?, labelIssue = ?, prioridadIssue = ?, estadoIssue = ?, fechaCreacion = ?, fechaFinalizacion = ? where idIssue = ?`
-
-          await dataBase.query(query, [
-            this.issueKey,
-            this.nombreIssue,
-            this.storyPoints,
-            this.labelIssue,
-            this.prioridadIssue,
-            this.estadoIssue,
-            this.fechaCreacion,
-            this.fechaFinalizacion,
-            this.idIssue,
-          ])
-
-          return this
-        }
+        return result
       }
 
-      const query = `insert into issue (issueKey, nombreIssue, storyPoints, labelIssue, prioridadIssue, estadoIssue, fechaCreacion, fechaFinalizacion) values (?, ?, ?, ?, ?, ?, ?, ?)`
+      const query =
+        "insert into issue (issueKey, nombreIssue, storyPoints, labelIssue, prioridadIssue, estadoIssue, fechaCreacion, fechaFinalizacion) values (?, ?, ?, ?, ?, ?, ?, ?)"
 
       const [result] = await dataBase.query(query, [
         this.issueKey,
@@ -168,9 +156,24 @@ module.exports = class Issue {
 
       this.idIssue = result.insertId
 
-      return this
+      return result
     } catch (error) {
+      console.log(error)
       throw new Error(`Error al guardar el issue: ${error.message}`)
+    }
+  }
+
+  /**
+   * @brief
+   * Verifies if an issue exists in the database
+   */
+  async exists() {
+    try {
+      const issue = await Issue.getByID(this.idIssue)
+
+      return Boolean(issue)
+    } catch (error) {
+      return false
     }
   }
 
