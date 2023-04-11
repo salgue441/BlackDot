@@ -19,6 +19,7 @@ const path = require("path")
 // Data Models
 const Retro = require("../models/retro.model")
 const Pregunta = require("../models/pregunta.model")
+const BancoPreguntas = require("../models/bancopreguntas.model")
 const Cualitativa = require("../models/cualitativa.model")
 const Cuantitativa = require("../models/cuantitativa.model")
 const Accionable = require("../models/accionable.model")
@@ -241,7 +242,7 @@ exports.getPaginaEnviado = async (req, res) => {
 
 exports.getCrearRetroalimentacion = async (req, res) => {
   try {
-    await Pregunta.getAll().then((preguntas) => {
+    await BancoPreguntas.getAll().then((preguntas) => {
       // Render the EJS template with the preguntas and progress variables
       res.render("Static/crearRetro/crearRetroalimentacion.ejs", {
         preguntas,
@@ -333,11 +334,8 @@ exports.postEditarPreguntas = async (req, res) => {
 exports.getEliminarPreguntas = async (req, res) => {
   const idPregunta = parseInt(req.params.id) || -1
 
-  console.log(idPregunta)
-
   try {
-    pregunta = new Pregunta({})
-    await pregunta.deleteByID(idPregunta)
+    await BancoPreguntas.deleteByID(idPregunta)
     res.redirect("/editar/crearRetroalimentacion")
   } catch (error) {
     res.render(path.join(__dirname, "../Views/Static/error.ejs"), { error })

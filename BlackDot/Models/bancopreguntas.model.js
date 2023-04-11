@@ -56,13 +56,14 @@ module.exports = class BancoPregunta {
   static async deleteByID(idPreguntaBanco) {
     if (!idPreguntaBanco) throw new Error("No se envio el ID")
     if (typeof idPreguntaBanco !== "number")
-      throw new Error("El ID no es un numero")
-    const [pregunta] = await dataBase.query(
-      `delete from BancoPreguntas where idPreguntaBanco = ?`,
+      throw new Error("El ID debe ser un numero")
+
+    const result = await dataBase.query(
+      `delete from bancoPreguntas where idPreguntaBanco = ?`,
       [idPreguntaBanco]
     )
-    if (pregunta.length === 0) throw new Error("Pregunta no encontrada")
-    return new BancoPregunta(pregunta[0])
+
+    return result.rowCount > 0
   }
 
   /**
