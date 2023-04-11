@@ -82,7 +82,7 @@ app.use(session({
 }));
 
 app.get('/login', function(req, res) {
-  res.render('pages/auth');
+  res.render('Static/auth');
 });
 
 // index.js
