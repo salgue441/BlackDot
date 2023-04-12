@@ -14,30 +14,31 @@
                     </div>
                 </section>
             </div>
-            <div class="column">
+            <div class="column is-vcentered">
                 <section>
-                    
-                  <a href="/auth/google" class="btn btn-danger"><span class="fa fa-google"></span>
-                    <div id="g_id_onload"
-                    data-client_id="549053021714-vunpaljl9nn3t0qpogjeq3m6o40v8h36.apps.googleusercontent.com"
-                    data-context="signin"
-                    data-ux_mode="redirect"
-                    data-login_uri="http://localhost:3000/auth/google/callback"
-                    data-nonce=""
-                    data-itp_support="true">
-                    </div>
-                    
-                    <div class="g_id_signin"
-                          data-type="standard"
-                          data-shape="pill"
-                          data-theme="filled_black"
-                          data-text="signin_with"
-                          data-size="large"
-                          data-locale="en"
-                          data-logo_alignment="left"
-                          data-width="80">
-                    </div>
-                  </a>          
+                  <div class="container1">
+                    <a href="/auth/google" class="btn btn-danger"><span class="fa fa-google"></span>
+                      <div id="g_id_onload"
+                      data-client_id="549053021714-vunpaljl9nn3t0qpogjeq3m6o40v8h36.apps.googleusercontent.com"
+                      data-context="signin"
+                      data-ux_mode="redirect"
+                      data-login_uri="http://localhost:3000/auth/google/callback"
+                      data-nonce=""
+                      data-itp_support="true">
+                      </div>
+                      
+                      <div class="g_id_signin"
+                            data-type="standard"
+                            data-shape="pill"
+                            data-theme="filled_black"
+                            data-text="signin_with"
+                            data-size="large"
+                            data-locale="en"
+                            data-logo_alignment="left"
+                            data-width="200">
+                      </div>
+                    </a>
+                  </div>            
                 </section>
             </div>  
         </div>        
@@ -61,8 +62,15 @@
     width: 100%;
   }
 
+  .container1{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+
   .title {
-    color: #ffffff;
+    color: #065BB7;
   }
 
   .is-1 {
