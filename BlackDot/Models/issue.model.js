@@ -148,26 +148,23 @@ module.exports = class Issue {
    */
   async save() {
     try {
-      if (this.issueKey) {
-        const existingIssue = await Issue.getByJiraID(this.issueKey)
+      const existingIssue = await Issue.getByJiraID(this.issueKey)
 
-        if (existingIssue) {
-          const query = `update issue set nombreIssue = ?, storyPoints = ?, labelIssue = ?, prioridadIssue = ?, estadoIssue = ?, fechaCreacion = ?, fechaFinalizacion = ? where idIssue = ? and issueKey = ?`
+      if (existingIssue) {
+        const query = `update issue set nombreIssue = ?, storyPoints = ?, labelIssue = ?, prioridadIssue = ?, estadoIssue = ?, fechaCreacion = ?, fechaFinalizacion = ? where issueKey = ?`
 
-          const [result] = await dataBase.query(query, [
-            this.nombreIssue,
-            this.storyPoints,
-            this.labelIssue,
-            this.prioridadIssue,
-            this.estadoIssue,
-            this.fechaCreacion,
-            this.fechaFinalizacion,
-            this.idIssue,
-            this.issueKey,
-          ])
+        const [result] = await dataBase.query(query, [
+          this.nombreIssue,
+          this.storyPoints,
+          this.labelIssue,
+          this.prioridadIssue,
+          this.estadoIssue,
+          this.fechaCreacion,
+          this.fechaFinalizacion,
+          this.issueKey,
+        ])
 
-          return result
-        }
+        return result
       }
 
       const query = `insert into issue(issueKey, nombreIssue, storyPoints, labelIssue, prioridadIssue, estadoIssue, fechaCreacion, fechaFinalizacion) values(?, ?, ?, ?, ?, ?, ?, ?)`
@@ -185,7 +182,7 @@ module.exports = class Issue {
 
       this.idIssue = result.insertId
 
-      return result
+      return this
     } catch (error) {
       console.log(error)
       throw new Error(`Error al guardar el issue: ${error.message}`)

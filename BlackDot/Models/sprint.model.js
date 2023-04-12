@@ -106,13 +106,12 @@ module.exports = class Sprint {
    */
   async save() {
     try {
-      if (this.jiraID) {
-        const existingSprint = await Sprint.getByJiraID(this.jiraID)
+      const existingSprint = await Sprint.getByJiraID(this.jiraID)
 
-        if (existingSprint) {
-          const query = `UPDATE Sprint SET sprintName = ?, state = ?, boardID = ?, FechaCreacion = ?, FechaFinalizacion = ?, idEpica = ? WHERE jiraID = ?`
-
-          const [result] = await dataBase.query(query, [
+      if (existingSprint) {
+        const [result, _] = await dataBase.query(
+          "UPDATE Sprint SET sprintName = ?, state = ?, boardID = ?, FechaCreacion = ?, FechaFinalizacion = ?, idEpica = ? WHERE jiraID = ?",
+          [
             this.sprintName,
             this.state,
             this.boardID,
@@ -120,28 +119,39 @@ module.exports = class Sprint {
             this.FechaFinalizacion,
             this.idEpica,
             this.jiraID,
-          ]) 
+          ]
+        )
+
+        if (result.affectedRows === 0) {
+          throw new Error("No se pudo actualizar el sprint")
         }
+
+        return existingSprint
       }
 
-      const query = `INSERT INTO Sprint (jiraID, sprintName, state, boardID, FechaCreacion, FechaFinalizacion, idEpica) VALUES (?, ?, ?, ?, ?, ?, ?)`
+      const [result, _] = await dataBase.query(
+        "INSERT INTO Sprint (jiraID, sprintName, state, boardID, FechaCreacion, FechaFinalizacion, idEpica) VALUES (?, ?, ?, ?, ?, ?, ?)",
+        [
+          this.jiraID,
+          this.sprintName,
+          this.state,
+          this.boardID,
+          this.FechaCreacion,
+          this.FechaFinalizacion,
+          this.idEpica,
+        ]
+      )
 
-      const result = await dataBase.query(query, [
-        this.jiraID,
-        this.sprintName,
-        this.state,
-        this.boardID,
-        this.FechaCreacion,
-        this.FechaFinalizacion,
-        this.idEpica,
-      ])
+      if (result.affectedRows === 0) {
+        throw new Error("No se pudo guardar el sprint")
+      }
 
       this.id = result.insertId
 
       return this
     } catch (error) {
       console.log(error)
-      throw new Error(error)
+      throw new Error(`Error al guardar el sprint: ${error.message}`)
     }
   }
 }
