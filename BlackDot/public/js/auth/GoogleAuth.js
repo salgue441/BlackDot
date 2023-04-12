@@ -13,8 +13,8 @@ async function handleLogin(response) {
       const res = await loginResponse.json();
   
       // Save tokens in httpOnly cookies
-      document.cookie = `rzauthToken=${res.authToken}; path=/;`;
-      document.cookie = `rzrefreshToken=${res.refreshToken}; path=/;`;
+      document.cookie = `rzauthToken=${res.authToken}; path=/;`; ///NEED to change name
+      document.cookie = `rzrefreshToken=${res.refreshToken}; path=/;`; //NEED to change name to
   
       // Redirect to dashboard
       if (loginResponse.ok) {
