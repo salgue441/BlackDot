@@ -114,8 +114,8 @@ passport.deserializeUser(function(obj, cb) {
 /*  Google AUTH  */
  
 const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
-const GOOGLE_CLIENT_ID = '549053021714-vunpaljl9nn3t0qpogjeq3m6o40v8h36.apps.googleusercontent.com';
-const GOOGLE_CLIENT_SECRET = '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';
+const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID;
+const GOOGLE_CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET;
 passport.use(new GoogleStrategy({
     clientID: GOOGLE_CLIENT_ID,
     clientSecret: GOOGLE_CLIENT_SECRET,
@@ -137,5 +137,5 @@ app.get('/auth/google/callback',
   function(req, res) {
     // Successful authentication, redirect success.
     console.log("no es 8")
-    res.redirect('/Static/succes.ejs');
+    res.redirect('/succes');
   });
