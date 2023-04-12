@@ -21,8 +21,7 @@
       <br />
       <h2 class="subtitle">Banco de preguntas</h2>
 
-      <% for (var i = 0; i < preguntas.length; i++) { %>
-      <%if(preguntas[i].idPreguntaBanco != 8) { %> <% if
+      <% for (var i = 0; i < preguntas.length; i++) { %> <% if
       (preguntas[i].tipoPregunta === 'Cualitativa') { %>
       <div
         class="box PreguntaContainer is-flex is-justify-content-space-between"
@@ -91,10 +90,12 @@
           </a>
         </div>
       </div>
-      <%} %> <% } %> <% } %>
-      <a class="button is-danger mt-5 mb-5 is-medium"
-        >Crear Retroalimentacion</a
-      >
+      <%} %> <% } %>
+      <a
+        class="button is-danger mt-5 mb-5 is-medium"
+        href="/editar/crearRetroalimentacion/exitosa"
+        >Crear Retroalimentacion
+      </a>
     </section>
   </body>
 </html>

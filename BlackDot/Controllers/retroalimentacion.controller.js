@@ -25,6 +25,7 @@ const Cuantitativa = require("../models/cuantitativa.model")
 const Accionable = require("../models/accionable.model")
 const CualitativaAccionable = require("../models/cuali-accionable.model")
 const retroPregunta = require("../models/retro-pregunta.model")
+const Sprint = require("../models/sprint.model")
 
 bodyparser.urlencoded({ extended: true })
 
@@ -324,6 +325,43 @@ exports.getEliminarPreguntas = async (req, res) => {
   try {
     await BancoPreguntas.deleteByID(idPregunta)
     res.redirect("/editar/crearRetroalimentacion")
+  } catch (error) {
+    res.render(path.join(__dirname, "../Views/Static/error.ejs"), { error })
+  }
+}
+
+exports.getRetroalimentacionExitosa = async (req, res) => {
+  try {
+    await BancoPreguntas.getAll().then((bancoPreguntas) => {
+      for (let i = 0; i < bancoPreguntas.length; i++) {
+        const nuevaPregunta = new Pregunta({
+          contenido: bancoPreguntas[i].contenido,
+          tipoPregunta: bancoPreguntas[i].tipoPregunta,
+        })
+
+        // nuevaPregunta.save()
+      }
+
+      const fechaActual = new Date()
+
+      const FechaCreacion = fechaActual.toISOString().split("T")[0].toString()
+
+      fechaActual.setDate(fechaActual.getDate() + 1)
+
+      const FechaFinalizacion = fechaActual
+        .toISOString()
+        .split("T")[0]
+        .toString()
+
+      try {
+        Sprint.getSprintActual().then((sprint) => {
+          console.log(sprint)
+          res.render("../Views/Static/crearRetro/creacionexitosa.ejs")
+        })
+      } catch (error) {
+        res.render(path.join(__dirname, "../Views/Static/error.ejs"), { error })
+      }
+    })
   } catch (error) {
     res.render(path.join(__dirname, "../Views/Static/error.ejs"), { error })
   }
