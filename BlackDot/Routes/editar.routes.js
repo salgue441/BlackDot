@@ -23,4 +23,9 @@ router.get(
   crearRetroalimentacion.getEliminarPreguntas
 )
 
+router.get(
+  "/crearRetroalimentacion/exitosa",
+  crearRetroalimentacion.getRetroalimentacionExitosa
+)
+
 module.exports = router
