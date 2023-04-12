@@ -3,13 +3,13 @@ function setTokens(tokens) {
     const { authToken, refreshToken } = tokens;
   
     if (authToken) {
-      document.cookie = `rzauthToken=${authToken}; expires=${new Date(
+      document.cookie = `rzauthToken=${authToken}; expires=${new Date(  ///NEED to change 
         Date.now() + 1000 * 60 * 60 * 24 * 30
       )}; path=/;`;
     }
   
     if (refreshToken) {
-      document.cookie = `rzrefreshToken=${refreshToken}; expires=${new Date(
+      document.cookie = `rzrefreshToken=${refreshToken}; expires=${new Date(   ///NEED to change 
         Date.now() + 1000 * 60 * 60 * 24 * 30
       )}; path=/;`;
     }
@@ -22,15 +22,15 @@ function setTokens(tokens) {
       const [key, value] = cookie.split("=");
       tokens[key.trim()] = value;
     });
-    return { authToken: tokens.rzauthToken, refreshToken: tokens.rzrefreshToken };
+    return { authToken: tokens.rzauthToken, refreshToken: tokens.rzrefreshToken };   ///NEED to change 
   }
   
   function deleteTokens() {
     // Delete cookies
     document.cookie =
-      "rzauthToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+      "rzauthToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";   ///NEED to change 
     document.cookie =
-      "rzrefreshToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+      "rzrefreshToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";   ///NEED to change 
   }
   
   function decodeJwtResponse(token) {
