@@ -119,6 +119,7 @@ passport.use(new GoogleStrategy({
     clientSecret: GOOGLE_CLIENT_SECRET,
     callbackURL: "http://localhost:3000/auth/google/callback"
   },
+  
   function(accessToken, refreshToken, profile, done) {
       userProfile=profile;
       return done(null, userProfile);
@@ -130,7 +131,9 @@ app.get('/auth/google',
  
 app.get('/auth/google/callback', 
   passport.authenticate('google', { failureRedirect: '/error' }),
+  
   function(req, res) {
     // Successful authentication, redirect success.
-    res.redirect('/success');
+    console.log("no es 8")
+    res.redirect('/Static/succes.ejs');
   });
