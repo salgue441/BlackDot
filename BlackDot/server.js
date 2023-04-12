@@ -82,8 +82,8 @@ app.use(session({
   secret: 'SECRET' 
 }));
 
-app.get('/login', function(req, res) {
-  res.render("../Views/Static/login.ejs")
+app.get('/auth', function(req, res) {
+  res.render("../Views/Static/auth.ejs")
 });
 
 // index.js
