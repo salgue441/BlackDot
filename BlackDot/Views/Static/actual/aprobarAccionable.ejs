@@ -33,7 +33,6 @@
                 <img src="" alt="User Image" />
               </div>
               <!-- End of Image -->
-
               <!-- User -->
               <div class="column is-2">
                 <div class="content user">
@@ -41,7 +40,6 @@
                 </div>
               </div>
               <!-- End of User -->
-
               <!-- Accionable content -->
               <div class="column is-8">
                 <div class="content">
@@ -79,19 +77,14 @@
           const checkboxes = document.querySelectorAll(
             'input[type="checkbox"][name="accionable"]'
           )
-
           accionables = "<%= ids %>"
-
           idsAccionables = []
-
           //Selects the input that will send the ids of the checked checkboxes
           const input = document.querySelector('input[name="puente"]')
-
           for (let i = 0; i < checkboxes.length; i++) {
             const checkbox = checkboxes[i]
             const id = checkbox.id.split("-").pop()
             const isChecked = checkbox.checked
-
             // Add the checkbox to the accionables array if it's checked
             if (isChecked) {
               idsAccionables.push(id)
@@ -129,7 +122,6 @@
   .is-black {
     background-color: #232021 !important;
   }
-
   .accionable {
     display: flex;
     align-items: center;
@@ -137,18 +129,15 @@
     height: 100px;
     text-align: left;
   }
-
   .is-white {
     color: #ffffff !important;
   }
-
   .accionable-toggle {
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100px;
   }
-
   .checkbox {
     position: relative;
     display: flex;
@@ -164,7 +153,6 @@
     border: 2px solid #fff;
     border-radius: 4px;
   }
-
   .checkbox::before {
     content: "";
     position: absolute;
@@ -178,11 +166,9 @@
     opacity: 0;
     transition: opacity 0.2s ease-in-out;
   }
-
   .checkbox:checked::before {
     opacity: 1;
   }
-
   .Enviar{
     width: 10rem;
     height: 4rem;
