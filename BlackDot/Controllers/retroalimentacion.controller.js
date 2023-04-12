@@ -297,18 +297,23 @@ exports.postEditarPreguntas = async (req, res) => {
       res.render(path.join(__dirname, "../Views/Static/error.ejs"), { error })
     }
   } else {
-    const pregunta = new BancoPreguntas({
-      idPreguntaBanco: preguntatest.idPreguntaBanco,
-      contenido: preguntatest.contenido,
-      tipoPregunta: preguntatest.tipoPregunta,
-    })
+    if (preguntatest.contenido.length < 300) {
+      const pregunta = new BancoPreguntas({
+        idPreguntaBanco: preguntatest.idPreguntaBanco,
+        contenido: preguntatest.contenido,
+        tipoPregunta: preguntatest.tipoPregunta,
+      })
 
-    console.log(pregunta)
-    try {
-      await pregunta.update()
-      res.redirect("/editar/crearRetroalimentacion")
-    } catch (error) {
-      res.render(path.join(__dirname, "../Views/Static/error.ejs"), { error })
+      try {
+        await pregunta.update()
+        res.redirect("/editar/crearRetroalimentacion")
+      } catch (error) {
+        res.render(path.join(__dirname, "../Views/Static/error.ejs"), { error })
+      }
+    } else {
+      res.render(path.join(__dirname, "../Views/Static/error.ejs"), {
+        error: "La pregunta no puede tener mas de 300 caracteres",
+      })
     }
   }
 }
