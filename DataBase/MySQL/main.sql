@@ -83,14 +83,14 @@ create table if not exists Retroalimentacion
     fechaCreacion timestamp not null default current_timestamp, 
     fechaFinalizacion timestamp not null default current_timestamp,
 
-    idSprint int not null,
-    idReporte int not null
+    idSprint int not null
 );
 
 create table if not exists Reporte
 (
     idReporte int not null auto_increment primary key,
-    fechaCreacion timestamp default current_timestamp not null
+    fechaCreacion timestamp default current_timestamp not null,
+    idRetroalimentacion int not null
 );
 
 create table if not exists Pregunta
@@ -224,8 +224,8 @@ create table if not exists CualitativaAccionable
 
 -- Alterando las tablas para aniadir las llaves foraneas
 alter table Retroalimentacion
-add constraint fk_idSprint foreign key (idSprint) references Sprint(idSprint),
-add constraint fk_idReporte foreign key (idReporte) references Reporte (idReporte);
+add constraint fk_idSprint foreign key (idSprint) references Sprint(idSprint);
+
 
 alter table Cuantitativa
 add constraint fk_idPreguntaCuanti foreign key (idPregunta) references RetroalimentacionPregunta(idPregunta),
@@ -234,3 +234,6 @@ add constraint fk_idRetroalimentacionCuanti foreign key (idRetroalimentacion) re
 alter table Cualitativa
 add constraint fk_idPreguntaCuali foreign key (idPregunta) references RetroalimentacionPregunta(idPregunta),
 add constraint fk_idRetroalimentacionCuali foreign key (idRetroalimentacion) references RetroalimentacionPregunta (idRetroalimentacion);
+
+alter table Reporte
+add constraint fk_idRetroalimentacion foreign key (idRetroalimentacion) references Retroalimentacion (idRetroalimentacion);

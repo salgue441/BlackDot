@@ -355,7 +355,16 @@ exports.getRetroalimentacionExitosa = async (req, res) => {
 
       try {
         Sprint.getSprintActual().then((sprint) => {
-          console.log(sprint)
+          const idSprint = sprint.id
+
+          const retroalimentacion = new Retro({
+            FechaCreacion,
+            FechaFinalizacion,
+            idSprint,
+          })
+
+          // retroalimentacion.save()
+
           res.render("../Views/Static/crearRetro/creacionexitosa.ejs")
         })
       } catch (error) {

@@ -17,7 +17,6 @@ module.exports = class Retroalimentacion {
     this.FechaCreacion = retro.FechaCreacion
     this.FechaFinalizacion = retro.FechaFinalizacion
     this.idSprint = retro.idSprint
-    this.idReporte = retro.idReporte
   }
 
   /**
@@ -55,13 +54,8 @@ module.exports = class Retroalimentacion {
    */
   async save() {
     await dataBase.query(
-      "insert into retroalimentacion (FechaCreacion, FechaFinalizacion, idSprint, idReporte) values (?,?,?,?)",
-      [
-        this.FechaCreacion,
-        this.FechaFinalizacion,
-        this.idSprint,
-        this.idReporte,
-      ]
+      "insert into retroalimentacion (FechaCreacion, FechaFinalizacion, idSprint) values (?,?,?)",
+      [this.FechaCreacion, this.FechaFinalizacion, this.idSprint]
     )
   }
 
