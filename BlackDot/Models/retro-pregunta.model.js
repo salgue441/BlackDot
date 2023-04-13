@@ -8,7 +8,7 @@
  * @copyright Copyright (c) 2023 - MIT License
  */
 
-const dataBase = require("../utils/dataBase")
+const dataBase = require("../Utils/dataBase")
 
 /**
  * @brief
@@ -182,6 +182,22 @@ class retroPregunta {
     } catch (error) {
       throw new Error(error)
     }
+  }
+
+  /**
+   * @brief
+   * Guarda una retroPregunta en la base de datos
+   * @param {int} idRetroalimentacion - ID de la retroalimentacion
+   * @param {int} idPregunta - ID de la pregunta
+   * */
+
+  static async save() {
+    const query = `insert into retroalimentacionPregunta (idRetroalimentacion, idPregunta) values (?, ?)`
+
+    const retro = await dataBase.query(query, [
+      this.idRetroalimentacion,
+      this.idPregunta,
+    ])
   }
 }
 

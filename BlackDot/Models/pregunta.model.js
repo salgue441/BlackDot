@@ -152,4 +152,21 @@ module.exports = class Pregunta {
 
     return this
   }
+
+  /**
+   * @brief
+   * Obtiene el id de la ultima pregunta ingresada.
+   * @returns {Promise<number>} - ID de la ultima pregunta
+   * @throws {Error} - Si no se pudo obtener el ID
+   * */
+
+  static async getLastId() {
+    const [pregunta] = await dataBase.query(
+      "select idPregunta from Pregunta order by idPregunta desc limit 1"
+    )
+
+    if (pregunta.length === 0) throw new Error("No se pudo obtener el ID")
+
+    return pregunta[0].idPregunta
+  }
 }

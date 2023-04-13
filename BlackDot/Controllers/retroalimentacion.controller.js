@@ -332,16 +332,9 @@ exports.getEliminarPreguntas = async (req, res) => {
 
 exports.getRetroalimentacionExitosa = async (req, res) => {
   try {
+    //Se obtienen las preguntas del banco
     await BancoPreguntas.getAll().then((bancoPreguntas) => {
-      for (let i = 0; i < bancoPreguntas.length; i++) {
-        const nuevaPregunta = new Pregunta({
-          contenido: bancoPreguntas[i].contenido,
-          tipoPregunta: bancoPreguntas[i].tipoPregunta,
-        })
-
-        // nuevaPregunta.save()
-      }
-
+      //Se genera las fechas de incio y finalizacion de la Retroalimentacion
       const fechaActual = new Date()
 
       const FechaCreacion = fechaActual.toISOString().split("T")[0].toString()
@@ -354,18 +347,43 @@ exports.getRetroalimentacionExitosa = async (req, res) => {
         .toString()
 
       try {
+        //Se obtiene el id del sprint actual
         Sprint.getSprintActual().then((sprint) => {
           const idSprint = sprint.id
 
+          //Se crea la retroalimentacion
           const retroalimentacion = new Retro({
             FechaCreacion,
             FechaFinalizacion,
             idSprint,
           })
 
-          // retroalimentacion.save()
+          retroalimentacion.save()
 
-          res.render("../Views/Static/crearRetro/creacionexitosa.ejs")
+          Retro.getLastId().then((idRetro) => {
+            for (let i = 0; i < bancoPreguntas.length; i++) {
+              const nuevaPregunta = new Pregunta({
+                contenido: bancoPreguntas[i].contenido,
+                tipoPregunta: bancoPreguntas[i].tipoPregunta,
+              })
+
+              nuevaPregunta.save()
+
+              Pregunta.getLastId().then((idPregunta) => {
+                const newRetroPregunta = new retroPregunta({
+                  idRetroalimentacion: idRetro,
+                  idPregunta: idPregunta,
+                  required: 1,
+                })
+
+                console.log(newRetroPregunta)
+                newRetroPregunta.save()
+                console.log("Pregunta agregada")
+              })
+            }
+
+            res.render("../Views/Static/crearRetro/creacionexitosa.ejs")
+          })
         })
       } catch (error) {
         res.render(path.join(__dirname, "../Views/Static/error.ejs"), { error })

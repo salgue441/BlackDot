@@ -69,4 +69,17 @@ module.exports = class Retroalimentacion {
 
     return new Retroalimentacion(retro)
   }
+
+  /**
+   * @brief
+   * Obtiene la ultima id retroalimentacion
+   * @returns  id de la ultima retroalimentacion
+   */
+
+  static async getLastId() {
+    const query = `select * from retroalimentacion order by idRetroalimentacion desc limit 1`
+    const [rows] = await dataBase.execute(query)
+
+    return rows[0].idRetroalimentacion
+  }
 }
