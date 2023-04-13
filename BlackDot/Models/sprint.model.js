@@ -61,10 +61,12 @@ module.exports = class Sprint {
    * @param {string} jiraID - Jira key of the sprint
    */
   static async getByJiraID(jiraID) {
-    const [sprint, _] = await dataBase.query(
+    const [sprint] = await dataBase.query(
       "select * from Sprint where jiraID = ?",
       [jiraID]
     )
+
+    if (sprint.length === 0) return null
 
     return sprint
   }

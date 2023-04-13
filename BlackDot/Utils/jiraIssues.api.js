@@ -13,6 +13,7 @@ const axios = require("axios")
 // Data Models
 const Issue = require("../models/issue.model")
 const Sprint = require("../models/sprint.model")
+const Epica = require("../Models/epica.model")
 const Accionable = require("../models/accionable.model")
 
 // Functions
