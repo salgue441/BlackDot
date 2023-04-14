@@ -218,6 +218,10 @@ create table if not exists CualitativaAccionable
     foreign key (idAccionable) references Accionable (idAccionable)
 );
 
+create table if not exists token
+(
+    idToken varchar(100)
+)
 
 -- Alterando las tablas para aniadir las llaves foraneas
 alter table Retroalimentacion

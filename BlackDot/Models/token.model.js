@@ -1,6 +1,5 @@
-const db = require("../utils/db");  //cambiar   
-const ValidationError = require("../errors/ValidationError"); //CAMBIAR
-const validationMessages = require("../utils/messages").validation;  //CAMBIAR
+const dataBase = require("../utils/dataBase");
+
 
 //ESTO SOLO FUNCIONA SI HAVEMOS LA TABLA DE TOKENS. PREGUNTAR
 
@@ -26,7 +25,7 @@ class Token {
   static verify(token) {
     //id
     if (!token.id || token.id === undefined || token.id === null) {
-      throw new ValidationError("id", validationMessages.isMandatory);
+      throw new ValidationError("id", validationMessages.isMandatory); ///no tenemos esto, podemos enviar direct a login
     }
   }
 
