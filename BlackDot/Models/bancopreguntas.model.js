@@ -58,6 +58,9 @@ module.exports = class BancoPregunta {
     if (typeof idPreguntaBanco !== "number")
       throw new Error("El ID debe ser un numero")
 
+    if (!Number.isInteger(idPreguntaBanco))
+      throw new Error("El ID debe ser un numero entero")
+
     const result = await dataBase.query(
       `delete from bancoPreguntas where idPreguntaBanco = ?`,
       [idPreguntaBanco]

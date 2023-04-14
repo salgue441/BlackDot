@@ -60,14 +60,24 @@ module.exports = class Retroalimentacion {
   }
 
   static async getRetroActual() {
-    const fechaActual = new Date().toISOString().split("T")[0].toString()
+    const fechaActual =
+      new Date().toISOString().split("T")[0].toString() + " 01:00:00"
 
-    const retro = await dataBase.query(
+    const [retro, _] = await dataBase.query(
       "select * from retroalimentacion where FechaCreacion <= ? and FechaFinalizacion >= ?",
       [fechaActual, fechaActual]
     )
 
-    return new Retroalimentacion(retro)
+    if (retro.length == 0) return false
+
+    const retroActual = new Retroalimentacion({
+      id: retro[0].idRetroalimentacion,
+      FechaCreacion: retro[0].fechaCreacion,
+      FechaFinalizacion: retro[0].fechaFinalizacion,
+      idSprint: retro[0].idSprint,
+    })
+
+    return retroActual
   }
 
   /**
