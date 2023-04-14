@@ -169,4 +169,30 @@ module.exports = class Pregunta {
 
     return pregunta[0].idPregunta
   }
+
+  /**
+   * @brief
+   * Obtiene todas las preguntas a partir de un array de ids
+   * @param {Array<number>} ids - Array de ids de preguntas
+   * @returns {Promise<Pregunta[]>} - Arreglo de objetos de tipo Pregunta
+   * @throws {Error} - Si no se envia el array de ids
+   * @throws {Error} - Si el array de ids esta vacio
+   * @throws {Error} - Si el array de ids no es un array
+   * @throws {Error} - Si el array de ids no es un array de numeros
+   */
+
+  static async getByIds(ids) {
+    if (!ids) throw new Error("No se envio el array de ids")
+    if (ids.length === 0) throw new Error("El array de ids esta vacio")
+    if (!Array.isArray(ids)) throw new Error("El array de ids no es un array")
+    if (!ids.every((id) => typeof id === "number"))
+      throw new Error("El array de ids no es un array de numeros")
+
+    const [preguntas, _] = await dataBase.query(
+      `select * from Pregunta where idPregunta in (?)`,
+      [ids]
+    )
+
+    return preguntas
+  }
 }
