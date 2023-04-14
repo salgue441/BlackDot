@@ -282,16 +282,24 @@ exports.getPaginaEnviado = async (req, res) => {
 }
 
 exports.getCrearRetroalimentacion = async (req, res) => {
-  try {
-    await BancoPreguntas.getAll().then((preguntas) => {
-      // Render the EJS template with the preguntas and progress variables
-      res.render("Static/crearRetro/crearRetroalimentacion.ejs", {
-        preguntas,
+  Retro.getRetroActual().then(async (retro) => {
+    if (retro) {
+      res.render(path.join(__dirname, "../Views/Static/error.ejs"), {
+        error: "Ya hay una retroalimentacion activa",
       })
-    })
-  } catch (error) {
-    res.render(path.join(__dirname, "../Views/Static/error.ejs"), { error })
-  }
+    } else {
+      try {
+        await BancoPreguntas.getAll().then((preguntas) => {
+          // Render the EJS template with the preguntas and progress variables
+          res.render("Static/crearRetro/crearRetroalimentacion.ejs", {
+            preguntas,
+          })
+        })
+      } catch (error) {
+        res.render(path.join(__dirname, "../Views/Static/error.ejs"), { error })
+      }
+    }
+  })
 }
 
 exports.getEditarPreguntas = async (req, res) => {
@@ -388,7 +396,7 @@ exports.getRetroalimentacionExitosa = async (req, res) => {
 
       try {
         //Se obtiene el id del sprint actual
-        Sprint.getSprintActual().then((sprint) => {
+        Sprint.getSprintActual().then(async (sprint) => {
           const idSprint = sprint.id
 
           //Se crea la retroalimentacion
@@ -398,7 +406,7 @@ exports.getRetroalimentacionExitosa = async (req, res) => {
             idSprint,
           })
 
-          retroalimentacion.save()
+          await retroalimentacion.save()
 
           //Se obtiene el id de la retroalimentacion creada
           Retro.getLastId().then(async (idRetro) => {
