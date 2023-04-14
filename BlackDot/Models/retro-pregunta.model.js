@@ -191,7 +191,7 @@ class retroPregunta {
    * @param {int} idPregunta - ID de la pregunta
    * */
 
-  static async save() {
+  async save() {
     const query = `insert into retroalimentacionPregunta (idRetroalimentacion, idPregunta) values (?, ?)`
 
     const retro = await dataBase.query(query, [

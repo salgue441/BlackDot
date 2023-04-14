@@ -60,6 +60,7 @@ module.exports = class Sprint {
       [fechaActual, fechaActual]
     )
 
+    if (sprint.length == 0) throw new Error("No hay sprint actual")
     const sprintNew = new Sprint({
       id: sprint[0].idSprint,
       FechaCreacion: sprint[0].fechaCreacion,
