@@ -12,7 +12,7 @@ const renderLogin = (req, res) => {
   // SESSION
   req.session.currentUser = null;
   req.session.currentTeam = null;
-  req.session.activeTeams = [];
+  req.session.activeTeams = []; //no tenemos
 
   res.render("index", { title: "Login" });
 };
@@ -57,7 +57,7 @@ const loginAPI = async (req, res, next) => {
     const userData = {
       uid: uid || user.uid,
       id_google_auth: data.sub,
-      id_jira: id_jira || user.id_jira,
+      id_jira: id_jira || user.id_jira, //no tenemos 
       email: data.email,
       first_name: data.given_name,
       last_name: data.family_name,
@@ -99,7 +99,7 @@ const refreshTokenAPI = async (req, res, next) => {
     const userData = {
       uid: verified.uid,
       id_google_auth: verified.id_google_auth,
-      id_jira: verified.id_jira,
+      id_jira: verified.id_jira,  //no tenemos
       email: verified.email,
       first_name: verified.first_name,
       last_name: verified.last_name,
