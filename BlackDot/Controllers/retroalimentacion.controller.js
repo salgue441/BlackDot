@@ -423,6 +423,16 @@ exports.getRetroalimentacionExitosa = async (req, res) => {
               })
             }
 
+            //Se agrega la pregunta accionable
+
+            const accionable = new retroPregunta({
+              idRetroalimentacion: idRetro,
+              idPregunta: 8,
+              required: 1,
+            })
+
+            accionable.save()
+
             res.render("../Views/Static/crearRetro/creacionexitosa.ejs")
           })
         })
