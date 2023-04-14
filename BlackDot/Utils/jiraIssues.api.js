@@ -9,6 +9,7 @@
  * @copyright Copyright (c) 2023 - MIT License
  */
 const axios = require("axios")
+const Bottleneck = require("bottleneck")
 
 // Data Models
 const Issue = require("../models/issue.model")
@@ -16,26 +17,49 @@ const Sprint = require("../models/sprint.model")
 const Epica = require("../Models/epica.model")
 const Accionable = require("../models/accionable.model")
 
-// Functions
+// Auxiliar functions
 /**
  * @brief
- * Fectches the Jira board ID from the Jira project name.
- * @param {String} jiraUrl - Jira URL
- * @param {String} jiraUser - Jira user
- * @param {String} apiToken - Jira API token
- * @param {String} projectName - Jira project name
- * @param {String} boardName - Jira board name
- * @returns {String} - Returns the Jira board ID
+ * Creates a new limiter for the API requests. Prevents error 429.
+ * @param {Number} minTime - Time in milliseconds
+ */
+const limiter = new Bottleneck({
+  minTime: 1000,
+})
+
+// Wrapping axios
+const rateLimitedAxios = {
+  get: limiter.wrap(axios.get.bind(axios)),
+  post: limiter.wrap(axios.post.bind(axios)),
+}
+
+// Jira API
+/**
+ * @brief
+ * Fetches the boardID from the Jira API.
+ * @param {String} jiraURL - Jira URL from the .env file
+ * @param {String} jiraUser - Jira user from the .env file
+ * @param {String} apiToken - Jira API token from the .env file
+ * @param {String} projectKey - Jira project key from the .env file
+ * @param {String} jiraBoard - Jira board name from the .env file
+ * @returns {Number} boardID - Jira board ID
+ * @throws {Error} - If the board is not found
+ * @throws {Error} - If the project is not found
+ * @throws {Error} - If the user is not found
+ * @throws {Error} - If the API token is not found
+ * @throws {Error} - If the Jira URL is not found
  */
 const getBoardID = async (
   jiraUrl,
   jiraUser,
   apiToken,
   projectKey,
-  boardName
+  jiraBoard
 ) => {
   try {
-    const response = await axios.get(`${jiraUrl}/rest/agile/1.0/board`, {
+    const {
+      data: { values: boards },
+    } = await rateLimitedAxios.get(`${jiraUrl}/rest/agile/1.0/board`, {
       auth: {
         username: jiraUser,
         password: apiToken,
@@ -54,8 +78,7 @@ const getBoardID = async (
       },
     })
 
-    const boards = response.data.values
-    const board = boards.find((board) => board.name === boardName)
+    const board = boards.find((board) => board.name === jiraBoard)
 
     if (!board) {
       throw new Error("Board not found")
@@ -70,16 +93,18 @@ const getBoardID = async (
 
 /**
  * @brief
- * Gets the sprints associated with the Jira board.
- * @param {String} jiraUrl - Jira URL
- * @param {String} jiraUser - Jira user
- * @param {String} apiToken - Jira API token
+ * Fetches the sprints associated with the boardID from the Jira API.
+ * @param {String} jiraURL - Jira URL from the .env file
+ * @param {String} jiraUser - Jira user from the .env file
+ * @param {String} apiToken - Jira API token from the .env file
+ * @param {String} projectKey - Jira project key from the .env file
+ * @param {String} jiraBoard - Jira board name from the .env file
  */
 const getSprints = async (
   jiraUrl,
   jiraUser,
   apiToken,
-  projectName,
+  projectKey,
   boardName
 ) => {
   try {
@@ -87,11 +112,11 @@ const getSprints = async (
       jiraUrl,
       jiraUser,
       apiToken,
-      projectName,
+      projectKey,
       boardName
     )
 
-    const response = await axios.get(
+    const response = await rateLimitedAxios.get(
       `${jiraUrl}/rest/agile/1.0/board/${boardID}/sprint`,
       {
         auth: {
@@ -111,9 +136,8 @@ const getSprints = async (
 
     const sprints = response.data.values
 
-    if (sprints.length === 0) {
-      throw new Error(`No sprints found for board ${boardName}`)
-    }
+    if (sprints.length === 0)
+      throw new Error(`No sprints found for ${boardName}`)
 
     return sprints
   } catch (error) {
@@ -124,20 +148,18 @@ const getSprints = async (
 
 /**
  * @brief
- * Gets the total number of issues per sprint
- * @param {String} jiraUrl - Jira URL
- * @param {String} jiraUser - Jira user
- * @param {String} apiToken - Jira API token
- * @param {String} projectName - Jira project name
- * @param {String} boardName - Jira board name
- * @returns {Array} - Returns an array of objects containing the sprint ID,
- * sprint name, sprint state, and total number of issues
+ * Gets the total number of issues from a sprint.
+ * @param {String} jiraURL - Jira URL from the .env file
+ * @param {String} jiraUser - Jira user from the .env file
+ * @param {String} apiToken - Jira API token from the .env file
+ * @param {String} projectKey - Jira project key from the .env file
+ * @param {String} jiraBoard - Jira board name from the .env file
  */
-const getTotalNumberOfIssuesPerSprint = async (
+const getIssuesCount = async (
   jiraUrl,
   jiraUser,
   apiToken,
-  projectName,
+  projectKey,
   boardName
 ) => {
   try {
@@ -145,14 +167,11 @@ const getTotalNumberOfIssuesPerSprint = async (
       jiraUrl,
       jiraUser,
       apiToken,
-      projectName,
+      projectKey,
       boardName
     )
 
-    const sprintIssues = []
-
-    for (let i = 0; i < sprints.length; i++) {
-      const sprint = sprints[i]
+    const sprintIssuesCountPromises = sprints.map(async (sprint) => {
       const sprintID = sprint.id
       const sprintName = sprint.name
       const sprintState = sprint.state
@@ -184,16 +203,116 @@ const getTotalNumberOfIssuesPerSprint = async (
 
       const totalIssues = response.data.total
 
-      sprintIssues.push({
+      return {
         sprintID,
         sprintName,
         sprintState,
-        totalIssues,
         sprintStartDate,
         sprintEndDate,
         originBoardID,
-      })
-    }
+        totalIssues,
+      }
+    })
+
+    const sprintIssuesCount = await Promise.all(sprintIssuesCountPromises)
+    return sprintIssuesCount
+  } catch (error) {
+    console.log(error)
+    throw new Error(error)
+  }
+}
+
+/**
+ * @brief
+ * Fetches the issues from a sprint in chunks of 1000.
+ * @param {String} jiraURL - Jira URL from the .env file
+ * @param {String} jiraUser - Jira user from the .env file
+ * @param {String} apiToken - Jira API token from the .env file
+ * @param {String} projectKey - Jira project key from the .env file
+ * @param {String} jiraBoard - Jira board name from the .env file
+ * @param {Number} startAt - The starting index of the issue to be fetched
+ */
+const fetchIssuesInChunks = async (
+  sprintID,
+  startAt,
+  jiraUrl,
+  jiraUser,
+  apiToken,
+  projectName
+) => {
+  try {
+    const response = await rateLimitedAxios.get(
+      `${jiraUrl}/rest/agile/1.0/sprint/${sprintID}/issue`,
+      {
+        auth: {
+          username: jiraUser,
+          password: apiToken,
+        },
+        params: {
+          jql: `project = ${projectName} AND sprint = ${sprintID} ORDER BY created DESC`,
+          maxResults: 1000,
+          fields: [
+            "parent", // Epics
+            "summary",
+            "status",
+            "priority",
+            "created",
+            "resolutiondate",
+            "labels",
+            "customfield_10042", // Story Points
+            "customfield_10010", // Sprint
+          ],
+          startAt,
+        },
+        headers: {
+          Accept: "application/json",
+        },
+        validateStatus: (status) => {
+          return status >= 200 && status < 300
+        },
+      }
+    )
+
+    return response.data.issues
+  } catch (error) {
+    console.log(error)
+    throw new Error(error)
+  }
+}
+
+/**
+ * @brief
+ * Fetches all the issues from all the sprints in a Jira board.
+ * @returns {Array} - An array of objects containing the sprint ID and
+ *                   the issues in the sprint
+ */
+const getJiraIssuesFromSprint = async () => {
+  const jiraUrl = process.env.JIRA_URL
+  const jiraUser = process.env.JIRA_USER
+  const apiToken = process.env.JIRA_API_TOKEN
+  const projectName = process.env.JIRA_PROJECT_NAME
+  const boardName = process.env.JIRA_BOARD_NAME
+
+  try {
+    const sprintIssuesCount = await getIssuesCount(
+      jiraUrl,
+      jiraUser,
+      apiToken,
+      projectName,
+      boardName
+    )
+
+    const sprintIssuesPromises = sprintIssuesCount.map((sprint) =>
+      fetchJiraIssuesFromSprint(
+        sprint,
+        jiraUrl,
+        jiraUser,
+        apiToken,
+        projectName
+      )
+    )
+
+    const sprintIssues = await Promise.all(sprintIssuesPromises)
 
     return sprintIssues
   } catch (error) {
@@ -204,108 +323,56 @@ const getTotalNumberOfIssuesPerSprint = async (
 
 /**
  * @brief
- * Fetches the Jira issues from the sprints in the Jira board.
- * @name GET /jiraIssues - Fetch Jira Issues
- * @param {String} sprintType - Sprint type ("active" or "closed")
- * @return {Object} - Returns the Jira Issues
+ * Fetches all the issues from a sprint.
+ * @param {*} sprint - The sprint object
+ * @param {*} jiraUrl - Jira URL from the .env file
+ * @param {*} jiraUser - Jira user from the .env file
+ * @param {*} apiToken - Jira API token from the .env file
+ * @param {*} projectName - Jira project name from the .env file
+ * @returns {Object} - An object containing the sprint ID and
+ *                     the issues in the sprint
  */
-exports.getJiraIssuesFromSprint = async (sprintType) => {
-  const jiraUrl = process.env.JIRA_URL
-  const jiraUser = process.env.JIRA_USER
-  const apiToken = process.env.JIRA_API_TOKEN
-  const projectName = process.env.JIRA_PROJECT_NAME
-  const boardName = process.env.JIRA_BOARD_NAME
-
+const fetchJiraIssuesFromSprint = async (
+  sprint,
+  jiraUrl,
+  jiraUser,
+  apiToken,
+  projectName
+) => {
   try {
-    const sprintIssues = await getTotalNumberOfIssuesPerSprint(
-      jiraUrl,
-      jiraUser,
-      apiToken,
-      projectName,
-      boardName
+    const sprintID = sprint.sprintID
+    const issueCount = sprint.totalIssues
+    const chunkSize = 1000
+    const chunkCount = Math.ceil(issueCount / chunkSize)
+    const startAts = Array.from({ length: chunkCount }, (_, i) => i * chunkSize)
+
+    const issueChunks = await Promise.all(
+      startAts.map((startAt) =>
+        fetchIssuesInChunks(
+          sprintID,
+          startAt,
+          jiraUrl,
+          jiraUser,
+          apiToken,
+          projectName
+        )
+      )
     )
 
-    const sprintArray = []
-    const addedSprintIDs = new Set()
+    const allIssues = issueChunks.flat()
+    const issuesFormatted = formatIssues(allIssues)
 
-    for (let i = 0; i < sprintIssues.length; i++) {
-      const sprint = sprintIssues[i]
-
-      if (sprint.sprintState !== sprintType) continue
-
-      const sprintID = sprint.sprintID
-      if (addedSprintIDs.has(sprintID)) continue
-
-      let startAt = 0
-      let issues = []
-
-      do {
-        const response = await axios.get(
-          `${jiraUrl}/rest/agile/1.0/sprint/${sprintID}/issue`,
-          {
-            auth: {
-              username: jiraUser,
-              password: apiToken,
-            },
-            params: {
-              jql: `project = ${projectName} AND sprint = ${sprintID} ORDER BY created DESC`,
-              maxResults: 1000,
-              fields: [
-                "parent", // Epics
-                "summary",
-                "status",
-                "priority",
-                "created",
-                "resolutiondate",
-                "labels",
-                "customfield_10042", // Story Points
-                "customfield_10010", // Sprint
-              ],
-              startAt,
-            },
-            headers: {
-              Accept: "application/json",
-            },
-            validateStatus: (status) => {
-              return status >= 200 && status < 300
-            },
-          }
-        )
-
-        issues = response.data.issues
-        const issuesFormatted = issues.map((issue) => {
-          return {
-            key: issue.key,
-            summary: issue.fields.summary,
-            status: issue.fields.status.name,
-            priority: issue.fields.priority?.name || "None",
-            created: issue.fields.created,
-            resolutiondate: issue.fields.resolutiondate,
-            labels: issue.fields.labels,
-            storyPoints: issue.fields.customfield_10042,
-            sprints: issue.fields?.customfield_10010 || "None",
-            epic: issue.fields?.parent?.fields || "None",
-          }
-        })
-
-        sprintArray.push({
-          sprintID: sprint.sprintID,
-          sprintName: sprint.sprintName,
-          sprintState: sprint.sprintState,
-          totalIssues: sprint.totalIssues,
-          sprintStartDate: sprint.sprintStartDate,
-          sprintEndDate: sprint.sprintEndDate,
-          originBoardID: sprint.originBoardID,
-          issues: issuesFormatted,
-        })
-
-        startAt += issues.length
-      } while (issues.length > 0 && startAt < sprint.totalIssues)
-
-      addedSprintIDs.add(sprintID)
+    return {
+      sprintID: sprint.sprintID,
+      sprintName: sprint.sprintName,
+      sprintState: sprint.sprintState,
+      totalIssues: sprint.totalIssues,
+      sprintStartDate: sprint.sprintStartDate,
+      sprintEndDate: sprint.sprintEndDate,
+      originBoardID: sprint.originBoardID,
+      epic: issuesFormatted[0].epic,
+      issues: issuesFormatted,
     }
-
-    return sprintArray
   } catch (error) {
     console.log(error)
     throw new Error(error)
@@ -314,31 +381,47 @@ exports.getJiraIssuesFromSprint = async (sprintType) => {
 
 /**
  * @brief
- * Calls the dataBase table corresponding to the jira issue
- * and saves the data in the table
- * @param {}
+ * Formats the issues to be saved in the database.
+ * @param {*} issues - Issues to be formatted.
+ * @returns {Array} - Formatted issues.
+ */
+const formatIssues = (issues) =>
+  issues.map((issue) => ({
+    key: issue.key,
+    summary: issue.fields.summary,
+    status: issue.fields.status.name,
+    priority: issue.fields.priority?.name || "None",
+    created: issue.fields.created,
+    resolutiondate: issue.fields.resolutiondate,
+    labels: issue.fields.labels,
+    storyPoints: issue.fields.customfield_10042,
+    sprints: issue.fields?.customfield_10010 || "None",
+    epic: issue.fields?.parent?.fields || "None",
+  }))
+
+/**
+ * @brief
+ * Saves the issues to the database.
  */
 exports.saveIssuesToDB = async () => {
   try {
-    const activesIssues = await exports.getJiraIssuesFromSprint("active")
-    const closedIssues = await exports.getJiraIssuesFromSprint("closed")
+    const sprintIssuesData = await getJiraIssuesFromSprint()
+    const processedData = new Set()
 
-    // Saving active sprints
-    const processedDataActive = new Set()
-
-    for (const sprint of activesIssues) {
-      if (!processedDataActive.has(sprint.sprintID)) {
+    for (const sprint of sprintIssuesData) {
+      if (!processedData.has(sprint.sprintID)) {
         const newSprint = new Sprint({
           jiraID: sprint.sprintID,
           sprintName: sprint.sprintName,
           state: sprint.sprintState,
           boardID: sprint.originBoardID,
-          FechaCreacion: sprint.sprintStartDate,
-          FechaFinalizacion: sprint.sprintEndDate,
+          fechaCreacion: sprint.sprintStartDate,
+          fechaFinalizacion: sprint.sprintEndDate,
+          idEpica: sprint?.epic?.status?.statusCategory?.id,
         })
 
         await newSprint.save()
-        processedDataActive.add(sprint.sprintID)
+        processedData.add(sprint.sprintID)
 
         for (const issue of sprint.issues) {
           const newIssue = new Issue({
@@ -350,50 +433,22 @@ exports.saveIssuesToDB = async () => {
             estadoIssue: issue.status,
             fechaCreacion: issue.created,
             fechaFinalizacion: issue.resolutiondate,
-            idEpica: issue.epic.key,
           })
 
           await newIssue.save()
         }
+
+        // const newEpica = new Epica({
+        //   nombreEpica: sprint?.epic?.summary,
+        // })
+
+        // console.log(newEpica)
       }
+
+      console.log(
+        "Fetch complete. Issues, Sprints, and Epicas saved to database."
+      )
     }
-
-    // Saving closedIssues
-    const processedDataClosed = new Set()
-
-    for (const sprint of closedIssues) {
-      if (!processedDataClosed.has(sprint.sprintID)) {
-        const newSprint = new Sprint({
-          jiraID: sprint.sprintID,
-          sprintName: sprint.sprintName,
-          state: sprint.sprintState,
-          boardID: sprint.originBoardID,
-          FechaCreacion: sprint.sprintStartDate,
-          FechaFinalizacion: sprint.sprintEndDate,
-        })
-
-        await newSprint.save()
-        processedDataClosed.add(sprint.sprintID)
-
-        for (const issue of sprint.issues) {
-          const newIssue = new Issue({
-            issueKey: issue.key,
-            nombreIssue: issue.summary,
-            storyPoints: issue.storyPoints,
-            labelIssue: issue.labels.join(","),
-            prioridadIssue: issue.priority,
-            estadoIssue: issue.status,
-            fechaCreacion: issue.created,
-            fechaFinalizacion: issue.resolutiondate,
-            idEpica: issue.epic.key,
-          })
-
-          await newIssue.save()
-        }
-      }
-    }
-
-    console.log("Issues saved to DB")
   } catch (error) {
     console.log(error)
     throw new Error(error)
@@ -402,10 +457,10 @@ exports.saveIssuesToDB = async () => {
 
 /**
  * @brief
- * Creates a new Jira issue
- * @param {Object} accionable - Accionable object to be created
+ * Creates a new issue in the Jira board
+ * @param {*} accionable - The accionable to be created
  */
-exports.createAccionables = async (accionable) => {
+exports.createAccionable = async (accionable) => {
   const jiraUrl = process.env.JIRA_URL
   const jiraUser = process.env.JIRA_USER
   const apiToken = process.env.JIRA_API_TOKEN
@@ -413,31 +468,38 @@ exports.createAccionables = async (accionable) => {
   const boardName = process.env.JIRA_BOARD_NAME
 
   try {
-    const response = await axios.post(
+    const response = await rateLimitedAxios.post(
       `${jiraUrl}/rest/api/3/issue`,
-      accionable,
       {
+        fields: {
+          project: {
+            key: projectName,
+          },
+
+          summary: accionable.nombreAccionable,
+          priority: accionable.prioridadAccionable,
+          startDate: accionable.fechaCreacion,
+          assignee: accionable.assignedTo,
+          issuetype: {
+            name: "Accionable",
+          },
+        },
+
         auth: {
           username: jiraUser,
           password: apiToken,
         },
 
         headers: {
-          Accept: "application/json",
           "Content-Type": "application/json",
+          Accept: "application/json",
         },
 
-        validateStatus: (status) => {
-          if (status >= 400) {
-            throw new Error("Error creating accionable")
-          }
-
-          return status >= 200 && status < 300
-        },
+        validateStatus: (status) => status >= 200 && status < 300,
       }
     )
 
-    return response.data
+    return response
   } catch (error) {
     console.log(error)
     throw new Error(error)
