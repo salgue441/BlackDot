@@ -360,18 +360,19 @@ exports.getRetroalimentacionExitosa = async (req, res) => {
 
           retroalimentacion.save()
 
-          Retro.getLastId().then((idRetro) => {
+          //Se obtiene el id de la retroalimentacion creada
+          Retro.getLastId().then(async (idRetro) => {
             for (let i = 0; i < bancoPreguntas.length; i++) {
+              //Se guarda cada pregunta del banco en la tabla de preguntas
               const nuevaPregunta = new Pregunta({
                 contenido: bancoPreguntas[i].contenido,
                 tipoPregunta: bancoPreguntas[i].tipoPregunta,
               })
 
-              nuevaPregunta.save()
-              console.log(nuevaPregunta)
+              await nuevaPregunta.save()
 
+              //Se obtiene el id de la pregunta guardada para agregarla a la tabla de retroalimentacionPregunta
               Pregunta.getLastId().then((idPregunta) => {
-                console.log(idPregunta)
                 const newRetroPregunta = new retroPregunta({
                   idRetroalimentacion: idRetro,
                   idPregunta: idPregunta,

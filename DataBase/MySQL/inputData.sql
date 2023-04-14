@@ -208,7 +208,8 @@ values
     ('2022-02-25', '2022-02-26', 28, 4),
     ('2022-02-26', '2022-02-27', 29, 4),
     ('2022-02-27', '2022-02-28', 30, 4),
-    ('2023-03-30', '2023-04-13', 31, 4);
+    ('2023-03-30', '2023-04-13', 31, 4),
+    ('2023-04-13', '2023-04-27',32,4);
 
 -- Insertando datos en la tabla de Issue
 insert into Issue
@@ -1521,7 +1522,7 @@ values
     ('¿Que hicimos bien este sprint', 'Cualitativa'),
     ('¿Que hicimos mal que debemos hacer diferente?', 'Cualitativa'),
     ('¿Que nos causa ruido?', 'Cualitativa'),
-    ('¿Que impedimiento tuvimos en este sprint?', 'Cualitativa'),
+    ('¿Que impedimiento tuvimos en este sprint?', 'Cualitativa');
 
 -- Insertando datos en banco de preguntas
 insert into Pregunta
@@ -1534,6 +1535,7 @@ values
     ('¿Que hicimos mal que debemos hacer diferente?', 'Cualitativa'),
     ('¿Que nos causa ruido?', 'Cualitativa'),
     ('¿Que impedimiento tuvimos en este sprint?', 'Cualitativa'),
+    ('¿Que podemos mejorar?', 'Cualitativa');
 
 -- Insertando en la relacion de Retroalimentacion Pregunta
 INSERT INTO `retroalimentacionpregunta` (`idRetroalimentacion`, `idPregunta`, `required`) VALUES
