@@ -163,35 +163,47 @@ exports.getCurretRetroalimentacionAPI = async (req, res) => {
 exports.getRegistrarRespuestas = async (req, res) => {
   try {
     Retro.getRetroActual().then((retro) => {
+      //Se revisa si hay una retroalimentacion activa
       if (!retro) {
         res.render(path.join(__dirname, "../Views/Static/error.ejs"), {
           //? VIsta Temporal
           error: "No hay retroalimentacion activa",
         })
       } else {
-        try {
-          Pregunta.getAll().then(async (preguntas) => {
-            // Calculate progress percentage based on completed fields
-            const total = preguntas.length
-            const completed = req.query.respuestas
-              ? Object.keys(req.query.respuestas).length
-              : 0
-            const barProgress = 0
+        const idRetro = retro.id
 
-            // Render the EJS template with the preguntas and progress variables
-            res.render(
-              "Static/actual/registrarRespuestasRetroalimentacion.ejs",
-              {
-                preguntas,
-                barProgress,
-              }
-            )
-          })
-        } catch (error) {
-          res.render(path.join(__dirname, "../Views/Static/error.ejs"), {
-            error,
-          })
-        }
+        retroPregunta.getIdsPreguntas(idRetro).then(async (idsPreguntas) => {
+          //Revisa si la retro tiene preguntas
+          if (idsPreguntas.length == 0) {
+            res.render(path.join(__dirname, "../Views/Static/error.ejs"), {
+              error: "No hay preguntas registradas",
+            })
+          } else {
+            try {
+              Pregunta.getByIds(idsPreguntas).then(async (preguntas) => {
+                // Calculate progress percentage based on completed fields
+                const total = preguntas.length
+                const completed = req.query.respuestas
+                  ? Object.keys(req.query.respuestas).length
+                  : 0
+                const barProgress = 0
+
+                // Render the EJS template with the preguntas and progress variables
+                res.render(
+                  "Static/actual/registrarRespuestasRetroalimentacion.ejs",
+                  {
+                    preguntas,
+                    barProgress,
+                  }
+                )
+              })
+            } catch (error) {
+              res.render(path.join(__dirname, "../Views/Static/error.ejs"), {
+                error,
+              })
+            }
+          }
+        })
       }
     })
   } catch (error) {

@@ -46,6 +46,30 @@ class retroPregunta {
 
   /**
    * @brief
+   * Gets the ids of Pregruntas from the database
+   * @param {int} idRetroalimentacion - ID of the retroalimentacion
+   * @throw {Error} If the query fails
+   * @return {Array} retroPreguntas entities
+   * @return {int} retroPreguntas.entities.idPregunta
+   */
+
+  static async getIdsPreguntas(idRetroalimentacion) {
+    const query = `select idPregunta from retroalimentacionPregunta
+                  where idRetroalimentacion = ?`
+
+    const [idsPreguntas, _] = await dataBase.query(query, [idRetroalimentacion])
+
+    //insert idsPreguntas into an array
+    let ids = []
+    for (let i = 0; i < idsPreguntas.length; i++) {
+      ids.push(idsPreguntas[i].idPregunta)
+    }
+
+    return ids
+  }
+
+  /**
+   * @brief
    * Gets the retroPreguntas entities from the database
    * @param {int} idPregunta - ID of the pregunta
    * @throw {Error} If the query fails
