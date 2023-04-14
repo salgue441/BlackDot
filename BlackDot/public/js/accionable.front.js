@@ -20,55 +20,54 @@
  * @returns {Array} accionables - Array with the selected answers
  */
 async function handleCheckBox() {
-  const data = await fetchActionables();
+  const data = await fetchActionables()
   const checkboxes = document.querySelectorAll(
     'input[type="checkbox"][name="accionable"]'
-  );
-  let accionables = [];
+  )
+  let accionables = []
 
   for (let i = 0; i < checkboxes.length; i++) {
-    const checkbox = checkboxes[i];
-    const id = checkbox.id.split("-").pop();
-    const isChecked = checkbox.checked;
-    const contenido = data.waitingAnswers[i].contenido;
+    const checkbox = checkboxes[i]
+    const id = checkbox.id.split("-").pop()
+    const isChecked = checkbox.checked
+    const contenido = data.waitingAnswers[i].contenido
 
     // Add the checkbox to the accionables array if it's checked
     if (isChecked) {
       const index = data.waitingAnswers.findIndex(
         (item) => item.idCualitativa === id
-      );
+      )
 
       if (index === -1) {
-        accionables.push(id);
+        accionables.push(id)
       }
     } else {
       // Remove the checkbox from the accionables array if it's unchecked
-      const index = accionables.findIndex((item) => item === id);
+      const index = accionables.findIndex((item) => item === id)
 
       if (index !== -1) {
-        accionables.splice(index, 1);
+        accionables.splice(index, 1)
       }
     }
   }
 }
 
 /**
- * @brief 
- * Sends data to accionable to a JSON. 
+ * @brief
+ * Sends data to accionable to a JSON.
  */
-async function sendData(){
-    const accionablesData = await handleCheckBox()
+async function sendData() {
+  const accionablesData = await handleCheckBox()
 
-    try{
-        const response = fetch('http://localhost:3000/actual/accionables', {
-            method: 'POST',
-            headers:{
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(data)
-        })
-    } 
-    catch(error){
-        throw new Error(error)
-    }
-} 
+  try {
+    const response = fetch("http://localhost:3000/actual/accionables", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    })
+  } catch (error) {
+    throw new Error(error)
+  }
+}
