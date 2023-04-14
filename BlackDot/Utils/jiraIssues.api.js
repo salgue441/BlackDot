@@ -24,7 +24,7 @@ const Accionable = require("../models/accionable.model")
  * @param {Number} minTime - Time in milliseconds
  */
 const limiter = new Bottleneck({
-  minTime: 1000,
+  minTime: 10,
 })
 
 // Wrapping axios
@@ -437,18 +437,12 @@ exports.saveIssuesToDB = async () => {
 
           await newIssue.save()
         }
-
-        // const newEpica = new Epica({
-        //   nombreEpica: sprint?.epic?.summary,
-        // })
-
-        // console.log(newEpica)
       }
-
-      console.log(
-        "Fetch complete. Issues, Sprints, and Epicas saved to database."
-      )
     }
+
+    console.log(
+      "Fetch complete. Issues, Sprints, and Epicas saved to database."
+    )
   } catch (error) {
     console.log(error)
     throw new Error(error)
