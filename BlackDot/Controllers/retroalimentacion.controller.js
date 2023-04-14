@@ -87,41 +87,44 @@ function countDuplicates(data) {
 let retroObj = {}
 
 exports.getCurretRetroalimentacion = async (req, res) => {
-  try {
-    const idRetro = req.params.id || 5
-    // req.idRetro = idRetro;
+  Retro.getRetroActual().then(async (retro) => {
+    try {
+      const idRetro = req.params.id || retro.id
 
-    retroObj.id = idRetro
+      retroObj.id = idRetro
 
-    // Quantitative answers
-    const quantitative = await retroPregunta.getQuantitativeAnswerByID(idRetro)
-    const simplifiedQuantitative = simplifyAnswers(quantitative)
+      // Quantitative answers
+      const quantitative = await retroPregunta.getQuantitativeAnswerByID(
+        idRetro
+      )
+      const simplifiedQuantitative = simplifyAnswers(quantitative)
 
-    for (const question of simplifiedQuantitative) {
-      question.respuestas = countDuplicates(question.respuestas)
-    }
-
-    // Qualitative answers
-    const qualitative = await retroPregunta.getQualitativeAnswersByID(idRetro)
-    const simplifiedQualitative = simplifyAnswers(qualitative)
-
-    // Questions
-
-    retros = await Retro.getAll()
-
-    res.render(
-      path.join(__dirname, "../Views/Static/actual/verRetroalimentacion.ejs"),
-      {
-        idRetroalimentacion: quantitative[0].idRetroalimentacion,
-        fechaRetroalimentacion: quantitative[0].fechaRetroalimentacion,
-        simplifiedQuantitative: simplifiedQuantitative,
-        simplifiedQualitative: simplifiedQualitative,
-        retros,
+      for (const question of simplifiedQuantitative) {
+        question.respuestas = countDuplicates(question.respuestas)
       }
-    )
-  } catch (error) {
-    res.render(path.join(__dirname, "../Views/Static/error.ejs"), { error })
-  }
+
+      // Qualitative answers
+      const qualitative = await retroPregunta.getQualitativeAnswersByID(idRetro)
+      const simplifiedQualitative = simplifyAnswers(qualitative)
+
+      // Questions
+
+      retros = await Retro.getAll()
+
+      res.render(
+        path.join(__dirname, "../Views/Static/actual/verRetroalimentacion.ejs"),
+        {
+          idRetroalimentacion: quantitative[0].idRetroalimentacion,
+          fechaRetroalimentacion: quantitative[0].fechaRetroalimentacion,
+          simplifiedQuantitative: simplifiedQuantitative,
+          simplifiedQualitative: simplifiedQualitative,
+          retros,
+        }
+      )
+    } catch (error) {
+      res.render(path.join(__dirname, "../Views/Static/error.ejs"), { error })
+    }
+  })
 }
 
 /**
@@ -221,50 +224,57 @@ exports.getRegistrarRespuestas = async (req, res) => {
  * */
 exports.postRegistrarRespuestas = async (req, res) => {
   const respuestas = req.body
-  const idRetroalimentacion = 5 //Cambiar a actual Esperar a implementar iniciar retro
-  for (i in respuestas) {
-    respuestas[i] = [i, respuestas[i], idRetroalimentacion]
-    respuestas[i][0] = parseInt(respuestas[i][0])
 
-    if (respuestas[i][1].length > 2) {
-      const resCuali = new Cualitativa({
-        contenido: respuestas[i][1],
-        idPregunta: respuestas[i][0],
-        idRetroalimentacion: respuestas[i][2],
-      })
-      await resCuali.save()
-      if (respuestas[i][0] === 8) {
-        idcuali = await Cualitativa.getLastid()
+  try {
+    Retro.getRetroActual().then(async (retro) => {
+      idRetroalimentacion = retro.id
+      for (i in respuestas) {
+        respuestas[i] = [i, respuestas[i], idRetroalimentacion]
+        respuestas[i][0] = parseInt(respuestas[i][0])
 
-        const accionable = new Accionable({
-          nombreAccionable: respuestas[i][1],
-          storyPoints: 0,
-          labelAccionable: "Accionable",
-        })
+        if (respuestas[i][1].length > 2) {
+          const resCuali = new Cualitativa({
+            contenido: respuestas[i][1],
+            idPregunta: respuestas[i][0],
+            idRetroalimentacion: respuestas[i][2],
+          })
+          await resCuali.save()
+          if (respuestas[i][0] === 8) {
+            idcuali = await Cualitativa.getLastid()
 
-        await accionable.save()
+            const accionable = new Accionable({
+              nombreAccionable: respuestas[i][1],
+              storyPoints: 0,
+              labelAccionable: "Accionable",
+            })
 
-        idAccionable = await Accionable.getLastId()
+            await accionable.save()
 
-        const CualiAccionable = new CualitativaAccionable({
-          idCualitativa: idcuali,
-          idAccionable: idAccionable,
-        })
+            idAccionable = await Accionable.getLastId()
 
-        await CualiAccionable.save()
+            const CualiAccionable = new CualitativaAccionable({
+              idCualitativa: idcuali,
+              idAccionable: idAccionable,
+            })
+
+            await CualiAccionable.save()
+          }
+        } else {
+          respuestas[i][1] = parseInt(respuestas[i][1])
+          const resCuant = new Cuantitativa({
+            contenido: respuestas[i][1],
+            idPregunta: respuestas[i][0],
+            idRetroalimentacion: respuestas[i][2],
+          })
+          resCuant.save()
+        }
       }
-    } else {
-      respuestas[i][1] = parseInt(respuestas[i][1])
-      const resCuant = new Cuantitativa({
-        contenido: respuestas[i][1],
-        idPregunta: respuestas[i][0],
-        idRetroalimentacion: respuestas[i][2],
-      })
-      resCuant.save()
-    }
-  }
 
-  res.render(path.join(__dirname, "../Views/Static/actual/enviado.ejs"))
+      res.render(path.join(__dirname, "../Views/Static/actual/enviado.ejs"))
+    })
+  } catch (error) {
+    res.render(path.join(__dirname, "../Views/Static/error.ejs"), { error })
+  }
 }
 
 exports.getPaginaEnviado = async (req, res) => {
