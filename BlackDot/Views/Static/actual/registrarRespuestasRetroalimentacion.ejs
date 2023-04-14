@@ -13,7 +13,8 @@
         ></progress>
 
         <% let cantCualitativas = 0; %> <% for (var i = 0; i < preguntas.length;
-        i++) { %> <% if (preguntas[i].tipoPregunta === 'Cualitativa') { %> <%
+        i++) { %> <% if(preguntas[i].contenido != '¿Que podemos mejorar?') { %>
+        <% if (preguntas[i].tipoPregunta === 'Cualitativa') { %> <%
         cantCualitativas++; %>
         <div class="box is-flex is-flex-direction-column">
           <label class="label" for="respuestaCualitativa"
@@ -37,7 +38,22 @@
           <%- include('../../include/preguntaCuantitativa.ejs', { name:
           preguntas[i].idPregunta }) %>
         </div>
-        <%} %> <% } %>
+        <%} %> <% } %> <% } %>
+
+        <div class="box is-flex is-flex-direction-column">
+          <label class="label" for="respuestaCualitativa"
+            >¿Que podemos mejorar?</label
+          >
+          <input
+            class="input m-3 is-justify-content-center"
+            type="text"
+            id="respuestaCualitativa"
+            name="8"
+            placeholder="Respuesta"
+            onchange="updateProgressBar(event)"
+            required
+          />
+        </div>
 
         <div class="is-flex is-justify-content-center">
           <input
@@ -53,14 +69,14 @@
 
 <script>
   function updateProgressBar(e) {
-    const contenido = e.target.value;
-    const valor = 100 / "<%= cantCualitativas %>";
+    const contenido = e.target.value
+    const valor = 100 / "<%= cantCualitativas %>"
     if (!contenido) {
       document.querySelector("progress").value =
-        document.querySelector("progress").value - valor;
+        document.querySelector("progress").value - valor
     } else {
       document.querySelector("progress").value =
-        document.querySelector("progress").value + valor;
+        document.querySelector("progress").value + valor
     }
   }
 </script>
