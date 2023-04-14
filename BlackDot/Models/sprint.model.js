@@ -33,7 +33,7 @@ module.exports = class Sprint {
     this.state = Sprint.state || "To Do"
     this.boardID = Sprint.boardID || 0
     this.FechaCreacion = Sprint.FechaCreacion || new Date()
-    this.FechaFinalizacion = Sprint.FechaFinalizacion || null
+    this.FechaFinalizacion = Sprint.FechaFinalizacion || new Date() || null
     this.idEpica = Sprint.idEpica || 0
   }
 
