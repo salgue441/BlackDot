@@ -368,17 +368,17 @@ exports.getRetroalimentacionExitosa = async (req, res) => {
               })
 
               nuevaPregunta.save()
+              console.log(nuevaPregunta)
 
               Pregunta.getLastId().then((idPregunta) => {
+                console.log(idPregunta)
                 const newRetroPregunta = new retroPregunta({
                   idRetroalimentacion: idRetro,
                   idPregunta: idPregunta,
                   required: 1,
                 })
 
-                console.log(newRetroPregunta)
                 newRetroPregunta.save()
-                console.log("Pregunta agregada")
               })
             }
 
