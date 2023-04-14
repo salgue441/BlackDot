@@ -1,9 +1,7 @@
 const express = require("express")
 const router = express.Router()
-const authController = require("../controllers/auth.controller")
-const { routes } = require("../utils/constants")
 
-app.get("/auth", (req, res) => {
+router.get("/", (req, res) => {
   res.render("../Views/Static/auth.ejs")
 })
 
@@ -14,12 +12,10 @@ const passport = require("passport")
 let user = {}
 
 // Passport config
-app.use(passport.initialize())
-app.use(passport.session())
+router.use(passport.initialize())
+router.use(passport.session())
 
 // Success & Failure redirects
-const main = require("./Routes/main.routes")
-
 /**
  * @brief
  * Redirects to the main page if the user is authenticated
@@ -27,7 +23,7 @@ const main = require("./Routes/main.routes")
  * @param {Object} res - Response object
  */
 const successRedirect = (req, res) => {
-  res.redirect("/")
+  res.redirect("/home")
 }
 
 /**
@@ -37,7 +33,7 @@ const successRedirect = (req, res) => {
  * @param {Object} res - Response object
  */
 const failureRedirect = (req, res) => {
-  res.redirect("/auth")
+  res.redirect("/")
 }
 
 // Serialize & Deserialize user
@@ -118,8 +114,8 @@ passport.use(
  * @param {Function} passport.authenticate - Callback function
  * @returns {Function} - Callback function
  */
-app.get(
-  "/auth/google",
+router.get(
+  "/google",
   passport.authenticate("google", { scope: ["profile", "email"] })
 )
 
@@ -131,11 +127,9 @@ app.get(
  * @param {Function} passport.authenticate - Callback function
  * @returns {Function} - Callback function
  */
-app.get(
-  "/auth/google/callback",
-  passport.authenticate("google", {
-    failureRedirect: "/auth",
-  }),
+router.get(
+  "/google/callback",
+  passport.authenticate("google", { failureRedirect: "/auth" }),
 
   /**
    * @brief
@@ -164,3 +158,5 @@ const ensureAuthenticated = (req, res, next) => {
 
   res.redirect(failureRedirect(req, res))
 }
+
+module.exports = router

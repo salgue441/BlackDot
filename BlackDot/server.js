@@ -32,6 +32,9 @@ app.set("view engine", "ejs")
 app.use(express.static("public"))
 
 // Section routes
+const main = require("./routes/main.routes")
+app.use(main)
+
 const actual = require("./routes/actual.routes")
 /**
  * @brief
@@ -66,9 +69,10 @@ app.use(
   })
 )
 
-
-
 // /auth
+const auth = require("./routes/auth.routes")
+app.use("/auth", auth)
+
 app.get("/", (req, res) => {
   res.redirect("/auth")
 })
