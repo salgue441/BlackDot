@@ -59,6 +59,22 @@ module.exports = class EmpleadoRol {
 
     /**
      * @brief
+     * Inserta un rol en la base de datos 
+     * @param {*} idRol - ID Rol
+     * @returns {object} - 
+     */
+     static async addRole(idRol) {
+        if (!idRol) throw new Error("No se ha proporcionado un ID de empleado")
+
+        const [empleado] = await dataBase.query(
+            "select * from EmpleadoRol where idEmpleado = ?",
+            [idRol]
+        )
+        return new EmpleadoRol(empleado)
+    }
+
+    /**
+     * @brief
      * Obtiene todos los EmpleadoRol.
      * @returns {Promise<EmpleadoRol[]>} - Arreglo de objetos de tipo EmpleadoRol
      */
