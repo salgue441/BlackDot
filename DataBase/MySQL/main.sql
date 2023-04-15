@@ -220,8 +220,8 @@ create table if not exists CualitativaAccionable
 
 create table if not exists token
 (
-    idToken varchar(100)
-)
+    id text
+);
 
 -- Alterando las tablas para aniadir las llaves foraneas
 alter table Retroalimentacion
