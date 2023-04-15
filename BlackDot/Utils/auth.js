@@ -1,3 +1,13 @@
+/**
+ * @file auth.js
+ * @brief Utils functions of Google Authentication
+ * @author Oli Garcia
+ * @date 2023-04-14
+ * @version 1.0
+ * 
+ * @copyright Copyright (c) - MIT License
+ */
+
 const jwt = require("jsonwebtoken");
 const { OAuth2Client } = require("google-auth-library");
 const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
@@ -113,7 +123,7 @@ const deleteSession = (req, res) => {
     req.session.destroy()
     res.clearCookie(this.cookie, { path: "/" })
 
-    res.status(301).redirect('/auth')
+    res.status(301).redirect('/')
 }
 
 /**
