@@ -1,43 +1,70 @@
-const dataBase = require("../utils/dataBase");
+const dataBase = require('../Utils/dataBase')
 
-
-//ESTO SOLO FUNCIONA SI HAVEMOS LA TABLA DE TOKENS. PREGUNTAR
-
-class Token { 
-  constructor(token) {
-    Token.verify(token);
-    this.id = token.id || null;
-  }
-
-  static async getById(id) {
-    let [token, _] = await db.execute(`SELECT * FROM token WHERE id = ?`, [id]);
-
-    if (token.length === 0) return null;
-    return new Token(token[0]);
-  }
-  static async getAll() {
-    let [tokens, _] = await db.execute(`SELECT * FROM token`);
-    return tokens.map((token) => new Token(token));
-  }
-
-  //----------------VERIFIER----------------
-
-  static verify(token) {
-    //id
-    if (!token.id || token.id === undefined || token.id === null) {
-      throw new ValidationError("id", validationMessages.isMandatory); ///no tenemos esto, podemos enviar direct a login
+module.exports = class Token {
+    /**
+     * @brief
+     * Constructs a new Token object. 
+     * @param {Object} Token - Token object with the desired values
+     */
+    constructor(token) {
+        verify(token);
+        this.idToken = token.idToken || null
     }
-  }
 
-  //----------------POST----------------
+    /**
+     * @brief
+     * Gets a token by it's dataBase id.
+     * @param {String} idToken - DataBase ID from the desired token
+     * @throws {Error} error - if idToken is not a string
+     * @throws {Error} error - if idToken is not a valid token
+     * @throws {Error} error - if idToken is not found in the dataBase
+     */
+    static async getByID(idToken) {
+        if (idToken === 'String')
+            throw new Error("Token is not a string")
+        
+        const query = 
+            `select * from token where idToken = ?`
+        
+        const [result] = await dataBase.query(query, 
+            this.idToken
+        )
 
-  async post() {
-    let [res, _] = await db.execute(`INSERT INTO token (id) VALUES (?)`, [
-      this.id,
-    ]);
+        if (result.length === 0)
+            throw new Error("")
+        
+        return new Token(result[0])
+    }
 
-    return res;
-  }
+    /**
+     * @brief
+     * Gets all tokens from the database
+     */
+    static async getAll() {
+        const [query] = `select * from token`
+
+        return query;
+    }
+
+    /**
+     * @brief
+     * Verifies if the token object is valid
+     * @param {Object} token - token object
+     */
+    static verify(token) {
+        if (!token.idToken || token.idToken === undefined
+            || token.idToken === null)
+            throw new Error("Token is not valid")
+    }
+
+    /**
+     * @brief
+     * Saves a new token to the database
+     */
+    async save() {
+        const query = `insert into token(idToken) values(?)`
+        const [result] = await dataBase.query(query, this.idToken)
+
+        return result;
+    }
 }
-
-module.exports = Token;
