@@ -64,10 +64,10 @@ module.exports = class EmpleadoRol {
      * @returns {object} - 
      */
      static async addRole(idRol) {
-        if (!idRol) throw new Error("No se ha proporcionado un ID de empleado")
+        if (!idRol) throw new Error("No se ha proporcionado un ID Rol")
 
         const [empleado] = await dataBase.query(
-            "select * from EmpleadoRol where idEmpleado = ?",
+            "insert into EmpleadoRol where idRol = ?",
             [idRol]
         )
         return new EmpleadoRol(empleado)
