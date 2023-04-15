@@ -139,7 +139,7 @@ router.get(
    * @returns {Function} - Callback function
    */
   (req, res) => {
-    res.redirect(successRedirect(req, res))
+    successRedirect(req, res)
   }
 )
 
