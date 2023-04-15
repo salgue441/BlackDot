@@ -82,14 +82,10 @@
 </aside>
 
 <script>
-  // get the button logout
   const logoutButton = document.querySelector(".logout-button")
 
-  // add event listener to the button
   logoutButton.addEventListener("click", () => {
-    // remove the token from the local storage
     localStorage.removeItem("token")
-    // redirect to the login page
     window.location.href = "/auth"
   })
 </script>
