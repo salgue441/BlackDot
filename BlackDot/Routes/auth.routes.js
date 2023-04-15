@@ -1,6 +1,9 @@
 const express = require("express")
 const router = express.Router()
 
+// Auth utils
+const authUtils = require("../Utils/auth")
+
 router.get("/", (req, res) => {
   res.render("../Views/Static/auth.ejs")
 })
@@ -139,9 +142,42 @@ router.get(
    * @returns {Function} - Callback function
    */
   (req, res) => {
-    successRedirect(req, res)
+    const user = req.user
+    const token = authUtils.createTokenLogin(user)
+    res.cookie("token", token, { httpOnly: true })
+
+    console.log(":) " + user.displayName)
+
+    if (user) {
+      successRedirect(req, res)
+    }
   }
 )
+
+/**
+ * @brief
+ * Post request for the auth page
+ * @param {Object} req - Request object
+ * @param {Object} res - Response object
+ * @returns {Function} - Callback function
+ * @throws {Error} - If there is an error
+ */
+router.post("/google/callback", (req, res) => {
+  try {
+    const user = req.body
+    const token = authUtils.generateToken(user)
+    res.cookie("token", token, { httpOnly: true })
+
+    console.log(":) " + user.displayName)
+
+    if (user) {
+      successRedirect(req, res)
+    }
+  } catch (error) {
+    console.log(error)
+    throw new Error(error)
+  }
+})
 
 /**
  * @brief
