@@ -58,6 +58,22 @@ module.exports = class Empleado {
 
     /**
      * @brief
+     * Recibe un empleado de acuerdo con el mail
+     * @param {*} email - mail del empleado
+     * @returns {object} - Objeto de tipo Empleado
+     */
+         static async getByEmail(googleEmail) {
+            const query = `select * from Empleado where googleEmail = ?`
+            const [rows] = await dataBase.execute(query, [googleEmail])
+    
+            if (rows.length === 0)
+                throw new Error("Empleado no encontrado")
+            
+            return new Empleado(rows[0])
+        }
+
+    /**
+     * @brief
      * Obtiene todos los empleados.
      * @returns {Empleado[]} - Arreglo de objetos de tipo Empleado
      */

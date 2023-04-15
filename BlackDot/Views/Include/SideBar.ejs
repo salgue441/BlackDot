@@ -75,22 +75,11 @@
     </ul>
   </ul>
 
-  <!-- Log Out Button -->
-  <!-- <button class="button is-danger logout-button">
+  <button class="button is-danger logout-button">
     <img src="../../assets/logout.png" class="logout-image" />
     Log out
-  </button> -->
-
-  <a href="#" onclick="signOut();">Log out</a>
-  <script>
-    function signOut() {
-      var auth2 = gapi.auth2.getAuthInstance();
-      auth2.signOut().then(function () {
-        console.log('User signed out.');
-      });
-    }
-  </script>
-
+  </button>
+</aside>
 </aside>
 
 <!-- Sidebar custom styles -->
