@@ -24,7 +24,7 @@ const Accionable = require("../models/accionable.model")
  * @param {Number} minTime - Time in milliseconds
  */
 const limiter = new Bottleneck({
-  minTime: 1000,
+  minTime: 0,
 })
 
 // Wrapping axios
@@ -139,7 +139,29 @@ const getSprints = async (
     if (sprints.length === 0)
       throw new Error(`No sprints found for ${boardName}`)
 
-    return sprints
+    // Use Promise.all() to fetch sprint details concurrently
+    const sprintDetailsPromises = sprints.map((sprint) =>
+      rateLimitedAxios.get(`${jiraUrl}/rest/agile/1.0/sprint/${sprint.id}`, {
+        auth: {
+          username: jiraUser,
+          password: apiToken,
+        },
+        headers: {
+          Accept: "application/json",
+        },
+        validateStatus: (status) => {
+          return status >= 200 && status < 300
+        },
+      })
+    )
+
+    const sprintDetailsResponses = await Promise.all(sprintDetailsPromises)
+
+    const detailedSprints = sprintDetailsResponses.map(
+      (response) => response.data
+    )
+
+    return detailedSprints
   } catch (error) {
     console.log(error)
     throw new Error(error)
@@ -346,7 +368,7 @@ const fetchJiraIssuesFromSprint = async (
     const chunkCount = Math.ceil(issueCount / chunkSize)
     const startAts = Array.from({ length: chunkCount }, (_, i) => i * chunkSize)
 
-    const issueChunks = await Promise.all(
+    const issueChunks = await Promise.allSettled(
       startAts.map((startAt) =>
         fetchIssuesInChunks(
           sprintID,
@@ -359,7 +381,9 @@ const fetchJiraIssuesFromSprint = async (
       )
     )
 
-    const allIssues = issueChunks.flat()
+    const allIssues = issueChunks
+      .filter((chunk) => chunk.status === "fulfilled")
+      .flatMap((chunk) => chunk.value)
     const issuesFormatted = formatIssues(allIssues)
 
     return {
@@ -407,6 +431,8 @@ exports.saveIssuesToDB = async () => {
   try {
     const sprintIssuesData = await getJiraIssuesFromSprint()
     const processedData = new Set()
+
+    console.log(sprintIssuesData)
 
     for (const sprint of sprintIssuesData) {
       if (!processedData.has(sprint.sprintID)) {
