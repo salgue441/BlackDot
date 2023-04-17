@@ -432,8 +432,6 @@ exports.saveIssuesToDB = async () => {
     const sprintIssuesData = await getJiraIssuesFromSprint()
     const processedData = new Set()
 
-    console.log(sprintIssuesData)
-
     for (const sprint of sprintIssuesData) {
       if (!processedData.has(sprint.sprintID)) {
         const newSprint = new Sprint({
