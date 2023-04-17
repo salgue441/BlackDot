@@ -1,150 +1,154 @@
-<%- include('../../include/header.ejs') %>
+<html>
+  <%- include('../../include/header.ejs') %>
 
-<body>
-  <%- include('../../include/navbar.ejs') %>
+  <body>
+    <%- include('../../include/navbar.ejs') %>
 
-  <section class="hero is-medium is-bold">
-    <div class="hero-body has-text-centered">
-      <!-- Epica number & Generar reporte -->
-      <div class="columns">
-        <div class="column is-half is-flex">
-          <h1 class="title is-1">Comparativa de Epicas</h1>
-        </div>
-
-        <div class="column is-half is-flex is-justify-content-end">
-          <div class="is-grouped is-grouped-centered">
-            <a class="button is-danger reporte-button" href="#">
-              Generar Reporte
-            </a>
+    <section class="hero is-medium is-bold">
+      <div class="hero-body has-text-centered">
+        <!-- Epica number & Generar reporte -->
+        <div class="columns">
+          <div class="column is-half is-flex">
+            <h1 class="title is-1">Comparativa de Epicas</h1>
           </div>
-        </div>
-      </div>
-      <!-- End of Title & Button -->
 
-      <!-- Graph changing Button -->
-      <div class="columns">
-        <button
-          class="button is-link toggle-button"
-          id="toggleEpicaComparison"
-          onclick="change(event)"
-        >
-          Sprint
-        </button>
-        <button
-          class="button toggle-button"
-          id="toggleSprintComparison"
-          onclick="change(event)"
-        >
-          Epica
-        </button>
-      </div>
-      <!-- End of Graph Changing Button -->
-
-      <!-- Graph -->
-      <% if (epicas.length > 0) { %>
-
-      <div class="columns">
-        <div class="column is-9">
-          <div class="container">
-            <div
-              class="box has-background-white has-text-centered"
-              style="width: 100%"
-            >
-              <p class="subtitle is-4 graph-title">Story Points por Sprints</p>
-              <p class="subtitle is-4 graph-title" style="display: none">
-                Story Points por Epicas
-              </p>
-              <canvas id="SprintComparison" class="graph-canvas"></canvas>
-              <canvas
-                id="EpicaComparison"
-                class="graph-canvas"
-                style="display: none"
-              ></canvas>
+          <div class="column is-half is-flex is-justify-content-end">
+            <div class="is-grouped is-grouped-centered">
+              <a class="button is-danger reporte-button" href="#">
+                Generar Reporte
+              </a>
             </div>
           </div>
         </div>
+        <!-- End of Title & Button -->
 
-        <div class="column is-3">
-          <div class="container">
-            <div
-              class="box has-background-white has-text-centered"
-              style="width: 100%"
-            >
-              <div class="section-available">
-                <!-- Normal behaviour -->
-                <ul>
-                  <!-- For Sprints -->
-                  <p class="subtitle section-title is-4" id="section-title">
-                    Sprints Disponibles
-                  </p>
+        <!-- Graph changing Button -->
+        <div class="columns">
+          <button
+            class="button is-link toggle-button"
+            id="toggleEpicaComparison"
+            onclick="change(event)"
+          >
+            Sprint
+          </button>
+          <button
+            class="button toggle-button"
+            id="toggleSprintComparison"
+            onclick="change(event)"
+          >
+            Epica
+          </button>
+        </div>
+        <!-- End of Graph Changing Button -->
 
-                  <% for (var i = 0; i < sprints.length; i++) { %>
-                  <li id="sprint-<%= sprints[i].idSprint %>" class="sprint">
-                    <!-- First column -->
-                    <div class="columns">
-                      <div class="column is-1"></div>
+        <!-- Graph -->
+        <% if (epicas.length > 0) { %>
 
-                      <div class="column is-10 has-text-left">
-                        <p>Sprint: <%= sprints[i].idSprint %></p>
+        <div class="columns">
+          <div class="column is-9">
+            <div class="container">
+              <div
+                class="box has-background-white has-text-centered"
+                style="width: 100%"
+              >
+                <p class="subtitle is-4 graph-title">
+                  Story Points por Sprints
+                </p>
+                <p class="subtitle is-4 graph-title" style="display: none">
+                  Story Points por Epicas
+                </p>
+                <canvas id="SprintComparison" class="graph-canvas"></canvas>
+                <canvas
+                  id="EpicaComparison"
+                  class="graph-canvas"
+                  style="display: none"
+                ></canvas>
+              </div>
+            </div>
+          </div>
+
+          <div class="column is-3">
+            <div class="container">
+              <div
+                class="box has-background-white has-text-centered"
+                style="width: 100%"
+              >
+                <div class="section-available">
+                  <!-- Normal behaviour -->
+                  <ul>
+                    <!-- For Sprints -->
+                    <p class="subtitle section-title is-4" id="section-title">
+                      Sprints Disponibles
+                    </p>
+
+                    <% for (var i = 0; i < sprints.length; i++) { %>
+                    <li id="sprint-<%= sprints[i].idSprint %>" class="sprint">
+                      <!-- First column -->
+                      <div class="columns">
+                        <div class="column is-1"></div>
+
+                        <div class="column is-10 has-text-left">
+                          <p>Sprint: <%= sprints[i].idSprint %></p>
+                        </div>
                       </div>
-                    </div>
-                  </li>
-                  <% } %>
+                    </li>
+                    <% } %>
 
-                  <!-- End for Sprints -->
+                    <!-- End for Sprints -->
 
-                  <!-- For Epicas -->
-                  <p
-                    class="subtitle section-title is-4"
-                    style="display: none"
-                    id="section-title"
-                  >
-                    Epicas Disponibles
-                  </p>
+                    <!-- For Epicas -->
+                    <p
+                      class="subtitle section-title is-4"
+                      style="display: none"
+                      id="section-title"
+                    >
+                      Epicas Disponibles
+                    </p>
 
-                  <% for (var i = 0; i < epicas.length; i++) { %>
-                  <li
-                    style="display: none"
-                    id="epica-<%= epicas[i].idEpica %>"
-                    class="epica"
-                  >
-                    <!-- First column -->
-                    <div class="columns">
-                      <div class="column is-1">
-                        <input
-                          type="checkbox"
-                          name="epica"
-                          value="<%= epicas[i].idEpica %>"
-                          onclick="handleCheckBoxEpicas() "
-                        />
+                    <% for (var i = 0; i < epicas.length; i++) { %>
+                    <li
+                      style="display: none"
+                      id="epica-<%= epicas[i].idEpica %>"
+                      class="epica"
+                    >
+                      <!-- First column -->
+                      <div class="columns">
+                        <div class="column is-1">
+                          <input
+                            type="checkbox"
+                            name="epica"
+                            value="<%= epicas[i].idEpica %>"
+                            onclick="handleCheckBoxEpicas() "
+                          />
+                        </div>
+
+                        <div class="column is-10 has-text-left">
+                          <p><%= epicas[i].nombreEpica %></p>
+                        </div>
                       </div>
-
-                      <div class="column is-10 has-text-left">
-                        <p><%= epicas[i].nombreEpica %></p>
-                      </div>
-                    </div>
-                  </li>
-                  <% } %>
-                  <!-- End for Epicas -->
-                </ul>
+                    </li>
+                    <% } %>
+                    <!-- End for Epicas -->
+                  </ul>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-      <% } else { %>
-      <div class="container">
-        <div class="box has-background-white has-text-centered">
-          <p class="subtitle is-4">No hay epicas disponibles</p>
+        <% } else { %>
+        <div class="container">
+          <div class="box has-background-white has-text-centered">
+            <p class="subtitle is-4">No hay epicas disponibles</p>
+          </div>
         </div>
+        <% } %>
+        <!-- End of Graph -->
       </div>
-      <% } %>
-      <!-- End of Graph -->
-    </div>
-  </section>
+    </section>
 
-  <script src="/js/comparativaEpicas.chart.js"></script>
-</body>
+    <script src="/js/comparativaEpicas.chart.js"></script>
+  </body>
+</html>
 
 <style>
   .toggle-button {
@@ -157,6 +161,3 @@
     overflow-x: hidden;
   }
 </style>
-
-<!-- Functionality -->
-<script></script>

@@ -6,9 +6,10 @@
   "scripts": {
     "test": "jest",
     "test:watch": "jest --watchAll",
-    "test:carlos": "jest --config jest.config.js",
-    "start": "node server.js",
-    "start:carlos": "nodemon server.js --config nodemon.json"
+    "test:carlos": "jest --config jest-carlos.config.js --forceExit",
+    "start": "nodemon server.js",
+    "start:carlos": "nodemon -r dotenv/config server.js",
+    "start:diego": "npx kill-port 3000 && nodemon server.js"
   },
   "repository": {
     "type": "git",

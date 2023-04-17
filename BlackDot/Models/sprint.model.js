@@ -8,7 +8,7 @@
  * @copyright Copyright (c) 2023 - MIT License
  */
 
-const dataBase = require("../utils/dataBase")
+const dataBase = require("../Utils/dataBase")
 
 /**
  * @class Sprint
@@ -51,7 +51,6 @@ module.exports = class Sprint {
       "select * from Sprint where idSprint = ?",
       [id]
     )
-
     return new Sprint(sprint)
   }
 
@@ -82,21 +81,22 @@ module.exports = class Sprint {
     return sprints
   }
 
+  /**
+   * @brief
+   * FUncion que obtiene el sprunt actual
+   * @returns {Sprint} - Objeto de tipo sprint
+   * @throws {Error} - Lanza un error si no se pudo obtener el sprint
+   * actual
+   * */
+
   static async getSprintActual() {
-    const fechaActual = new Date().toISOString().split("T")[0]
+    const estado = "active"
     const [sprint, _] = await dataBase.query(
-      "select * from Sprint where FechaCreacion <= ? and FechaFinalizacion >= ?",
-      [fechaActual, fechaActual]
+      "select * from Sprint where state = ?",
+      [estado]
     )
 
-    const sprintNew = new Sprint({
-      id: sprint[0].idSprint,
-      FechaCreacion: sprint[0].fechaCreacion,
-      FechaFinalizacion: sprint[0].fechaFinalizacion,
-      numeroSprint: sprint[0].numeroSprint,
-      idEpica: sprint[0].idEpica,
-    })
-    return sprintNew
+    return sprint
   }
 
   /**
