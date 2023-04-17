@@ -468,11 +468,9 @@ exports.saveIssuesToDB = async () => {
 
         // console.log(newEpica)
       }
-
-      console.log(
-        "Fetch complete. Issues, Sprints, and Epicas saved to database."
-      )
     }
+
+    console.log("Issues saved to DB")
   } catch (error) {
     console.log(error)
     throw new Error(error)
