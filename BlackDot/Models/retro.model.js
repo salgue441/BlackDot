@@ -1,4 +1,4 @@
-const dataBase = require("../Utils/dataBase");
+const dataBase = require("../Utils/dataBase")
 
 /**
  * @class Retroalimentacion
@@ -13,11 +13,10 @@ module.exports = class Retroalimentacion {
    * Constructor de la clase Retroalimentacion
    */
   constructor(retro) {
-    this.id = retro.id;
-    this.FechaCreacion = retro.FechaCreacion;
-    this.FechaFinalizacion = retro.FechaFinalizacion;
-    this.idSprint = retro.idSprint;
-    this.idReporte = retro.idReporte;
+    this.id = retro.id
+    this.FechaCreacion = retro.FechaCreacion
+    this.FechaFinalizacion = retro.FechaFinalizacion
+    this.idSprint = retro.idSprint
   }
 
   /**
@@ -25,17 +24,17 @@ module.exports = class Retroalimentacion {
    * Funcion que obtiene una retroalimentacion por su id
    */
   static async getbyID(id) {
-    if (!id) throw new Error("No se envio el id");
+    if (!id) throw new Error("No se envio el id")
 
     const retro = await dataBase.query(
       "select * from retroalimentacion where id = ?",
       [id]
-    );
+    )
 
     if (retro.length == 0)
-      throw new Error("No se encontro la retroalimentacion");
+      throw new Error("No se encontro la retroalimentacion")
 
-    return new Retroalimentacion(retro[0]);
+    return new Retroalimentacion(retro[0])
   }
 
   /**
@@ -44,8 +43,8 @@ module.exports = class Retroalimentacion {
    * @returns {Retroalimentacion[]} - Arreglo de objetos de tipo retroalimentacion
    * */
   static async getAll() {
-    const [retros, _] = await dataBase.query("select * from retroalimentacion");
-    return retros;
+    const [retros, _] = await dataBase.query("select * from retroalimentacion")
+    return retros
   }
 
   /**
@@ -55,24 +54,42 @@ module.exports = class Retroalimentacion {
    */
   async save() {
     await dataBase.query(
-      "insert into retroalimentacion (FechaCreacion, FechaFinalizacion, idSprint, idReporte) values (?,?,?,?)",
-      [
-        this.FechaCreacion,
-        this.FechaFinalizacion,
-        this.idSprint,
-        this.idReporte,
-      ]
-    );
+      "insert into retroalimentacion (FechaCreacion, FechaFinalizacion, idSprint) values (?,?,?)",
+      [this.FechaCreacion, this.FechaFinalizacion, this.idSprint]
+    )
   }
-  //?arreglar
-  static async getRetroActual() {
-    const fechaActual = new Date().toISOString().split("T")[0].toString();
 
-    const retro = await dataBase.query(
+  static async getRetroActual() {
+    const fechaActual =
+      new Date().toISOString().split("T")[0].toString() + " 01:00:00"
+
+    const [retro, _] = await dataBase.query(
       "select * from retroalimentacion where FechaCreacion <= ? and FechaFinalizacion >= ?",
       [fechaActual, fechaActual]
-    );
+    )
 
-    return new Retroalimentacion(retro);
+    if (retro.length == 0) return false
+
+    const retroActual = new Retroalimentacion({
+      id: retro[0].idRetroalimentacion,
+      FechaCreacion: retro[0].fechaCreacion,
+      FechaFinalizacion: retro[0].fechaFinalizacion,
+      idSprint: retro[0].idSprint,
+    })
+
+    return retroActual
   }
-};
+
+  /**
+   * @brief
+   * Obtiene la ultima id retroalimentacion
+   * @returns  id de la ultima retroalimentacion
+   */
+
+  static async getLastId() {
+    const query = `select * from retroalimentacion order by idRetroalimentacion desc limit 1`
+    const [rows] = await dataBase.execute(query)
+
+    return rows[0].idRetroalimentacion
+  }
+}
