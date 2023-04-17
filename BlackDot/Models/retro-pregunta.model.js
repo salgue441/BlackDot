@@ -210,6 +210,43 @@ class retroPregunta {
 
   /**
    * @brief
+   * Gets all the qualitative answers associated to a specific question
+   * @param {int} idPregunta - ID of the question
+   * @return {Object} retroPregunta - Object of retroPregunta
+   * @throws {Error} if idPregunta is not found
+   */
+  static async getQualitativeAnswersByIDPregunta(idPregunta) {
+    try {
+      if (idPregunta === undefined)
+        throw new Error("The ID Pregunta is not found")
+
+      const query = `
+        select 
+          retroalimentacion.idRetroalimentacion, 
+          pregunta.idPregunta, 
+          pregunta.contenido AS Pregunta, 
+          cualitativa.idCualitativa,
+          cualitativa.idPregunta, 
+          cualitativa.contenido,
+          retroalimentacion.fechaFinalizacion
+        from retroalimentacion 
+        join retroalimentacionpregunta on retroalimentacion.idRetroalimentacion = retroalimentacionpregunta.idRetroalimentacion 
+        join pregunta on retroalimentacionpregunta.idPregunta = pregunta.idPregunta 
+        join cualitativa on retroalimentacionpregunta.idPregunta = cualitativa.idPregunta and retroalimentacion.idRetroalimentacion = cualitativa.idRetroalimentacion 
+        where pregunta.tipoPregunta = 'Cualitativa' 
+        and retroalimentacionpregunta.idPregunta = ?;  
+      `
+
+      const [qualitatives, _] = await dataBase.execute(query, [idPregunta])
+
+      return qualitatives
+    } catch (error) {
+      throw new Error(error)
+    }
+  }
+
+  /**
+   * @brief
    * Guarda una retroPregunta en la base de datos
    * @param {int} idRetroalimentacion - ID de la retroalimentacion
    * @param {int} idPregunta - ID de la pregunta

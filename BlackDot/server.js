@@ -29,7 +29,7 @@ app.set("view engine", "ejs")
 // Static Files
 app.use(express.static("public"))
 
-// Routes
+// Section routes
 const main = require("./Routes/main.routes")
 
 /**
@@ -64,6 +64,7 @@ app.use("/editar", editar)
 
 // Starting the server
 const PORT = 3000
+const { saveIssuesToDB } = require("./utils/jiraIssues.api")
 
 /**
  * @brief
@@ -74,4 +75,5 @@ const PORT = 3000
  */
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`)
+  saveIssuesToDB()
 })

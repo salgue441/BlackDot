@@ -1,7 +1,3 @@
-/**
- *
- */
-
 const express = require("express")
 const router = express.Router()
 
@@ -10,5 +6,8 @@ router.get("/metricasEpicas", metricasEpicas.getAllEpicas)
 
 // Fetches all epicas and their metrics
 router.get("/epicasData", metricasEpicas.getAllEpicasAPI)
+
+const Accionable = require("../Controllers/historicoAccionable.controller")
+router.get("/historicoAccionables", Accionable.getAllAccionables)
 
 module.exports = router

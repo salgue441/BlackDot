@@ -1,0 +1,177 @@
+<html>
+  <%- include('../../include/header.ejs') %>
+
+  <body>
+    <%- include('../../include/navbar.ejs') %>
+    <section class="hero is-medium is-bold is-flex is-justify-content-center">
+      <div class="hero-body has-text-centered">
+        <!-- Title & Button to Accept -->
+        <div class="columns">
+          <div class="column is-half is-flex">
+            <h1 class="title is-1">Aprobar Accionables</h1>
+          </div>
+          <div class="column is-half is-flex is-justify-content-end">
+            <div class="is-grouped is-grouped-centered"></div>
+          </div>
+        </div>
+
+        <!-- End of Title & Button -->
+
+        <!-- Quantitative Answers -->
+        <% const ids = [] %> <% let numAccionable = 0 %> <% let numAccionablesNoAprobados = 0%> <% for(var i = 0; i <
+        accionables.length; i++) { %> <% if(accionables[i].contenido !== '' &&
+        accionables[i].estadoAccionable === 'No aprobado') { %> <%
+        ids.push(accionables[i].idAccionable) %> <% numAccionable++ %> <% %>
+        <div class="columns">
+          <div class="column">
+            <div
+              class="box is-black is-flex is-align-items-center accionable"
+              style="height: 100px !important"
+            >
+              <!-- Image -->
+              <div class="column is-2">
+                <img src="" alt="User Image" />
+              </div>
+              <!-- End of Image -->
+              <!-- User -->
+              <div class="column is-2">
+                <div class="content user">
+                  <p class="is-white" style="font-size: 1.2rem">User</p>
+                </div>
+              </div>
+              <!-- End of User -->
+              <!-- Accionable content -->
+              <div class="column is-8">
+                <div class="content">
+                  <p class="is-white" style="font-size: 1.1rem">
+                    <%= accionables[i].nombreAccionable %>
+                  </p>
+                </div>
+              </div>
+              <!-- End of Accionable Content -->
+            </div>
+          </div>
+          <div class="column is-1">
+            <div class="box is-black accionable-toggle">
+              <article class="media">
+                <figure class="image is-24x24">
+                  <input
+                    type="checkbox"
+                    name="accionable"
+                    value=""
+                    class="checkbox"
+                    onclick="handleCheckBox()"
+                    id="checkbox-<%= accionables[i].idAccionable %>"
+                  />
+                </figure>
+              </article>
+            </div>
+          </div>
+        </div>
+        <% }else{numAccionablesNoAprobados++} %> <% } %>
+
+      <% let idsAccionables = 0 %>
+
+      <script>
+        function handleCheckBox() {
+          const checkboxes = document.querySelectorAll(
+            'input[type="checkbox"][name="accionable"]'
+          )
+          accionables = "<%= ids %>"
+          idsAccionables = []
+          //Selects the input that will send the ids of the checked checkboxes
+          const input = document.querySelector('input[name="puente"]')
+          for (let i = 0; i < checkboxes.length; i++) {
+            const checkbox = checkboxes[i]
+            const id = checkbox.id.split("-").pop()
+            const isChecked = checkbox.checked
+            // Add the checkbox to the accionables array if it's checked
+            if (isChecked) {
+              idsAccionables.push(id)
+              input.value = idsAccionables
+            } else {
+              // Remove the checkbox from the accionables array if it's unchecked
+              idsAccionables = idsAccionables.filter((item) => item !== id)
+              input.value = idsAccionables
+            }
+          }
+        }
+      </script>
+      <% if(accionables.length != numAccionablesNoAprobados) { %>
+        <form action="/actual/accEnviado" method="POST">
+        <input type="hidden" name="puente" value="" />
+        <input
+          class="Enviar button is-danger reporte-button"
+          id="sendButton"
+          type="submit"
+          value="Aceptar"
+        />
+      </form>
+      <% }else{%>
+        <br>
+        <br>
+        <h1 class="title">No hay accionables por aprobar</h1>
+      <%}%>
+
+    </section>
+  </body>
+</html>
+
+<style>
+  /* Custom CSS by Yuna */
+  .is-black {
+    background-color: #232021 !important;
+  }
+  .accionable {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100px;
+    text-align: left;
+  }
+  .is-white {
+    color: #ffffff !important;
+  }
+  .accionable-toggle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100px;
+  }
+  .checkbox {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 40px;
+    width: 40px;
+    transform: translate(-18%, -20%);
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    outline: none;
+    border: 2px solid #fff;
+    border-radius: 4px;
+  }
+  .checkbox::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: 20px;
+    width: 20px;
+    background-color: #fff;
+    border-radius: 2px;
+    opacity: 0;
+    transition: opacity 0.2s ease-in-out;
+  }
+  .checkbox:checked::before {
+    opacity: 1;
+  }
+  .Enviar{
+    width: 10rem;
+    height: 4rem;
+    font-size: 1.2rem;
+  }
+</style>

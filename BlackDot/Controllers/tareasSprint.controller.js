@@ -9,9 +9,9 @@
  */
 
 // Data Models
-const Issue = require("../models/issue.model")
-const Sprint = require("../models/sprint.model")
-const SprintIssue = require("../models/sprint-issue.model")
+const Issue = require("../models/issue.model");
+const Sprint = require("../models/sprint.model");
+const SprintIssue = require("../models/sprint-issue.model");
 
 /**
  * @brief
@@ -21,38 +21,38 @@ const SprintIssue = require("../models/sprint-issue.model")
  * @returns {Response} - Response object
  */
 exports.getLanding = async (req, res) => {
-    // Data arrays
-    const issues = await Issue.getAll()
-    const sprints = await Sprint.getAll()
-    const sprintIssues = await SprintIssue.getAll()
+  // Data arrays
+  const issues = await Issue.getAll();
+  const sprints = await Sprint.getAll();
+  const sprintIssues = await SprintIssue.getAll();
 
-    // Relating sprints and issues 
-    const sprintIssuesMap = {}
+  // Relating sprints and issues
+  const sprintIssuesMap = {};
 
-    sprintIssues.forEach((sprintIssue) => {
-      const sprintID = sprintIssue.idSprint
-      const issueID = sprintIssue.idIssue
+  sprintIssues.forEach((sprintIssue) => {
+    const sprintID = sprintIssue.idSprint;
+    const issueID = sprintIssue.idIssue;
 
-      if (!sprintIssuesMap[sprintID]) {
-        sprintIssuesMap[sprintID] = []
-      }
+    if (!sprintIssuesMap[sprintID]) {
+      sprintIssuesMap[sprintID] = [];
+    }
 
-      sprintIssuesMap[sprintID].push(issueID)
-    })
+    sprintIssuesMap[sprintID].push(issueID);
+  });
 
-    sprints.forEach((sprint) => {
-      const sprintID = sprint.idSprint
-      const sprintIssues = sprintIssuesMap[sprintID] || []
+  sprints.forEach((sprint) => {
+    const sprintID = sprint.idSprint;
+    const sprintIssues = sprintIssuesMap[sprintID] || [];
 
-      sprint.issues = issues.filter((issue) =>
-        sprintIssues.includes(issue.idIssue)
-      )
-    })
+    sprint.issues = issues.filter((issue) =>
+      sprintIssues.includes(issue.idIssue)
+    );
+  });
 
-    res.render("static/index", {
-        sprint  : sprints,
-    })
-}
+  res.render("static/index", {
+    sprint: sprints,
+  });
+};
 
 /**
  * @brief
@@ -63,35 +63,41 @@ exports.getLanding = async (req, res) => {
  * @throws {Error} - Error message
  */
 exports.getLandingAPI = async (req, res) => {
+  try {
     // Data arrays
-    const issues = await Issue.getAll()
-    const sprints = await Sprint.getAll()
-    const sprintIssues = await SprintIssue.getAll()
+    const issues = await Issue.getAll();
+    const sprints = await Sprint.getAll();
+    const sprintIssues = await SprintIssue.getAll();
 
     // Relating sprints and issues
-    const sprintIssuesMap = {}
+    const sprintIssuesMap = {};
 
     sprintIssues.forEach((sprintIssue) => {
-    const sprintID = sprintIssue.idSprint
-    const issueID = sprintIssue.idIssue
+      const sprintID = sprintIssue.idSprint;
+      const issueID = sprintIssue.idIssue;
 
-    if (!sprintIssuesMap[sprintID]) {
-        sprintIssuesMap[sprintID] = []
-    }
+      if (!sprintIssuesMap[sprintID]) {
+        sprintIssuesMap[sprintID] = [];
+      }
 
-    sprintIssuesMap[sprintID].push(issueID)
-    })
+      sprintIssuesMap[sprintID].push(issueID);
+    });
 
     sprints.forEach((sprint) => {
-    const sprintID = sprint.idSprint
-    const sprintIssues = sprintIssuesMap[sprintID] || []
+      const sprintID = sprint.idSprint;
+      const sprintIssues = sprintIssuesMap[sprintID] || [];
 
-    sprint.issues = issues.filter((issue) =>
+      sprint.issues = issues.filter((issue) =>
         sprintIssues.includes(issue.idIssue)
-    )
-    })
+      );
+    });
 
-    res.json( {
-        sprint  : sprints,
-    })
-}
+    res.json({
+      sprint: sprints,
+    });
+  } catch (error) {
+    res.status(500).json({
+      message: error.message || "Error al obtener metricas epicas",
+    });
+  }
+};

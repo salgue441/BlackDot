@@ -1,3 +1,13 @@
+/**
+ * @file sprint.model.js
+ * @brief Data model for the Sprint table
+ * @author Carlos Salguero (fixes)
+ * @version 1.0
+ * @date 2021-03-24
+ *
+ * @copyright Copyright (c) 2023 - MIT License
+ */
+
 const dataBase = require("../Utils/dataBase")
 
 /**
@@ -12,16 +22,19 @@ const dataBase = require("../Utils/dataBase")
 module.exports = class Sprint {
   /**
    * @brief
-   * Constructor de la clase Sprint
+   * Creaates a new instance of Sprint. If no parameters are provided,
+   * the default values are used
    * @param {*} Sprint - Objeto de tipo Sprint
    */
-
   constructor(Sprint) {
     this.id = Sprint.id
-    this.FechaCreacion = Sprint.FechaCreacion
-    this.FechaFinalizacion = Sprint.FechaFinalizacion
-    this.numeroSprint = Sprint.numeroSprint
-    this.idEpica = Sprint.idEpica
+    this.jiraID = Sprint.jiraID || 0
+    this.sprintName = Sprint.sprintName || ""
+    this.state = Sprint.state || "To Do"
+    this.boardID = Sprint.boardID || 0
+    this.FechaCreacion = Sprint.FechaCreacion || new Date()
+    this.FechaFinalizacion = Sprint.FechaFinalizacion || new Date() || null
+    this.idEpica = Sprint.idEpica || 0
   }
 
   /**
@@ -38,8 +51,23 @@ module.exports = class Sprint {
       "select * from Sprint where idSprint = ?",
       [id]
     )
-
     return new Sprint(sprint)
+  }
+
+  /**
+   * @brief
+   * Obtains a sprint by its jira key
+   * @param {string} jiraID - Jira key of the sprint
+   */
+  static async getByJiraID(jiraID) {
+    const [sprint] = await dataBase.query(
+      "select * from Sprint where jiraID = ?",
+      [jiraID]
+    )
+
+    if (sprint.length === 0) return null
+
+    return sprint
   }
 
   /**
@@ -53,21 +81,80 @@ module.exports = class Sprint {
     return sprints
   }
 
+  /**
+   * @brief
+   * FUncion que obtiene el sprunt actual
+   * @returns {Sprint} - Objeto de tipo sprint
+   * @throws {Error} - Lanza un error si no se pudo obtener el sprint
+   * actual
+   * */
+
   static async getSprintActual() {
-    const fechaActual = new Date().toISOString().split("T")[0]
+    const estado = "active"
     const [sprint, _] = await dataBase.query(
-      "select * from Sprint where FechaCreacion <= ? and FechaFinalizacion >= ?",
-      [fechaActual, fechaActual]
+      "select * from Sprint where state = ?",
+      [estado]
     )
 
-    if (sprint.length == 0) throw new Error("No hay sprint actual")
-    const sprintNew = new Sprint({
-      id: sprint[0].idSprint,
-      FechaCreacion: sprint[0].fechaCreacion,
-      FechaFinalizacion: sprint[0].fechaFinalizacion,
-      numeroSprint: sprint[0].numeroSprint,
-      idEpica: sprint[0].idEpica,
-    })
-    return sprintNew
+    console.log(sprint)
+    return sprint
+  }
+
+  /**
+   * @brief
+   * Saves a sprint in the database if it doesn't exist. If it does exist,
+   * it updates the sprint.
+   * @returns {Sprint} - Returns the saved sprint object
+   * @throws {Error} - Throws an error if the sprint couldn't be saved
+   */
+  async save() {
+    try {
+      const existingSprint = await Sprint.getByJiraID(this.jiraID)
+
+      if (existingSprint) {
+        const [result, _] = await dataBase.query(
+          "UPDATE Sprint SET sprintName = ?, state = ?, boardID = ?, FechaCreacion = ?, FechaFinalizacion = ?, idEpica = ? WHERE jiraID = ?",
+          [
+            this.sprintName,
+            this.state,
+            this.boardID,
+            this.FechaCreacion,
+            this.FechaFinalizacion,
+            this.idEpica,
+            this.jiraID,
+          ]
+        )
+
+        if (result.affectedRows === 0) {
+          throw new Error("No se pudo actualizar el sprint")
+        }
+
+        return existingSprint
+      }
+
+      const [result, _] = await dataBase.query(
+        "INSERT INTO Sprint (jiraID, sprintName, state, boardID, FechaCreacion, FechaFinalizacion, idEpica) VALUES (?, ?, ?, ?, ?, ?, ?)",
+        [
+          this.jiraID,
+          this.sprintName,
+          this.state,
+          this.boardID,
+          this.FechaCreacion,
+          this.FechaFinalizacion,
+          this.idEpica,
+        ]
+      )
+
+      if (result.affectedRows === 0) {
+        throw new Error("No se pudo guardar el sprint")
+      }
+
+      this.id = result.insertId
+
+      return this
+    } catch (error) {
+      console.log(error)
+      throw new Error(`Error al guardar el sprint: ${error.message}`)
+    }
   }
 }
