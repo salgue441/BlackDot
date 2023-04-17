@@ -33,7 +33,7 @@ module.exports = class Sprint {
     this.state = Sprint.state || "To Do"
     this.boardID = Sprint.boardID || 0
     this.FechaCreacion = Sprint.FechaCreacion || new Date()
-    this.FechaFinalizacion = Sprint.FechaFinalizacion || new Date() || null
+    this.FechaFinalizacion = Sprint.FechaFinalizacion || null
     this.idEpica = Sprint.idEpica || 0
   }
 
@@ -83,20 +83,13 @@ module.exports = class Sprint {
   }
 
   static async getSprintActual() {
-    const fechaActual = new Date().toISOString().split("T")[0]
+    const estado = "active"
     const [sprint, _] = await dataBase.query(
-      "select * from Sprint where FechaCreacion <= ? and FechaFinalizacion >= ?",
-      [fechaActual, fechaActual]
+      "select * from Sprint where state = ?",
+      [estado]
     )
 
-    const sprintNew = new Sprint({
-      id: sprint[0].idSprint,
-      FechaCreacion: sprint[0].fechaCreacion,
-      FechaFinalizacion: sprint[0].fechaFinalizacion,
-      numeroSprint: sprint[0].numeroSprint,
-      idEpica: sprint[0].idEpica,
-    })
-    return sprintNew
+    return sprint
   }
 
   /**

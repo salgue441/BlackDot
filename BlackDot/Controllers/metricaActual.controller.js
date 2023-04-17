@@ -28,8 +28,11 @@ const SprintEpica = require("../models/sprintEpica.model");
 exports.getActual = async (req, res) => {
   try {
     const sprint = await Sprint.getSprintActual();
-    const sprintEpicas = await SprintEpica.getByIDS(sprint.id);
-    const sprintIssues = await SprintIssue.getByIDS(sprint.id);
+    console.log(sprint)
+
+    const sprintIssues = await SprintIssue.getByIDS(sprint.idSprint)
+
+    console.log("No es 8")
 
     sprint.issues = sprintIssues;
 
