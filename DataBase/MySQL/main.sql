@@ -52,29 +52,33 @@ create table if not exists EquipoTrabajo
 create table if not exists Epica
 (
     idEpica int not null auto_increment primary key,
-    nombreEpica varchar
-(50)  
+    nombreEpica varchar(50)  
 );
 
 create table if not exists Sprint
 (
     idSprint int not null auto_increment primary key, 
+    jiraID int unique,
+    sprintName varchar(200),
+    state varchar(50),
+    boardID int not null,
     fechaCreacion timestamp not null default current_timestamp,
     fechaFinalizacion timestamp not null default current_timestamp,
-    numeroSprint int not null,
+
     idEpica int not null
 );
 
 create table if not exists Issue
 (
     idIssue int not null auto_increment primary key,
+    issueKey varchar(30) unique,
     nombreIssue varchar (150) not null, 
     storyPoints int not null default 0,
-    labelIssue varchar (50),
-    prioridadIssue enum ('Alta', 'Media-Alta', 'Media', 'Media-Baja', 'Baja') not null default 'Baja',
-    estadoIssue enum ('To Do', 'In Progress', 'Done') not null default 'To Do',
+    labelIssue varchar (100),
+    prioridadIssue enum ('Highest', 'High', 'Medium', 'Low', 'Lowest') not null default 'Lowest',
+    estadoIssue enum ('To Do', 'En curso', 'Pull request', 'QA', 'Blocked', 'Done') not null default 'To Do',
     fechaCreacion timestamp not null default current_timestamp,
-    fechaFinalizacion timestamp not null default current_timestamp
+    fechaFinalizacion timestamp null default null
 );
 
 create table if not exists Retroalimentacion

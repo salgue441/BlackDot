@@ -397,7 +397,7 @@ exports.getRetroalimentacionExitosa = async (req, res) => {
       try {
         //Se obtiene el id del sprint actual
         Sprint.getSprintActual().then(async (sprint) => {
-          const idSprint = sprint.id
+          const idSprint = sprint[0].idSprint
 
           //Se crea la retroalimentacion
           const retroalimentacion = new Retro({
