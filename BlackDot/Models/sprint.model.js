@@ -88,7 +88,6 @@ module.exports = class Sprint {
       "select * from Sprint where state = ?",
       [estado]
     )
-
     return sprint
   }
 
