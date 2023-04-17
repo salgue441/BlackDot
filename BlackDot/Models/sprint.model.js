@@ -96,7 +96,6 @@ module.exports = class Sprint {
       [estado]
     )
 
-    console.log(sprint)
     return sprint
   }
 
