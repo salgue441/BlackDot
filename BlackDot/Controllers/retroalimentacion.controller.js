@@ -384,15 +384,18 @@ exports.getRetroalimentacionExitosa = async (req, res) => {
     await BancoPreguntas.getAll().then((bancoPreguntas) => {
       //Se genera las fechas de incio y finalizacion de la Retroalimentacion
       const fechaActual = new Date()
+      const horaActual = fechaActual.getHours()
 
-      const FechaCreacion = fechaActual.toISOString().split("T")[0].toString()
+      const FechaCreacion =
+        fechaActual.toISOString().split("T")[0].toString() +
+        " " +
+        horaActual +
+        ":00:00"
 
       fechaActual.setDate(fechaActual.getDate() + 1)
 
-      const FechaFinalizacion = fechaActual
-        .toISOString()
-        .split("T")[0]
-        .toString()
+      const FechaFinalizacion =
+        fechaActual.toISOString().split("T")[0].toString() + " 23:59:59"
 
       try {
         //Se obtiene el id del sprint actual
