@@ -13,13 +13,13 @@
  * @copyright Copyright (c) 2023 - MIT License
  */
 
-const dataBase = require("../utils/dataBase");
+const dataBase = require("../Utils/dataBase")
 
 module.exports = class Pregunta {
   constructor(Pregunta) {
-    this.idPregunta = Pregunta.idPregunta;
-    this.contenido = Pregunta.contenido;
-    this.tipoPregunta = Pregunta.tipoPregunta;
+    this.idPregunta = Pregunta.idPregunta
+    this.contenido = Pregunta.contenido
+    this.tipoPregunta = Pregunta.tipoPregunta
   }
 
   /**
@@ -29,14 +29,16 @@ module.exports = class Pregunta {
    * @returns {object} - Objeto de tipo Pregunta
    */
   static async getByID(idPregunta) {
-    if (!idPregunta) throw new Error("No se ha proporcionado un ID");
+    if (!idPregunta) throw new Error("No se ha proporcionado un ID")
 
     const [pregunta] = await dataBase.query(
       "select * from Pregunta where idPregunta = ?",
       [idPregunta]
-    );
+    )
 
-    return new Pregunta(pregunta);
+    if (pregunta.length === 0) throw new Error("Accionable no encontrada")
+
+    return new Pregunta(pregunta[0])
   }
 
   /**
@@ -45,9 +47,9 @@ module.exports = class Pregunta {
    * @returns {Promise<Pregunta[]>} - Arreglo de objetos de tipo Pregunta
    */
   static async getAll() {
-    const [preguntas, _] = await dataBase.query("select * from Pregunta");
+    const [preguntas, _] = await dataBase.query("select * from Pregunta")
 
-    return preguntas;
+    return preguntas
   }
 
   /**
@@ -59,22 +61,22 @@ module.exports = class Pregunta {
    */
   async save() {
     if (!this.contenido || this.contenido.trim().length === 0)
-      throw new Error("No se ha proporcionado un contenido");
+      throw new Error("No se ha proporcionado un contenido")
 
     if (!this.tipoPregunta)
-      throw new Error("No se ha proporcionado el tipo de Pregunta");
+      throw new Error("No se ha proporcionado el tipo de Pregunta")
 
-    const query = `insert into Pregunta (contenido, tipoPregunta) values(?, ?)`;
+    const query = `insert into Pregunta (contenido, tipoPregunta) values(?, ?)`
     const result = await dataBase.query(query, [
       this.contenido,
       this.tipoPregunta,
-    ]);
+    ])
 
     if (result.affectedRows === 0)
-      throw new Error("La pregunta no se pudo guardar");
+      throw new Error("La pregunta no se pudo guardar")
 
-    this.idPregunta = result.insertId;
-    return this;
+    this.idPregunta = result.insertId
+    return this
   }
 
   /**
@@ -86,19 +88,19 @@ module.exports = class Pregunta {
    * @throws {Error} - Si no se envia el tipo de pregunta
    */
   async verify() {
-    if (!this.contenido) throw new Error("No se ha proporcionado un contenido");
+    if (!this.contenido) throw new Error("No se ha proporcionado un contenido")
     if (this.contenido.length > 300)
-      throw new Error("El contenido es muy largo");
+      throw new Error("El contenido es muy largo")
 
     if (!this.tipoPregunta)
-      throw new Error("No se ha proporcionado un tipo de pregunta");
+      throw new Error("No se ha proporcionado un tipo de pregunta")
 
     const [pregunta] = await dataBase.query(
       "select * from Pregunta where contenido = ? and tipoPregunta = ?",
       [this.contenido, this.tipoPregunta]
-    );
+    )
 
-    return Boolean(pregunta);
+    return Boolean(pregunta)
   }
 
   /**
@@ -110,15 +112,87 @@ module.exports = class Pregunta {
    * @throws {Error} - Si el ID no es un numero
    */
   async deleteByID(idPregunta) {
-    if (!idPregunta) throw new Error("No se envio el ID");
+    if (!idPregunta) throw new Error("No se envio el ID")
     if (typeof idPregunta !== "number")
-      throw new Error("El ID debe ser un numero");
+      throw new Error("El ID debe ser un numero")
 
     const result = await dataBase.query(
-      `delete from Preguntas where idPregunta = $1`,
+      `delete from Pregunta where idPregunta = ?`,
       [idPregunta]
-    );
+    )
 
-    return result.rowCount > 0;
+    return result.rowCount > 0
   }
-};
+
+  /**
+   * @brief
+   * Actualiza una pregunta en la base de datos.
+   * @returns {Promise<Pregunta>} - Query de la pregunta actualizada
+   * @throws {Error} - Si no se ha proporcionado un ID
+   * @throws {Error} - Si no se ha proporcionado un contenido
+   * @throws {Error} - Si no se ha proporcionado un tipo de pregunta
+   * */
+
+  async update() {
+    if (!this.idPregunta) throw new Error("No se ha proporcionado un ID")
+    if (!this.contenido || this.contenido.trim().length === 0)
+      throw new Error("No se ha proporcionado un contenido")
+    if (!this.tipoPregunta)
+      throw new Error("No se ha proporcionado el tipo de Pregunta")
+
+    const query = `update Pregunta set contenido = ?, tipoPregunta = ? where idPregunta = ?`
+    const result = await dataBase.query(query, [
+      this.contenido,
+      this.tipoPregunta,
+      this.idPregunta,
+    ])
+
+    if (result.affectedRows === 0)
+      throw new Error("La pregunta no se pudo actualizar")
+
+    return this
+  }
+
+  /**
+   * @brief
+   * Obtiene el id de la ultima pregunta ingresada.
+   * @returns {Promise<number>} - ID de la ultima pregunta
+   * @throws {Error} - Si no se pudo obtener el ID
+   * */
+
+  static async getLastId() {
+    const [pregunta] = await dataBase.query(
+      "select idPregunta from Pregunta order by idPregunta desc limit 1"
+    )
+
+    if (pregunta.length === 0) throw new Error("No se pudo obtener el ID")
+
+    return pregunta[0].idPregunta
+  }
+
+  /**
+   * @brief
+   * Obtiene todas las preguntas a partir de un array de ids
+   * @param {Array<number>} ids - Array de ids de preguntas
+   * @returns {Promise<Pregunta[]>} - Arreglo de objetos de tipo Pregunta
+   * @throws {Error} - Si no se envia el array de ids
+   * @throws {Error} - Si el array de ids esta vacio
+   * @throws {Error} - Si el array de ids no es un array
+   * @throws {Error} - Si el array de ids no es un array de numeros
+   */
+
+  static async getByIds(ids) {
+    if (!ids) throw new Error("No se envio el array de ids")
+    if (ids.length === 0) throw new Error("El array de ids esta vacio")
+    if (!Array.isArray(ids)) throw new Error("El array de ids no es un array")
+    if (!ids.every((id) => typeof id === "number"))
+      throw new Error("El array de ids no es un array de numeros")
+
+    const [preguntas, _] = await dataBase.query(
+      `select * from Pregunta where idPregunta in (?)`,
+      [ids]
+    )
+
+    return preguntas
+  }
+}
