@@ -78,44 +78,75 @@
     console.log(data)
   
     const canvas = document.getElementById("ActualSprint")
-    let labels = ["Done", "To Do", "In Progress"];
+    let labels = ["To Do", "En curso", "Pull request", "QA", "Blocked", "Done"];
     let allStoryPoints = [];
-    let doneIssues = [];
     let todoIssues = [];
-    let inprogressIssues = [];
-    let doneStoryPoints = 0;
+    let encursoIssues = [];
+    let pullrequestIssues = [];
+    let QAIssues = [];
+    let blockedIssues = [];
+    let doneIssues = [];
     let todoStoryPoints = 0;
-    let inprogressStoryPoints = 0;
+    let encursoStoryPoints = 0;
+    let pullrequestStoryPoints = 0;
+    let QAStoryPoints = 0;
+    let blockedStoryPoints = 0;
+    let doneStoryPoints = 0;
 
 
     for (let i = 0; i < data.issues.length; i++) {
         //doneStoryPoints = doneStoryPoints + data.issues[i].storyPoints;
-        if (data.issues[i].estadoIssue === "Done") {
-            doneIssues.push(data.issues[i].storyPoints)
-        }
         if (data.issues[i].estadoIssue === "To Do") {
             todoIssues.push(data.issues[i].storyPoints)
         }
-        if (data.issues[i].estadoIssue === "In Progress") {
-            inprogressIssues.push(data.issues[i].storyPoints)
+        if (data.issues[i].estadoIssue === "En curso") {
+            encursoIssues.push(data.issues[i].storyPoints)
+        }
+        if (data.issues[i].estadoIssue === "Pull request") {
+            pullrequestIssues.push(data.issues[i].storyPoints)
+        }
+        if (data.issues[i].estadoIssue === "QA") {
+            QAIssues.push(data.issues[i].storyPoints)
+        }
+        if (data.issues[i].estadoIssue === "Blocked") {
+            blockedIssues.push(data.issues[i].storyPoints)
+        }
+        if (data.issues[i].estadoIssue === "Done") {
+            doneIssues.push(data.issues[i].storyPoints)
         }
     }
 
-    for (let j = 0; j < doneIssues.length; j++) {
-        doneStoryPoints = doneStoryPoints + doneIssues[j];
+    for (let j = 0; j < todoIssues.length; j++) {
+        todoStoryPoints = todoStoryPoints + todoIssues[j];
     }
 
-    for (let k = 0; k < todoIssues.length; k++) {
-        todoStoryPoints = todoStoryPoints + todoIssues[k];
+    for (let k = 0; k < encursoIssues.length; k++) {
+        encursoStoryPoints = encursoStoryPoints + encursoIssues[k];
     }
 
-    for (let l = 0; l < inprogressIssues.length; l++) {
-        inprogressStoryPoints = inprogressStoryPoints + inprogressIssues[l];
+    for (let l = 0; l < pullrequestIssues.length; l++) {
+        pullrequestStoryPoints = pullrequestStoryPoints + pullrequestIssues[l];
+    }
+
+    for (let m = 0; m < QAIssues.length; m++) {
+        QAStoryPoints = QAStoryPoints + QAIssues[m];
+    }
+
+    for (let n = 0; n < blockedIssues.length; n++) {
+        blockedStoryPoints = blockedStoryPoints + blockedIssues[n];
+    }
+
+    for (let o = 0; o < doneIssues.length; o++) {
+        doneStoryPoints = doneStoryPoints + doneIssues[o];
     }
   
-    allStoryPoints.push(doneStoryPoints+10);
     allStoryPoints.push(todoStoryPoints);
-    allStoryPoints.push(inprogressStoryPoints);
+    allStoryPoints.push(encursoStoryPoints);
+    allStoryPoints.push(pullrequestStoryPoints);
+    allStoryPoints.push(QAStoryPoints);
+    allStoryPoints.push(blockedStoryPoints);
+    allStoryPoints.push(doneStoryPoints);
+    allStoryPoints.push(doneStoryPoints);
 
     createBarChart(canvas, allStoryPoints, labels)
   })()

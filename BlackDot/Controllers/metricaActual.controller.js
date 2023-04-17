@@ -28,12 +28,7 @@ const SprintEpica = require("../models/sprintEpica.model");
 exports.getActual = async (req, res) => {
   try {
     const sprint = await Sprint.getSprintActual();
-    console.log(sprint)
-
-    const sprintIssues = await SprintIssue.getByIDS(sprint.idSprint)
-
-    console.log("No es 8")
-
+    const sprintIssues = await SprintIssue.getByIDS(sprint[0].idSprint);
     sprint.issues = sprintIssues;
 
     for (let i = 0; i < sprint.issues.length; i++) {
@@ -51,8 +46,7 @@ exports.getActual = async (req, res) => {
 exports.getActualAPI = async (req, res) => {
   try {
     const sprint = await Sprint.getSprintActual();
-    const sprintEpicas = await SprintEpica.getByIDS(sprint.id);
-    const sprintIssues = await SprintIssue.getByIDS(sprint.id);
+    const sprintIssues = await SprintIssue.getByIDS(sprint[0].idSprint);
     let arrayIssues = [];
 
     sprint.issues = sprintIssues;
