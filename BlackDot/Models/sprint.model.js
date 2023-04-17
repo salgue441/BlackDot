@@ -8,7 +8,7 @@
  * @copyright Copyright (c) 2023 - MIT License
  */
 
-const dataBase = require("../utils/dataBase")
+const dataBase = require("../Utils/dataBase")
 
 /**
  * @class Sprint
@@ -53,6 +53,7 @@ module.exports = class Sprint {
     )
 
     return sprint
+
   }
 
   /**
@@ -82,12 +83,21 @@ module.exports = class Sprint {
     return sprints
   }
 
+  /**
+   * @brief
+   * FUncion que obtiene el sprunt actual
+   * @returns {Sprint} - Objeto de tipo sprint
+   * @throws {Error} - Lanza un error si no se pudo obtener el sprint
+   * actual
+   * */
+
   static async getSprintActual() {
     const estado = "active"
     const [sprint, _] = await dataBase.query(
       "select * from Sprint where state = ?",
       [estado]
     )
+
     return sprint
   }
 

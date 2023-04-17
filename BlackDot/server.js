@@ -50,7 +50,7 @@ const actual = require("./routes/actual.routes")
  */
 app.use("/actual", actual)
 
-const historico = require("./routes/historico.routes")
+const historico = require("./Routes/historico.routes")
 /**
  * @brief
  * Route for the historico section
@@ -58,6 +58,9 @@ const historico = require("./routes/historico.routes")
  * @param {Function} historico - Callback function
  */
 app.use("/historico", historico)
+
+const editar = require("./Routes/editar.routes")
+app.use("/editar", editar)
 
 // Starting the server
 const PORT = 3000
