@@ -54,15 +54,20 @@ module.exports = class Epica {
    * @returns {object} - Object of type epic
    * @throws {Error} - if jiraID is not provided or is not a string
    */
+  /**
+   * @brief
+   * Obtains an epica by its jira ID
+   * @param {string} jiraID - Jira ID of the epica
+   */
   static async getByJiraID(jiraID) {
-    if (!jiraID) throw new Error("No se envio el id")
-
-    const epica = await dataBase.query(
+    const [epica] = await dataBase.query(
       "select * from epica where jiraID = ?",
       [jiraID]
     )
 
-    return new Epica(epica)
+    if (epica.length === 0) return null
+
+    return epica[0]
   }
 
   /**
@@ -106,28 +111,25 @@ module.exports = class Epica {
    */
   async save() {
     try {
-      const existingSprint = await Epica.getByJiraID(this.jiraID)
+      const existingEpica = await Epica.getByJiraID(this.jiraID)
 
-      if (existingSprint) {
-        const query = `update epica set jiraKey = ?, nombreEpica = ? where jiraID = ?`
+      if (existingEpica) {
+        const [result, _] = await dataBase.query(
+          "update epica set jiraKey = ?, nombreEpica = ? where jiraID = ?",
+          [this.jiraKey, this.nombreEpica, this.jiraID]
+        )
 
-        const [result, _] = await dataBase.query(query, [
-          this.jiraKey,
-          this.nombreEpica,
-          this.jiraID,
-        ])
+        if (result.affectedRows === 0) throw new Error("No se pudo guardar")
 
-        return result
+        return existingEpica
       }
 
-      const query = `insert into epica (jiraID, jiraKey, nombreEpica) values (?, ?, ?)`
+      const [result, _] = await dataBase.query(
+        "insert into epica (jiraID, jiraKey, nombreEpica) values (?, ?, ?)",
+        [this.jiraID, this.jiraKey, this.nombreEpica]
+      )
 
-      const [result, _] = await dataBase.query(query, [
-        this.jiraID,
-        this.jiraKey,
-        this.nombreEpica,
-      ])
-
+      if (result.affectedRows === 0) throw new Error("No se pudo guardar")
 
       return result
     } catch (error) {

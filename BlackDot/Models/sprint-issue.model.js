@@ -68,4 +68,13 @@ module.exports = class SprintIssue {
 
     return sprintissue
   }
+
+  /**
+   * @brief
+   * Saves a new SprintIssue. If the SprintIssue already exists, 
+   * it will be updated.
+   * @returns {Promise<SprintIssue>} - Objeto de tipo SprintIssue
+   * @throws {Error} - Si no se ha proporcionado un ID de issue o un ID de sprint
+   */
+  async save() { }
 }
