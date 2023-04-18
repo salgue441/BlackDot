@@ -15,6 +15,7 @@ const Bottleneck = require("bottleneck")
 const Issue = require("../models/issue.model")
 const Sprint = require("../models/sprint.model")
 const Epica = require("../Models/epica.model")
+const sprintIssue = require("../models/sprint-issue.model")
 const Accionable = require("../models/accionable.model")
 
 // Auxiliar functions
@@ -487,6 +488,9 @@ exports.saveIssuesToDB = async () => {
         }
       }
     }
+
+    // Sprint Issue
+    
 
     console.log("Sprints saved to DB")
   } catch (error) {
