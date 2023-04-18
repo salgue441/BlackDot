@@ -78,12 +78,21 @@
     </ul>
   </ul>
 
-  <!-- Log Out Button -->
   <button class="button is-danger logout-button">
-    <img src="../../assets/logout.png" class="logout-image" />
+    <img src="../../assets/logout.png" class="logout-button" />
     Log out
   </button>
 </aside>
+
+<script>
+  const logoutButton = document.querySelector(".logout-button")
+
+  logoutButton.addEventListener("click", () => {
+    deleteTokens()
+
+    window.location.href = "/auth"
+  })
+</script>
 
 <!-- Sidebar custom styles -->
 <style>
@@ -188,3 +197,5 @@
     }
   }
 </style>
+
+<script></script>

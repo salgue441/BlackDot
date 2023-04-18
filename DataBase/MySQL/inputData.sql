@@ -56,7 +56,8 @@ insert into Rol
     (nombreRol)
 values
     ('Administrador'),
-    ('Squad Member');
+    ('Squad Member'),
+    ('Sin rol');
 
 -- Insertando datos en la relacion de Empleado y Rol
 insert into EmpleadoRol(idEmpleado, idRol)
