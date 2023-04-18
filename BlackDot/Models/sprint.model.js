@@ -32,9 +32,10 @@ module.exports = class Sprint {
     this.sprintName = Sprint.sprintName || ""
     this.state = Sprint.state || "To Do"
     this.boardID = Sprint.boardID || 0
-    this.FechaCreacion = Sprint.FechaCreacion || new Date().toISOString()
-    this.FechaFinalizacion = Sprint.FechaFinalizacion || null
-    this.idEpica = Sprint.idEpica || 0
+    this.fechaCreacion = Sprint.fechaCreacion
+      || new Date().toISOString().slice(0, 19).replace('T', ' ')
+    this.fechaFinalizacion = Sprint.fechaFinalizacion
+      || new Date().toISOString().slice(0, 19).replace('T', ' ')
   }
 
   /**
@@ -94,7 +95,6 @@ module.exports = class Sprint {
       FechaCreacion: sprint[0].fechaCreacion,
       FechaFinalizacion: sprint[0].fechaFinalizacion,
       numeroSprint: sprint[0].numeroSprint,
-      idEpica: sprint[0].idEpica,
     })
     return sprintNew
   }
@@ -112,14 +112,13 @@ module.exports = class Sprint {
 
       if (existingSprint) {
         const [result, _] = await dataBase.query(
-          "UPDATE Sprint SET sprintName = ?, state = ?, boardID = ?, FechaCreacion = ?, FechaFinalizacion = ?, idEpica = ? WHERE jiraID = ?",
+          "UPDATE Sprint SET sprintName = ?, state = ?, boardID = ?, FechaCreacion = ?, FechaFinalizacion = ? WHERE jiraID = ?",
           [
             this.sprintName,
             this.state,
             this.boardID,
-            this.FechaCreacion,
-            this.FechaFinalizacion,
-            this.idEpica,
+            this.fechaCreacion,
+            this.fechaFinalizacion,
             this.jiraID,
           ]
         )
@@ -132,15 +131,14 @@ module.exports = class Sprint {
       }
 
       const [result, _] = await dataBase.query(
-        "INSERT INTO Sprint (jiraID, sprintName, state, boardID, FechaCreacion, FechaFinalizacion, idEpica) VALUES (?, ?, ?, ?, ?, ?, ?)",
+        "INSERT INTO Sprint (jiraID, sprintName, state, boardID, FechaCreacion, FechaFinalizacion) VALUES (?, ?, ?, ?, ?, ?)",
         [
           this.jiraID,
           this.sprintName,
           this.state,
           this.boardID,
-          this.FechaCreacion,
-          this.FechaFinalizacion,
-          this.idEpica,
+          this.fechaCreacion,
+          this.fechaFinalizacion,
         ]
       )
 
