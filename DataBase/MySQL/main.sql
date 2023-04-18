@@ -12,8 +12,7 @@
 -- copyright: Copyright (c) 2023 - MIT License
 -- copyright: Copyright (c) 2023 - MIT License
 
-create database if not exists blackdot 
-default character set utf8 collate utf8_spanish_ci;
+create database if not exists blackdot;
 
 use blackdot;
 
@@ -52,7 +51,9 @@ create table if not exists EquipoTrabajo
 create table if not exists Epica
 (
     idEpica int not null auto_increment primary key,
-    nombreEpica varchar(50)  
+    jiraID int unique,
+    jiraKey varchar(50),
+    nombreEpica varchar(50)
 );
 
 create table if not exists Sprint
@@ -65,7 +66,7 @@ create table if not exists Sprint
     fechaCreacion timestamp not null default current_timestamp,
     fechaFinalizacion timestamp not null default current_timestamp,
 
-    idEpica int not null
+    idEpica int
 );
 
 create table if not exists Issue
@@ -176,6 +177,16 @@ create table if not exists EquipoTrabajoIssue
     foreign key (idIssue) references Issue (idIssue)
 );
 
+create table if not exists SprintEpica
+(
+    idEpica int not null,
+    idSprint int not null,
+
+    primary key (idEpica, idSprint),
+    foreign key (idEpica) references Epica (idEpica),
+    foreign key (idSprint) references Sprint (idSprint)
+);
+
 create table if not exists SprintIssue
 (
     idIssue int not null, 
@@ -184,16 +195,6 @@ create table if not exists SprintIssue
     primary key (idIssue, idSprint),
     foreign key (idIssue) references Issue (idIssue),
     foreign key (idSprint) references Sprint (idSprint)
-);
-
-create table if not exists SprintEpica
-(
-    idSprint int not null,
-    idEpica int not null,
-
-    primary key (idSprint, idEpica),
-    foreign key (idSprint) references Sprint (idSprint),
-    foreign key (idEpica) references Epica (idEpica)
 );
 
 create table if not exists RetroalimentacionPregunta
