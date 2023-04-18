@@ -24,7 +24,7 @@ const Token = require('../Models/token.model')
  */
 const createTokenLogin = (data) => {
     return jwt.sign(data, process.env.JWT_LOGIN, {
-      expiresIn: "30s",
+        expiresIn: "300s",
     })
 }
 
@@ -56,10 +56,10 @@ const verifyToken = (token, type = "login") => {
 
     if (type === "login")
         typeToken = process.env.JWT_LOGIN;
-    
+
     if (type === "refresh")
         typeToken = process.env.JWT_REFRESH;
-    
+
     return jwt.verify(token, typeToken);
 }
 
@@ -131,11 +131,11 @@ const deleteSession = (req, res) => {
  * Exporting all the file functions
  */
 module.exports = {
-    createTokenLogin, 
-    createRefreshToken, 
-    verifyToken, 
-    verifyGoogleToken, 
-    isBlacklisted, 
-    blacklistToken, 
+    createTokenLogin,
+    createRefreshToken,
+    verifyToken,
+    verifyGoogleToken,
+    isBlacklisted,
+    blacklistToken,
     deleteSession
 }
