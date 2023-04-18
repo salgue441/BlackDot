@@ -106,23 +106,21 @@ module.exports = class Epica {
    */
   async save() {
     try {
-      const existingEpica = Epica.getByJiraID(this.jiraID)
+      const existingSprint = await Epica.getByJiraID(this.jiraID)
 
-      if (existingEpica) {
-        const query = `update epica set jiraID = ?, jiraKey = ?, nombreEpica = ? where idEpica = ?`
+      if (existingSprint) {
+        const query = `update epica set jiraKey = ?, nombreEpica = ? where jiraID = ?`
 
-        await dataBase.query(query, [
-          this.jiraID,
+        const [result, _] = await dataBase.query(query, [
           this.jiraKey,
           this.nombreEpica,
-          this.idEpica,
+          this.jiraID,
         ])
 
-        return this
+        return result
       }
 
-      const query =
-        `insert into epica (jiraID, jiraKey, nombreEpica) values (?, ?, ?) `
+      const query = `insert into epica (jiraID, jiraKey, nombreEpica) values (?, ?, ?)`
 
       const [result, _] = await dataBase.query(query, [
         this.jiraID,
@@ -130,9 +128,8 @@ module.exports = class Epica {
         this.nombreEpica,
       ])
 
-      this.idEpica = result.insertId
 
-      return this
+      return result
     } catch (error) {
       throw new Error(error)
     }

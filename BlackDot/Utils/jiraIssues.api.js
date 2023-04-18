@@ -444,8 +444,6 @@ exports.saveIssuesToDB = async () => {
     const sprintIssuesData = await getJiraIssuesFromSprint()
     const processedData = new Set()
 
-    console.log(sprintIssuesData)
-
     for (const sprint of sprintIssuesData) {
       if (!processedData.has(sprint.sprintID)) {
         const newSprint = new Sprint({
@@ -458,6 +456,7 @@ exports.saveIssuesToDB = async () => {
         })
 
         await newSprint.save()
+        processedData.add(sprint.sprintID)
 
         for (const epic of sprint.epic) {
           const newEpic = new Epica({
@@ -466,10 +465,25 @@ exports.saveIssuesToDB = async () => {
             nombreEpica: epic?.fields?.summary,
           })
 
-          if (newEpic.jiraID !== 0 || newEpic.jiraKey !== ''
-            || newEpic.nombreEpica !== '') {
+          if (newEpic.jiraID && newEpic.jiraKey && newEpic.nombreEpica) {
             await newEpic.save()
           }
+
+        }
+
+        for (const issue of sprint.issues) {
+          const newIssue = new Issue({
+            issueKey: issue.key,
+            nombreIssue: issue.summary,
+            storyPoints: issue.storyPoints,
+            labelIssue: issue.labels.join(","),
+            prioridadIssue: issue.priority,
+            estadoIssue: issue.status,
+            fechaCreacion: issue.created,
+            fechaFinalizacion: issue.resolutiondate,
+          })
+
+          await newIssue.save()
         }
       }
     }
