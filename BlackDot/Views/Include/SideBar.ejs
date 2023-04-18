@@ -85,7 +85,8 @@
   const logoutButton = document.querySelector(".logout-button")
 
   logoutButton.addEventListener("click", () => {
-    localStorage.removeItem("token")
+    deleteTokens()
+
     window.location.href = "/auth"
   })
 </script>
@@ -194,6 +195,4 @@
   }
 </style>
 
-<script>
-  
-</script>
+<script></script>

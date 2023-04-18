@@ -1,8 +1,7 @@
 async function handleLogin(response) {
-  const token = response.credential;
-
   try {
-    const loginResponse = await fetch(routes.login, {
+    const token = response.credential;
+    const loginResponse = await fetch('/auth/login', {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -13,12 +12,11 @@ async function handleLogin(response) {
     const res = await loginResponse.json();
 
     // Save tokens in httpOnly cookies
-    document.cookie = `rzauthToken=${res.authToken}; path=/;`;
-    document.cookie = `rzrefreshToken=${res.refreshToken}; path=/;`;
+    document.cookie = `blackdotToken=${res.authToken}; path=/;`;
+    document.cookie = `blackdotRefreshToken=${res.refreshToken}; path=/;`;
 
-    // Redirect to dashboard
     if (loginResponse.ok) {
-      location.href = "/";
+      location.href = "/home";
     }
   } catch (error) {
     console.log(error);
