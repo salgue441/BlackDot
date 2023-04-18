@@ -93,6 +93,8 @@ app.use("/auth", auth)
 app.get("/", (req, res) => {
   res.redirect("/auth")
 })
+const editar = require("./Routes/editar.routes")
+app.use("/editar", editar)
 
 // Starting the server
 const PORT = 3000
