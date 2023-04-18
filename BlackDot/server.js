@@ -108,7 +108,7 @@ app.use("/historico", historico)
  * @returns {Function} - Callback function
  * */
 
-const editar = require("./routes/editar.routes")
+const editar = require("./Routes/editar.routes")
 app.use("/editar", editar)
 
 // Starting the server
