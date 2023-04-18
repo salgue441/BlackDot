@@ -225,6 +225,10 @@
         foreign key (idAccionable) references Accionable (idAccionable)
     );
 
+create table if not exists token
+(
+    id text
+);
 
     -- Alterando las tablas para aniadir las llaves foraneas
     alter table Retroalimentacion
