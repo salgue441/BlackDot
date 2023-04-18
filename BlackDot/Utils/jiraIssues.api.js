@@ -385,8 +385,8 @@ const fetchJiraIssuesFromSprint = async (
     const allIssues = issueChunks
       .filter((chunk) => chunk.status === "fulfilled")
       .flatMap((chunk) => chunk.value)
-    const issuesFormatted = formatIssues(allIssues)
 
+    const issuesFormatted = formatIssues(allIssues)
     const epicNames = new Set();
     let epic = [];
 
@@ -444,6 +444,8 @@ exports.saveIssuesToDB = async () => {
     const sprintIssuesData = await getJiraIssuesFromSprint()
     const processedData = new Set()
 
+    console.log(sprintIssuesData)
+
     for (const sprint of sprintIssuesData) {
       if (!processedData.has(sprint.sprintID)) {
         const newSprint = new Sprint({
@@ -453,8 +455,9 @@ exports.saveIssuesToDB = async () => {
           boardID: sprint.originBoardID,
           fechaCreacion: sprint.sprintStartDate,
           fechaFinalizacion: sprint.sprintEndDate,
-          idEpica: sprint?.epic?.status?.statusCategory?.id,
         })
+
+        await newSprint.save()
 
         for (const epic of sprint.epic) {
           const newEpic = new Epica({
