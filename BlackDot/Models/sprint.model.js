@@ -33,7 +33,7 @@ module.exports = class Sprint {
     this.state = Sprint.state || "To Do"
     this.boardID = Sprint.boardID || 0
     this.FechaCreacion = Sprint.FechaCreacion || new Date()
-    this.FechaFinalizacion = Sprint.FechaFinalizacion || new Date() || null
+    this.FechaFinalizacion = Sprint.FechaFinalizacion || null
     this.idEpica = Sprint.idEpica || 0
   }
 
@@ -47,11 +47,13 @@ module.exports = class Sprint {
   static async getbyID(id) {
     if (!id) throw new Error("No se envio el id")
 
-    const sprint = await dataBase.query(
+    const [sprint,_] = await dataBase.query(
       "select * from Sprint where idSprint = ?",
       [id]
     )
-    return new Sprint(sprint)
+
+    return sprint
+
   }
 
   /**
