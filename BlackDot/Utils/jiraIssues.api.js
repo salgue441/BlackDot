@@ -18,7 +18,7 @@ const Epica = require("../Models/epica.model")
 const Accionable = require("../models/accionable.model")
 
 // Auxiliar functions
-/**
+/**   
  * @brief
  * Creates a new limiter for the API requests. Prevents error 429.
  * @param {Number} minTime - Time in milliseconds
@@ -275,6 +275,7 @@ const fetchIssuesInChunks = async (
           maxResults: 1000,
           fields: [
             "parent", // Epics
+            "id",
             "summary",
             "status",
             "priority",
@@ -386,6 +387,16 @@ const fetchJiraIssuesFromSprint = async (
       .flatMap((chunk) => chunk.value)
     const issuesFormatted = formatIssues(allIssues)
 
+    const epicNames = new Set();
+    let epic = [];
+
+    for (let i = 0; i < issuesFormatted.length; i++) {
+      if (!epicNames.has(issuesFormatted[i].epic?.fields?.summary)) {
+        epicNames.add(issuesFormatted[i].epic?.fields?.summary)
+        epic.push(issuesFormatted[i].epic)
+      }
+    }
+
     return {
       sprintID: sprint.sprintID,
       sprintName: sprint.sprintName,
@@ -394,7 +405,7 @@ const fetchJiraIssuesFromSprint = async (
       sprintStartDate: sprint.sprintStartDate,
       sprintEndDate: sprint.sprintEndDate,
       originBoardID: sprint.originBoardID,
-      epic: issuesFormatted[0].epic,
+      epic: epic,
       issues: issuesFormatted,
     }
   } catch (error) {
@@ -415,12 +426,13 @@ const formatIssues = (issues) =>
     summary: issue.fields.summary,
     status: issue.fields.status.name,
     priority: issue.fields.priority?.name || "None",
-    created: issue.fields.created,
+    created: issue.fields?.created || "None",
     resolutiondate: issue.fields.resolutiondate,
     labels: issue.fields.labels,
     storyPoints: issue.fields.customfield_10042,
     sprints: issue.fields?.customfield_10010 || "None",
-    epic: issue.fields?.parent?.fields || "None",
+    epic: issue.fields?.parent || null,
+    id: issue.id,
   }))
 
 /**
@@ -444,33 +456,22 @@ exports.saveIssuesToDB = async () => {
           idEpica: sprint?.epic?.status?.statusCategory?.id,
         })
 
-        await newSprint.save()
-        processedData.add(sprint.sprintID)
-
-        for (const issue of sprint.issues) {
-          const newIssue = new Issue({
-            issueKey: issue.key,
-            nombreIssue: issue.summary,
-            storyPoints: issue.storyPoints,
-            labelIssue: issue.labels.join(","),
-            prioridadIssue: issue.priority,
-            estadoIssue: issue.status,
-            fechaCreacion: issue.created,
-            fechaFinalizacion: issue.resolutiondate,
+        for (const epic of sprint.epic) {
+          const newEpic = new Epica({
+            jiraID: epic?.id,
+            jiraKey: epic?.key,
+            nombreEpica: epic?.fields?.summary,
           })
 
-          await newIssue.save()
+          if (newEpic.jiraID !== 0 || newEpic.jiraKey !== ''
+            || newEpic.nombreEpica !== '') {
+            await newEpic.save()
+          }
         }
-
-        // const newEpica = new Epica({
-        //   nombreEpica: sprint?.epic?.summary,
-        // })
-
-        // console.log(newEpica)
       }
     }
 
-    console.log("Issues saved to DB")
+    console.log("Sprints saved to DB")
   } catch (error) {
     console.log(error)
     throw new Error(error)
