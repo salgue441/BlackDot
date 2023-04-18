@@ -21,7 +21,7 @@ const empleadoRol = require('../Models/empleado-rol.model')
 const renderLogin = (req, res) => {
     if (req.session.currentUser)
         return res.redirect("/")
-    
+
     res.locals.activeTeams = []
     res.locals.currentUser = null
     res.locals.currentTeam = null
@@ -43,39 +43,25 @@ const renderLogin = (req, res) => {
 const loginAPI = async (req, res, next) => {
     try {
         const { token } = req.body
+        console.log(token)
         const data = await authUtil.verifyGoogleToken(token)
-        const user = await Empleado.getByEmail(data.email)
 
-        console.log(data)
-
-        if (!user) {    
-            // Needs to be checked with a clg(data)
-            const newEmpleado = new Empleado({
-                primerNombre: data.given_name, 
-                segundoNombre: data.segundoNombre,
-                apellidoPaterno: data.family_name,
-                apellidoMaterno: data.apellidoMaterno,
-                idGoogleAuth: data.sun, 
-                googleEmail: data.email,
-                googleProfilePicture: data.picture
-            })
-
-            const result = await newEmpleado.save()
-            newEmpleado.idEmpleado = result.insertId
-
-            await newEmpleado.addRole({ id: 1 })
+        const user = {
+            idGoogleAuth: data.sub,
+            googleEmail: data.email,
+            primerNombre: data.given_name,
+            apellidoPaterno: data.family_name,
+            googleProfilePicture: data.picture
         }
 
-        const userData = {}
-
         // Creating tokens
-        const authToken = authUtil.createTokenLogin(userData)
-        const refreshToken = authUtil.createRefreshToken(uesrData)
+        const authToken = authUtil.createTokenLogin(user)
+        const refreshToken = authUtil.createRefreshToken(user)
 
         res.status(200).json({ authToken, refreshToken })
     }
     catch (error) {
-        console.log(error) 
+        console.log(error)
         throw new Error(error)
     }
 }
@@ -98,36 +84,39 @@ const logoutAPI = (req, res) => {
  * @param {Object} next - Callback function
  */
 const refreshTokenAPI = async (req, res, next) => {
-    try { 
+    try {
         const { refreshToken } = req.body
+        console.log(refreshToken)
         const verified = authUtil.verifyToken(refreshToken,
-            "Refresh")
-        
+            "refresh")
+
         // to finish primerNombre: verified.primerNombre
         const userData = {
-            primerNombre: verified.primerNombre, 
+            primerNombre: verified.primerNombre,
             segundoNombre: verified.segundoNombre,
-            apellidoPaterno: verified.apellidoPaterno, 
+            apellidoPaterno: verified.apellidoPaterno,
             apellidoMaterno: verified.apellidoMaterno,
             idGoogleAuth: verified.idGoogleAuth,
-            googleEmail: verified.googleEmail, 
+            googleEmail: verified.googleEmail,
             googleProfilePicture: verified.googleProfilePicture
         }
 
-        // Blacklisting refresh token
-        const isBlacklisted = await authUtil.isBlacklisted(refreshToken)
+        console.log(userData)
 
-        if (isBlacklisted) 
-            return authUtil.deleteSession(req, res)
-        
-        await authUtil.blacklistToken(refreshToken)
+        // Blacklisting refresh token
+        /*  const isBlacklisted = await authUtil.isBlacklisted(refreshToken)
+ 
+         if (isBlacklisted)
+             return authUtil.deleteSession(req, res)
+ 
+         await authUtil.blacklistToken(refreshToken) */
 
         // Create tokens
         const authToken = authUtil.createTokenLogin(userData)
         const newRefreshToken = authUtil.createRefreshToken(userData)
 
         res.status(200).json({
-            authToken, 
+            authToken,
             refreshToken: newRefreshToken
         })
     }
@@ -138,8 +127,8 @@ const refreshTokenAPI = async (req, res, next) => {
 }
 
 module.exports = {
-    renderLogin, 
-    loginAPI, 
-    logoutAPI, 
+    renderLogin,
+    loginAPI,
+    logoutAPI,
     refreshTokenAPI
 }
