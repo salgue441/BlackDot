@@ -10,7 +10,15 @@
     />
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <script src="js/auth/GoogleAuth.js"></script>
+    <script src="js/utils/index.js" defer></script>
+    <script src="js/auth/index.js" defer></script>
 
+    <script>
+      function handleCredentialResponse(response) {
+        handleLogin(response)
+      }
+    </script>
 
     <title>BlackDot</title>
   </head>
