@@ -1470,62 +1470,61 @@ VALUES
     (35, 31),
     (36, 31);
 
--- Insertando datos en reporte
-insert into reporte
-    (fechaCreacion)
-values
-    ('2021-04-05'),
-    ('2021-04-19'),
-    ('2021-05-03'),
-    ('2021-05-17'),
-    ('2021-05-31'),
-    ('2021-06-14'),
-    ('2021-06-28'),
-    ('2021-07-12'),
-    ('2021-07-26'),
-    ('2021-08-09'),
-    ('2021-08-23'),
-    ('2021-09-06'),
-    ('2021-09-20'),
-    ('2021-10-04'),
-    ('2021-10-18'),
-    ('2021-11-01'),
-    ('2021-11-15'),
-    ('2021-11-29'),
-    ('2021-12-13'),
-    ('2021-12-27'),
-    ('2022-01-10'),
-    ('2022-01-10'),
-    ('2022-02-07'),
-    ('2022-02-21'),
-    ('2022-03-07');
+
 
 -- Insertando datos en retroalimentacion
 insert into Retroalimentacion
-    (fechaCreacion, fechaFinalizacion, idSprint, idReporte)
+    (fechaCreacion, fechaFinalizacion, idSprint)
 values
-    ('2021-01-01', '2021-01-02', 1, 1),
-    ('2021-02-14', '2021-02-15', 2, 2),
-    ('2021-03-17', '2021-03-18', 3, 3),
-    ('2021-04-02', '2021-04-03', 4, 4),
-    ('2021-05-05', '2021-05-06', 5, 5),
-    ('2021-06-20', '2021-06-21', 6, 6),
-    ('2021-07-04', '2021-07-05', 7, 7),
-    ('2021-08-30', '2021-08-31', 8, 8),
-    ('2021-09-15', '2021-09-16', 9, 9),
-    ('2021-10-09', '2021-10-10', 10, 10),
-    ('2021-11-01', '2021-11-02', 11, 11),
-    ('2021-11-22', '2021-11-23', 12, 12),
-    ('2021-12-01', '2021-12-02', 13, 13),
-    ('2021-12-12', '2021-12-13', 14, 14),
-    ('2021-12-31', '2022-01-01', 15, 15),
-    ('2022-01-20', '2022-01-21', 16, 16),
-    ('2022-02-14', '2022-02-15', 17, 17),
-    ('2022-03-17', '2022-03-18', 18, 18),
-    ('2022-04-02', '2022-04-03', 19, 19),
-    ('2022-05-05', '2022-05-06', 20, 20);
+    ('2021-01-01', '2021-01-02', 1),
+    ('2021-02-14', '2021-02-15', 2),
+    ('2021-03-17', '2021-03-18', 3),
+    ('2021-04-02', '2021-04-03', 4),
+    ('2021-05-05', '2021-05-06', 5);
+
+-- Insertando datos en reporte
+insert into reporte
+    (fechaCreacion, idRetroalimentacion)
+values
+    ('2021-04-05',1),
+    ('2021-04-19',1),
+    ('2021-05-03',1),
+    ('2021-05-17',1),
+    ('2021-05-31',1),
+    ('2021-06-14',1),
+    ('2021-06-28',1),
+    ('2021-07-12',2),
+    ('2021-07-26',2),
+    ('2021-08-09',2),
+    ('2021-08-23',2),
+    ('2021-09-06',2),
+    ('2021-09-20',2),
+    ('2021-10-04',3),
+    ('2021-10-18',3),
+    ('2021-11-01',3),
+    ('2021-11-15',3),
+    ('2021-11-29',4),
+    ('2021-12-13',4),
+    ('2021-12-27',4),
+    ('2022-01-10',4),
+    ('2022-01-10',4),
+    ('2022-02-07',5),
+    ('2022-02-21',5),
+    ('2022-03-07',5);
 
 -- Insertando datos en pregunta
+insert into BancoPreguntas
+    (contenido, tipoPregunta)
+values
+    ('¿Cómo te sientes?', 'Cuantitativa'),
+    ('¿Te sientes a gusto con tu desempeño este sprint?', 'Cuantitativa'),
+    ('¿Consideras que la cantidad de issues asignadas en este sprint son las adecuadas?', 'Cuantitativa'),
+    ('¿Que hicimos bien este sprint', 'Cualitativa'),
+    ('¿Que hicimos mal que debemos hacer diferente?', 'Cualitativa'),
+    ('¿Que nos causa ruido?', 'Cualitativa'),
+    ('¿Que impedimiento tuvimos en este sprint?', 'Cualitativa');
+
+-- Insertando datos en banco de preguntas
 insert into Pregunta
     (contenido, tipoPregunta)
 values
@@ -1536,7 +1535,7 @@ values
     ('¿Que hicimos mal que debemos hacer diferente?', 'Cualitativa'),
     ('¿Que nos causa ruido?', 'Cualitativa'),
     ('¿Que impedimiento tuvimos en este sprint?', 'Cualitativa'),
-    ('¿Qué podemos mejorar?', 'Cualitativa');
+    ('¿Que podemos mejorar?', 'Cualitativa');
 
 -- Insertando en la relacion de Retroalimentacion Pregunta
 INSERT INTO `retroalimentacionpregunta` (`idRetroalimentacion`, `idPregunta`, `required`) VALUES
