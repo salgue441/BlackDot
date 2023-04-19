@@ -8,7 +8,7 @@
  * @copyright Copyright (c) 2023 - MIT License
  */
 
-const dataBase = require("../utils/dataBase")
+const dataBase = require("../Utils/dataBase")
 
 /**
  * @class Sprint
@@ -32,10 +32,16 @@ module.exports = class Sprint {
     this.sprintName = Sprint.sprintName || ""
     this.state = Sprint.state || "To Do"
     this.boardID = Sprint.boardID || 0
+<<<<<<< HEAD
     this.fechaCreacion = Sprint.fechaCreacion
       || new Date().toISOString().slice(0, 19).replace('T', ' ')
     this.fechaFinalizacion = Sprint.fechaFinalizacion
       || new Date().toISOString().slice(0, 19).replace('T', ' ')
+=======
+    this.FechaCreacion = Sprint.FechaCreacion || new Date()
+    this.FechaFinalizacion = Sprint.FechaFinalizacion || null
+    this.idEpica = Sprint.idEpica || 0
+>>>>>>> 75100353608d85105235dd1e0feae824c7c63272
   }
 
   /**
@@ -48,12 +54,13 @@ module.exports = class Sprint {
   static async getbyID(id) {
     if (!id) throw new Error("No se envio el id")
 
-    const sprint = await dataBase.query(
+    const [sprint,_] = await dataBase.query(
       "select * from Sprint where idSprint = ?",
       [id]
     )
 
-    return new Sprint(sprint)
+    return sprint
+
   }
 
   /**
@@ -83,13 +90,22 @@ module.exports = class Sprint {
     return sprints
   }
 
+  /**
+   * @brief
+   * FUncion que obtiene el sprunt actual
+   * @returns {Sprint} - Objeto de tipo sprint
+   * @throws {Error} - Lanza un error si no se pudo obtener el sprint
+   * actual
+   * */
+
   static async getSprintActual() {
-    const fechaActual = new Date().toISOString().split("T")[0]
+    const estado = "active"
     const [sprint, _] = await dataBase.query(
-      "select * from Sprint where FechaCreacion <= ? and FechaFinalizacion >= ?",
-      [fechaActual, fechaActual]
+      "select * from Sprint where state = ?",
+      [estado]
     )
 
+<<<<<<< HEAD
     const sprintNew = new Sprint({
       id: sprint[0].idSprint,
       FechaCreacion: sprint[0].fechaCreacion,
@@ -97,6 +113,9 @@ module.exports = class Sprint {
       numeroSprint: sprint[0].numeroSprint,
     })
     return sprintNew
+=======
+    return sprint
+>>>>>>> 75100353608d85105235dd1e0feae824c7c63272
   }
 
   /**
