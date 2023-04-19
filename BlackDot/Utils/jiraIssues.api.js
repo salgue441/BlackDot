@@ -26,7 +26,11 @@ const SprintIssue = require("../models/sprint-issue.model")
  * @param {Number} minTime - Time in milliseconds
  */
 const limiter = new Bottleneck({
+<<<<<<< HEAD
   minTime: 0,
+=======
+  minTime: 10,
+>>>>>>> 75100353608d85105235dd1e0feae824c7c63272
 })
 
 // Wrapping axios
@@ -496,7 +500,13 @@ exports.saveIssuesToDB = async () => {
       }
     }
 
+<<<<<<< HEAD
     console.log("Sprints saved to DB")
+=======
+    console.log(
+      "Fetch complete. Issues, Sprints, and Epicas saved to database."
+    )
+>>>>>>> 75100353608d85105235dd1e0feae824c7c63272
   } catch (error) {
     console.log(error)
     throw new Error(error)
