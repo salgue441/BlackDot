@@ -64,9 +64,7 @@ create table if not exists Sprint
     state varchar(50),
     boardID int not null,
     fechaCreacion timestamp not null default current_timestamp,
-    fechaFinalizacion timestamp not null default current_timestamp,
-
-    idEpica int
+    fechaFinalizacion timestamp not null default current_timestamp
 );
 
 create table if not exists Issue
