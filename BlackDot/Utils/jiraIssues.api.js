@@ -476,7 +476,6 @@ exports.saveIssuesToDB = async () => {
                 idSprint: savedSprint.idSprint,
               })
 
-              console.log(newSprintEpic)
               await newSprintEpic.save()
             }
           }
@@ -506,14 +505,14 @@ exports.saveIssuesToDB = async () => {
       }
     }
 
-    console.log(
-      "Fetch complete. Issues, Sprints, and Epicas saved to database."
-    )
   } catch (error) {
     console.log(error)
     throw new Error(error)
   }
 }
+
+// Testing
+
 
 /**
  * @brief
@@ -521,11 +520,10 @@ exports.saveIssuesToDB = async () => {
  * @param {*} accionable - The accionable to be created
  */
 exports.createAccionable = async (accionable) => {
-  const jiraUrl = process.env.JIRA_URL
-  const jiraUser = process.env.JIRA_USER
-  const apiToken = process.env.JIRA_API_TOKEN
-  const projectName = process.env.JIRA_PROJECT_NAME
-  const boardName = process.env.JIRA_BOARD_NAME
+  const jiraUrl = process.env.JIRA_URL_TEST
+  const jiraUser = process.env.JIRA_USER_TEST
+  const apiToken = process.env.JIRA_API_TOKEN_TEST
+  const projectName = process.env.JIRA_PROJECT_NAME_TEST
 
   try {
     const response = await rateLimitedAxios.post(
@@ -535,21 +533,20 @@ exports.createAccionable = async (accionable) => {
           project: {
             key: projectName,
           },
-
           summary: accionable.nombreAccionable,
-          priority: accionable.prioridadAccionable,
-          startDate: accionable.fechaCreacion,
-          assignee: accionable.assignedTo,
+          priority: {
+            name: accionable.prioridadAccionable,
+          },
           issuetype: {
             name: "Accionable",
           },
         },
-
+      },
+      {
         auth: {
           username: jiraUser,
           password: apiToken,
         },
-
         headers: {
           "Content-Type": "application/json",
           Accept: "application/json",

@@ -70,14 +70,20 @@ module.exports = class SprintEpica {
   }
 
   async save() {
-    if (!this.idEpica || !this.idSprint)
-      throw new Error("No se ha proporcionado un ID");
+    try {
+      if (!this.idEpica || !this.idSprint)
+        throw new Error("No se ha proporcionado un ID");
 
-    const [sprintEpica, _] = await dataBase.query(
-      "insert into sprintEpica (idEpica, idSprint) values (?, ?)",
-      [this.idEpica, this.idSprint]
-    )
 
-    return this
+
+      const [sprintEpica, _] = await dataBase.query(
+        "insert into sprintEpica (idEpica, idSprint) values (?, ?)",
+        [this.idEpica, this.idSprint]
+      )
+
+      return this
+    } catch (error) {
+      return this
+    }
   }
 };
