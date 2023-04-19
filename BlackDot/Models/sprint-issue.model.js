@@ -76,5 +76,15 @@ module.exports = class SprintIssue {
    * @returns {Promise<SprintIssue>} - Objeto de tipo SprintIssue
    * @throws {Error} - Si no se ha proporcionado un ID de issue o un ID de sprint
    */
-  async save() { }
+  async save() {
+    if (!this.idIssue) throw new Error("No se ha proporcionado un ID de issue")
+    if (!this.idSprint) throw new Error("No se ha proporcionado un ID de sprint")
+
+    const [sprintissue, _] = await dataBase.query(
+      "insert into SprintIssue (idIssue, idSprint) values (?, ?) on duplicate key update idSprint = ?",
+      [this.idIssue, this.idSprint, this.idSprint]
+    )
+
+    return this
+  }
 }

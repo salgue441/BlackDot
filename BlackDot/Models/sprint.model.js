@@ -27,7 +27,7 @@ module.exports = class Sprint {
    * @param {*} Sprint - Objeto de tipo Sprint
    */
   constructor(Sprint) {
-    this.id = Sprint.id
+    this.idSprint = Sprint.idSprint
     this.jiraID = Sprint.jiraID || 0
     this.sprintName = Sprint.sprintName || ""
     this.state = Sprint.state || "To Do"
@@ -69,7 +69,7 @@ module.exports = class Sprint {
 
     if (sprint.length === 0) return null
 
-    return sprint
+    return new Sprint(sprint[0])
   }
 
   /**
@@ -127,27 +127,28 @@ module.exports = class Sprint {
           throw new Error("No se pudo actualizar el sprint")
         }
 
-        return existingSprint
+        this.idSprint = existingSprint.idSprint
       }
+      else {
 
-      const [result, _] = await dataBase.query(
-        "INSERT INTO Sprint (jiraID, sprintName, state, boardID, FechaCreacion, FechaFinalizacion) VALUES (?, ?, ?, ?, ?, ?)",
-        [
-          this.jiraID,
-          this.sprintName,
-          this.state,
-          this.boardID,
-          this.fechaCreacion,
-          this.fechaFinalizacion,
-        ]
-      )
+        const [result, _] = await dataBase.query(
+          "INSERT INTO Sprint (jiraID, sprintName, state, boardID, FechaCreacion, FechaFinalizacion) VALUES (?, ?, ?, ?, ?, ?)",
+          [
+            this.jiraID,
+            this.sprintName,
+            this.state,
+            this.boardID,
+            this.fechaCreacion,
+            this.fechaFinalizacion,
+          ]
+        )
 
-      if (result.affectedRows === 0) {
-        throw new Error("No se pudo guardar el sprint")
+        if (result.affectedRows === 0) {
+          throw new Error("No se pudo guardar el sprint")
+        }
+
+        this.idSprint = result.insertId
       }
-
-      this.id = result.insertId
-
       return this
     } catch (error) {
       console.log(error)

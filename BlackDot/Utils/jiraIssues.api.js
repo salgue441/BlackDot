@@ -17,6 +17,7 @@ const Sprint = require("../models/sprint.model")
 const Epica = require("../Models/epica.model")
 const sprintIssue = require("../models/sprint-issue.model")
 const Accionable = require("../models/accionable.model")
+const SprintIssue = require("../models/sprint-issue.model")
 
 // Auxiliar functions
 /**   
@@ -456,7 +457,7 @@ exports.saveIssuesToDB = async () => {
           fechaFinalizacion: sprint.sprintEndDate,
         })
 
-        await newSprint.save()
+        const savedSprint = await newSprint.save()
         processedData.add(sprint.sprintID)
 
         for (const epic of sprint.epic) {
@@ -469,7 +470,6 @@ exports.saveIssuesToDB = async () => {
           if (newEpic.jiraID && newEpic.jiraKey && newEpic.nombreEpica) {
             await newEpic.save()
           }
-
         }
 
         for (const issue of sprint.issues) {
@@ -484,13 +484,17 @@ exports.saveIssuesToDB = async () => {
             fechaFinalizacion: issue.resolutiondate,
           })
 
-          await newIssue.save()
+          const savedIssue = await newIssue.save()
+
+          const newSprintIssue = new SprintIssue({
+            idIssue: savedIssue.idIssue,
+            idSprint: savedSprint.idSprint,
+          })
+
+          await newSprintIssue.save()
         }
       }
     }
-
-    // Sprint Issue
-    
 
     console.log("Sprints saved to DB")
   } catch (error) {
