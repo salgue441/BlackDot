@@ -111,7 +111,7 @@ exports.getAllEpicasAPI = async (req, res) => {
 
     const sprints = allSprints
       .sort((a, b) => new Date(b.fechaCreacion) - new Date(a.fechaCreacion))
-      .slice(0, 6);
+      .slice(0, 7);
 
     // Relating sprints and issues
     const sprintIssuesMap = {}
