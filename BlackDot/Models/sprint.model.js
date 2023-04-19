@@ -32,16 +32,10 @@ module.exports = class Sprint {
     this.sprintName = Sprint.sprintName || ""
     this.state = Sprint.state || "To Do"
     this.boardID = Sprint.boardID || 0
-<<<<<<< HEAD
     this.fechaCreacion = Sprint.fechaCreacion
       || new Date().toISOString().slice(0, 19).replace('T', ' ')
     this.fechaFinalizacion = Sprint.fechaFinalizacion
       || new Date().toISOString().slice(0, 19).replace('T', ' ')
-=======
-    this.FechaCreacion = Sprint.FechaCreacion || new Date()
-    this.FechaFinalizacion = Sprint.FechaFinalizacion || null
-    this.idEpica = Sprint.idEpica || 0
->>>>>>> 75100353608d85105235dd1e0feae824c7c63272
   }
 
   /**
@@ -105,7 +99,6 @@ module.exports = class Sprint {
       [estado]
     )
 
-<<<<<<< HEAD
     const sprintNew = new Sprint({
       id: sprint[0].idSprint,
       FechaCreacion: sprint[0].fechaCreacion,
@@ -113,9 +106,6 @@ module.exports = class Sprint {
       numeroSprint: sprint[0].numeroSprint,
     })
     return sprintNew
-=======
-    return sprint
->>>>>>> 75100353608d85105235dd1e0feae824c7c63272
   }
 
   /**

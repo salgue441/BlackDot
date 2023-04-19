@@ -15,9 +15,9 @@ const Bottleneck = require("bottleneck")
 const Issue = require("../models/issue.model")
 const Sprint = require("../models/sprint.model")
 const Epica = require("../Models/epica.model")
-const sprintIssue = require("../models/sprint-issue.model")
 const Accionable = require("../models/accionable.model")
 const SprintIssue = require("../models/sprint-issue.model")
+const SprintEpica = require("")
 
 // Auxiliar functions
 /**   
@@ -26,11 +26,7 @@ const SprintIssue = require("../models/sprint-issue.model")
  * @param {Number} minTime - Time in milliseconds
  */
 const limiter = new Bottleneck({
-<<<<<<< HEAD
   minTime: 0,
-=======
-  minTime: 10,
->>>>>>> 75100353608d85105235dd1e0feae824c7c63272
 })
 
 // Wrapping axios
@@ -500,13 +496,9 @@ exports.saveIssuesToDB = async () => {
       }
     }
 
-<<<<<<< HEAD
-    console.log("Sprints saved to DB")
-=======
     console.log(
       "Fetch complete. Issues, Sprints, and Epicas saved to database."
     )
->>>>>>> 75100353608d85105235dd1e0feae824c7c63272
   } catch (error) {
     console.log(error)
     throw new Error(error)
