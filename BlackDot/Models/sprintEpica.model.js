@@ -64,9 +64,8 @@ module.exports = class SprintEpica {
    */
 
   static async getAll() {
-    const sprintepica = await dataBase.query("select * from sprintepica");
-
-    return sprintepica.map((sprintepica) => new SprintEpica(sprintepica));
+    const [epicas, _] = await dataBase.query("select * from sprintepica");
+    return epicas
   }
 
   async save() {
