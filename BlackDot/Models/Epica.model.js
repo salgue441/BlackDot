@@ -119,19 +119,22 @@ module.exports = class Epica {
           [this.jiraKey, this.nombreEpica, this.jiraID]
         )
 
-        if (result.affectedRows === 0) throw new Error("No se pudo guardar")
+        if (result.affectedRows === 0) throw new Error("No se pudo actualizar")
 
-        return existingEpica
+        this.idEpica = existingEpica.idEpica
+      }
+      else {
+        const [result, _] = await dataBase.query(
+          "insert into epica (jiraID, jiraKey, nombreEpica) values (?, ?, ?)",
+          [this.jiraID, this.jiraKey, this.nombreEpica]
+        )
+
+        if (result.affectedRows === 0) throw new Error("No se pudo insertar")
+
+        this.idEpica = result.insertId
       }
 
-      const [result, _] = await dataBase.query(
-        "insert into epica (jiraID, jiraKey, nombreEpica) values (?, ?, ?)",
-        [this.jiraID, this.jiraKey, this.nombreEpica]
-      )
-
-      if (result.affectedRows === 0) throw new Error("No se pudo guardar")
-
-      return result
+      return this
     } catch (error) {
       throw new Error(error)
     }

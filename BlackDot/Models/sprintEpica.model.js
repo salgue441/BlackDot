@@ -8,9 +8,7 @@
  * @copyright Copyright (c) 2023 - MIT License
  */
 
-const dataBase = require("../utils/dataBase"); //manda llamar a la base
-const { getByIDE } = require("../models/Epica.model");
-const { getByIDS } = require("../models/sprint.model"); //validar con llaca
+const dataBase = require("../utils/dataBase");
 
 /**
  * @class
@@ -26,8 +24,8 @@ module.exports = class SprintEpica {
    * @param {*} SprintEpica - Objeto de tipo SprintEpica
    */
   constructor(SprintEpica) {
-    this.idEpica = SprintEpica.idEpica;
-    this.idsprint = SprintEpica.idsprint;
+    this.idEpica = SprintEpica.idEpica
+    this.idSprint = SprintEpica.idSprint
   }
 
   /**
@@ -53,8 +51,8 @@ module.exports = class SprintEpica {
     );
 
     const sprintEpicaNew = new SprintEpica({
-        idEpica: sprint[0].idEpica,
-        idsprint: sprint[0].idSprint,
+      idEpica: sprint[0].idEpica,
+      idsprint: sprint[0].idSprint,
     });
 
     return sprintEpicaNew;
@@ -69,5 +67,17 @@ module.exports = class SprintEpica {
     const sprintepica = await dataBase.query("select * from sprintepica");
 
     return sprintepica.map((sprintepica) => new SprintEpica(sprintepica));
+  }
+
+  async save() {
+    if (!this.idEpica || !this.idSprint)
+      throw new Error("No se ha proporcionado un ID");
+
+    const [sprintEpica, _] = await dataBase.query(
+      "insert into sprintEpica (idEpica, idSprint) values (?, ?)",
+      [this.idEpica, this.idSprint]
+    )
+
+    return this
   }
 };
