@@ -99,14 +99,9 @@ module.exports = class Sprint {
       [estado]
     )
 
-    const sprintNew = new Sprint({
-      id: sprint[0].idSprint,
-      FechaCreacion: sprint[0].fechaCreacion,
-      FechaFinalizacion: sprint[0].fechaFinalizacion,
-      numeroSprint: sprint[0].numeroSprint,
-    })
-    return sprintNew
+    return sprint
   }
+  
 
   /**
    * @brief

@@ -17,7 +17,7 @@ const Sprint = require("../models/sprint.model")
 const Epica = require("../Models/epica.model")
 const Accionable = require("../models/accionable.model")
 const SprintIssue = require("../models/sprint-issue.model")
-const SprintEpica = require("")
+const SprintEpica = require("../models/sprintEpica.model")
 
 // Auxiliar functions
 /**   
@@ -468,7 +468,17 @@ exports.saveIssuesToDB = async () => {
           })
 
           if (newEpic.jiraID && newEpic.jiraKey && newEpic.nombreEpica) {
-            await newEpic.save()
+            const savedEpic = await newEpic.save()
+
+            if (savedSprint.idSprint != null) {
+              const newSprintEpic = new SprintEpica({
+                idEpica: savedEpic.idEpica,
+                idSprint: savedSprint.idSprint,
+              })
+
+              console.log(newSprintEpic)
+              await newSprintEpic.save()
+            }
           }
         }
 
