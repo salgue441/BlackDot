@@ -16,55 +16,53 @@
         </div>
       </div>
 
-      <div class="columns">
-        <% for (let i = 0; i < accionables.length; i++) { %>
-          <div class="column is-12">
-            <div class="box is-black is-flex is-align-items-center accionable" style="height: 100px !important">
-              <!-- Profile Image -->
-              <div class="column is-2">
-                <img src="<%= accionables[i].profileImage %>" alt="Profile Image" />
-              </div>
-              <!-- End of Profile Image -->
-      
-              <!-- User -->
-              <div class="column is-2">
-                <div class="content user">
-                  <p class="is-white" style="font-size: 1.2rem"> User </p>
-                </div>
-              </div>
-              <!-- End of User -->
-      
-              <!-- Accionable content -->
-              <div class="column is-7">
-                <div class="content">
-                  <p class="is-white" style="font-size: 1.1rem"><%= accionables[i].nombreAccionable %></p>
-                </div>
-              </div>
-              <!-- End of Accionable Content -->
-      
-              <!-- Toggle box -->
-              <div class="column is-1">
-                <div class="box is-black accionable-toggle">
-                  <figure class="image is-24x24">
-                    <input type="checkbox" name="accionable" class="checkbox" onclick="handleCheckBox()" id="checkbox-<%= accionables[i].idAccionable %>" />
+      <% for (let i = 0; i < accionables.length; i++) { %>
+      <div class="card">
+        <div class="card-content">
+          <div class="columns">
+            <div class="column is-2">
+              <div class="media">
+                <div class="media-left is-flex is-flex-direction-row is-align-items-baseline">
+                  <figure class="image is-48x48">
+                    <img
+                      src="<%= accionables[i].profileImage %>"
+                      alt="Profile Image"/>
+                    <p class="subtitle is-6">User</p>
                   </figure>
                 </div>
+              </div>
+            </div>
+              <div class="column is-2">
+              <div class="media-content">
+                <p class="title is-4"><%= accionables[i].nombreAccionable %></p>
+              </div>
+              </div>
+
+            <div class="content">
+              <!-- Toggle box -->
+              <div class="accionable-toggle">
+                <figure class="image is-24x24">
+                  <input
+                    type="checkbox"
+                    name="accionable"
+                    class="checkbox"
+                    onclick="handleCheckBox()"
+                    id="checkbox-<%= accionables[i].idAccionable %>"
+                  />
+                </figure>
               </div>
               <!-- End of Toggle box -->
             </div>
           </div>
-          <% if (i !== accionables.length - 1) { %>
-            <div class="column is-12">
-              <hr>
-            </div>
-          <% } %>
-        <% } %>
+        </div>
       </div>
+      <% if (i !== accionables.length - 1) { %>
+      <hr />
+      <% } %> <% } %>
     </section>
   </body>
 
-  <script src="/js/accionable.front.js">
-  </script>
+  <script src="/js/accionable.front.js"></script>
 
   <style>
     .checkbox {
