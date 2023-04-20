@@ -9,7 +9,7 @@
  */
 
 function handleCheckBox(){
-  const checkboxes = document.querySelector('input[type="checkbox"][name = "accionable"]')
+  const checkboxes = document.querySelectorAll('input[type="checkbox"][name = "accionable"]')
   let idsAccionables = []
 
   for (let i = 0; i < checkboxes.length; i++) {

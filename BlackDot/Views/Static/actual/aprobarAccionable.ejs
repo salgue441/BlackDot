@@ -45,11 +45,9 @@
               <!-- Toggle box -->
               <div class="column is-1">
                 <div class="box is-black accionable-toggle">
-                  <article class="media">
-                    <figure class="image is-24x24">
-                      <input type="checkbox" name="accionable" value="" class="checkbox" onclick="handleCheckBox()" id="checkbox-<%= accionables[i].idAccionable %>" />
-                    </figure>
-                  </article>
+                  <figure class="image is-24x24">
+                    <input type="checkbox" name="accionable" class="checkbox" onclick="handleCheckBox()" id="checkbox-<%= accionables[i].idAccionable %>" />
+                  </figure>
                 </div>
               </div>
               <!-- End of Toggle box -->
@@ -70,37 +68,35 @@
 
   <style>
     .checkbox {
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 40px;
-    width: 40px;
-    transform: translate(-18%, -20%);
-    appearance: none;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    outline: none;
-    border: 2px solid #000;
-    border-radius: 4px;
-  }
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 40px;
+      width: 40px;
+      transform: translate(-18%, -20%);
+      appearance: none;
+      outline: none;
+      border: 2px solid #000;
+      border-radius: 4px;
+    }
 
-  .checkbox::before {
-    content: "";
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    height: 20px;
-    width: 20px;
-    background-color: #000;
-    border-radius: 2px;
-    opacity: 0;
-    transition: opacity 0.2s ease-in-out;
-  }
+    .checkbox::before {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      height: 20px;
+      width: 20px;
+      background-color: #000;
+      border-radius: 2px;
+      opacity: 0;
+      transition: opacity 0.2s ease-in-out;
+    }
 
-  .checkbox:checked::before {
-    opacity: 1;
-  }
+    .checkbox:checked::before {
+      opacity: 1;
+    }
   </style>
 </html>
