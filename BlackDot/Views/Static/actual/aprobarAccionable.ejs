@@ -36,9 +36,9 @@
                 </div>
               </div>
             </div>
-            <div class="column is-8">
-              <div class="media-content">
-                <p class="title is-4"><%= accionables[i].nombreAccionable %></p>
+            <div class="column is-8 is-flex">
+              <div class="media-content nombreAccionable">
+                <p class="title is-4 "><%= accionables[i].nombreAccionable %></p>
               </div>
             </div>
             <div class="column is-2 checkboxDiv">
@@ -70,6 +70,11 @@
   <script src="/js/accionable.front.js"></script>
 
   <style>
+    .nombreAccionable {
+      display: flex !important;
+      align-items: center !important;
+    }
+
     .checkboxDiv {
       display: flex;
       align-items: center;
