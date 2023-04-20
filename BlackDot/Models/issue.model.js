@@ -153,7 +153,7 @@ module.exports = class Issue {
       if (existingIssue) {
         const query = `update issue set nombreIssue = ?, storyPoints = ?, labelIssue = ?, prioridadIssue = ?, estadoIssue = ?, fechaCreacion = ?, fechaFinalizacion = ? where issueKey = ?`
 
-        const [result] = await dataBase.query(query, [
+        await dataBase.query(query, [
           this.nombreIssue,
           this.storyPoints,
           this.labelIssue,
@@ -164,24 +164,26 @@ module.exports = class Issue {
           this.issueKey,
         ])
 
-        return result
+        // Set the idIssue of the current instance to the existingIssue.idIssue
+        this.idIssue = existingIssue.idIssue
+      } else {
+        const query = `insert into issue(issueKey, nombreIssue, storyPoints, labelIssue, prioridadIssue, estadoIssue, fechaCreacion, fechaFinalizacion) values(?, ?, ?, ?, ?, ?, ?, ?)`
+
+        const [result, _] = await dataBase.execute(query, [
+          this.issueKey,
+          this.nombreIssue,
+          this.storyPoints,
+          this.labelIssue,
+          this.prioridadIssue,
+          this.estadoIssue,
+          this.fechaCreacion,
+          this.fechaFinalizacion,
+        ])
+
+        this.idIssue = result.insertId
       }
 
-      const query = `insert into issue(issueKey, nombreIssue, storyPoints, labelIssue, prioridadIssue, estadoIssue, fechaCreacion, fechaFinalizacion) values(?, ?, ?, ?, ?, ?, ?, ?)`
-
-      const [result] = await dataBase.query(query, [
-        this.issueKey,
-        this.nombreIssue,
-        this.storyPoints,
-        this.labelIssue,
-        this.prioridadIssue,
-        this.estadoIssue,
-        this.fechaCreacion,
-        this.fechaFinalizacion,
-      ])
-
-      this.idIssue = result.insertId
-
+      // Return the current instance in both cases
       return this
     } catch (error) {
       console.log(error)

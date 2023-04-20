@@ -1,0 +1,33 @@
+{
+  "name": "secretgenerator",
+  "version": "1.0.0",
+  "description": "Generator of secrets used in the project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "ts-node src/index.ts",
+    "build": "tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/salgue441/BlackDot.git"
+  },
+  "keywords": [
+    "typescript",
+    "random",
+    "secret"
+  ],
+  "author": "Carlos Salguero",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/salgue441/BlackDot/issues"
+  },
+  "homepage": "https://github.com/salgue441/BlackDot#readme",
+  "devDependencies": {
+    "@types/node": "^18.15.11",
+    "typescript": "^5.0.4"
+  },
+  "dependencies": {
+    "crypto": "^1.0.1"
+  }
+}

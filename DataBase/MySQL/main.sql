@@ -12,8 +12,7 @@
     -- copyright: Copyright (c) 2023 - MIT License
     -- copyright: Copyright (c) 2023 - MIT License
 
-    create database if not exists blackdot 
-    default character set utf8 collate utf8_spanish_ci;
+create database if not exists blackdot;
 
     use blackdot;
 
@@ -36,37 +35,31 @@
         nombreRol varchar (25) not null
     );
 
-    create table if not exists Privilegio
-    (
-        idPrivilegio int not null auto_increment primary key,
-        nombrePrivilegio varchar (50) not null,
-        descripcionPrivilegio varchar (200)
-    );
+create table if not exists Privilegio
+(
+    idPrivilegio int not null auto_increment primary key,
+    nombrePrivilegio varchar (50) not null,
+    descripcionPrivilegio varchar (200)
+);
 
-    create table if not exists EquipoTrabajo
-    (
-        idEquipoTrabajo int not null auto_increment primary key 
-    );
+create table if not exists Epica
+(
+    idEpica int not null auto_increment primary key,
+    jiraID int unique,
+    jiraKey varchar(50),
+    nombreEpica varchar(50)
+);
 
-
-    create table if not exists Epica
-    (
-        idEpica int not null auto_increment primary key,
-        nombreEpica varchar(50)  
-    );
-
-    create table if not exists Sprint
-    (
-        idSprint int not null auto_increment primary key, 
-        jiraID int unique,
-        sprintName varchar(200),
-        state varchar(50),
-        boardID int not null,
-        fechaCreacion timestamp not null default current_timestamp,
-        fechaFinalizacion timestamp not null default current_timestamp,
-
-        idEpica int not null
-    );
+create table if not exists Sprint
+(
+    idSprint int not null auto_increment primary key, 
+    jiraID int unique,
+    sprintName varchar(200),
+    state varchar(50),
+    boardID int not null,
+    fechaCreacion timestamp not null default current_timestamp,
+    fechaFinalizacion timestamp not null default current_timestamp
+);
 
     create table if not exists Issue
     (
@@ -163,45 +156,25 @@
         foreign key (idPrivilegio) references Privilegio (idPrivilegio)
     );
 
-    create table if not exists EmpleadoEquipoTrabajo
-    (
-        idEmpleado int not null,
-        idEquipoTrabajo int not null,
+create table if not exists SprintEpica
+(
+    idEpica int not null,
+    idSprint int not null,
 
-        primary key (idEmpleado, idEquipoTrabajo),
-        foreign key (idEmpleado) references Empleado (idEmpleado),
-        foreign key (idEquipoTrabajo) references EquipoTrabajo (idEquipoTrabajo)
-    );
-
-    create table if not exists EquipoTrabajoIssue
-    (
-        idEquipoTrabajo int not null,
-        idIssue int not null,
-
-        primary key (idEquipoTrabajo, idIssue),
-        foreign key (idEquipoTrabajo) references EquipoTrabajo (idEquipoTrabajo),
-        foreign key (idIssue) references Issue (idIssue)
-    );
+    primary key (idEpica, idSprint),
+    foreign key (idEpica) references Epica (idEpica),
+    foreign key (idSprint) references Sprint (idSprint)
+);
 
     create table if not exists SprintIssue
     (
         idIssue int not null, 
         idSprint int not null, 
 
-        primary key (idIssue, idSprint),
-        foreign key (idIssue) references Issue (idIssue),
-        foreign key (idSprint) references Sprint (idSprint)
-    );
-
-    create table if not exists SprintEpica
-    (
-        idSprint int not null,
-        idEpica int not null,
-
-        primary key (idSprint, idEpica),
-        foreign key (idSprint) references Sprint (idSprint),
-        foreign key (idEpica) references Epica (idEpica)
-    );
+    primary key (idIssue, idSprint),
+    foreign key (idIssue) references Issue (idIssue),
+    foreign key (idSprint) references Sprint (idSprint)
+);
 
     create table if not exists RetroalimentacionPregunta
     (
@@ -230,10 +203,9 @@ create table if not exists token
     id text
 );
 
-    -- Alterando las tablas para aniadir las llaves foraneas
-    alter table Retroalimentacion
-    add constraint fk_idSprint foreign key (idSprint) references Sprint(idSprint);
-
+-- Alterando las tablas para aniadir las llaves foraneas
+alter table Retroalimentacion
+add constraint fk_idSprint foreign key (idSprint) references Sprint(idSprint);
 
     alter table Cuantitativa
     add constraint fk_idPreguntaCuanti foreign key (idPregunta) references RetroalimentacionPregunta(idPregunta),

@@ -16,15 +16,17 @@ const Issue = require("../models/issue.model")
 const Sprint = require("../models/sprint.model")
 const Epica = require("../Models/epica.model")
 const Accionable = require("../models/accionable.model")
+const SprintIssue = require("../models/sprint-issue.model")
+const SprintEpica = require("../models/sprintEpica.model")
 
 // Auxiliar functions
-/**
+/**   
  * @brief
  * Creates a new limiter for the API requests. Prevents error 429.
  * @param {Number} minTime - Time in milliseconds
  */
 const limiter = new Bottleneck({
-  minTime: 10,
+  minTime: 0,
 })
 
 // Wrapping axios
@@ -139,7 +141,29 @@ const getSprints = async (
     if (sprints.length === 0)
       throw new Error(`No sprints found for ${boardName}`)
 
-    return sprints
+    // Use Promise.all() to fetch sprint details concurrently
+    const sprintDetailsPromises = sprints.map((sprint) =>
+      rateLimitedAxios.get(`${jiraUrl}/rest/agile/1.0/sprint/${sprint.id}`, {
+        auth: {
+          username: jiraUser,
+          password: apiToken,
+        },
+        headers: {
+          Accept: "application/json",
+        },
+        validateStatus: (status) => {
+          return status >= 200 && status < 300
+        },
+      })
+    )
+
+    const sprintDetailsResponses = await Promise.all(sprintDetailsPromises)
+
+    const detailedSprints = sprintDetailsResponses.map(
+      (response) => response.data
+    )
+
+    return detailedSprints
   } catch (error) {
     console.log(error)
     throw new Error(error)
@@ -253,6 +277,7 @@ const fetchIssuesInChunks = async (
           maxResults: 1000,
           fields: [
             "parent", // Epics
+            "id",
             "summary",
             "status",
             "priority",
@@ -346,7 +371,7 @@ const fetchJiraIssuesFromSprint = async (
     const chunkCount = Math.ceil(issueCount / chunkSize)
     const startAts = Array.from({ length: chunkCount }, (_, i) => i * chunkSize)
 
-    const issueChunks = await Promise.all(
+    const issueChunks = await Promise.allSettled(
       startAts.map((startAt) =>
         fetchIssuesInChunks(
           sprintID,
@@ -359,8 +384,20 @@ const fetchJiraIssuesFromSprint = async (
       )
     )
 
-    const allIssues = issueChunks.flat()
+    const allIssues = issueChunks
+      .filter((chunk) => chunk.status === "fulfilled")
+      .flatMap((chunk) => chunk.value)
+
     const issuesFormatted = formatIssues(allIssues)
+    const epicNames = new Set();
+    let epic = [];
+
+    for (let i = 0; i < issuesFormatted.length; i++) {
+      if (!epicNames.has(issuesFormatted[i].epic?.fields?.summary)) {
+        epicNames.add(issuesFormatted[i].epic?.fields?.summary)
+        epic.push(issuesFormatted[i].epic)
+      }
+    }
 
     return {
       sprintID: sprint.sprintID,
@@ -370,7 +407,7 @@ const fetchJiraIssuesFromSprint = async (
       sprintStartDate: sprint.sprintStartDate,
       sprintEndDate: sprint.sprintEndDate,
       originBoardID: sprint.originBoardID,
-      epic: issuesFormatted[0].epic,
+      epic: epic,
       issues: issuesFormatted,
     }
   } catch (error) {
@@ -391,12 +428,13 @@ const formatIssues = (issues) =>
     summary: issue.fields.summary,
     status: issue.fields.status.name,
     priority: issue.fields.priority?.name || "None",
-    created: issue.fields.created,
+    created: issue.fields?.created || "None",
     resolutiondate: issue.fields.resolutiondate,
     labels: issue.fields.labels,
     storyPoints: issue.fields.customfield_10042,
     sprints: issue.fields?.customfield_10010 || "None",
-    epic: issue.fields?.parent?.fields || "None",
+    epic: issue.fields?.parent || null,
+    id: issue.id,
   }))
 
 /**
@@ -417,11 +455,31 @@ exports.saveIssuesToDB = async () => {
           boardID: sprint.originBoardID,
           fechaCreacion: sprint.sprintStartDate,
           fechaFinalizacion: sprint.sprintEndDate,
-          idEpica: sprint?.epic?.status?.statusCategory?.id,
         })
 
-        await newSprint.save()
+        const savedSprint = await newSprint.save()
         processedData.add(sprint.sprintID)
+
+        for (const epic of sprint.epic) {
+          const newEpic = new Epica({
+            jiraID: epic?.id,
+            jiraKey: epic?.key,
+            nombreEpica: epic?.fields?.summary,
+          })
+
+          if (newEpic.jiraID && newEpic.jiraKey && newEpic.nombreEpica) {
+            const savedEpic = await newEpic.save()
+
+            if (savedSprint.idSprint != null) {
+              const newSprintEpic = new SprintEpica({
+                idEpica: savedEpic.idEpica,
+                idSprint: savedSprint.idSprint,
+              })
+
+              await newSprintEpic.save()
+            }
+          }
+        }
 
         for (const issue of sprint.issues) {
           const newIssue = new Issue({
@@ -435,19 +493,26 @@ exports.saveIssuesToDB = async () => {
             fechaFinalizacion: issue.resolutiondate,
           })
 
-          await newIssue.save()
+          const savedIssue = await newIssue.save()
+
+          const newSprintIssue = new SprintIssue({
+            idIssue: savedIssue.idIssue,
+            idSprint: savedSprint.idSprint,
+          })
+
+          await newSprintIssue.save()
         }
       }
     }
 
-    console.log(
-      "Fetch complete. Issues, Sprints, and Epicas saved to database."
-    )
   } catch (error) {
     console.log(error)
     throw new Error(error)
   }
 }
+
+// Testing
+
 
 /**
  * @brief
@@ -455,11 +520,10 @@ exports.saveIssuesToDB = async () => {
  * @param {*} accionable - The accionable to be created
  */
 exports.createAccionable = async (accionable) => {
-  const jiraUrl = process.env.JIRA_URL
-  const jiraUser = process.env.JIRA_USER
-  const apiToken = process.env.JIRA_API_TOKEN
-  const projectName = process.env.JIRA_PROJECT_NAME
-  const boardName = process.env.JIRA_BOARD_NAME
+  const jiraUrl = process.env.JIRA_URL_TEST
+  const jiraUser = process.env.JIRA_USER_TEST
+  const apiToken = process.env.JIRA_API_TOKEN_TEST
+  const projectName = process.env.JIRA_PROJECT_NAME_TEST
 
   try {
     const response = await rateLimitedAxios.post(
@@ -469,21 +533,20 @@ exports.createAccionable = async (accionable) => {
           project: {
             key: projectName,
           },
-
           summary: accionable.nombreAccionable,
-          priority: accionable.prioridadAccionable,
-          startDate: accionable.fechaCreacion,
-          assignee: accionable.assignedTo,
+          priority: {
+            name: accionable.prioridadAccionable,
+          },
           issuetype: {
             name: "Accionable",
           },
         },
-
+      },
+      {
         auth: {
           username: jiraUser,
           password: apiToken,
         },
-
         headers: {
           "Content-Type": "application/json",
           Accept: "application/json",

@@ -27,14 +27,15 @@ module.exports = class Sprint {
    * @param {*} Sprint - Objeto de tipo Sprint
    */
   constructor(Sprint) {
-    this.id = Sprint.id
+    this.idSprint = Sprint.idSprint
     this.jiraID = Sprint.jiraID || 0
     this.sprintName = Sprint.sprintName || ""
     this.state = Sprint.state || "To Do"
     this.boardID = Sprint.boardID || 0
-    this.FechaCreacion = Sprint.FechaCreacion || new Date()
-    this.FechaFinalizacion = Sprint.FechaFinalizacion || null
-    this.idEpica = Sprint.idEpica || 0
+    this.fechaCreacion = Sprint.fechaCreacion
+      || new Date().toISOString().slice(0, 19).replace('T', ' ')
+    this.fechaFinalizacion = Sprint.fechaFinalizacion
+      || new Date().toISOString().slice(0, 19).replace('T', ' ')
   }
 
   /**
@@ -69,7 +70,7 @@ module.exports = class Sprint {
 
     if (sprint.length === 0) return null
 
-    return sprint
+    return new Sprint(sprint[0])
   }
 
   /**
@@ -100,6 +101,7 @@ module.exports = class Sprint {
 
     return sprint
   }
+  
 
   /**
    * @brief
@@ -114,14 +116,13 @@ module.exports = class Sprint {
 
       if (existingSprint) {
         const [result, _] = await dataBase.query(
-          "UPDATE Sprint SET sprintName = ?, state = ?, boardID = ?, FechaCreacion = ?, FechaFinalizacion = ?, idEpica = ? WHERE jiraID = ?",
+          "UPDATE Sprint SET sprintName = ?, state = ?, boardID = ?, FechaCreacion = ?, FechaFinalizacion = ? WHERE jiraID = ?",
           [
             this.sprintName,
             this.state,
             this.boardID,
-            this.FechaCreacion,
-            this.FechaFinalizacion,
-            this.idEpica,
+            this.fechaCreacion,
+            this.fechaFinalizacion,
             this.jiraID,
           ]
         )
@@ -130,28 +131,28 @@ module.exports = class Sprint {
           throw new Error("No se pudo actualizar el sprint")
         }
 
-        return existingSprint
+        this.idSprint = existingSprint.idSprint
       }
+      else {
 
-      const [result, _] = await dataBase.query(
-        "INSERT INTO Sprint (jiraID, sprintName, state, boardID, FechaCreacion, FechaFinalizacion, idEpica) VALUES (?, ?, ?, ?, ?, ?, ?)",
-        [
-          this.jiraID,
-          this.sprintName,
-          this.state,
-          this.boardID,
-          this.FechaCreacion,
-          this.FechaFinalizacion,
-          this.idEpica,
-        ]
-      )
+        const [result, _] = await dataBase.query(
+          "INSERT INTO Sprint (jiraID, sprintName, state, boardID, FechaCreacion, FechaFinalizacion) VALUES (?, ?, ?, ?, ?, ?)",
+          [
+            this.jiraID,
+            this.sprintName,
+            this.state,
+            this.boardID,
+            this.fechaCreacion,
+            this.fechaFinalizacion,
+          ]
+        )
 
-      if (result.affectedRows === 0) {
-        throw new Error("No se pudo guardar el sprint")
+        if (result.affectedRows === 0) {
+          throw new Error("No se pudo guardar el sprint")
+        }
+
+        this.idSprint = result.insertId
       }
-
-      this.id = result.insertId
-
       return this
     } catch (error) {
       console.log(error)
