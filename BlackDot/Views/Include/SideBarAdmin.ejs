@@ -94,6 +94,13 @@
       <button class="button is-danger logout-button">
         <img src="../../assets/logout.png" />
         Log out
+        <script>
+          const logoutButton = document.querySelector(".logout-button")
+          logoutButton.addEventListener("click", () => {
+            deleteTokens()
+            window.location.href = "/auth"
+          })
+        </script>
       </button>
     </section>
   </section>
