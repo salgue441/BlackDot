@@ -30,14 +30,28 @@ const CualiAccionable = require("../Models/cuali-accionable.model")
 
 exports.getRegistrarAprobacion = async (req, res) => {
   try {
-    await Accionable.getAll().then((accionables) => {
+    const accionables = await Accionable.getAll()
+    const ids = []
+    let numAccioanble = 0
+    let numAccionablesNoAprobados = 0
+    
+    for(let i = 0; i < accionables.length; i++){
+      const accionable = accionables[i]
+
+      if(accionable.estadoAccionable === 'No aprobado'){
+        ids.push(accionable.idAccionable)
+        numAccioanble++
+      }
+    }
+
+    console.log(ids)
       res.render(
         path.join(__dirname, "../Views/Static/actual/aprobarAccionable.ejs"),
         {
-          accionables,
+          accionables: accionables,
         }
       )
-    })
+    
   } catch (error) {
     res.status(500).json({
       message: error.message || "Error al obtener metricas epicas",
