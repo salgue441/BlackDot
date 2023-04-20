@@ -166,7 +166,7 @@ exports.getCurretRetroalimentacionAPI = async (req, res) => {
 exports.getRegistrarRespuestas = async (req, res) => {
   try {
     Retro.getRetroActual().then((retro) => {
-      //Se revisa si hay una retroalimentacion activa
+      //Check if there is an active retroalimentacion
       if (!retro) {
         res.render(path.join(__dirname, "../Views/Static/error.ejs"), {
           //? VIsta Temporal
@@ -176,7 +176,7 @@ exports.getRegistrarRespuestas = async (req, res) => {
         const idRetro = retro.id
 
         retroPregunta.getIdsPreguntas(idRetro).then(async (idsPreguntas) => {
-          //Revisa si la retro tiene preguntas
+          //Checks if the retro has questions
           if (idsPreguntas.length == 0) {
             res.render(path.join(__dirname, "../Views/Static/error.ejs"), {
               error: "No hay preguntas registradas",
@@ -226,8 +226,10 @@ exports.postRegistrarRespuestas = async (req, res) => {
   const respuestas = req.body
 
   try {
+    //Gets the id of the active retroalimentacion
     Retro.getRetroActual().then(async (retro) => {
       idRetroalimentacion = retro.id
+      //Saves the answers
       for (i in respuestas) {
         respuestas[i] = [i, respuestas[i], idRetroalimentacion]
         respuestas[i][0] = parseInt(respuestas[i][0])
@@ -242,6 +244,7 @@ exports.postRegistrarRespuestas = async (req, res) => {
           if (respuestas[i][0] === 8) {
             idcuali = await Cualitativa.getLastid()
 
+            //Create and save accionable
             const accionable = new Accionable({
               nombreAccionable: respuestas[i][1],
               storyPoints: 0,
@@ -277,9 +280,27 @@ exports.postRegistrarRespuestas = async (req, res) => {
   }
 }
 
+/**
+ * @brief
+ * get of register answers in retro
+ * @param {Request} req - Request object
+ * @param {Response} res - Response object
+ * @returns {Response} - Response object
+ * @throws {Error} - Error message
+ * */
+
 exports.getPaginaEnviado = async (req, res) => {
   res.render(path.join(__dirname, "../Views/Static/actual/enviado.ejs"))
 }
+
+/**
+ * @brief
+ * get of register answers in retro
+ * @param {Request} req - Request object
+ * @param {Response} res - Response object
+ * @returns {Response} - Response object
+ * @throws {Error} - Error message
+ * */
 
 exports.getCrearRetroalimentacion = async (req, res) => {
   Retro.getRetroActual().then(async (retro) => {
@@ -302,13 +323,24 @@ exports.getCrearRetroalimentacion = async (req, res) => {
   })
 }
 
+/**
+ * @brief
+ * Get of edit question of retro
+ * @param {Request} req - Request object
+ * @param {Response} res - Response object
+ * @returns {Response} - Response object
+ * @throws {Error} - Error message
+ * */
+
 exports.getEditarPreguntas = async (req, res) => {
   const idPregunta = req.params.id || -1
 
+  // If the id is -1, then the user didn't specify a question
   if (idPregunta == -1) {
     res.render(path.join(__dirname, "../Views/Static/error.ejs"), {
       error: "No se ha especificado una pregunta",
     })
+    // If the id is 0, then the user wants to create a new question
   } else if (idPregunta == 0) {
     pregunta = new BancoPreguntas({
       contenido: "",
@@ -330,9 +362,19 @@ exports.getEditarPreguntas = async (req, res) => {
   }
 }
 
+/**
+ * @brief
+ * Post of edit question of retro/ Updates or creates a question
+ * @param {Request} req - Request object
+ * @param {Response} res - Response object
+ * @returns {Response} - Response object
+ * @throws {Error} - Error message
+ * */
+
 exports.postEditarPreguntas = async (req, res) => {
   const preguntatest = req.body
 
+  // If the id is 0, then the user wants to create a new question
   if (preguntatest.idPreguntaBanco == 0) {
     const pregunta = new BancoPreguntas({
       contenido: preguntatest.contenido,
@@ -367,6 +409,15 @@ exports.postEditarPreguntas = async (req, res) => {
   }
 }
 
+/**
+ * @brief
+ * Get of delete question of retro/ deletes a question
+ * @param {Request} req - Request object
+ * @param {Response} res - Response object
+ * @returns {Response} - Response object
+ * @throws {Error} - Error message
+ * */
+
 exports.getEliminarPreguntas = async (req, res) => {
   const idPregunta = parseInt(req.params.id) || -1
 
@@ -378,11 +429,20 @@ exports.getEliminarPreguntas = async (req, res) => {
   }
 }
 
+/**
+ * @brief
+ * Get of the success page of retro cretation/ creates a retro & saves the questions
+ * @param {Request} req - Request object
+ * @param {Response} res - Response object
+ * @returns {Response} - Response object
+ * @throws {Error} - Error message
+ * */
+
 exports.getRetroalimentacionExitosa = async (req, res) => {
   try {
     //Se obtienen las preguntas del banco
     await BancoPreguntas.getAll().then((bancoPreguntas) => {
-      //Se genera las fechas de incio y finalizacion de la Retroalimentacion
+      //Gets the current date and end date of the retro
       const fechaActual = new Date()
       const horaActual = fechaActual.getHours()
 
@@ -398,11 +458,11 @@ exports.getRetroalimentacionExitosa = async (req, res) => {
         fechaActual.toISOString().split("T")[0].toString() + " 23:59:59"
 
       try {
-        //Se obtiene el id del sprint actual
+        //Gets the id of the current sprint
         Sprint.getSprintActual().then(async (sprint) => {
           const idSprint = sprint[0].idSprint
 
-          //Se crea la retroalimentacion
+          //Create and save the retro
           const retroalimentacion = new Retro({
             FechaCreacion,
             FechaFinalizacion,
@@ -411,10 +471,10 @@ exports.getRetroalimentacionExitosa = async (req, res) => {
 
           await retroalimentacion.save()
 
-          //Se obtiene el id de la retroalimentacion creada
+          //Gets the id of the retro created
           Retro.getLastId().then(async (idRetro) => {
             for (let i = 0; i < bancoPreguntas.length; i++) {
-              //Se guarda cada pregunta del banco en la tabla de preguntas
+              //Saves each question of the bank in the questions table
               const nuevaPregunta = new Pregunta({
                 contenido: bancoPreguntas[i].contenido,
                 tipoPregunta: bancoPreguntas[i].tipoPregunta,
@@ -422,7 +482,7 @@ exports.getRetroalimentacionExitosa = async (req, res) => {
 
               await nuevaPregunta.save()
 
-              //Se obtiene el id de la pregunta guardada para agregarla a la tabla de retroalimentacionPregunta
+              //Gets the id of the saved question to add it to the retroalimentacionPregunta table
               Pregunta.getLastId().then((idPregunta) => {
                 const newRetroPregunta = new retroPregunta({
                   idRetroalimentacion: idRetro,
@@ -434,7 +494,7 @@ exports.getRetroalimentacionExitosa = async (req, res) => {
               })
             }
 
-            //Se agrega la pregunta accionable
+            //Add the accionable question
 
             const accionable = new retroPregunta({
               idRetroalimentacion: idRetro,
