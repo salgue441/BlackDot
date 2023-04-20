@@ -99,6 +99,14 @@
   </section>
 </aside>
 
+<script>
+  const logoutButton = document.querySelector(".logout-button")
+  logoutButton.addEventListener("click", () => {
+    deleteTokens()
+    window.location.href = "/auth"
+  })
+</script>
+
 <!-- Sidebar custom styles -->
 <style>
   /* Bulma CSS Override */

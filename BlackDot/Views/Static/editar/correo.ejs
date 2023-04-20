@@ -1,0 +1,52 @@
+<html>
+  <%- include('../../include/header.ejs') %>
+
+  <body>
+    <%- include('../../include/navbar.ejs') %>
+
+    <br />
+    <br />
+    <br />
+
+    <h1 class="title is-1">Empleados</h1>
+    <section class="hero is-medium is-bold columns is-gapless">
+      <article class="columns column is-two-thirds is-multiline">
+        <%for(let i = 0; i< empleados.length; i++){ %>
+        <div class="box column is-5 m-2 p-2 is-flex is-vcentered">
+          <div
+            class="empleadoContainer columns is-flex is-vcentered is-justify-content-space-around"
+          >
+            <img
+              src="<%= empleados[i].googleProfilePicture%>"
+              alt="Profile Picture"
+              class="image is-64x64 is-rounded profilePicture"
+            />
+            <div class="dataContainer">
+              <p>
+                <%= empleados[i].primerNombre + " " +
+                empleados[i].apellidoPaterno %>
+              </p>
+              <p><%= empleados[i].googleEmail %></p>
+            </div>
+          </div>
+        </div>
+        <% } %>
+      </article>
+      <aside class="column is-one-third"></aside>
+    </section>
+  </body>
+</html>
+
+<style>
+  body {
+    padding: 4rem;
+  }
+
+  .empleadoContainer {
+    width: 100%;
+  }
+
+  .box {
+    height: 120px;
+  }
+</style>
