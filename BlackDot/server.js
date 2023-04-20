@@ -30,8 +30,7 @@ app.set("view engine", "ejs")
 
 // Static Files
 app.use(express.static("public"))
-app.use(cookieParser());
-
+app.use(cookieParser())
 
 // /auth
 /**
@@ -41,7 +40,7 @@ app.use(cookieParser());
  * @param {Function} auth - Callback function
  */
 const auth = require("./routes/auth.routes")
-const authMiddleware = require('./middlewares/auth')
+const authMiddleware = require("./middlewares/auth")
 
 app.use("/auth", auth)
 
@@ -89,7 +88,7 @@ app.use(main)
  * @param {String} "/actual" - Route
  * @param {Function} actual - Callback function
  */
-const actual = require("./routes/actual.routes")
+const actual = require("./Routes/actual.routes")
 app.use("/actual", actual)
 
 /**
@@ -100,6 +99,17 @@ app.use("/actual", actual)
  */
 const historico = require("./routes/historico.routes")
 app.use("/historico", historico)
+
+/**
+ * @brief
+ * Routes for the editar section
+ * @param {String} "/editar" - Route
+ * @param {Function} editar - Callback function
+ * @returns {Function} - Callback function
+ * */
+
+const editar = require("./Routes/editar.routes")
+app.use("/editar", editar)
 
 // Starting the server
 const PORT = 3000

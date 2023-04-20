@@ -1,9 +1,7 @@
-/**
- *
- */
-
 const express = require("express")
 const router = express.Router()
+const bodyParser = require("body-parser")
+const urlencodedParser = bodyParser.urlencoded({ extended: false })
 
 const crearRetroalimentacion = require("../Controllers/retroalimentacion.controller")
 router.get(
