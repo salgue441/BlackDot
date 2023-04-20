@@ -1,0 +1,84 @@
+<html>
+    <%- include('../../include/header.ejs') %>
+
+    <body>
+        <%- include('../../include/navbar.ejs') %>
+
+        <section class="hero is-medium is-bold">
+            <div class="hero-body has-text-centered">
+                <section> 
+                    <section class="has-text-left">
+                        <div class="columns">
+                            <!--Title-->
+                            <div class="column is-two-fifths">
+                                <h1 class="title is-1 mb-5">Empleados</h1>
+                            </div>
+                            <!--Button of "añadir"-->
+                            <div class="column is-7">
+                                <a href="usuarios/registrar" class="button is-danger is-pulled-right mr-6 is-large" style="width: 280px">Añadir +</a>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section>
+                        <% for(let i=0; i < empleados.length; i++) {%>
+                            <% if(empleadoRoles[i].idRol != 3) { %>
+                                <div class="columns is-vcentered">
+                                    <!--Column for employee picture-->
+                                    <div class="column is-four-fifths">
+                                        <div class="box" style="background-color: black;">
+                                            <div class="columns is-vcentered">
+                                                <div class="column is-one-fifth">
+                                                    <!--Employee picture-->
+                                                    <figure>
+                                                        <% if(!!empleados[i].googleProfilePicture){ %>
+                                                            <img class="image is-128x128 ml-6" src= <%= empleados[i].googleProfilePicture  %>
+                                                        <% } else { %>
+                                                            <img class="image is-128x128 ml-6" src="https://static.vecteezy.com/system/resources/previews/008/302/421/non_2x/eps10-white-user-icon-or-logo-in-simple-flat-trendy-modern-style-isolated-on-black-background-free-vector.jpg">
+                                                    <% } %>
+                                                    </figure>
+                                                </div>
+                                                <!--Column of employee information-->
+                                                <div class="column is-four-fifths">
+                                                    <div class="box has-text-left">
+                                                        <div class="columns is-vcentered">
+                                                            <div class="column is-four-fifths">
+                                                                <p class="bd-notification is-info"> <%= empleados[i].primerNombre %> <%= empleados[i].segundoNombre %> <%= empleados[i].apellidoPaterno %> <%= empleados[i].apellidoMaterno %> </p>
+                                                                <p class="bd-notification is-info"> <%= empleados[i].googleEmail %> </p>
+                                                            </div>
+                                                            <div class="column is-one-fifth">
+                                                                <!--Edit and delete buttons-->
+                                                                <a href="usuarios/editarUsuarioRol" class="button">✎</a>
+                                                                <button class="button">✕</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <!--Column of rol icon-->
+                                    <div class="column is-one-fifth">
+                                        <div class="box ml-4" style="background-color: black; width: 135px">
+                                            <!--Rol icon-->
+                                            <figure>
+                                                <% if(empleadoRoles[i].idRol == 1) { %>
+                                                    <img class="image is-64x64 ml-4" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQK1ge05Bg5q-mHq-2J0MELZsP0HdoVgTiiOg&usqp=CAU">
+                                                <% } else if(empleadoRoles[i].idRol == 2) { %>
+                                                    <img class="image is-64x64 ml-4" src="https://flaticons.net/icon.php?slug_category=people&slug_icon=user-group">
+                                                <% } %>
+                                            </figure>
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                            <% } %>    
+                        <% } %>
+                    </section>
+                </section>
+            </div>
+        </section>
+    </body>
+    
+</html>
