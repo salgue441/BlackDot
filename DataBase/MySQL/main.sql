@@ -42,12 +42,6 @@ create table if not exists Privilegio
     descripcionPrivilegio varchar (200)
 );
 
-create table if not exists EquipoTrabajo
-(
-    idEquipoTrabajo int not null auto_increment primary key 
-);
-
-
 create table if not exists Epica
 (
     idEpica int not null auto_increment primary key,
@@ -162,26 +156,6 @@ create table if not exists RolPrivilegio
     foreign key (idPrivilegio) references Privilegio (idPrivilegio)
 );
 
-create table if not exists EmpleadoEquipoTrabajo
-(
-    idEmpleado int not null,
-    idEquipoTrabajo int not null,
-
-    primary key (idEmpleado, idEquipoTrabajo),
-    foreign key (idEmpleado) references Empleado (idEmpleado),
-    foreign key (idEquipoTrabajo) references EquipoTrabajo (idEquipoTrabajo)
-);
-
-create table if not exists EquipoTrabajoIssue
-(
-    idEquipoTrabajo int not null,
-    idIssue int not null,
-
-    primary key (idEquipoTrabajo, idIssue),
-    foreign key (idEquipoTrabajo) references EquipoTrabajo (idEquipoTrabajo),
-    foreign key (idIssue) references Issue (idIssue)
-);
-
 create table if not exists SprintEpica
 (
     idEpica int not null,
@@ -232,7 +206,6 @@ create table if not exists token
 -- Alterando las tablas para aniadir las llaves foraneas
 alter table Retroalimentacion
 add constraint fk_idSprint foreign key (idSprint) references Sprint(idSprint);
-
 
 alter table Cuantitativa
 add constraint fk_idPreguntaCuanti foreign key (idPregunta) references RetroalimentacionPregunta(idPregunta),
