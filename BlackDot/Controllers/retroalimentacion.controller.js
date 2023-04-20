@@ -87,9 +87,9 @@ function countDuplicates(data) {
 let retroObj = {}
 
 exports.getCurretRetroalimentacion = async (req, res) => {
-  Retro.getRetroActual().then(async (retro) => {
+  Retro.getLastId().then(async (retro) => {
     try {
-      const idRetro = req.params.id || retro.id
+      const idRetro = req.params.id || retro
 
       retroObj.id = idRetro
 
