@@ -33,7 +33,6 @@ exports.getRegistrarAprobacion = async (req, res) => {
     const accionables = await Accionable.getAll();
     const accionablesNoAprobados = accionables.filter((item) => item.estadoAccionable === 'No aprobado')
 
-    console.log(accionablesNoAprobados)
     res.render(
       path.join(__dirname, "../Views/Static/actual/aprobarAccionable.ejs"),
       {
