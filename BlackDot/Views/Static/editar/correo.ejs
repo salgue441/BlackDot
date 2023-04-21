@@ -2,7 +2,7 @@
   <%- include('../../include/header.ejs') %>
 
   <body>
-    <%- include('../../include/navbar.ejs') %>
+    <iv%- include('../../include/navbar.ejs') %>
 
     <br />
     <br />
@@ -15,27 +15,31 @@
             <% for(let i = 0; i< empleados.length; i++){ %>
             <div class="column is-6">
               <div class="box boxEmpleado m-2 p-2">
-                <div class="empleadoContainer is-flex is-vcentered is-justify-content-space-around mt-4">
-                  <img src="<%= empleados[i].googleProfilePicture %>" alt="Profile Picture" class="image is-64x64 is-rounded profilePicture" />
+                <div
+                  class="empleadoContainer is-flex is-vcentered is-justify-content-space-around mt-4"
+                >
+                  <img
+                    src="<%= empleados[i].googleProfilePicture %>"
+                    alt="Profile Picture"
+                    class="image is-64x64 is-rounded profilePicture"
+                  />
                   <div class="dataContainer">
-                    <p><%= empleados[i].primerNombre + " " + empleados[i].apellidoPaterno %></p>
+                    <p>
+                      <%= empleados[i].primerNombre + " " +
+                      empleados[i].apellidoPaterno %>
+                    </p>
                     <p><%= empleados[i].googleEmail %></p>
-                    
-                    <% for(let j = 0; j < rolesEmpleados.length; j++) {%>
-                    <% if(empleados[i].idEmpleado == rolesEmpleados[j].idEmpleado){ %>
-                    <% for(let k = 0; k < roles.length; k++){%>
-                    <% if(rolesEmpleados[j].idRol == roles[k].idRol){ %>
+
+                    <% for(let j = 0; j < rolesEmpleados.length; j++) {%> <%
+                    if(empleados[i].idEmpleado == rolesEmpleados[j].idEmpleado){
+                    %> <% for(let k = 0; k < roles.length; k++){%> <%
+                    if(rolesEmpleados[j].idRol == roles[k].idRol){ %>
                     <p><%= roles[k].nombreRol %></p>
 
-                    <% } %>
-                    <% } %>
-                    <% } %>
-                    <% } %>
-
+                    <% } %> <% } %> <% } %> <% } %>
                   </div>
                 </div>
               </div>
-              
             </div>
             <% } %>
           </div>
@@ -69,39 +73,76 @@
             </section>
             <section class="mt-6">
               <!-- gestionar roles -->
+              <% if(idEmpleado == -1){ %>
               <div class="box boxAddEmail">
                 <p class="subtitle">Gestionar roles</p>
-                <form
-                  class="mt-3 is-flex is-flex-direction-column is-justify-content-space-evenly"
-                >
-                  <!-- Select empleado -->
-                  <p class="mb-2">Selecciona Empleado</p>
-                  <div class="select ">
-                    
-                    <select class="mb-3">
-                      <!-- title -->
-                
-                      <option class="mb-2">Empleado</option>
-                      <% for(let i = 0; i< empleados.length; i++){ %>
-                      <option>
-                        <%= empleados[i].primerNombre + " " +
-                        empleados[i].apellidoPaterno %>
-                      </option>
-                      <% } %>
-                      </select>
-                      <!-- Select Rol -->
-                      <p class="mb-2">Seleccionar Rol</p>
-                      <div class="select">
-                        <select>
-                          <option>Rol</option>
-                          <% for(let i = 0; i< roles.length; i++){ %>
-                          <option>
-                            <%= roles[i].nombreRol %>
-                          </option>
-                          <% } %>
-                        </select>
-                    </select>
+                <div class="mt-3 is-flex is-flex-direction-column
+                is-justify-content-space-evenly" >
+                <!-- Select empleado -->
+                <p class="mb-2">Selecciona Empleado</p>
+                <div class="select">
+                  <select class="mb-3">
+                    <!-- title -->
 
+                    <option class="mb-2">Empleado</option>
+                    <% for(let i = 0; i< empleados.length; i++){ %>
+                    <option>
+                      <%= empleados[i].primerNombre + " " +
+                      empleados[i].apellidoPaterno %>
+                    </option>
+                    <% } %>
+                  </select>
+                  <!-- Select Rol -->
+                  <p class="mb-2">Seleccionar Rol</p>
+                  <div class="select">
+                    <select>
+                      <option>Rol</option>
+                      <% for(let i = 0; i< roles.length; i++){ %>
+                      <option><%= roles[i].nombreRol %></option>
+                      <% } %>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <% }else{ %>
+              <div class="box boxAddEmail">
+                <p class="subtitle">Gestionar roles</p>
+                <div class="mt-3 is-flex is-flex-direction-column
+                is-justify-content-space-evenly" >
+                <!-- Select empleado -->
+                <p class="mb-2">Selecciona Empleado</p>
+                <div class="select">
+                  <select class="mb-3">
+                    <!-- title -->
+
+                    <option
+                      class="mb-2"
+                      value="<%= empleado.primerNombre + empleado.apellidoPaterno %>"
+                    >
+                      Empleado
+                    </option>
+                    <% for(let i = 0; i< empleados.length; i++){ %>
+                    <option
+                      href="/editar/addusuario/ <%= empleados[i].idEmpleado %>"
+                    >
+                      <%= empleados[i].primerNombre + " " +
+                      empleados[i].apellidoPaterno %>
+                    </option>
+                    <% } %>
+                  </select>
+                  <!-- Select Rol -->
+                  <p class="mb-2">Seleccionar Rol</p>
+                  <div class="select">
+                    <select>
+                      <option>Rol</option>
+                      <% for(let i = 0; i< roles.length; i++){ %>
+                      <option><%= roles[i].nombreRol %></option>
+                      <% } %>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <% } %>
             </section>
           </section>
         </div>
@@ -121,7 +162,7 @@
 
   .Container {
     width: 75%;
-    margin-left: 9% !important; 
+    margin-left: 9% !important;
     margin-top: 8px !important;
   }
 
