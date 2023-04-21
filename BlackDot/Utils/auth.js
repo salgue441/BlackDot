@@ -23,8 +23,11 @@ const Token = require('../Models/token.model')
  * @throws {Error} returns to /auth 
  */
 const createTokenLogin = (data) => {
+    console.log("token login creado")
+
     return jwt.sign(data, process.env.JWT_LOGIN, {
         expiresIn: "300s",
+
     })
 }
 
@@ -38,9 +41,15 @@ const createTokenLogin = (data) => {
 const createRefreshToken = (data) => {
     data.createdAt = Date.now()
 
-    return jwt.sign(data, process.env.JWT_REFRESH, {
-        expiresIn: "28800s",
+    console.log("token refresh creado")
+
+    let tokenRefreshed =  jwt.sign(data, process.env.JWT_REFRESH, {
+        expiresIn: "8h",
     })
+
+    console.log(tokenRefreshed)
+    
+    return tokenRefreshed
 }
 
 /**
@@ -118,6 +127,8 @@ const deleteSession = (req, res) => {
     res.locals.activeTeams = []
     res.locals.currentUser = null
     res.locals.currentTeam = null
+
+    console.log("Sesion eliminada")
 
     // session & cookies
     req.session.destroy()
