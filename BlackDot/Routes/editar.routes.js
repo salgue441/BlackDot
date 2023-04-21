@@ -27,9 +27,8 @@ router.get(
 )
 
 const Correo = require("../Controllers/correo.controller")
-router.get(
-  "/addUsuario",
-  Correo.mostrarCorreos
-)
+router.get("/addUsuario", Correo.mostrarCorreos)
+
+router.get("/addUsuario/:id", Correo.mostrarCorreos)
 
 module.exports = router
