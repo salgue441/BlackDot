@@ -7,6 +7,7 @@
  *
  * @copyright Copyright (c) 2023 - MIT License
  */
+const axios = require('axios')
 
 function handleCheckBox() {
   const checkboxes = document.querySelectorAll(
@@ -28,15 +29,7 @@ function handleCheckBox() {
     }
   }
 
-  fetch("/admin/saveAccionables", {
-    method: "POST",
-    headers: {
-      "Content-type": "application/json"
-    }, 
-
-    body: JSON.stringify(idsAccionables)
-  })
-    .then(response => response.json())
-    .then(data => console.log(data))
-    .catch(error => console.log(error))
+  axios.post('/admin/saveAccionable', {idsAccionables})
+    .then(response => { console.log(response.data) })
+    .catch(error => { console.log(error) })
 }
