@@ -200,8 +200,12 @@ create table if not exists SprintEpica
 
 create table if not exists token
 (
-    id text
+    id varchar (100) not null,
+
+    primary key (id)
 );
+
+
 
 -- Alterando las tablas para aniadir las llaves foraneas
 alter table Retroalimentacion
