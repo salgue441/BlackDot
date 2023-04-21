@@ -6,33 +6,36 @@
 
     <br />
     <br />
-    <br />
 
     <h1 class="title is-1">Empleados</h1>
-    <div class="container is-marginless mr-0">
+    <div class="container is-marginless">
       <div class="columns is-multiline">
         <div class="column is-three-quarters">
           <div class="columns is-multiline">
             <% for(let i = 0; i< empleados.length; i++){ %>
             <div class="column is-6">
-              <div class="box boxEmpleado m-2 p-2 is-flex is-vcentered">
-                <div
-                  class="empleadoContainer is-flex is-vcentered is-justify-content-space-around"
-                >
-                  <img
-                    src="<%= empleados[i].googleProfilePicture %>"
-                    alt="Profile Picture"
-                    class="image is-64x64 is-rounded profilePicture"
-                  />
+              <div class="box boxEmpleado m-2 p-2">
+                <div class="empleadoContainer is-flex is-vcentered is-justify-content-space-around mt-4">
+                  <img src="<%= empleados[i].googleProfilePicture %>" alt="Profile Picture" class="image is-64x64 is-rounded profilePicture" />
                   <div class="dataContainer">
-                    <p>
-                      <%= empleados[i].primerNombre + " " +
-                      empleados[i].apellidoPaterno %>
-                    </p>
+                    <p><%= empleados[i].primerNombre + " " + empleados[i].apellidoPaterno %></p>
                     <p><%= empleados[i].googleEmail %></p>
+                    
+                    <% for(let j = 0; j < rolesEmpleados.length; j++) {%>
+                    <% if(empleados[i].idEmpleado == rolesEmpleados[j].idEmpleado){ %>
+                    <% for(let k = 0; k < roles.length; k++){%>
+                    <% if(rolesEmpleados[j].idRol == roles[k].idRol){ %>
+                    <p><%= roles[k].nombreRol %></p>
+
+                    <% } %>
+                    <% } %>
+                    <% } %>
+                    <% } %>
+
                   </div>
                 </div>
               </div>
+              
             </div>
             <% } %>
           </div>
@@ -42,7 +45,7 @@
           <section class="optionsContainer">
             <section>
               <div class="box boxAddEmail">
-                <p>Agregar correo</p>
+                <p class="subtitle">Agregar correo</p>
                 <form
                   class="mt-3 is-flex is-flex-direction-column is-justify-content-space-evenly"
                 >
@@ -67,25 +70,30 @@
             <section class="mt-6">
               <!-- gestionar roles -->
               <div class="box boxAddEmail">
-                <p>Gestionar roles</p>
+                <p class="subtitle">Gestionar roles</p>
                 <form
                   class="mt-3 is-flex is-flex-direction-column is-justify-content-space-evenly"
                 >
                   <!-- Select empleado -->
-                  <div class="select">
-                    <select>
-                      <option>Selecciona un empleado</option>
+                  <p class="mb-2">Selecciona Empleado</p>
+                  <div class="select ">
+                    
+                    <select class="mb-3">
+                      <!-- title -->
+                
+                      <option class="mb-2">Empleado</option>
                       <% for(let i = 0; i< empleados.length; i++){ %>
                       <option>
                         <%= empleados[i].primerNombre + " " +
                         empleados[i].apellidoPaterno %>
                       </option>
                       <% } %>
-
+                      </select>
                       <!-- Select Rol -->
+                      <p class="mb-2">Seleccionar Rol</p>
                       <div class="select">
                         <select>
-                          <option>Selecciona un rol</option>
+                          <option>Rol</option>
                           <% for(let i = 0; i< roles.length; i++){ %>
                           <option>
                             <%= roles[i].nombreRol %>
@@ -93,7 +101,7 @@
                           <% } %>
                         </select>
                     </select>
-              </div>
+
             </section>
           </section>
         </div>
@@ -113,6 +121,8 @@
 
   .Container {
     width: 75%;
+    margin-left: 9% !important; 
+    margin-top: 8px !important;
   }
 
   .boxEmpleado {
@@ -135,7 +145,7 @@
   }
 
   .boxAddEmail {
-    height: 15rem;
+    height: 18rem;
   }
 
   .plusButton {
