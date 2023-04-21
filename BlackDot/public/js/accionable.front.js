@@ -41,7 +41,19 @@ function handleCheckBox() {
 }
 
 const aceptarAccionable = async () => {
-  console.log("Yuna estuvo aqui")
+  const selectedAccionablesInput = document.getElementById('selected-accionables')
+  const selectedAccionables = selectedAccionablesInput.value.split(',')
 
-  const aprobarButton = document.querySelector('.reporte-button')
+  try {
+    const response = await $.ajax({
+      url: '/admin/saveAccionables',
+      method: 'POST',
+      data: { idsAccionables: selectedAccionables },
+    })
+
+    console.log(response)
+  } catch (error) {
+    console.log(error)
+  }
 }
+
