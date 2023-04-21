@@ -46,42 +46,8 @@ exports.getRegistrarAprobacion = async (req, res) => {
   }
 };
 
-/**
- * @brief
- * Post to register Actionables
- * @param {Request} req - Request object
- * @param {Response} res - Response object
- * @returns {Response} - Response object
- * @throws {Error} - Error message
- **/
-exports.postRegistrarAprobacion = async (req, res) => {
-  //Colects the ids of the actionables
-  const idsAccionableStr = req.body.puente;
-
-  //Splits the string into an array
-  const idsAccionable = idsAccionableStr.split(",");
-
-  for (let i = 0; i < idsAccionable.length; i++) {
-    //Converts the string into an integer
-    idsAccionable[i] = parseInt(idsAccionable[i]);
-
-    try {
-      //Gets the actionable by id
-      Accionable.getbyId(idsAccionable[i]).then((accionable) => {
-        try {
-          //Updates the state of the actionable
-          accionable.estadoAccionable = "Aprobado";
-          accionable.updateEstadoAprobado();
-        } catch (error) {
-          console.log(error);
-        }
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
-  res.render(
-    path.join(__dirname, "../Views/Static/actual/enviadoAccionable.ejs")
-  );
-};
+exports.saveAccionable = async (req, res) => {
+  const {idAcccionable, isChecked} = req.query
+  const accionable = await Accioanble.getById(idAcccionable)
+  console.log(accionable)
+}
