@@ -7,6 +7,11 @@
  *
  * @copyright Copyright (c) 2023 - MIT License
  */
+
+/**
+ * @brief
+ * Handles the state of Checkboxes
+ */
 function handleCheckBox() {
   const checkboxes = document.querySelectorAll(
     'input[type="checkbox"][name = "accionable"]'
@@ -40,6 +45,7 @@ function handleCheckBox() {
     }
   })
 }
+
 
 const aceptarAccionable = async () => {
   const selectedAccionablesInput = document.getElementById('selected-accionables')
