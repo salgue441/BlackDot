@@ -47,7 +47,12 @@ exports.getRegistrarAprobacion = async (req, res) => {
 };
 
 exports.saveAccionable = async (req, res) => {
-  const {idAcccionable, isChecked} = req.query
-  const accionable = await Accioanble.getById(idAcccionable)
-  console.log(accionable)
+  const idsAccionables = req.body.idsAccionables
+  console.log(idsAccionables)
+
+  try {
+    
+  } catch (error) {
+    return res.status(500).json({ message: error.message })
+  }
 }
