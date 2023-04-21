@@ -27,6 +27,6 @@ router.get("/sprintData", SprintActual.getActualAPI)
 
 const Accionable = require("../Controllers/accionable.controller")
 router.get("/accionables", Accionable.getRegistrarAprobacion)
-router.get("/admin/saveAccionable", Accionable.saveAccionable)
+router.post("/admin/saveAccionables", Accionable.saveAccionable)
 
 module.exports = router

@@ -9,15 +9,19 @@
  **/
 
 const axios = require("axios");
+const express = require('express')
+const router = express.Router()
 const path = require("path");
 const bodyparser = require("body-parser");
-const express = require("express");
 bodyparser.urlencoded({ extended: true });
 
 const Accionable = require("../Models/accionable.model");
 const Cualitativa = require("../Models/cualitativa.model");
 const retroPregunta = require("../Models/retro-pregunta.model");
 const CualiAccionable = require("../Models/cuali-accionable.model");
+
+router.use(express.urlencoded({ extended: true }))
+router.use(express.json())
 
 /**
  * @brief
