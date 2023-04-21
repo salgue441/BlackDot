@@ -12,7 +12,7 @@ const authMiddleware = {
             token = req.headers.authorization.split(" ")[1];
         else token = req.cookies.blackdotToken;
 
-        // if (!token) return res.redirect("/auth");
+        //if (!token) return res.redirect("/auth");
 
         try {
             const auth = authUtil.verifyToken(token);
