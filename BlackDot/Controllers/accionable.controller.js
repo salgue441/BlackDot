@@ -8,16 +8,21 @@
  * @copyright Copyright (c) 2023 - MIT License
  **/
 
-const axios = require("axios")
-const path = require("path")
-const bodyparser = require("body-parser")
-const express = require("express")
-bodyparser.urlencoded({ extended: true })
+const axios = require("axios");
+const express = require("express");
+const router = express.Router();
+const path = require("path");
+const bodyparser = require("body-parser");
+bodyparser.urlencoded({ extended: true });
 
-const Accionable = require("../Models/accionable.model")
-const Cualitativa = require("../Models/cualitativa.model")
-const retroPregunta = require("../Models/retro-pregunta.model")
-const CualiAccionable = require("../Models/cuali-accionable.model")
+const Accionable = require("../Models/accionable.model");
+const Cualitativa = require("../Models/cualitativa.model");
+const retroPregunta = require("../Models/retro-pregunta.model");
+const CualiAccionable = require("../Models/cuali-accionable.model");
+const { create } = require("domain");
+
+router.use(express.urlencoded({ extended: true }));
+router.use(express.json());
 
 /**
  * @brief
@@ -30,57 +35,44 @@ const CualiAccionable = require("../Models/cuali-accionable.model")
 
 exports.getRegistrarAprobacion = async (req, res) => {
   try {
-    await Accionable.getAll().then((accionables) => {
-      res.render(
-        path.join(__dirname, "../Views/Static/actual/aprobarAccionable.ejs"),
-        {
-          accionables,
-        }
-      )
-    })
+    const accionables = await Accionable.getAll();
+    const filterAccionables = accionables.filter(
+      (item) => item.estadoAccionable === "No aprobado"
+    );
+
+    res.render(
+      path.join(__dirname, "../Views/Static/actual/aprobarAccionable.ejs"),
+      {
+        accionables: filterAccionables,
+      }
+    );
   } catch (error) {
     res.status(500).json({
       message: error.message || "Error al obtener metricas epicas",
-    })
+    });
   }
-}
+};
 
-/**
- * @brief
- * Post to register Actionables
- * @param {Request} req - Request object
- * @param {Response} res - Response object
- * @returns {Response} - Response object
- * @throws {Error} - Error message
- **/
-exports.postRegistrarAprobacion = async (req, res) => {
-  //Colects the ids of the actionables
-  const idsAccionableStr = req.body.puente
+exports.saveAccionable = async (req, res) => {
+  const { idsAccionables } = req.body;
+  const { createAccionable } = require('../Utils/jiraIssues.api')
 
-  //Splits the string into an array
-  const idsAccionable = idsAccionableStr.split(",")
+  try {
+    for (let i = 0; i < idsAccionables.length; i++) {
+      const idAccionable = idsAccionables[i]
+      const accionable = await Accionable.getbyId(idAccionable)
 
-  for (let i = 0; i < idsAccionable.length; i++) {
-    //Converts the string into an integer
-    idsAccionable[i] = parseInt(idsAccionable[i])
+      accionable.estadoAccionable = 'Aprobado'
+      await accionable.updateEstadoAprobado()
 
-    try {
-      //Gets the actionable by id
-      Accionable.getbyId(idsAccionable[i]).then((accionable) => {
-        try {
-          //Updates the state of the actionable
-          accionable.estadoAccionable = "Aprobado"
-          accionable.updateEstadoAprobado()
-        } catch (error) {
-          console.log(error)
-        }
-      })
-    } catch (error) {
-      console.log(error)
+
+      if (accionable.estadoAccionable === 'Aprobado') {
+        await createAccionable(accionable)
+      }
     }
-  }
 
-  res.render(
-    path.join(__dirname, "../Views/Static/actual/enviadoAccionable.ejs")
-  )
-}
+    res.status(200).json({ message: 'Accinoables saved successfully' });
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
+  }
+};
