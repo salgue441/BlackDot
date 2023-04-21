@@ -42,7 +42,7 @@ const renderLogin = (req, res) => {
 const loginAPI = async (req, res, next) => {
   try {
     const { token } = req.body
-    console.log(token)
+    //console.log(token)
     const data = await authUtil.verifyGoogleToken(token)
 
     const user = {
@@ -86,7 +86,8 @@ const logoutAPI = (req, res) => {
 const refreshTokenAPI = async (req, res, next) => {
   try {
     const { refreshToken } = req.body
-    console.log(refreshToken)
+    //console.log(refreshToken)
+    console.log("refreshTokenAPI")
     const verified = authUtil.verifyToken(refreshToken, "refresh")
 
     // to finish primerNombre: verified.primerNombre
@@ -100,7 +101,7 @@ const refreshTokenAPI = async (req, res, next) => {
       googleProfilePicture: verified.googleProfilePicture,
     }
 
-    console.log(userData)
+    //console.log(userData)
 
     // Blacklisting refresh token
     /*  const isBlacklisted = await authUtil.isBlacklisted(refreshToken)
