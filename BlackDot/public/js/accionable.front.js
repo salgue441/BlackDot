@@ -7,8 +7,6 @@
  *
  * @copyright Copyright (c) 2023 - MIT License
  */
-const axios = require('axios')
-
 function handleCheckBox() {
   const checkboxes = document.querySelectorAll(
     'input[type="checkbox"][name = "accionable"]'
@@ -29,7 +27,21 @@ function handleCheckBox() {
     }
   }
 
-  axios.post('/admin/saveAccionable', {idsAccionables})
-    .then(response => { console.log(response.data) })
-    .catch(error => { console.log(error) })
+  $.ajax({
+    url: '/admin/saveAccionables',
+    method: 'POST',
+    data: {idsAccionables},
+    success: function(data) {
+      console.log(data)
+    },
+    error: function(error) {
+      console.log(error)
+    }
+  })
+}
+
+const aceptarAccionable = async () => {
+  console.log("Yuna estuvo aqui")
+
+  const aprobarButton = document.querySelector('.reporte-button')
 }
