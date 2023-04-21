@@ -98,6 +98,7 @@
           const logoutButton = document.querySelector(".logout-button")
           logoutButton.addEventListener("click", () => {
             deleteTokens()
+            console.log("Logged out")
             window.location.href = "/auth"
           })
         </script>

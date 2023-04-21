@@ -7,13 +7,14 @@ const authUtil = require("../Utils/auth");
 const authMiddleware = {
     validateTokenActive: async (req, res, next) => {
         let token;
-        console.log(req.cookies)
+        //console.log(req.cookies)
+        console.log("token validado")
 
         if (req.headers.authorization)
             token = req.headers.authorization.split(" ")[1];
         else token = req.cookies.blackdotToken;
 
-        // if (!token) return res.redirect("/auth");
+        //if (!token) return res.redirect("/auth");
 
         try {
             const auth = authUtil.verifyToken(token);
