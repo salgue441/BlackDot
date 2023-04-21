@@ -52,6 +52,8 @@ const loginAPI = async (req, res, next) => {
       apellidoPaterno: data.family_name,
       googleProfilePicture: data.picture,
     }
+    console.log("este es el user:")
+    console.log(user)
 
     // Creating tokens
     const authToken = authUtil.createTokenLogin(user)
