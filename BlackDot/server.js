@@ -114,6 +114,18 @@ app.use("/historico", historico)
 const editar = require("./Routes/editar.routes")
 app.use("/editar", editar)
 
+/**
+ * @brief
+ * 404 error page
+ * @param {String} "*" - Route
+ * @param {Function} (req, res) - Callback function
+ * @returns {Function} - Callback function
+ */
+app.get("*", (req, res) => {
+  // file in views/static/404.ejs
+  res.render("static/404")
+})
+
 // Starting the server
 const PORT = 3000
 const { saveIssuesToDB } = require("./utils/jiraIssues.api")
