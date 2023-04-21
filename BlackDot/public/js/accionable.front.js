@@ -29,7 +29,7 @@ function handleCheckBox() {
   }
 
   $.ajax({
-    url: '/admin/saveAccionables',
+    url: '/actual/admin/saveAccionables',
     method: 'POST',
     data: {idsAccionables},
     success: function(data) {
@@ -47,7 +47,7 @@ const aceptarAccionable = async () => {
 
   try {
     const response = await $.ajax({
-      url: '/admin/saveAccionables',
+      url: '/actual/admin/saveAccionables',
       method: 'POST',
       data: { idsAccionables: selectedAccionables },
     })
