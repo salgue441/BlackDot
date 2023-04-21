@@ -10,20 +10,21 @@
 function handleCheckBox() {
   const checkboxes = document.querySelectorAll(
     'input[type="checkbox"][name = "accionable"]'
-  );
-  let idsAccionables = [];
+  )
+  let idsAccionables = []
+  const input = document.getElementById('selected-accionables')
 
   for (let i = 0; i < checkboxes.length; i++) {
-    const checkbox = checkboxes[i];
-    const id = checkbox.id.split("-").pop();
-    const isChecked = checkbox.checked;
+    const checkbox = checkboxes[i]
+    const id = checkbox.id.split('-').pop()
+    const isChecked = checkbox.checked
 
     if (isChecked) {
-      idsAccionables.push(id);
-      input.value = idsAccionables.join(",");
+      idsAccionables.push(id)
+      input.value = idsAccionables.join(',')
     } else {
-      idsAccionables = idsAccionables.filter((item) => item !== id);
-      input.value = idsAccionables.join(",");
+      idsAccionables = idsAccionables.filter((item) => item !== id)
+      input.value = idsAccionables.join(',')
     }
   }
 
