@@ -19,6 +19,7 @@ const Accionable = require("../Models/accionable.model");
 const Cualitativa = require("../Models/cualitativa.model");
 const retroPregunta = require("../Models/retro-pregunta.model");
 const CualiAccionable = require("../Models/cuali-accionable.model");
+const { create } = require("domain");
 
 router.use(express.urlencoded({ extended: true }));
 router.use(express.json());
@@ -54,6 +55,7 @@ exports.getRegistrarAprobacion = async (req, res) => {
 
 exports.saveAccionable = async (req, res) => {
   const { idsAccionables } = req.body;
+  const { createAccionable } = require('../Utils/jiraIssues.api')
 
   try {
     for (let i = 0; i < idsAccionables.length; i++) {
@@ -62,6 +64,10 @@ exports.saveAccionable = async (req, res) => {
 
       accionable.estadoAccionable = 'Aprobado'
       await accionable.updateEstadoAprobado()
+
+      if (accionable.estadoAccionable === 'Aprobado') {
+        createAccionable(accionable)
+      }
     }
 
     res.status(200).json({ message: 'Accinoables saved successfully'});

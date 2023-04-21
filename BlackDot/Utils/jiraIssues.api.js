@@ -519,46 +519,44 @@ exports.saveIssuesToDB = async () => {
  * Creates a new issue in the Jira board
  * @param {*} accionable - The accionable to be created
  */
-exports.createAccionable = async (accionable) => {
-  const jiraUrl = process.env.JIRA_URL_TEST
-  const jiraUser = process.env.JIRA_USER_TEST
-  const apiToken = process.env.JIRA_API_TOKEN_TEST
-  const projectName = process.env.JIRA_PROJECT_NAME_TEST
+ exports.createAccionable = async (accionable) => {
+  const jiraUrl = process.env.JIRA_URL_TEST;
+  const jiraUser = process.env.JIRA_USER_TEST;
+  const apiToken = process.env.JIRA_API_TOKEN_TEST;
+  const projectName = process.env.JIRA_PROJECT_NAME_TEST;
 
   try {
     const response = await rateLimitedAxios.post(
       `${jiraUrl}/rest/api/3/issue`,
       {
-        fields: {
-          project: {
-            key: projectName,
-          },
-          summary: accionable.nombreAccionable,
-          priority: {
-            name: accionable.prioridadAccionable,
-          },
-          issuetype: {
-            name: "Accionable",
-          },
+        summary: accionable.nombreAccionable,
+        priority: {
+          name: accionable.prioridadAccionable,
+        },
+        issuetype: {
+          name: "Accionable",
+        },
+        project: {
+          key: projectName,
         },
       },
       {
-        auth: {
-          username: jiraUser,
-          password: apiToken,
-        },
         headers: {
           "Content-Type": "application/json",
           Accept: "application/json",
         },
-
-        validateStatus: (status) => status >= 200 && status < 300,
+        auth: {
+          username: jiraUser,
+          password: apiToken,
+        },
       }
-    )
+    );
 
-    return response
+    console.log(accionable);
+
+    return response;
   } catch (error) {
-    console.log(error)
+    console.log(error);
     throw new Error(error)
   }
-}
+};
