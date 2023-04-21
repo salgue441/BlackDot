@@ -8,32 +8,32 @@
  *
  * @copyright Copyright (c) 2023 - MIT License
  */
-const axios = require("axios")
-const Bottleneck = require("bottleneck")
+const axios = require("axios");
+const Bottleneck = require("bottleneck");
 
 // Data Models
-const Issue = require("../models/issue.model")
-const Sprint = require("../models/sprint.model")
-const Epica = require("../Models/epica.model")
-const Accionable = require("../models/accionable.model")
-const SprintIssue = require("../models/sprint-issue.model")
-const SprintEpica = require("../models/sprintEpica.model")
+const Issue = require("../models/issue.model");
+const Sprint = require("../models/sprint.model");
+const Epica = require("../Models/epica.model");
+const Accionable = require("../models/accionable.model");
+const SprintIssue = require("../models/sprint-issue.model");
+const SprintEpica = require("../models/sprintEpica.model");
 
 // Auxiliar functions
-/**   
+/**
  * @brief
  * Creates a new limiter for the API requests. Prevents error 429.
  * @param {Number} minTime - Time in milliseconds
  */
 const limiter = new Bottleneck({
   minTime: 0,
-})
+});
 
 // Wrapping axios
 const rateLimitedAxios = {
   get: limiter.wrap(axios.get.bind(axios)),
   post: limiter.wrap(axios.post.bind(axios)),
-}
+};
 
 // Jira API
 /**
@@ -76,22 +76,22 @@ const getBoardID = async (
       },
 
       validateStatus: (status) => {
-        return status >= 200 && status < 300
+        return status >= 200 && status < 300;
       },
-    })
+    });
 
-    const board = boards.find((board) => board.name === jiraBoard)
+    const board = boards.find((board) => board.name === jiraBoard);
 
     if (!board) {
-      throw new Error("Board not found")
+      throw new Error("Board not found");
     }
 
-    return board.id
+    return board.id;
   } catch (error) {
-    console.log(error)
-    throw new Error(error)
+    console.log(error);
+    throw new Error(error);
   }
-}
+};
 
 /**
  * @brief
@@ -116,7 +116,7 @@ const getSprints = async (
       apiToken,
       projectKey,
       boardName
-    )
+    );
 
     const response = await rateLimitedAxios.get(
       `${jiraUrl}/rest/agile/1.0/board/${boardID}/sprint`,
@@ -131,15 +131,15 @@ const getSprints = async (
         },
 
         validateStatus: (status) => {
-          return status >= 200 && status < 300
+          return status >= 200 && status < 300;
         },
       }
-    )
+    );
 
-    const sprints = response.data.values
+    const sprints = response.data.values;
 
     if (sprints.length === 0)
-      throw new Error(`No sprints found for ${boardName}`)
+      throw new Error(`No sprints found for ${boardName}`);
 
     // Use Promise.all() to fetch sprint details concurrently
     const sprintDetailsPromises = sprints.map((sprint) =>
@@ -152,23 +152,23 @@ const getSprints = async (
           Accept: "application/json",
         },
         validateStatus: (status) => {
-          return status >= 200 && status < 300
+          return status >= 200 && status < 300;
         },
       })
-    )
+    );
 
-    const sprintDetailsResponses = await Promise.all(sprintDetailsPromises)
+    const sprintDetailsResponses = await Promise.all(sprintDetailsPromises);
 
     const detailedSprints = sprintDetailsResponses.map(
       (response) => response.data
-    )
+    );
 
-    return detailedSprints
+    return detailedSprints;
   } catch (error) {
-    console.log(error)
-    throw new Error(error)
+    console.log(error);
+    throw new Error(error);
   }
-}
+};
 
 /**
  * @brief
@@ -193,15 +193,15 @@ const getIssuesCount = async (
       apiToken,
       projectKey,
       boardName
-    )
+    );
 
     const sprintIssuesCountPromises = sprints.map(async (sprint) => {
-      const sprintID = sprint.id
-      const sprintName = sprint.name
-      const sprintState = sprint.state
-      const sprintStartDate = sprint.startDate
-      const sprintEndDate = sprint.endDate
-      const originBoardID = sprint.originBoardId
+      const sprintID = sprint.id;
+      const sprintName = sprint.name;
+      const sprintState = sprint.state;
+      const sprintStartDate = sprint.startDate;
+      const sprintEndDate = sprint.endDate;
+      const originBoardID = sprint.originBoardId;
 
       const response = await axios.get(
         `${jiraUrl}/rest/agile/1.0/sprint/${sprintID}/issue?maxResults=1000`,
@@ -220,12 +220,12 @@ const getIssuesCount = async (
           },
 
           validateStatus: (status) => {
-            return status >= 200 && status < 300
+            return status >= 200 && status < 300;
           },
         }
-      )
+      );
 
-      const totalIssues = response.data.total
+      const totalIssues = response.data.total;
 
       return {
         sprintID,
@@ -235,16 +235,16 @@ const getIssuesCount = async (
         sprintEndDate,
         originBoardID,
         totalIssues,
-      }
-    })
+      };
+    });
 
-    const sprintIssuesCount = await Promise.all(sprintIssuesCountPromises)
-    return sprintIssuesCount
+    const sprintIssuesCount = await Promise.all(sprintIssuesCountPromises);
+    return sprintIssuesCount;
   } catch (error) {
-    console.log(error)
-    throw new Error(error)
+    console.log(error);
+    throw new Error(error);
   }
-}
+};
 
 /**
  * @brief
@@ -293,17 +293,17 @@ const fetchIssuesInChunks = async (
           Accept: "application/json",
         },
         validateStatus: (status) => {
-          return status >= 200 && status < 300
+          return status >= 200 && status < 300;
         },
       }
-    )
+    );
 
-    return response.data.issues
+    return response.data.issues;
   } catch (error) {
-    console.log(error)
-    throw new Error(error)
+    console.log(error);
+    throw new Error(error);
   }
-}
+};
 
 /**
  * @brief
@@ -312,11 +312,11 @@ const fetchIssuesInChunks = async (
  *                   the issues in the sprint
  */
 const getJiraIssuesFromSprint = async () => {
-  const jiraUrl = process.env.JIRA_URL
-  const jiraUser = process.env.JIRA_USER
-  const apiToken = process.env.JIRA_API_TOKEN
-  const projectName = process.env.JIRA_PROJECT_NAME
-  const boardName = process.env.JIRA_BOARD_NAME
+  const jiraUrl = process.env.JIRA_URL;
+  const jiraUser = process.env.JIRA_USER;
+  const apiToken = process.env.JIRA_API_TOKEN;
+  const projectName = process.env.JIRA_PROJECT_NAME;
+  const boardName = process.env.JIRA_BOARD_NAME;
 
   try {
     const sprintIssuesCount = await getIssuesCount(
@@ -325,7 +325,7 @@ const getJiraIssuesFromSprint = async () => {
       apiToken,
       projectName,
       boardName
-    )
+    );
 
     const sprintIssuesPromises = sprintIssuesCount.map((sprint) =>
       fetchJiraIssuesFromSprint(
@@ -335,16 +335,16 @@ const getJiraIssuesFromSprint = async () => {
         apiToken,
         projectName
       )
-    )
+    );
 
-    const sprintIssues = await Promise.all(sprintIssuesPromises)
+    const sprintIssues = await Promise.all(sprintIssuesPromises);
 
-    return sprintIssues
+    return sprintIssues;
   } catch (error) {
-    console.log(error)
-    throw new Error(error)
+    console.log(error);
+    throw new Error(error);
   }
-}
+};
 
 /**
  * @brief
@@ -365,11 +365,14 @@ const fetchJiraIssuesFromSprint = async (
   projectName
 ) => {
   try {
-    const sprintID = sprint.sprintID
-    const issueCount = sprint.totalIssues
-    const chunkSize = 1000
-    const chunkCount = Math.ceil(issueCount / chunkSize)
-    const startAts = Array.from({ length: chunkCount }, (_, i) => i * chunkSize)
+    const sprintID = sprint.sprintID;
+    const issueCount = sprint.totalIssues;
+    const chunkSize = 1000;
+    const chunkCount = Math.ceil(issueCount / chunkSize);
+    const startAts = Array.from(
+      { length: chunkCount },
+      (_, i) => i * chunkSize
+    );
 
     const issueChunks = await Promise.allSettled(
       startAts.map((startAt) =>
@@ -382,20 +385,20 @@ const fetchJiraIssuesFromSprint = async (
           projectName
         )
       )
-    )
+    );
 
     const allIssues = issueChunks
       .filter((chunk) => chunk.status === "fulfilled")
-      .flatMap((chunk) => chunk.value)
+      .flatMap((chunk) => chunk.value);
 
-    const issuesFormatted = formatIssues(allIssues)
+    const issuesFormatted = formatIssues(allIssues);
     const epicNames = new Set();
     let epic = [];
 
     for (let i = 0; i < issuesFormatted.length; i++) {
       if (!epicNames.has(issuesFormatted[i].epic?.fields?.summary)) {
-        epicNames.add(issuesFormatted[i].epic?.fields?.summary)
-        epic.push(issuesFormatted[i].epic)
+        epicNames.add(issuesFormatted[i].epic?.fields?.summary);
+        epic.push(issuesFormatted[i].epic);
       }
     }
 
@@ -409,12 +412,12 @@ const fetchJiraIssuesFromSprint = async (
       originBoardID: sprint.originBoardID,
       epic: epic,
       issues: issuesFormatted,
-    }
+    };
   } catch (error) {
-    console.log(error)
-    throw new Error(error)
+    console.log(error);
+    throw new Error(error);
   }
-}
+};
 
 /**
  * @brief
@@ -435,7 +438,7 @@ const formatIssues = (issues) =>
     sprints: issue.fields?.customfield_10010 || "None",
     epic: issue.fields?.parent || null,
     id: issue.id,
-  }))
+  }));
 
 /**
  * @brief
@@ -443,8 +446,8 @@ const formatIssues = (issues) =>
  */
 exports.saveIssuesToDB = async () => {
   try {
-    const sprintIssuesData = await getJiraIssuesFromSprint()
-    const processedData = new Set()
+    const sprintIssuesData = await getJiraIssuesFromSprint();
+    const processedData = new Set();
 
     for (const sprint of sprintIssuesData) {
       if (!processedData.has(sprint.sprintID)) {
@@ -455,28 +458,28 @@ exports.saveIssuesToDB = async () => {
           boardID: sprint.originBoardID,
           fechaCreacion: sprint.sprintStartDate,
           fechaFinalizacion: sprint.sprintEndDate,
-        })
+        });
 
-        const savedSprint = await newSprint.save()
-        processedData.add(sprint.sprintID)
+        const savedSprint = await newSprint.save();
+        processedData.add(sprint.sprintID);
 
         for (const epic of sprint.epic) {
           const newEpic = new Epica({
             jiraID: epic?.id,
             jiraKey: epic?.key,
             nombreEpica: epic?.fields?.summary,
-          })
+          });
 
           if (newEpic.jiraID && newEpic.jiraKey && newEpic.nombreEpica) {
-            const savedEpic = await newEpic.save()
+            const savedEpic = await newEpic.save();
 
             if (savedSprint.idSprint != null) {
               const newSprintEpic = new SprintEpica({
                 idEpica: savedEpic.idEpica,
                 idSprint: savedSprint.idSprint,
-              })
+              });
 
-              await newSprintEpic.save()
+              await newSprintEpic.save();
             }
           }
         }
@@ -491,72 +494,83 @@ exports.saveIssuesToDB = async () => {
             estadoIssue: issue.status,
             fechaCreacion: issue.created,
             fechaFinalizacion: issue.resolutiondate,
-          })
+          });
 
-          const savedIssue = await newIssue.save()
+          const savedIssue = await newIssue.save();
 
           const newSprintIssue = new SprintIssue({
             idIssue: savedIssue.idIssue,
             idSprint: savedSprint.idSprint,
-          })
+          });
 
-          await newSprintIssue.save()
+          await newSprintIssue.save();
         }
       }
     }
-
   } catch (error) {
-    console.log(error)
-    throw new Error(error)
+    console.log(error);
+    throw new Error(error);
   }
-}
+};
 
 // Testing
-
 
 /**
  * @brief
  * Creates a new issue in the Jira board
  * @param {*} accionable - The accionable to be created
  */
- exports.createAccionable = async (accionable) => {
+exports.createAccionable = async (accionable) => {
   const jiraUrl = process.env.JIRA_URL_TEST;
   const jiraUser = process.env.JIRA_USER_TEST;
   const apiToken = process.env.JIRA_API_TOKEN_TEST;
   const projectName = process.env.JIRA_PROJECT_NAME_TEST;
 
+  const accionables = new Accionable({
+    nombreAccionable: "Test",
+    storyPoints: 1,
+    labelAccionable: "Test",
+    prioridadAccionable: "Highest",
+    estadoAccionable: "To Do",
+    estadoIssue: "To Do",
+    fechaCreacion: "2021-08-01",
+    fechaFinalizacion: "2021-08-01",
+  });
+
   try {
     const response = await rateLimitedAxios.post(
       `${jiraUrl}/rest/api/3/issue`,
       {
-        summary: accionable.nombreAccionable,
-        priority: {
-          name: accionable.prioridadAccionable,
-        },
-        issuetype: {
-          name: "Accionable",
-        },
-        project: {
-          key: projectName,
-        },
-      },
-      {
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
         auth: {
           username: jiraUser,
           password: apiToken,
         },
+
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+
+        fields: {
+          project: {
+            key: projectName,
+          },
+          summary: accionables.nombreAccionable,
+          priority: {
+            name: accionables.prioridadAccionable,
+          },
+          issuetype: {
+            name: "Accionable",
+          },
+        },
+
+        validateStatus: (status) => status >= 200 && status < 300,
       }
     );
-
-    console.log(accionable);
 
     return response;
   } catch (error) {
     console.log(error);
-    throw new Error(error)
+    throw new Error(error);
   }
 };
