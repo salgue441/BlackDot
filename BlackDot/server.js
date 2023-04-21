@@ -145,19 +145,6 @@ app.listen(PORT, () => {
   // first time save issues to DB when server starts
   saveIssuesToDB()
 
-  const accionable = new Accionable({
-    nombreAccionable: "Test",
-    storyPoints: 1,
-    labelAccionable: "Test",
-    prioridadAccionable: "Highest",
-    estadoAccionable: "To Do",
-    estadoIssue: "To Do",
-    fechaCreacion: "2021-08-01",
-    fechaFinalizacion: "2021-08-01",
-  })
-
-  createAccionable(accionable)
-
   // if time is 00:00:00
   if (new Date().getHours() === 0) {
     saveIssuesToDB()
