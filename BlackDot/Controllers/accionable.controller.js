@@ -65,13 +65,13 @@ exports.saveAccionable = async (req, res) => {
       accionable.estadoAccionable = 'Aprobado'
       await accionable.updateEstadoAprobado()
 
+
       if (accionable.estadoAccionable === 'Aprobado') {
-        createAccionable(accionable)
+        await createAccionable(accionable)
       }
     }
 
-    res.status(200).json({ message: 'Accinoables saved successfully'});
-
+    res.status(200).json({ message: 'Accinoables saved successfully' });
   } catch (error) {
     return res.status(500).json({ message: error.message });
   }

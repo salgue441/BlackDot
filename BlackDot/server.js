@@ -129,7 +129,6 @@ app.get("*", (req, res) => {
 // Starting the server
 const PORT = 3000
 const { saveIssuesToDB } = require("./utils/jiraIssues.api")
-const { createAccionable } = require("./utils/jiraIssues.api")
 
 /**
  * @brief
