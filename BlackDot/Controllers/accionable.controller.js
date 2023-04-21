@@ -9,8 +9,8 @@
  **/
 
 const axios = require("axios");
-const express = require('express')
-const router = express.Router()
+const express = require("express");
+const router = express.Router();
 const path = require("path");
 const bodyparser = require("body-parser");
 bodyparser.urlencoded({ extended: true });
@@ -20,8 +20,8 @@ const Cualitativa = require("../Models/cualitativa.model");
 const retroPregunta = require("../Models/retro-pregunta.model");
 const CualiAccionable = require("../Models/cuali-accionable.model");
 
-router.use(express.urlencoded({ extended: true }))
-router.use(express.json())
+router.use(express.urlencoded({ extended: true }));
+router.use(express.json());
 
 /**
  * @brief
@@ -35,12 +35,14 @@ router.use(express.json())
 exports.getRegistrarAprobacion = async (req, res) => {
   try {
     const accionables = await Accionable.getAll();
-    const accionablesNoAprobados = accionables.filter((item) => item.estadoAccionable === 'No aprobado')
+    const filterAccionables = accionables.filter(
+      (item) => item.estadoAccionable === "No aprobado"
+    );
 
     res.render(
       path.join(__dirname, "../Views/Static/actual/aprobarAccionable.ejs"),
       {
-        accionables: accionablesNoAprobados,
+        accionables: filterAccionables,
       }
     );
   } catch (error) {
@@ -51,14 +53,20 @@ exports.getRegistrarAprobacion = async (req, res) => {
 };
 
 exports.saveAccionable = async (req, res) => {
-  const { idsAccionables } = req.body
-  console.log(idsAccionables)
-
-  res.status(200).json({ message: 'Accinoables saved successfully'})
+  const { idsAccionables } = req.body;
 
   try {
-    
+    for (let i = 0; i < idsAccionables.length; i++) {
+      const idAccionable = idsAccionables[i]
+      const accionable = await Accionable.getbyId(idAccionable)
+
+      accionable.estadoAccionable = 'Aprobado'
+      await accionable.updateEstadoAprobado()
+    }
+
+    res.status(200).json({ message: 'Accinoables saved successfully'});
+
   } catch (error) {
-    return res.status(500).json({ message: error.message })
+    return res.status(500).json({ message: error.message });
   }
-}
+};
