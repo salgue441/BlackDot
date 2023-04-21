@@ -10,7 +10,11 @@
           <h1 class="title is-1">Accionables</h1>
         </div>
         <div class="column is-narrow">
-          <a href="/historico/historicoAccionables" class="button is-danger reporte-button" onclick="aceptarAccionable()">
+          <a
+            href="/historico/historicoAccionables"
+            class="button is-danger reporte-button"
+            onclick="aceptarAccionable()"
+          >
             Aprobar Accionables
           </a>
         </div>
@@ -38,7 +42,7 @@
             </div>
             <div class="column is-8 is-flex">
               <div class="media-content nombreAccionable">
-                <p class="title is-4 "><%= accionables[i].nombreAccionable %></p>
+                <p class="title is-4"><%= accionables[i].nombreAccionable %></p>
               </div>
             </div>
             <div class="column is-2 checkboxDiv">
@@ -58,7 +62,8 @@
                       type="hidden"
                       id="selected-accionables"
                       name="accionable"
-                      class="checkbox" />
+                      class="checkbox"
+                    />
                   </figure>
                 </div>
                 <!-- End of Toggle box -->

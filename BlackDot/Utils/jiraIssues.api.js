@@ -521,56 +521,46 @@ exports.saveIssuesToDB = async () => {
  * @param {*} accionable - The accionable to be created
  */
 exports.createAccionable = async (accionable) => {
-  const jiraUrl = process.env.JIRA_URL_TEST;
-  const jiraUser = process.env.JIRA_USER_TEST;
-  const apiToken = process.env.JIRA_API_TOKEN_TEST;
-  const projectName = process.env.JIRA_PROJECT_NAME_TEST;
-
-  const accionables = new Accionable({
-    nombreAccionable: "Test",
-    storyPoints: 1,
-    labelAccionable: "Test",
-    prioridadAccionable: "Highest",
-    estadoAccionable: "To Do",
-    estadoIssue: "To Do",
-    fechaCreacion: "2021-08-01",
-    fechaFinalizacion: "2021-08-01",
-  });
+  const jiraUrl = process.env.JIRA_URL_TEST
+  const jiraUser = process.env.JIRA_USER_TEST
+  const apiToken = process.env.JIRA_API_TOKEN_TEST
+  const projectName = process.env.JIRA_PROJECT_NAME_TEST
 
   try {
     const response = await rateLimitedAxios.post(
       `${jiraUrl}/rest/api/3/issue`,
       {
+        fields: {
+          project: {
+            key: projectName,
+          },
+          summary: accionable.nombreAccionable,
+          priority: {
+            name: accionable.prioridadAccionable,
+          },
+          issuetype: {
+            name: "Accionable",
+          },
+          labels: accionable.labelAccionable,
+        },
+      },
+      {
         auth: {
           username: jiraUser,
           password: apiToken,
         },
-
         headers: {
           "Content-Type": "application/json",
           Accept: "application/json",
         },
 
-        fields: {
-          project: {
-            key: projectName,
-          },
-          summary: accionables.nombreAccionable,
-          priority: {
-            name: accionables.prioridadAccionable,
-          },
-          issuetype: {
-            name: "Accionable",
-          },
-        },
-
         validateStatus: (status) => status >= 200 && status < 300,
       }
-    );
+    )
 
-    return response;
+    return response
   } catch (error) {
-    console.log(error);
-    throw new Error(error);
+    console.log(error)
+    throw new Error(error)
   }
-};
+}
