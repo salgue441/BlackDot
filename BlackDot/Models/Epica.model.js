@@ -3,7 +3,7 @@
  * @brief Modelo de la tabla de Epica
  * @author Olimpia Garcia
  * @author Carlos Salguero (Fixes)
- * @version 0.1
+ * @version 1.0
  * @date 2023-03-21
  *
  * @copyright Copyright (c) 2023 - MIT License
@@ -31,7 +31,7 @@ module.exports = class Epica {
   }
 
   /**
-   * @brief 
+   * @brief
    * Gets an epic by its id
    * @param {*} idEpica - epic id
    * @returns {object} - Object of type epic
@@ -48,7 +48,7 @@ module.exports = class Epica {
   }
 
   /**
-   * @brief 
+   * @brief
    * Gets an epic by its jira key
    * @param {*} jiraID - epic jira key
    * @returns {object} - Object of type epic
@@ -89,9 +89,8 @@ module.exports = class Epica {
     return epica
   }
 
-
   /**
-   * @brief 
+   * @brief
    * Gets all epics
    * @returns {object} - Object of type epic
    * @throws {Error} - Error if there is no epic
@@ -105,7 +104,7 @@ module.exports = class Epica {
 
   /**
    * @brief
-   * Saves an epic in the database if it does not exist. If it exists, 
+   * Saves an epic in the database if it does not exist. If it exists,
    * it updates it
    * @returns {object} - Object of type epic
    */
@@ -122,8 +121,7 @@ module.exports = class Epica {
         if (result.affectedRows === 0) throw new Error("No se pudo actualizar")
 
         this.idEpica = existingEpica.idEpica
-      }
-      else {
+      } else {
         const [result, _] = await dataBase.query(
           "insert into epica (jiraID, jiraKey, nombreEpica) values (?, ?, ?)",
           [this.jiraID, this.jiraKey, this.nombreEpica]
