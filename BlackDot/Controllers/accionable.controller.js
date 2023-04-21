@@ -47,8 +47,10 @@ exports.getRegistrarAprobacion = async (req, res) => {
 };
 
 exports.saveAccionable = async (req, res) => {
-  const idsAccionables = req.body.idsAccionables
+  const { idsAccionables } = req.body
   console.log(idsAccionables)
+
+  res.status(200).json({ message: 'Accinoables saved successfully'})
 
   try {
     
