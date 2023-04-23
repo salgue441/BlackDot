@@ -28,8 +28,8 @@
               </div>
               <p><%= empleadoSinRol[i].primerNombre %></p>
               <p><%= empleadoSinRol[i].googleEmail %></p>
-              <div class="optionsContainer">
-                <!-- buttons for acfept or reject -->
+              <div class="optionsContainer is-2">
+                <!-- buttons for accept or reject -->
                 <form
                   action="/editar/empleados/aceptar"
                   method="POST"
@@ -40,7 +40,7 @@
                     name="idEmpleado"
                     value="<%= empleadoSinRol[i].idEmpleado %>"
                   />
-                  <button class="button is-success" type="submit">
+                  <button class="button is-success ml-1" type="submit">
                     <span class="icon is-small">
                       <i class="fas fa-check"></i>
                     </span>
@@ -56,7 +56,7 @@
                     name="idEmpleado"
                     value="<%= empleadoSinRol[i].idEmpleado %>"
                   />
-                  <button class="button is-danger" type="submit">
+                  <button class="button is-danger ml-1" type="submit">
                     <span class="icon is-small">
                       <i class="fas fa-times"></i>
                     </span>
@@ -71,3 +71,10 @@
     </section>
   </body>
 </html>
+
+<style>
+  .box {
+    gap: 0.5rem;
+    height: 20rem;
+  }
+</style>
