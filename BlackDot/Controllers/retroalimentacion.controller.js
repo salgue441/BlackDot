@@ -52,7 +52,7 @@ const simplifyAnswers = (answers) => {
       return acc
     }, [])
   } catch (error) {
-    res.render(path.join(__dirname, "../Views/Static/error.ejs"))
+    res.render(path.join(__dirname, "../Views/Static/error.view.ejs"))
   }
 }
 
@@ -118,7 +118,7 @@ exports.getCurretRetroalimentacion = async (req, res) => {
       }
     )
   } catch (error) {
-    res.render(path.join(__dirname, "../Views/Static/error.ejs"))
+    res.render(path.join(__dirname, "../Views/Static/error.view.ejs"))
   }
 }
 
@@ -146,7 +146,7 @@ exports.getCurretRetroalimentacionAPI = async (req, res) => {
       simplifiedQuantitative: simplifiedQuantitative,
     })
   } catch (error) {
-    res.render(path.join(__dirname, "../Views/Static/error.ejs"))
+    res.render(path.join(__dirname, "../Views/Static/error.view.ejs"))
   }
 }
 
@@ -175,7 +175,7 @@ exports.getRegistrarRespuestas = async (req, res) => {
       })
     })
   } catch (error) {
-    res.render(path.join(__dirname, "../Views/Static/error.ejs"))
+    res.render(path.join(__dirname, "../Views/Static/error.view.ejs"))
   }
 }
 
