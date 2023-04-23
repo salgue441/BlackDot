@@ -1,4 +1,14 @@
-const dataBase = require("../utils/dataBase");
+/**
+ * @file sprint.model.js
+ * @brief Data model for the Sprint table
+ * @author Carlos Salguero (fixes)
+ * @version 1.0
+ * @date 2021-03-24
+ *
+ * @copyright Copyright (c) 2023 - MIT License
+ */
+
+const dataBase = require("../Utils/dataBase")
 
 /**
  * @class Sprint
@@ -12,16 +22,20 @@ const dataBase = require("../utils/dataBase");
 module.exports = class Sprint {
   /**
    * @brief
-   * Constructor de la clase Sprint
+   * Creaates a new instance of Sprint. If no parameters are provided,
+   * the default values are used
    * @param {*} Sprint - Objeto de tipo Sprint
    */
-
   constructor(Sprint) {
-    this.id = Sprint.id;
-    this.FechaCreacion = Sprint.FechaCreacion;
-    this.FechaFinalizacion = Sprint.FechaFinalizacion;
-    this.numeroSprint = Sprint.numeroSprint;
-    this.idEpica = Sprint.idEpica;
+    this.idSprint = Sprint.idSprint
+    this.jiraID = Sprint.jiraID || 0
+    this.sprintName = Sprint.sprintName || ""
+    this.state = Sprint.state || "To Do"
+    this.boardID = Sprint.boardID || 0
+    this.fechaCreacion = Sprint.fechaCreacion
+      || new Date().toISOString().slice(0, 19).replace('T', ' ')
+    this.fechaFinalizacion = Sprint.fechaFinalizacion
+      || new Date().toISOString().slice(0, 19).replace('T', ' ')
   }
 
   /**
@@ -32,14 +46,31 @@ module.exports = class Sprint {
    */
 
   static async getbyID(id) {
-    if (!id) throw new Error("No se envio el id");
+    if (!id) throw new Error("No se envio el id")
 
-    const sprint = await dataBase.query(
+    const [sprint,_] = await dataBase.query(
       "select * from Sprint where idSprint = ?",
       [id]
-    );
+    )
 
-    return new Sprint(sprint);
+    return sprint
+
+  }
+
+  /**
+   * @brief
+   * Obtains a sprint by its jira key
+   * @param {string} jiraID - Jira key of the sprint
+   */
+  static async getByJiraID(jiraID) {
+    const [sprint] = await dataBase.query(
+      "select * from Sprint where jiraID = ?",
+      [jiraID]
+    )
+
+    if (sprint.length === 0) return null
+
+    return new Sprint(sprint[0])
   }
 
   /**
@@ -49,24 +80,83 @@ module.exports = class Sprint {
    */
 
   static async getAll() {
-    const [sprints, _] = await dataBase.query("select * from Sprint");
-    return sprints;
+    const [sprints, _] = await dataBase.query("select * from Sprint")
+    return sprints
   }
+
+  /**
+   * @brief
+   * FUncion que obtiene el sprunt actual
+   * @returns {Sprint} - Objeto de tipo sprint
+   * @throws {Error} - Lanza un error si no se pudo obtener el sprint
+   * actual
+   * */
 
   static async getSprintActual() {
-    const fechaActual = new Date().toISOString().split("T")[0];
+    const estado = "active"
     const [sprint, _] = await dataBase.query(
-      "select * from Sprint where FechaCreacion <= ? and FechaFinalizacion >= ?",
-      [fechaActual, fechaActual]
-    );
+      "select * from Sprint where state = ?",
+      [estado]
+    )
 
-    const sprintNew = new Sprint({
-      id: sprint[0].idSprint,
-      FechaCreacion: sprint[0].fechaCreacion,
-      FechaFinalizacion: sprint[0].fechaFinalizacion,
-      numeroSprint: sprint[0].numeroSprint,
-      idEpica: sprint[0].idEpica,
-    });
-    return sprintNew;
+    return sprint
   }
-};
+  
+
+  /**
+   * @brief
+   * Saves a sprint in the database if it doesn't exist. If it does exist,
+   * it updates the sprint.
+   * @returns {Sprint} - Returns the saved sprint object
+   * @throws {Error} - Throws an error if the sprint couldn't be saved
+   */
+  async save() {
+    try {
+      const existingSprint = await Sprint.getByJiraID(this.jiraID)
+
+      if (existingSprint) {
+        const [result, _] = await dataBase.query(
+          "UPDATE Sprint SET sprintName = ?, state = ?, boardID = ?, FechaCreacion = ?, FechaFinalizacion = ? WHERE jiraID = ?",
+          [
+            this.sprintName,
+            this.state,
+            this.boardID,
+            this.fechaCreacion,
+            this.fechaFinalizacion,
+            this.jiraID,
+          ]
+        )
+
+        if (result.affectedRows === 0) {
+          throw new Error("No se pudo actualizar el sprint")
+        }
+
+        this.idSprint = existingSprint.idSprint
+      }
+      else {
+
+        const [result, _] = await dataBase.query(
+          "INSERT INTO Sprint (jiraID, sprintName, state, boardID, FechaCreacion, FechaFinalizacion) VALUES (?, ?, ?, ?, ?, ?)",
+          [
+            this.jiraID,
+            this.sprintName,
+            this.state,
+            this.boardID,
+            this.fechaCreacion,
+            this.fechaFinalizacion,
+          ]
+        )
+
+        if (result.affectedRows === 0) {
+          throw new Error("No se pudo guardar el sprint")
+        }
+
+        this.idSprint = result.insertId
+      }
+      return this
+    } catch (error) {
+      console.log(error)
+      throw new Error(`Error al guardar el sprint: ${error.message}`)
+    }
+  }
+}

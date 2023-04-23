@@ -22,7 +22,7 @@
   <!-- Logo -->
   <div class="navbar-item-center">
     <div class="navbar-item">
-      <a href="/">
+      <a href="/home">
         <img
           src="../../assets/$zebrands-brand-logo.svg"
           alt="Zebrands"
@@ -40,7 +40,7 @@
 </nav>
 
 <!-- Sidebar -->
-<%- include('./sidebar.ejs') %>
+<%- include('./sidebarAdmin.ejs') %>
 
 <!-- Styles -->
 <style>
@@ -63,7 +63,7 @@
     width: 100px;
     height: 100px;
   }
-  
+
   /* Bulma Css */
   .navbar {
     background-color: #e4e5e3;
@@ -92,9 +92,9 @@
 <script>
   // When the hamburger icon is clicked, the sidebar opens
   const toggleSidebar = (event) => {
-    var target = document.getElementById(event.target.dataset.target);
-    event.target.classList.toggle("is-active");
-    target.classList.toggle("is-active");
-    target.classList.toggle("is-hidden-touch");
-  };
+    var target = document.getElementById(event.target.dataset.target)
+    event.target.classList.toggle("is-active")
+    target.classList.toggle("is-active")
+    target.classList.toggle("is-hidden-touch")
+  }
 </script>

@@ -52,10 +52,9 @@
     </p>
     <ul class="menu-list-item">
       <li><a href="/historico/metricasEpicas">Metrica</a></li>
-      <li><a href="/historico/retroalimentacion">Retroalimentación</a></li>
 
       <!-- Admin only -->
-      <li><a href="/historico/accionables">Accionable</a></li>
+      <li><a href="/historico/historicoAccionables">Accionable</a></li>
     </ul>
 
     <br />
@@ -72,15 +71,27 @@
     <ul class="menu-list-item">
       <li><a href="/editar/preguntas">Preguntas</a></li>
       <li><a href="editar/usuarios">Usuarios</a></li>
+      <li>
+        <a href="/editar/crearRetroalimentacion">Crear Retroalimentación</a>
+      </li>
     </ul>
   </ul>
 
-  <!-- Log Out Button -->
   <button class="button is-danger logout-button">
-    <img src="../../assets/logout.png" class="logout-image" />
+    <img src="../../assets/logout.png" class="logout-button" />
     Log out
   </button>
 </aside>
+
+<script>
+  const logoutButton = document.querySelector(".logout-button")
+
+  logoutButton.addEventListener("click", () => {
+    deleteTokens()
+
+    window.location.href = "/auth"
+  })
+</script>
 
 <!-- Sidebar custom styles -->
 <style>
@@ -185,3 +196,5 @@
     }
   }
 </style>
+
+<script></script>

@@ -26,48 +26,40 @@ const SprintEpica = require("../models/sprintEpica.model");
  * @throws {Error} - Error message
  */
 exports.getActual = async (req, res) => {
-    try {
-        const sprint = await Sprint.getSprintActual();
-        const sprintEpicas = await SprintEpica.getByIDS(sprint.id);
-        const sprintIssues = await SprintIssue.getByIDS(sprint.id);
+  try {
+    const sprint = await Sprint.getSprintActual();
+    const sprintIssues = await SprintIssue.getByIDS(sprint[0].idSprint);
+    console.log(sprintIssues)
+    sprint.issues = sprintIssues;
 
-        sprint.issues = sprintIssues
-
-        for (let i = 0; i < sprint.issues.length; i++) {
-            let issue = await Issue.getByID(sprint.issues[i].idIssue)
-        }
-    
-
-        res.render(
-            path.join(__dirname, "../Views/Static/actual/verMetricasActuales.ejs"),
-            {
-                
-            }
-        );
-    } catch (error) {
-        res.status(500).json({
-            message: error.message || "Error al obtener metricas actuales",
-        });
+    for (let i = 0; i < sprint.issues.length; i++) {
+      let issue = await Issue.getByID(sprint.issues[i].idIssue);
     }
-}
+
+    res.render(
+      path.join(__dirname, "../Views/Static/actual/verMetricasActuales.ejs")
+    );
+  } catch (error) {
+    res.render(path.join(__dirname, "../Views/Static/error.ejs"), { error });
+  }
+};
 
 exports.getActualAPI = async (req, res) => {
-    try {
-        const sprint = await Sprint.getSprintActual();
-        const sprintEpicas = await SprintEpica.getByIDS(sprint.id);
-        const sprintIssues = await SprintIssue.getByIDS(sprint.id);
-        let arrayIssues = [];
+  try {
+    const sprint = await Sprint.getSprintActual();
+    const sprintIssues = await SprintIssue.getByIDS(sprint[0].idSprint);
+    let arrayIssues = [];
 
-        sprint.issues = sprintIssues
+    sprint.issues = sprintIssues;
 
-        for (let i = 0; i < sprint.issues.length; i++) {
-            let issue = await Issue.getByID(sprint.issues[i].idIssue)
-            arrayIssues.push(issue)
-        }
-        res.json({ issues: arrayIssues })
-    } catch (error) {
-        res.status(500).json({
-          message: error.message || "Error al obtener metricas epicas",
-        })
+    for (let i = 0; i < sprint.issues.length; i++) {
+      let issue = await Issue.getByID(sprint.issues[i].idIssue);
+      arrayIssues.push(issue);
     }
-}
+    res.json({ issues: arrayIssues });
+  } catch (error) {
+    res.status(500).json({
+      message: error.message || "Error al obtener metricas epicas",
+    });
+  }
+};

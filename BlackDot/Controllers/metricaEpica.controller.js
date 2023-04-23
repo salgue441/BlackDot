@@ -20,6 +20,7 @@ const Epica = require("../models/Epica.model");
 const Issue = require("../models/issue.model");
 const Sprint = require("../models/sprint.model");
 const SprintIssue = require("../models/sprint-issue.model");
+const SprintEpica = require("../models/sprintEpica.model")
 
 /**
  * @brief
@@ -33,52 +34,63 @@ exports.getAllEpicas = async (req, res) => {
   try {
     const epicas = await Epica.getAll();
     const issues = await Issue.getAll();
-    const sprints = await Sprint.getAll();
+    const allSprints = await Sprint.getAll();
     const sprintIssues = await SprintIssue.getAll();
-    const sprintNames = await Sprint.getAll();
+    const sprintEpicas = await SprintEpica.getAll();
+    const sprintNames = await Sprint.getAll()
+
+    const sprints = allSprints
+      .sort((a, b) => new Date(b.fechaCreacion) - new Date(a.fechaCreacion))
+      .slice(0, 7);
 
     // Relating sprints and issues
-    const sprintIssuesMap = {};
+    const sprintIssuesMap = {}
 
     sprintIssues.forEach((sprintIssue) => {
-      const sprintID = sprintIssue.idSprint;
-      const issueID = sprintIssue.idIssue;
+      const idSprint = sprintIssue.idSprint;
+      const idIssue = sprintIssue.idIssue;
 
-      if (!sprintIssuesMap[sprintID]) {
-        sprintIssuesMap[sprintID] = [];
+      if (!sprintIssuesMap[idSprint]) {
+        sprintIssuesMap[idSprint] = [];
       }
 
-      sprintIssuesMap[sprintID].push(issueID);
-    });
+      sprintIssuesMap[idSprint].push(idIssue);
+    })
 
     sprints.forEach((sprint) => {
-      const sprintID = sprint.idSprint;
-      const sprintIssues = sprintIssuesMap[sprintID] || [];
+      const idSprint = sprint.idSprint;
+      const sprintIssues = sprintIssuesMap[idSprint] || [];
 
       sprint.issues = issues.filter((issue) =>
-        sprintIssues.includes(issue.idIssue)
-      );
-    });
+        sprintIssues.includes(issue.idIssue));
+    })
 
-    // Relating the Epicas and their sprints
-    const epicasSprintsMap = {};
+    // relating epica and sprintIssuesMap
+    const epicaSprintsMap = {}
 
-    sprints.forEach((sprint) => {
-      const epicaID = sprint.idEpica;
+    sprintEpicas.forEach((sprintEpica) => {
+      const idEpica = sprintEpica.idEpica
+      const idSprint = sprintEpica.idSprint
 
-      if (!epicasSprintsMap[epicaID]) {
-        epicasSprintsMap[epicaID] = [];
+      if (!epicaSprintsMap[idEpica]) {
+        epicaSprintsMap[idEpica] = []
       }
 
-      epicasSprintsMap[epicaID].push(sprint);
-    });
+      const relatedSprints = sprints.find(
+        (sprint) => sprint.idSprint === idSprint
+      )
+
+      if (relatedSprints) {
+        epicaSprintsMap[idEpica].push(relatedSprints)
+      }
+    })
 
     epicas.forEach((epica) => {
-      const epicaID = epica.idEpica;
-      const epicaSprints = epicasSprintsMap[epicaID] || [];
+      const idEpica = epica.idEpica
+      const epicaSprints = epicaSprintsMap[idEpica] || []
 
-      epica.sprints = epicaSprints;
-    });
+      epica.sprints = epicaSprints
+    })
 
     res.render(
       path.join(__dirname, "../Views/Static/historico/verMetricasEpicas.ejs"),
@@ -88,7 +100,7 @@ exports.getAllEpicas = async (req, res) => {
       }
     );
   } catch (error) {
-    res.render(path.join(__dirname, "../Views/Static/error.ejs"));
+    res.render(path.join(__dirname, "../Views/Static/error.ejs"), { error });
   }
 };
 
@@ -104,54 +116,65 @@ exports.getAllEpicasAPI = async (req, res) => {
   try {
     const epicas = await Epica.getAll();
     const issues = await Issue.getAll();
-    const sprints = await Sprint.getAll();
+    const allSprints = await Sprint.getAll();
     const sprintIssues = await SprintIssue.getAll();
+    const sprintEpicas = await SprintEpica.getAll();
+
+    const sprints = allSprints
+      .sort((a, b) => new Date(b.fechaCreacion) - new Date(a.fechaCreacion))
+      .slice(0, 7);
 
     // Relating sprints and issues
-    const sprintIssuesMap = {};
+    const sprintIssuesMap = {}
 
     sprintIssues.forEach((sprintIssue) => {
-      const sprintID = sprintIssue.idSprint;
-      const issueID = sprintIssue.idIssue;
+      const idSprint = sprintIssue.idSprint;
+      const idIssue = sprintIssue.idIssue;
 
-      if (!sprintIssuesMap[sprintID]) {
-        sprintIssuesMap[sprintID] = [];
+      if (!sprintIssuesMap[idSprint]) {
+        sprintIssuesMap[idSprint] = [];
       }
 
-      sprintIssuesMap[sprintID].push(issueID);
-    });
+      sprintIssuesMap[idSprint].push(idIssue);
+    })
 
     sprints.forEach((sprint) => {
-      const sprintID = sprint.idSprint;
-      const sprintIssues = sprintIssuesMap[sprintID] || [];
+      const idSprint = sprint.idSprint;
+      const sprintIssues = sprintIssuesMap[idSprint] || [];
 
       sprint.issues = issues.filter((issue) =>
-        sprintIssues.includes(issue.idIssue)
-      );
-    });
+        sprintIssues.includes(issue.idIssue));
+    })
 
-    // Relating the Epicas and their sprints
-    const epicasSprintsMap = {};
+    // relating epica and sprintIssuesMap
+    const epicaSprintsMap = {}
 
-    sprints.forEach((sprint) => {
-      const epicaID = sprint.idEpica;
+    sprintEpicas.forEach((sprintEpica) => {
+      const idEpica = sprintEpica.idEpica
+      const idSprint = sprintEpica.idSprint
 
-      if (!epicasSprintsMap[epicaID]) {
-        epicasSprintsMap[epicaID] = [];
+      if (!epicaSprintsMap[idEpica]) {
+        epicaSprintsMap[idEpica] = []
       }
 
-      epicasSprintsMap[epicaID].push(sprint);
-    });
+      const relatedSprints = sprints.find(
+        (sprint) => sprint.idSprint === idSprint
+      )
+
+      if (relatedSprints) {
+        epicaSprintsMap[idEpica].push(relatedSprints)
+      }
+    })
 
     epicas.forEach((epica) => {
-      const epicaID = epica.idEpica;
-      const epicaSprints = epicasSprintsMap[epicaID] || [];
+      const idEpica = epica.idEpica
+      const epicaSprints = epicaSprintsMap[idEpica] || []
 
-      epica.sprints = epicaSprints;
-    });
+      epica.sprints = epicaSprints
+    })
 
-    res.json({ epicas: epicas });
+    res.status(200).json({ epicas: epicas });
   } catch (error) {
-    res.render(path.join(__dirname, "../Views/Static/error.ejs"));
+    res.render(path.join(__dirname, "../Views/Static/error.ejs"), { error });
   }
 };

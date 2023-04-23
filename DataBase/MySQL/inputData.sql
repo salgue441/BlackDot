@@ -56,7 +56,8 @@ insert into Rol
     (nombreRol)
 values
     ('Administrador'),
-    ('Squad Member');
+    ('Squad Member'),
+    ('Sin Rol');
 
 -- Insertando datos en la relacion de Empleado y Rol
 insert into EmpleadoRol(idEmpleado, idRol)
@@ -74,7 +75,6 @@ values
 (4, 2),
 (6, 2),
 (7, 2),
-(8, 2),
 (9, 2),
 (11, 2),
 (12, 2),
@@ -88,7 +88,32 @@ values
 (22, 2),
 (23, 2),
 (24, 2),
-(25, 2);
+(25, 2),
+-- Sin Rol
+(26, 3),
+(27, 3),
+(28, 3),
+(29, 3),
+(30, 3),
+(31, 3),
+(32, 3),
+(33, 3),
+(34, 3),
+(35, 3),
+(36, 3),
+(37, 3),
+(38, 3),
+(39, 3),
+(40, 3),
+(41, 3),
+(42, 3),
+(43, 3),
+(44, 3),
+(45, 3),
+(46, 3),
+(47, 3),
+(48, 3),
+(49, 3);
 
 -- Insertando datos en la tabla de Privilegios
 insert into Privilegio
@@ -118,7 +143,8 @@ values
     ('Consultar rol', 'Consultar asignacion de rol'),
     ('Registrar reporte', 'Registrar nuevo reporte'),
     ('Consultar squad member', 'Consultar squad member'),
-    ('Registrar Log Out', 'Registrar cierre de sesion (Log Out)');
+    ('Registrar Log Out', 'Registrar cierre de sesion (Log Out)'),
+    ('Sin privilegio', 'Privilegio vacío para rol sin privilegio');
 
 -- Insertando datos en la relacion de RolPrivilegio
 insert into RolPrivilegio(idRol, idPrivilegio)
@@ -149,6 +175,7 @@ values
 (1, 23),
 (1, 24),
 (1, 25),
+-- Squad Member
 (2, 2),
 (2, 3), 
 (2, 4), 
@@ -156,13 +183,11 @@ values
 (2, 9),
 (2, 18), 
 (2, 22), 
-(2, 25);
+(2, 25),
+-- Sin Rol
+(3, 26);
 
--- Insertando datos en la tabla de EquipoTrabajo
-INSERT INTO EquipoTrabajo
-    (idEquipoTrabajo)
-VALUES
-    (1);
+
 
 -- Insertando datos en la tabla de Epica
 insert into Epica
@@ -176,180 +201,157 @@ values
 
 -- Insertando datos en la tabla de Sprint
 insert into Sprint
-    (fechaCreacion, fechaFinalizacion, numeroSprint, idEpica)
+    (sprintName, state, boardID, fechaCreacion, fechaFinalizacion, idEpica)
 values
-    ('2021-03-22', '2021-04-05', 1, 1),
-    ('2021-04-05', '2021-04-19', 2, 1),
-    ('2021-04-19', '2021-05-03', 3, 1),
-    ('2021-05-03', '2021-05-17', 4, 1),
-    ('2021-05-17', '2021-05-31', 5, 1),
-    ('2021-05-31', '2021-06-14', 6, 1),
-    ('2021-06-14', '2021-06-28', 7, 1),
-    ('2021-06-28', '2021-07-12', 8, 1),
-    ('2021-07-12', '2021-07-26', 9, 1),
-    ('2021-07-26', '2021-08-09', 10, 2),
-    ('2021-08-09', '2021-08-23', 11, 2),
-    ('2021-08-23', '2021-09-06', 12, 2),
-    ('2021-09-06', '2021-09-20', 13, 2),
-    ('2021-09-20', '2021-10-04', 14, 2),
-    ('2021-10-04', '2021-10-18', 15, 2),
-    ('2021-10-18', '2021-11-01', 16, 2),
-    ('2021-11-01', '2021-11-15', 17, 3),
-    ('2021-11-15', '2021-11-29', 18, 3),
-    ('2021-11-29', '2021-12-13', 19, 3),
-    ('2021-12-13', '2021-12-27', 20, 3),
-    ('2021-12-27', '2022-01-10', 21, 3),
-    ('2022-01-10', '2022-01-24', 22, 3),
-    ('2022-01-24', '2022-02-07', 23, 4),
-    ('2022-02-07', '2022-02-21', 24, 4),
-    ('2022-02-21', '2022-03-07', 25, 4),
-    ('2022-02-23', '2022-02-24', 26, 4),
-    ('2022-02-24', '2022-02-25', 27, 4),
-    ('2022-02-25', '2022-02-26', 28, 4),
-    ('2022-02-26', '2022-02-27', 29, 4),
-    ('2022-02-27', '2022-02-28', 30, 4),
-    ('2023-03-30', '2023-04-13', 31, 4);
+    ('[ZeCommerce Tech] Sprint 1', 'closed', 1, '2021-03-22', '2021-04-05', 1),
+    ('[ZeCommerce Tech] Sprint 2', 'closed', 1, '2021-04-05', '2021-04-19', 1),
+    ('[ZeCommerce Tech] Sprint 3', 'closed', 1, '2021-04-19', '2021-05-03', 1),
+    ('[ZeCommerce Tech] Sprint 4', 'closed', 1, '2021-05-03', '2021-05-17', 1),
+    ('[ZeCommerce Tech] Sprint 5', 'closed', 1, '2021-05-17', '2021-05-31', 1),
+    ('[ZeCommerce Tech] Sprint 6', 'closed', 1, '2021-05-31', '2021-06-14', 1),
+    ('[ZeCommerce Tech] Sprint 7', 'closed', 1, '2021-06-14', '2021-06-28', 1),
+    ('[ZeCommerce Tech] Sprint 8', 'closed', 1, '2021-06-28', '2021-07-12', 1),
+    ('[ZeCommerce Tech] Sprint 9', 'closed', 1, '2021-07-12', '2021-07-26', 1),
+    ('[ZeCommerce Tech] Sprint 10', 'closed', 1, '2021-07-26', '2021-08-09', 2),
+    ('[ZeCommerce Tech] Sprint 11', 'closed', 1, '2021-08-09', '2021-08-23', 2),
+    ('[ZeCommerce Tech] Sprint 12', 'closed', 1, '2021-08-23', '2021-09-06', 2),
+    ('[ZeCommerce Tech] Sprint 13', 'closed', 1, '2021-09-06', '2021-09-20', 2),
+    ('[ZeCommerce Tech] Sprint 14', 'closed', 1, '2021-09-20', '2021-10-04', 2),
+    ('[ZeCommerce Tech] Sprint 15', 'closed', 1, '2021-10-04', '2021-10-18', 2),
+    ('[ZeCommerce Tech] Sprint 16', 'closed', 1, '2021-10-18', '2021-11-01', 2),
+    ('[ZeCommerce Tech] Sprint 17', 'closed', 1, '2021-11-01', '2021-11-15', 3),
+    ('[ZeCommerce Tech] Sprint 18', 'closed', 1, '2021-11-15', '2021-11-29', 3),
+    ('[ZeCommerce Tech] Sprint 19', 'closed', 1, '2021-11-29', '2021-12-13', 3),    
+    ('[ZeCommerce Tech] Sprint 20', 'closed', 1, '2021-12-13', '2021-12-27', 3),
+    ('[ZeCommerce Tech] Sprint 21', 'closed', 1, '2021-12-27', '2022-01-10', 3),
+    ('[ZeCommerce Tech] Sprint 22', 'closed', 1, '2022-01-10', '2022-01-24', 3),
+    ('[ZeCommerce Tech] Sprint 23', 'closed', 1, '2022-01-24', '2022-02-07', 4),
+    ('[ZeCommerce Tech] Sprint 24', 'closed', 1, '2022-02-07', '2022-02-21', 4),
+    ('[ZeCommerce Tech] Sprint 25', 'closed', 1, '2022-02-21', '2022-03-07', 4),
+    ('[ZeCommerce Tech] Sprint 26', 'closed', 1, '2022-02-23', '2022-02-24', 4),
+    ('[ZeCommerce Tech] Sprint 27', 'closed', 1, '2022-02-24', '2022-02-25', 4),
+    ('[ZeCommerce Tech] Sprint 28', 'closed', 1, '2022-02-25', '2022-02-26', 4),
+    ('[ZeCommerce Tech] Sprint 29', 'closed', 1, '2022-02-26', '2022-02-27', 4),
+    ('[ZeCommerce Tech] Sprint 30', 'closed', 1, '2022-02-27', '2022-02-28', 4),
+    ('[ZeCommerce Tech] Sprint 31', 'open', 1, '2023-03-30', '2023-04-13', 4);  
 
 -- Insertando datos en la tabla de Issue
 insert into Issue
     (nombreIssue, storyPoints, labelIssue, prioridadIssue, estadoIssue, fechaCreacion, fechaFinalizacion)
 values
-    ('Arreglar error en el sistema de pagos', 5,'Front', 'Alta', 'To Do', '2021-04-01 09:00:00', '2021-04-03 17:00:00'),
-    ('Agregar soporte para notificaciones push', 8, 'Back','Alta', 'To Do', '2021-03-23 12:00:00', '2021-03-26 16:00:00'),
-    ('Optimizar la velocidad de carga de la página de inicio', 5,'Front', 'Media', 'In Progress', '2021-03-30 14:00:00', '2021-04-02 18:00:00'),
-    ('Implementar nuevas funciones en el panel de administración', 6, 'Back', 'Media', 'To Do', '2021-04-05 10:00:00', '2021-04-08 16:00:00'),
-    ('Actualizar la interfaz de usuario', 7, 'Front', 'Media', 'In Progress', '2021-04-02 13:00:00', '2021-04-06 18:00:00'),
-    ('Corregir errores en el proceso de registro', 4, 'Back', 'Baja', 'To Do', '2021-03-28 11:00:00', '2021-03-30 15:00:00'),
-    ('Realizar pruebas de rendimiento en el servidor', 5, 'Back', 'Alta', 'To Do', '2021-04-02 09:00:00', '2021-04-05 13:00:00'),
-    ('Desarrollar una API para integración con otros sistemas', 8, 'Back', 'Alta', 'In Progress', '2021-03-25 10:00:00', '2021-03-31 16:00:00'),
-    ('Revisar la seguridad del sitio web', 6, 'Security', 'Alta', 'To Do', '2021-03-27 09:00:00', '2021-03-30 12:00:00'),
-    ('Diseñar una nueva plantilla para correos electrónicos', 3, 'Front', 'Baja', 'To Do', '2021-03-23 14:00:00', '2021-03-25 18:00:00'),
-    ('Crear un sistema de seguimiento de tareas', 5, 'Back', 'Media', 'In Progress', '2021-03-30 10:00:00', '2021-04-02 14:00:00'),
-    ('Mejorar la integración con el servicio de pagos', 7, 'Back', 'Media', 'In Progress', '2021-04-04 12:00:00', '2021-04-07 16:00:00'),
-    ('Rediseñar la página de perfil de usuario', 7, 'Front', 'Alta', 'To Do', '2021-03-24 10:00:00', '2021-03-29 18:00:00'),
-    ('Agregar función de búsqueda avanzada', 6, 'Back', 'Media', 'In Progress', '2021-03-27 12:00:00', '2021-04-01 16:00:00'),
-    ('Mejorar la seguridad del sistema de autenticación', 9, 'Back', 'Alta', 'To Do', '2021-03-22 08:00:00', '2021-03-25 14:00:00'),
-    ('Implementar sistema de seguimiento de tareas', 4, 'Front', 'Baja', 'Done', '2021-03-29 13:00:00', '2021-03-30 17:00:00'),
-    ('Revisar y actualizar la documentación de usuario', 3, 'Back', 'Baja', 'In Progress', '2021-03-28 10:00:00', '2021-03-31 16:00:00'),
-    ('Crear sección de preguntas frecuentes en el sitio web', 2, 'Front', 'Media', 'To Do', '2021-03-23 09:00:00', '2021-03-26 18:00:00'),
-    ('Agregar opción de pago con tarjeta de crédito', 5, 'Back', 'Media', 'Done', '2021-03-26 14:00:00', '2021-03-27 18:00:00'), 
-    ('Mejoras en microservicios de catalogo', 2, 'Back', 'Media', 'Done', 
+    ('Arreglar error en el sistema de pagos', 5,'Front', 'High', 'To Do', '2021-04-01 09:00:00', '2021-04-03 17:00:00'),
+    ('Agregar soporte para notificaciones push', 8, 'Back','High', 'To Do', '2021-03-23 12:00:00', '2021-03-26 16:00:00'),
+    ('Optimizar la velocidad de carga de la página de inicio', 5,'Front', 'Medium', 'En curso', '2021-03-30 14:00:00', '2021-04-02 18:00:00'),
+    ('Implementar nuevas funciones en el panel de administración', 6, 'Back', 'Medium', 'To Do', '2021-04-05 10:00:00', '2021-04-08 16:00:00'),
+    ('Actualizar la interfaz de usuario', 7, 'Front', 'Medium', 'En curso', '2021-04-02 13:00:00', '2021-04-06 18:00:00'),
+    ('Corregir errores en el proceso de registro', 4, 'Back', 'Low', 'To Do', '2021-03-28 11:00:00', '2021-03-30 15:00:00'),
+    ('Realizar pruebas de rendimiento en el servidor', 5, 'Back', 'High', 'To Do', '2021-04-02 09:00:00', '2021-04-05 13:00:00'),
+    ('Desarrollar una API para integración con otros sistemas', 8, 'Back', 'High', 'En curso', '2021-03-25 10:00:00', '2021-03-31 16:00:00'),
+    ('Revisar la seguridad del sitio web', 6, 'Security', 'High', 'To Do', '2021-03-27 09:00:00', '2021-03-30 12:00:00'),
+    ('Diseñar una nueva plantilla para correos electrónicos', 3, 'Front', 'Low', 'To Do', '2021-03-23 14:00:00', '2021-03-25 18:00:00'),
+    ('Crear un sistema de seguimiento de tareas', 5, 'Back', 'Medium', 'En curso', '2021-03-30 10:00:00', '2021-04-02 14:00:00'),
+    ('Mejorar la integración con el servicio de pagos', 7, 'Back', 'Medium', 'En curso', '2021-04-04 12:00:00', '2021-04-07 16:00:00'),
+    ('Rediseñar la página de perfil de usuario', 7, 'Front', 'High', 'To Do', '2021-03-24 10:00:00', '2021-03-29 18:00:00'),
+    ('Agregar función de búsqueda avanzada', 6, 'Back', 'Medium', 'En curso', '2021-03-27 12:00:00', '2021-04-01 16:00:00'),
+    ('Mejorar la seguridad del sistema de autenticación', 9, 'Back', 'High', 'To Do', '2021-03-22 08:00:00', '2021-03-25 14:00:00'),
+    ('Implementar sistema de seguimiento de tareas', 4, 'Front', 'Low', 'Done', '2021-03-29 13:00:00', '2021-03-30 17:00:00'),
+    ('Revisar y actualizar la documentación de usuario', 3, 'Back', 'Low', 'En curso', '2021-03-28 10:00:00', '2021-03-31 16:00:00'),
+    ('Crear sección de preguntas frecuentes en el sitio web', 2, 'Front', 'Medium', 'To Do', '2021-03-23 09:00:00', '2021-03-26 18:00:00'),
+    ('Agregar opción de pago con tarjeta de crédito', 5, 'Back', 'Medium', 'Done', '2021-03-26 14:00:00', '2021-03-27 18:00:00'), 
+    ('Mejoras en microservicios de catalogo', 2, 'Back', 'Medium', 'Done', 
     '2021-03-26 14:00:00', '2021-03-27 18:00:00'),
-    ('Google Shopping', 3, 'Front', 'Alta', 'Done', 
+    ('Google Shopping', 3, 'Front', 'High', 'Done', 
     '2021-03-26 14:00:00', '2021-03-27 18:00:00'),
-    ('Independizar módulos web de ZeCore', 5, 'Back', 'Alta', 'Done', 
+    ('Independizar módulos web de ZeCore', 5, 'Back', 'High', 'Done', 
     '2021-03-26 14:00:00', '2021-03-27 18:00:00'),
-    ('Maximizar CRM', 3, 'Front', 'Media', 'Done', 
+    ('Maximizar CRM', 3, 'Front', 'Medium', 'Done', 
     '2021-03-26 14:00:00', '2021-03-27 18:00:00'),
-    ('Mejoras en infraestructura', 2, 'Back', 'Baja', 'Done',
+    ('Mejoras en infraestructura', 2, 'Back', 'Low', 'Done',
     '2021-03-26 14:00:00', '2021-03-27 18:00:00'),
-    ('Implementar secciones de la aplicación', 5, 'Front', 'Media', 'Done', 
+    ('Implementar secciones de la aplicación', 5, 'Front', 'Medium', 'Done', 
     '2021-03-26 14:00:00', '2021-03-27 18:00:00'),
-    ('Implementar secciones de la aplicación', 5, 'Front', 'Media', 'In Progress', 
+    ('Implementar secciones de la aplicación', 5, 'Front', 'Medium', 'En curso', 
     '2021-03-26 14:00:00', '2021-03-27 18:00:00'),
-    ('Implementar secciones de la aplicación', 5, 'Front', 'Media', 'In Progress', 
+    ('Implementar secciones de la aplicación', 5, 'Front', 'Medium', 'En curso', 
     '2021-03-26 14:00:00', '2021-03-27 18:00:00'),
-    ('Implementar secciones de la aplicación', 5, 'Front', 'Media', 'Done', 
+    ('Implementar secciones de la aplicación', 5, 'Front', 'Medium', 'Done', 
     '2021-03-26 14:00:00', '2021-03-27 18:00:00'),
-    ('Implementar secciones de la aplicación', 5, 'Front', 'Media', 'Done', 
+    ('Implementar secciones de la aplicación', 5, 'Front', 'Medium', 'Done', 
     '2021-03-26 14:00:00', '2021-03-27 18:00:00'),
-    ('Implementar secciones de la aplicación', 5, 'Front', 'Media', 'Done', 
+    ('Implementar secciones de la aplicación', 5, 'Front', 'Medium', 'Done', 
     '2021-03-26 14:00:00', '2021-03-27 18:00:00'),
-    ('Implementar secciones de la aplicación', 5, 'Front', 'Media', 'In Progress', 
+    ('Implementar secciones de la aplicación', 5, 'Front', 'Medium', 'En curso', 
     '2021-03-26 14:00:00', '2021-03-27 18:00:00'),
-    ('Implementar secciones de la aplicación', 5, 'Front', 'Media', 'Done', 
+    ('Implementar secciones de la aplicación', 5, 'Front', 'Medium', 'Done', 
     '2021-03-26 14:00:00', '2021-03-27 18:00:00'),
-    ('Implementar secciones de la aplicación', 5, 'Front', 'Media', 'Done', 
+    ('Implementar secciones de la aplicación', 5, 'Front', 'Medium', 'Done', 
     '2021-03-26 14:00:00', '2021-03-27 18:00:00'),
-    ('Implementar secciones de la aplicación', 5, 'Front', 'Media', 'In Progress', 
+    ('Implementar secciones de la aplicación', 5, 'Front', 'Medium', 'En curso', 
     '2021-03-26 14:00:00', '2021-03-27 18:00:00'),
-    ('Implementar secciones de la aplicación', 5, 'Front', 'Media', 'Done', 
+    ('Implementar secciones de la aplicación', 5, 'Front', 'Medium', 'Done', 
     '2021-03-26 14:00:00', '2021-03-27 18:00:00'),
-    ('Implementar secciones de la aplicación', 5, 'Front', 'Media', 'Done', 
+    ('Implementar secciones de la aplicación', 5, 'Front', 'Medium', 'Done', 
     '2021-03-26 14:00:00', '2021-03-27 18:00:00'),
-    ('Implementar secciones de la aplicación', 5, 'Front', 'Media', 'In Progress', 
+    ('Implementar secciones de la aplicación', 5, 'Front', 'Medium', 'En curso', 
     '2021-03-26 14:00:00', '2021-03-27 18:00:00'),
-    ('Implementar secciones de la aplicación', 5, 'Front', 'Media', 'Done', 
+    ('Implementar secciones de la aplicación', 5, 'Front', 'Medium', 'Done', 
     '2021-03-26 14:00:00', '2021-03-27 18:00:00'),
-    ('Implementar secciones de la aplicación', 5, 'Front', 'Media', 'Done', 
+    ('Implementar secciones de la aplicación', 5, 'Front', 'Medium', 'Done', 
     '2021-03-26 14:00:00', '2021-03-27 18:00:00'),
-    ('Implementar secciones de la aplicación', 5, 'Front', 'Media', 'In Progress', 
+    ('Implementar secciones de la aplicación', 5, 'Front', 'Medium', 'En curso', 
     '2021-03-26 14:00:00', '2021-03-27 18:00:00'),
-    ('Implementar secciones de la aplicación', 5, 'Front', 'Media', 'In Progress', 
+    ('Implementar secciones de la aplicación', 5, 'Front', 'Medium', 'En curso', 
     '2021-03-26 14:00:00', '2021-03-27 18:00:00'),
-    ('Implementar secciones de la aplicación', 5, 'Front', 'Media', 'Done', 
+    ('Implementar secciones de la aplicación', 5, 'Front', 'Medium', 'Done', 
     '2021-03-26 14:00:00', '2021-03-27 18:00:00'),
-    ('Implementar modulos web de ZeCore', 4, 'Front', 'Alta', 'Done',
+    ('Implementar modulos web de ZeCore', 4, 'Front', 'High', 'Done',
     '2021-03-26 14:00:00', '2021-03-27 18:00:00'),
-    ('[Web Client V3.0][⭐️ Reviews] UseCases', 7, 'Front', 'Alta', 'Done',
+    ('[Web Client V3.0][⭐️ Reviews] UseCases', 7, 'Front', 'High', 'Done',
     '2021-03-26 14:00:00', '2021-03-27 18:00:00'),
-    ('[Web Client V3.0][💻 Website] Repositor', 8, 'Front', 'Alta', 'Done',
+    ('[Web Client V3.0][💻 Website] Repositor', 8, 'Front', 'High', 'Done',
     '2021-03-26 14:00:00', '2021-03-27 18:00:00'),
-    ('[Web Client V3.0][⭐️ Reviews] UseCases', 7, 'Front', 'Alta', 'Done',
+    ('[Web Client V3.0][⭐️ Reviews] UseCases', 7, 'Front', 'High', 'Done',
     '2021-03-26 14:00:00', '2021-03-27 18:00:00'),
-    ('[Web Client V3.0][💻 Website] Repositor', 8, 'Front', 'Alta', 'Done',
+    ('[Web Client V3.0][💻 Website] Repositor', 8, 'Front', 'High', 'Done',
     '2021-03-26 14:00:00', '2021-03-27 18:00:00'),
-    ('[Web Client V3.0][⭐️ Reviews] UseCases', 7, 'Front', 'Alta', 'Done',
+    ('[Web Client V3.0][⭐️ Reviews] UseCases', 7, 'Front', 'High', 'Done',
     '2021-03-26 14:00:00', '2021-03-27 18:00:00'),
-    ('[Web Client V3.0][💻 Website] Repositor', 8, 'Front', 'Alta', 'Done',
+    ('[Web Client V3.0][💻 Website] Repositor', 8, 'Front', 'High', 'Done',
     '2021-03-26 14:00:00', '2021-03-27 18:00:00'),
-    ('[Web Client V3.0][⭐️ Reviews] UseCases', 7, 'Front', 'Alta', 'Done',
+    ('[Web Client V3.0][⭐️ Reviews] UseCases', 7, 'Front', 'High', 'Done',
     '2021-03-26 14:00:00', '2021-03-27 18:00:00'),
-    ('[Web Client V3.0][💻 Website] Repositor', 8, 'Front', 'Alta', 'Done',
+    ('[Web Client V3.0][💻 Website] Repositor', 8, 'Front', 'High', 'Done',
     '2021-03-26 14:00:00', '2021-03-27 18:00:00'),
-    ('[Web Client V3.0][⭐️ Reviews] UseCases', 7, 'Front', 'Alta', 'Done',
+    ('[Web Client V3.0][⭐️ Reviews] UseCases', 7, 'Front', 'High', 'Done',
     '2021-03-26 14:00:00', '2021-03-27 18:00:00'),
-    ('[Web Client V3.0][💻 Website] Repositor', 8, 'Front', 'Alta', 'Done',
+    ('[Web Client V3.0][💻 Website] Repositor', 8, 'Front', 'High', 'Done',
     '2021-03-26 14:00:00', '2021-03-27 18:00:00'),
-    ('[Web Client V3.0][⭐️ Reviews] UseCases', 7, 'Front', 'Alta', 'Done',
+    ('[Web Client V3.0][⭐️ Reviews] UseCases', 7, 'Front', 'High', 'Done',
     '2021-03-26 14:00:00', '2021-03-27 18:00:00'),
-    ('[Web Client V3.0][💻 Website] Repositor', 8, 'Front', 'Alta', 'Done',
+    ('[Web Client V3.0][💻 Website] Repositor', 8, 'Front', 'High', 'Done',
     '2021-03-26 14:00:00', '2021-03-27 18:00:00'),
-    ('[Web Client V3.0][⭐️ Reviews] UseCases', 7, 'Front', 'Alta', 'Done',
+    ('[Web Client V3.0][⭐️ Reviews] UseCases', 7, 'Front', 'High', 'Done',
     '2021-03-26 14:00:00', '2021-03-27 18:00:00'),
-    ('[Web Client V3.0][💻 Website] Repositor', 8, 'Front', 'Alta', 'Done',
+    ('[Web Client V3.0][💻 Website] Repositor', 8, 'Front', 'High', 'Done',
     '2021-03-26 14:00:00', '2021-03-27 18:00:00'),
-    ('[Web Client V3.0][⭐️ Reviews] UseCases', 7, 'Front', 'Alta', 'Done',
+    ('[Web Client V3.0][⭐️ Reviews] UseCases', 7, 'Front', 'High', 'Done',
     '2021-03-26 14:00:00', '2021-03-27 18:00:00'),
-    ('[Web Client V3.0][💻 Website] Repositor', 8, 'Front', 'Alta', 'Done',
+    ('[Web Client V3.0][💻 Website] Repositor', 8, 'Front', 'High', 'Done',
     '2021-03-26 14:00:00', '2021-03-27 18:00:00'),
-    ('[Web Client V3.0][⭐️ Reviews] UseCases', 7, 'Front', 'Alta', 'Done',
+    ('[Web Client V3.0][⭐️ Reviews] UseCases', 7, 'Front', 'High', 'Done',
     '2021-03-26 14:00:00', '2021-03-27 18:00:00'),
-    ('[Web Client V3.0][💻 Website] Repositor', 8, 'Front', 'Alta', 'Done',
+    ('[Web Client V3.0][💻 Website] Repositor', 8, 'Front', 'High', 'Done',
     '2021-03-26 14:00:00', '2021-03-27 18:00:00'),
-    ('[Web Client V3.0][⭐️ Reviews] UseCases', 7, 'Front', 'Alta', 'Done',
+    ('[Web Client V3.0][⭐️ Reviews] UseCases', 7, 'Front', 'High', 'Done',
     '2021-03-26 14:00:00', '2021-03-27 18:00:00'),
-    ('[Web Client V3.0][💻 Website] Repositor', 8, 'Front', 'Alta', 'Done',
+    ('[Web Client V3.0][💻 Website] Repositor', 8, 'Front', 'High', 'Done',
     '2021-03-26 14:00:00', '2021-03-27 18:00:00'),
-    ('[Web Client V3.0][⭐️ Reviews] UseCases', 7, 'Front', 'Alta', 'Done',
+    ('[Web Client V3.0][⭐️ Reviews] UseCases', 7, 'Front', 'High', 'Done',
     '2021-03-26 14:00:00', '2021-03-27 18:00:00'),
-    ('[Web Client V3.0][💻 Website] Repositor', 8, 'Front', 'Alta', 'Done',
+    ('[Web Client V3.0][💻 Website] Repositor', 8, 'Front', 'High', 'Done',
     '2021-03-26 14:00:00', '2021-03-27 18:00:00');
 
--- Insertando datos en la relación de EquipoTrabajoIssue
-INSERT INTO EquipoTrabajoIssue
-    (idEquipoTrabajo, idIssue)
-VALUES
-    (1, 1),
-    (1, 2),
-    (1, 3),
-    (1, 4),
-    (1, 5),
-    (1, 6),
-    (1, 7),
-    (1, 8),
-    (1, 9),
-    (1, 10),
-    (1, 11),
-    (1, 12),
-    (1, 13),
-    (1, 14),
-    (1, 15),
-    (1, 16),
-    (1, 17),
-    (1, 18),
-    (1, 19);
-    
+
 -- Insertando datos en la relación de SprintIssue
 INSERT INTO SprintIssue 
     (idIssue, idSprint)
@@ -1469,62 +1471,61 @@ VALUES
     (35, 31),
     (36, 31);
 
--- Insertando datos en reporte
-insert into reporte
-    (fechaCreacion)
-values
-    ('2021-04-05'),
-    ('2021-04-19'),
-    ('2021-05-03'),
-    ('2021-05-17'),
-    ('2021-05-31'),
-    ('2021-06-14'),
-    ('2021-06-28'),
-    ('2021-07-12'),
-    ('2021-07-26'),
-    ('2021-08-09'),
-    ('2021-08-23'),
-    ('2021-09-06'),
-    ('2021-09-20'),
-    ('2021-10-04'),
-    ('2021-10-18'),
-    ('2021-11-01'),
-    ('2021-11-15'),
-    ('2021-11-29'),
-    ('2021-12-13'),
-    ('2021-12-27'),
-    ('2022-01-10'),
-    ('2022-01-10'),
-    ('2022-02-07'),
-    ('2022-02-21'),
-    ('2022-03-07');
+
 
 -- Insertando datos en retroalimentacion
 insert into Retroalimentacion
-    (fechaCreacion, fechaFinalizacion, idSprint, idReporte)
+    (fechaCreacion, fechaFinalizacion, idSprint)
 values
-    ('2021-01-01', '2021-01-02', 1, 1),
-    ('2021-02-14', '2021-02-15', 2, 2),
-    ('2021-03-17', '2021-03-18', 3, 3),
-    ('2021-04-02', '2021-04-03', 4, 4),
-    ('2021-05-05', '2021-05-06', 5, 5),
-    ('2021-06-20', '2021-06-21', 6, 6),
-    ('2021-07-04', '2021-07-05', 7, 7),
-    ('2021-08-30', '2021-08-31', 8, 8),
-    ('2021-09-15', '2021-09-16', 9, 9),
-    ('2021-10-09', '2021-10-10', 10, 10),
-    ('2021-11-01', '2021-11-02', 11, 11),
-    ('2021-11-22', '2021-11-23', 12, 12),
-    ('2021-12-01', '2021-12-02', 13, 13),
-    ('2021-12-12', '2021-12-13', 14, 14),
-    ('2021-12-31', '2022-01-01', 15, 15),
-    ('2022-01-20', '2022-01-21', 16, 16),
-    ('2022-02-14', '2022-02-15', 17, 17),
-    ('2022-03-17', '2022-03-18', 18, 18),
-    ('2022-04-02', '2022-04-03', 19, 19),
-    ('2022-05-05', '2022-05-06', 20, 20);
+    ('2021-01-01', '2021-01-02', 1),
+    ('2021-02-14', '2021-02-15', 2),
+    ('2021-03-17', '2021-03-18', 3),
+    ('2021-04-02', '2021-04-03', 4),
+    ('2021-05-05', '2021-05-06', 5);
+
+-- Insertando datos en reporte
+insert into reporte
+    (fechaCreacion, idRetroalimentacion)
+values
+    ('2021-04-05',1),
+    ('2021-04-19',1),
+    ('2021-05-03',1),
+    ('2021-05-17',1),
+    ('2021-05-31',1),
+    ('2021-06-14',1),
+    ('2021-06-28',1),
+    ('2021-07-12',2),
+    ('2021-07-26',2),
+    ('2021-08-09',2),
+    ('2021-08-23',2),
+    ('2021-09-06',2),
+    ('2021-09-20',2),
+    ('2021-10-04',3),
+    ('2021-10-18',3),
+    ('2021-11-01',3),
+    ('2021-11-15',3),
+    ('2021-11-29',4),
+    ('2021-12-13',4),
+    ('2021-12-27',4),
+    ('2022-01-10',4),
+    ('2022-01-10',4),
+    ('2022-02-07',5),
+    ('2022-02-21',5),
+    ('2022-03-07',5);
 
 -- Insertando datos en pregunta
+insert into BancoPreguntas
+    (contenido, tipoPregunta)
+values
+    ('¿Cómo te sientes?', 'Cuantitativa'),
+    ('¿Te sientes a gusto con tu desempeño este sprint?', 'Cuantitativa'),
+    ('¿Consideras que la cantidad de issues asignadas en este sprint son las adecuadas?', 'Cuantitativa'),
+    ('¿Que hicimos bien este sprint', 'Cualitativa'),
+    ('¿Que hicimos mal que debemos hacer diferente?', 'Cualitativa'),
+    ('¿Que nos causa ruido?', 'Cualitativa'),
+    ('¿Que impedimiento tuvimos en este sprint?', 'Cualitativa');
+
+-- Insertando datos en banco de preguntas
 insert into Pregunta
     (contenido, tipoPregunta)
 values
@@ -1535,7 +1536,7 @@ values
     ('¿Que hicimos mal que debemos hacer diferente?', 'Cualitativa'),
     ('¿Que nos causa ruido?', 'Cualitativa'),
     ('¿Que impedimiento tuvimos en este sprint?', 'Cualitativa'),
-    ('¿Qué podemos mejorar?', 'Cualitativa');
+    ('¿Que podemos mejorar?', 'Cualitativa');
 
 -- Insertando en la relacion de Retroalimentacion Pregunta
 INSERT INTO `retroalimentacionpregunta` (`idRetroalimentacion`, `idPregunta`, `required`) VALUES
@@ -1599,6 +1600,7 @@ VALUES
     (5, 1, 1),
     (3, 1, 2),
     (1, 1, 1),
+    (3, 1, 5),
 -- ¿Te sientes a gusto con tu desempeño este Sprint?
     (3, 2, 4),
     (2, 2, 2),
@@ -1614,6 +1616,7 @@ VALUES
     (1, 2, 2),
     (3, 2, 3),
     (4, 2, 1),
+    (4, 2, 5),
 -- ¿Consideras que la cantidad de Issues asignadas en este Sprint son las adecuadas?
     (1, 3, 2),
     (2, 3, 3),
@@ -1628,7 +1631,8 @@ VALUES
     (4, 3, 2),
     (5, 3, 1),
     (5, 3, 1),
-    (4, 3, 3);
+    (4, 3, 3),
+    (1, 3, 5);
 
 -- Insertando datos en Cualitativa
 INSERT INTO Cualitativa 
@@ -1648,7 +1652,7 @@ VALUES
     ('Mantuvimos una buena gestión del tiempo y la productividad durante todo el Sprint.', 4, 2),
     ('Mejoramos la coordinación con otros equipos que dependen de nuestro trabajo.', 4, 3),
     ('Realizamos una excelente planificación y organización de nuestras tareas para garantizar la eficiencia del equipo.', 4, 3),
-    ('Realizamos una buena revisión y mejora continua del trabajo realizado en este Sprint.', 4, 1),
+    ('Realizamos una buena revisión y mejora continua del trabajo realizado en este Sprint.', 4, 5),
 -- ¿Qué hicimos mal que debemos hacer diferente?
     ('No esperar hasta el último momento donde se amontonan las cosas.', 5, 2),
     ('No comunicarnos adecuadamente.', 5, 2),
@@ -1663,37 +1667,37 @@ VALUES
     ('No delegar tareas de manera efectiva.', 5, 3),
     ('No tener en cuenta las opiniones de los clientes.', 5, 3),
     ('No ser flexibles ante cambios y nuevos desafíos.', 5, 3),
-    ('No dar suficiente importancia al trabajo en equipo.', 5, 1),
+    ('No dar suficiente importancia al trabajo en equipo.', 5, 5),
 -- ¿Qué nos causa ruido?
     ('Injusta distribución de trabajos', 6, 2),
     ('Interrupciones frecuentes en forma de llamadas telefónicas o correos electrónicos.', 6, 2),
     ('Problemas técnicos con la herramienta de trabajo utilizada.', 6, 1),
-    ('La falta de claridad en los requisitos del proyecto.', 6, 1),
+    ('La fHigh de claridad en los requisitos del proyecto.', 6, 1),
     ('Los cambios frecuentes en los requisitos del proyecto.', 6, 1),
-    ('La falta de recursos para completar las tareas asignadas.', 6, 1),
+    ('La fHigh de recursos para completar las tareas asignadas.', 6, 1),
     ('Las reuniones prolongadas que interrumpieron la productividad.', 6, 3),
-    ('La falta de retroalimentación o comunicación efectiva del equipo de liderazgo.', 6, 3),
+    ('La fHigh de retroalimentación o comunicación efectiva del equipo de liderazgo.', 6, 3),
     ('Las distracciones en el entorno de trabajo, como ruido de fondo o ruido de construcción cercana.', 6, 3),
     ('Los problemas con el flujo de trabajo y la organización del equipo.', 6, 1),
     ('Las discrepancias en las expectativas del equipo y la gestión del proyecto.', 6, 2),
     ('Los problemas con el equipo, como fallas técnicas o conflictos interpersonales', 6, 2),
-    ('La falta de habilidades o experiencia en el equipo para llevar a cabo algunas tareas.', 6, 2),
-    ('Los cambios de prioridad frecuentes que dificultaron la planificación y el progreso del proyecto.', 6, 1),
+    ('La fHigh de habilidades o experiencia en el equipo para llevar a cabo algunas tareas.', 6, 2),
+    ('Los cambios de prioridad frecuentes que dificultaron la planificación y el progreso del proyecto.', 6, 5),
 -- ¿Qué impedimiento tuvimos en este Sprint?
     ('Un integrante del equipo estuvo muy perdido durante todo el Sprint.', 7, 1),
     ('Problemas con la infraestructura de la red', 7, 2),
     ('Interrupciones constantes en el trabajo', 7, 3),
     ('Retrasos en la entrega de las tareas asignadas', 7, 1),
-    ('Falta de claridad en las expectativas del proyecto', 7, 1),
+    ('FHigh de claridad en las expectativas del proyecto', 7, 1),
     ('Problemas de compatibilidad de software', 7, 2),
     ('Cambios frecuentes en los requisitos del proyecto', 7, 2),
     ('Ausencia de un líder de proyecto efectivo', 7, 2),
-    ('Falta de recursos adecuados', 7, 3),
+    ('FHigh de recursos adecuados', 7, 3),
     ('Incapacidad para alcanzar los objetivos de calidad', 7, 3),
     ('Conflictos entre los miembros del equipo', 7, 3),
-    ('Falta de motivación de los miembros del equipo', 7, 2),
-    ('Falta de experiencia en el trabajo asignado', 7, 1),
-    ('Problemas de gestión del tiempo', 7, 1),
+    ('FHigh de motivación de los miembros del equipo', 7, 2),
+    ('FHigh de experiencia en el trabajo asignado', 7, 1),
+    ('Problemas de gestión del tiempo', 7, 5),
 -- ¿Qué podemos mejorar?
     ('Para que todos los miembros del equipo se sientan unidos entre todos, tendríamos que hacer una noche de Pizza', 8, 3),
     ('Establecer una reunión diaria para el equipo para discutir el progreso y cualquier problema que surja.', 8, 2),
@@ -1708,85 +1712,13 @@ VALUES
     ('Evaluar y revisar el éxito del Sprint al final de una Épia para identificar áreas de mejora y aplicarlas en proyectos futuros', 8, 1),
     ('Revisar y mejorar los procesos de colaboración para fomentar la creatividad y la innovación en el equipo.', 8, 3),
     ('Tener sesiones de retroalimentación individual para revisar desempeño de cada uno', 8, 1),
-    ('Para que todos puedan energía mientras que trabajamos, tener un Snack Bar en la oficina', 8, 1);
+    ('Para que todos puedan energía mientras que traLowmos, tener un Snack Bar en la oficina', 8, 5);
 
--- Insertando datos en Accionables
-insert into Accionable
-    (nombreAccionable, storyPoints, labelAccionable, prioridadAccionable, estadoAccionable, estadoIssue, fechaCreacion, fechaFinalizacion)
+insert into correos 
+    (correro)
 values
-    ('Noche de Pizza', 2, 'Accionable', DEFAULT, 'No aprobado', 'To Do', '2023-02-03 10:30:20', '2023-02-25 05:45:15'),
-    ('Reunión Diaria', 5, 'Accionable', DEFAULT, 'Aprobado', 'To Do', '2023-02-20 22:30:45', '2023-02-23 16:20:20'),
-    ('Capacitación Adicional', 4, 'Accionable', DEFAULT, 'Aprobado', 'To Do', '2023-01-21 15:40:10', '2023-02-22 07:50:30'),
-    ('Celebrar éxitos e hitos alcanzados', 3, 'Accionable', DEFAULT, 'No aprobado', 'To Do', '2023-03-10 21:20:10', '2023-03-05 20:55:35'),
-    ('Asignar un líder de equipo', 7, 'Accionable', DEFAULT, 'Aprobado', 'To Do', '2022-12-15 09:32:19', '2022-12-31 08:24:10'),
-    ('sesiones para compartir experiencias', 7, 'Accionable', DEFAULT, 'Aprobado', 'To Do', '2022-11-18 10:05:40', '2022-11-21 11:28:55'),
-    ('Establecer un plan de contigencia', 4, 'Accionable', DEFAULT, 'Aprobado', 'To Do', '2023-03-05 15:10:20', '2023-03-07 23:45:20'),
-    ('Asignar responsabilidades y tareas específicas', 2, 'Accionable', DEFAULT, 'No aprobado', 'To Do', '2023-03-03 22:40:15', '2023-03-11 14:38:20'),
-    ('Asegurarse de que los miembros del equipo estén capacitados', 6, 'Accionable', DEFAULT, 'Aprobado', 'To Do', '2023-03-06 10:10:25', '2023-03-12 06:07:21'),
-    ('Promover una cultura de aprendizaje continuo', 4, 'Accionable', DEFAULT, 'Aprobado', 'To Do', '2023-01-02 12:33:40', '2023-01-07 22:35:22'),
-    ('Evaluar éxito del Sprint al final de una Épica', 5, 'Accionable', DEFAULT, 'No aprobado', 'To Do', '2023-03-01 15:35:20', '2023-03-08 03:40:16'),
-    ('Actualización de Cuentas', 3, 'Accionable', DEFAULT, 'Aprobado', 'To Do', '2023-03-10 17:35:10', '2023-03-11 18:50:32'),
-    ('Revisar y mejorar los procesos de colaboración', 7, 'Accionable', DEFAULT, 'Aprobado', 'To Do', '2023-02-27 10:44:04', '2023-03-01 18:08:19'),
-    ('Sesiones de retroalimentación individual', 4, 'Accionable', DEFAULT, 'No aprobado', 'To Do', '2023-01-17 17:14:12', '2023-01-19 23:40:21'),
-    ('Snack Bar en la oficina', 1, 'Accionable', DEFAULT, 'Aprobado', 'To Do', '2023-02-01 16:10:53', '2023-02-04 02:08:48');
-
--- Insertando datos en la relación de CualitativaAccionable
-INSERT INTO CualitativaAccionable
-    (idCualitativa, idAccionable)
-VALUES
-    (1, 1),
-    (2, 2),
-    (3, 3),
-    (4, 4),
-    (5, 5),
-    (6, 1),
-    (7, 2),
-    (8, 3),
-    (9, 4),
-    (10, 5),
-    (11, 1),
-    (12, 2),
-    (13, 3),
-    (14, 4),
-    (15, 5),
-    (16, 1),
-    (17, 2),
-    (18, 3),
-    (19, 4),
-    (20, 5),
-    (21, 1),
-    (22, 2),
-    (23, 3),
-    (24, 4),
-    (25, 5);
-
--- Insertando Datos en la tabla Sprint-Epica
-INSERT INTO sprintepica
-    (idSprint, idEpica)
-VALUES
-    (1, 1),
-    (2, 1),
-    (3, 1),
-    (4, 1),
-    (5, 1),
-    (6, 1),
-    (7, 1),
-    (8, 1),
-    (9, 1),
-    (10, 2),
-    (11, 2),
-    (12, 2),
-    (13, 2),
-    (14, 2),
-    (15, 2),
-    (16, 2),
-    (17, 3),
-    (18, 3),
-    (19, 3),
-    (20, 3),
-    (21, 3),
-    (22, 3),
-    (23, 3),
-    (24, 3),
-    (25, 3),
-    (31, 4);
+("sandoval.vargas.diego.1@gmail.com"),
+("carlossalguero441@gmail.com"),
+("a01709043@tec.mx"),
+("jose.diego.llaca@gmail.com"),
+("a01708462@tec.mx");

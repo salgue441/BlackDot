@@ -68,14 +68,9 @@ module.exports = class CualitativaAccionable {
    **/
 
   static async getAll() {
-    const cualitativaaccionable = await dataBase.query(
-      "SELECT * FROM CualitativaAccionable"
-    )
+    const [result, _] = await dataBase.query("select * from CualitativaAccionable")
 
-    return cualitativaaccionable.map(
-      (cualitativaaccionable) =>
-        new CualitativaAccionable(cualitativaaccionable)
-    )
+    return result
   }
 
   /**

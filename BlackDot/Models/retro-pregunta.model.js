@@ -8,7 +8,7 @@
  * @copyright Copyright (c) 2023 - MIT License
  */
 
-const dataBase = require("../utils/dataBase")
+const dataBase = require("../Utils/dataBase")
 
 /**
  * @brief
@@ -42,6 +42,30 @@ class retroPregunta {
     const retro = await dataBase.query(query, [idRetroalimentacion])
 
     return new retroPregunta(retro)
+  }
+
+  /**
+   * @brief
+   * Gets the ids of Pregruntas from the database
+   * @param {int} idRetroalimentacion - ID of the retroalimentacion
+   * @throw {Error} If the query fails
+   * @return {Array} retroPreguntas entities
+   * @return {int} retroPreguntas.entities.idPregunta
+   */
+
+  static async getIdsPreguntas(idRetroalimentacion) {
+    const query = `select idPregunta from retroalimentacionPregunta
+                  where idRetroalimentacion = ?`
+
+    const [idsPreguntas, _] = await dataBase.query(query, [idRetroalimentacion])
+
+    //insert idsPreguntas into an array
+    let ids = []
+    for (let i = 0; i < idsPreguntas.length; i++) {
+      ids.push(idsPreguntas[i].idPregunta)
+    }
+
+    return ids
   }
 
   /**
@@ -182,6 +206,59 @@ class retroPregunta {
     } catch (error) {
       throw new Error(error)
     }
+  }
+
+  /**
+   * @brief
+   * Gets all the qualitative answers associated to a specific question
+   * @param {int} idPregunta - ID of the question
+   * @return {Object} retroPregunta - Object of retroPregunta
+   * @throws {Error} if idPregunta is not found
+   */
+  static async getQualitativeAnswersByIDPregunta(idPregunta) {
+    try {
+      if (idPregunta === undefined)
+        throw new Error("The ID Pregunta is not found")
+
+      const query = `
+        select 
+          retroalimentacion.idRetroalimentacion, 
+          pregunta.idPregunta, 
+          pregunta.contenido AS Pregunta, 
+          cualitativa.idCualitativa,
+          cualitativa.idPregunta, 
+          cualitativa.contenido,
+          retroalimentacion.fechaFinalizacion
+        from retroalimentacion 
+        join retroalimentacionpregunta on retroalimentacion.idRetroalimentacion = retroalimentacionpregunta.idRetroalimentacion 
+        join pregunta on retroalimentacionpregunta.idPregunta = pregunta.idPregunta 
+        join cualitativa on retroalimentacionpregunta.idPregunta = cualitativa.idPregunta and retroalimentacion.idRetroalimentacion = cualitativa.idRetroalimentacion 
+        where pregunta.tipoPregunta = 'Cualitativa' 
+        and retroalimentacionpregunta.idPregunta = ?;  
+      `
+
+      const [qualitatives, _] = await dataBase.execute(query, [idPregunta])
+
+      return qualitatives
+    } catch (error) {
+      throw new Error(error)
+    }
+  }
+
+  /**
+   * @brief
+   * Guarda una retroPregunta en la base de datos
+   * @param {int} idRetroalimentacion - ID de la retroalimentacion
+   * @param {int} idPregunta - ID de la pregunta
+   * */
+
+  async save() {
+    const query = `insert into retroalimentacionPregunta (idRetroalimentacion, idPregunta) values (?, ?)`
+
+    const retro = await dataBase.query(query, [
+      this.idRetroalimentacion,
+      this.idPregunta,
+    ])
   }
 }
 

@@ -29,104 +29,123 @@ module.exports = class Empleado {
    * Constructor de la clase Empleado
    * @param {*} Empleado - Objeto de tipo Empleado
    */
-    constructor(Empleado) {
-      this.idEmpleado = Empleado.idEmpleado
-      this.primerNombre = Empleado.primerNombre
-      this.segundoNombre = Empleado.segundoNombre
-      this.apellidoPaterno = Empleado.apellidoPaterno
-      this.apellidoMaterno = Empleado.apellidoMaterno
-      this.idGoogleAuth = Empleado.idGoogleAuth
-      this.googleEmail = Empleado.googleEmail
-      this.googleProfilePicture = Empleado.googleProfilePicture
-    }
+  constructor(Empleado) {
+    this.idEmpleado = Empleado.idEmpleado
+    this.primerNombre = Empleado.primerNombre
+    this.segundoNombre = Empleado.segundoNombre
+    this.apellidoPaterno = Empleado.apellidoPaterno
+    this.apellidoMaterno = Empleado.apellidoMaterno
+    this.idGoogleAuth = Empleado.idGoogleAuth
+    this.googleEmail = Empleado.googleEmail
+    this.googleProfilePicture = Empleado.googleProfilePicture
+  }
 
-    /**
-     * @brief
-     * Recibe un empleado de acuerdo con el ID
-     * @param {*} idEmpleado - ID del empleado
-     * @returns {object} - Objeto de tipo Empleado
-     */
-    static async getByID(idEmpleado) {
-        const query = `select * from Empleado where idEmpleado = ?`
-        const [rows] = await dataBase.execute(query, [idEmpleado])
+  /**
+   * @brief
+   * Recibe un empleado de acuerdo con el ID
+   * @param {*} idEmpleado - ID del empleado
+   * @returns {object} - Objeto de tipo Empleado
+   */
+  static async getByID(idEmpleado) {
+    const query = `select * from Empleado where idEmpleado = ?`
+    const [rows] = await dataBase.execute(query, [idEmpleado])
 
-        if (rows.length === 0)
-            throw new Error("Empleado no encontrado")
-        
-        return new Empleado(rows[0])
-    }
+    if (rows.length === 0) throw new Error("Empleado no encontrado")
 
-    /**
-     * @brief
-     * Obtiene todos los empleados.
-     * @returns {Empleado[]} - Arreglo de objetos de tipo Empleado
-     */
-    static async getAll() {
-        const query = `select * from Empleado`
-        const [rows] = await dataBase.execute(query)
+    return new Empleado(rows[0])
+  }
 
-        return rows.map((row) => new Empleado(row))
-    }
+  /**
+   * @brief
+   * Recibe un empleado de acuerdo con el mail
+   * @param {*} email - mail del empleado
+   * @returns {object} - Objeto de tipo Empleado
+   */
+  static async getByEmail(googleEmail) {
+    const query = `select * from Empleado where googleEmail = ?`
+    const [rows] = await dataBase.execute(query, [googleEmail])
 
-    /**
-     * @brief
-     * Guarda un nuevo empleado
-     * @returns {Promise<Empleado>} - Query del empleado guardado
-     */
-    async save() {
-        const query = `insert into empleado(primerNombre, segundoNombre, apellidoPaterno, apellidoMaterno, 
+    if (rows.length === 0) throw new Error("Empleado no encontrado")
+
+    return new Empleado(rows[0])
+  }
+
+  /**
+   * @brief
+   * Obtiene todos los empleados.
+   * @returns {Empleado[]} - Arreglo de objetos de tipo Empleado
+   */
+  static async getAll() {
+    const query = `select * from Empleado`
+    const [rows, _] = await dataBase.execute(query)
+
+    return rows
+  }
+
+  /**
+   * @brief
+   * Guarda un nuevo empleado
+   * @returns {Promise<Empleado>} - Query del empleado guardado
+   */
+  async save() {
+    const query = `insert into empleado(primerNombre, segundoNombre, apellidoPaterno, apellidoMaterno, 
             idGoogleAuth, googleEmail, googleProfilePicture) values (?, ?, ?, ?, ?, ?, ?)`
 
-        const [result] = await dataBase.execute(query, [
-            this.primerNombre,
-            this.segundoNombre,
-            this.apellidoPaterno,
-            this.apellidoMaterno,
-            this.idGoogleAuth,
-            this.googleEmail,
-            this.googleProfilePicture,
-        ])
+    const [result] = await dataBase.execute(query, [
+      this.primerNombre,
+      this.segundoNombre,
+      this.apellidoPaterno,
+      this.apellidoMaterno,
+      this.idGoogleAuth,
+      this.googleEmail,
+      this.googleProfilePicture,
+    ])
 
-        this.idEmpleado = result.insertId
-    }
+    this.idEmpleado = result.insertId
+  }
 
-    /**
-     * @brief
-     * Verifica si un empleado existe en la base de datos.
-     * @returns {Promise<boolean>} - True si existe, false si no
-     * @throws {Error} - Si no se envia el primer nombre
-     * @throws {Error} - Si no se envia el apellido paterno
-     * @throws {Error} - Si no se envia id de Google Authenticator
-     * @throws {Error} - Si no se envia el correo electronico de Google
-     */
-    async verify(Empleado) {
-        if (!this.primerNombre) 
-            throw new Error("No se ha proporcionado el primer nombre");
-        if (!this.apellidoPaterno)
-            throw new Error("No se ha proporcionado el apellido paterno");
-        if (!this.idGoogleAuth)
-            throw new Error("No se ha proporcionado un ID de Google Authenticator");
-        if (!this.googleEmail)
-            throw new Error("No se ha proporcionado un correo de Google");
+  /**
+   * @brief
+   * Verifica si un empleado existe en la base de datos.
+   * @returns {Promise<boolean>} - True si existe, false si no
+   * @throws {Error} - Si no se envia el primer nombre
+   * @throws {Error} - Si no se envia el apellido paterno
+   * @throws {Error} - Si no se envia id de Google Authenticator
+   * @throws {Error} - Si no se envia el correo electronico de Google
+   */
+  async verify(Empleado) {
+    if (!this.primerNombre)
+      throw new Error("No se ha proporcionado el primer nombre")
+    if (!this.apellidoPaterno)
+      throw new Error("No se ha proporcionado el apellido paterno")
+    if (!this.idGoogleAuth)
+      throw new Error("No se ha proporcionado un ID de Google Authenticator")
+    if (!this.googleEmail)
+      throw new Error("No se ha proporcionado un correo de Google")
 
-        const [empleado] = await dataBase.query(
-            `select * from Empleado where primerNombre = ? AND 
+    const [empleado] = await dataBase.query(
+      `select * from Empleado where primerNombre = ? AND 
             apellidoPaterno = ? AND idGoogleAuth = ? AND googleEmail = ?`,
-            [this.primerNombre, this.apellidoPaterno, this.idGoogleAuth, this.googleEmail]
-        );
+      [
+        this.primerNombre,
+        this.apellidoPaterno,
+        this.idGoogleAuth,
+        this.googleEmail,
+      ]
+    )
 
-        return Boolean(empleado);
-    }
+    return Boolean(empleado)
+  }
 
-    /**
-     * @brief
-     * Elimina un empleado de acuerdo con el ID
-     * @param {*} idCualitativa - id del empleado
-     * @returns {Promise<void>} - Query del empleado eliminado
-     */
-    async deleteByID(idEmpleado) {
-        const query = `delete from Empleado where idEmpleado = ?`
+  /**
+   * @brief
+   * Elimina un empleado de acuerdo con el ID
+   * @param {*} idEmpleado - id del empleado
+   * @returns {Promise<void>} - Query del empleado eliminado
+   */
+  async deleteByID(idEmpleado) {
+    const query = `delete from Empleado where idEmpleado = ?`
 
-        await dataBase.execute(query, [idEmpleado])
-    }
+    await dataBase.execute(query, [idEmpleado])
+  }
 }
