@@ -7,8 +7,8 @@
     <br />
     <br />
 
-    <h1 class="title is-1">Empleados</h1>
-    <div class="container is-marginless">
+    <h1 class="title is-1 has-text-left">Empleados</h1>
+    <div class="container is-marginless ">
       <div class="columns is-multiline">
         <div class="column is-three-quarters">
           <div class="columns is-multiline">
@@ -18,11 +18,19 @@
                 <div
                   class="empleadoContainer is-flex is-vcentered is-justify-content-space-around mt-4"
                 >
+                <% if(empleados[i].googleProfilePicture != null){ %>
                   <img
                     src="<%= empleados[i].googleProfilePicture %>"
                     alt="Profile Picture"
                     class="image is-64x64 is-rounded profilePicture"
                   />
+                  <% } else { %>
+                  <img
+                    src="https://i0.wp.com/ilacnet.org/wp-content/uploads/2021/01/default-1.png?ssl=1"
+                    alt="Profile Picture"
+                    class="image is-64x64 is-rounded profilePicture"
+                  />
+                  <% } %>
                   <div class="dataContainer">
                     <p>
                       <%= empleados[i].primerNombre + " " +
@@ -154,7 +162,13 @@
 <style>
   body {
     padding: 4rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
   }
+
+
 
   .empleadoContainer {
     width: 100%;
@@ -162,8 +176,7 @@
 
   .Container {
     width: 75%;
-    margin-left: 9% !important;
-    margin-top: 8px !important;
+
   }
 
   .boxEmpleado {
