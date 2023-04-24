@@ -32,4 +32,7 @@ router.get("/empleados", Correo.mostrarCorreos)
 const usuario = require("../Controllers/usuario.controller")
 router.get("/empleados/aceptar", usuario.getRegistrarUsuario)
 
+router.post("/empleados/aceptar", usuario.postAceptarUsuario)
+router.post("/empleados/rechazar", usuario.postRechazarUsuario)
+
 module.exports = router

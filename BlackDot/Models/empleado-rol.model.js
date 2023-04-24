@@ -83,4 +83,41 @@ module.exports = class EmpleadoRol {
 
     return rows
   }
+
+  /**
+   * @brief
+   * Update a EmpleadoRol
+   * @param {object} empleadoRol - Objeto de tipo EmpleadoRol
+   * @returns {object} - Objeto de tipo EmpleadoRol
+   * @throws {Error} - Error message
+   * */
+
+  async update() {
+    if (!this) throw new Error("No se ha proporcionado un empleadoRol")
+
+    const query = `UPDATE EmpleadoRol SET idRol = ? WHERE idEmpleado = ?`
+    const [result] = await dataBase.execute(query, [
+      this.idRol,
+      this.idEmpleado,
+    ])
+
+    return this
+  }
+
+  /**
+   * @brief
+   * Delete by idEmpleado
+   * @param {int} idEmpleado - ID del empleado
+   * @returns {object} - Objeto de tipo EmpleadoRol
+   * @throws {Error} - Error message
+   * */
+
+  static async deleteById(idEmpleado) {
+    if (!idEmpleado) throw new Error("No se ha proporcionado un idEmpleado")
+
+    const query = `DELETE FROM EmpleadoRol WHERE idEmpleado = ?`
+    const [result] = await dataBase.execute(query, [idEmpleado])
+
+    return result
+  }
 }

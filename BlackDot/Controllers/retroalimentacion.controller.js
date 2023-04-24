@@ -55,7 +55,6 @@ const simplifyAnswers = (answers) => {
     }, [])
   } catch (error) {
     res.render(path.join(__dirname, "../Views/Static/error.ejs"), { error })
-    res.render(path.join(__dirname, "../Views/Static/error.view.ejs"))
   }
 }
 
