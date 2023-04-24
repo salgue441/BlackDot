@@ -5,13 +5,13 @@ values
 ('Micaela', 'Ivanna', 'Acosta', NULL, 0x26e98e8aee12416a842d05cba4ea2454, 'micaela.acosta@zeb.mx', 'https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80'),
 ('Reina', NULL, 'Olivera', 'Montaño', 0x043128a38b7e4e488945afc64134796e, 'reina.olivera@zeb.mx', NULL),
 ('Alicia', NULL, 'Corrales', NULL, 0x2ae9aed35f5b488d8f2dd7cfb8aa7e1e, 'alicia.corrales@zeb.mx', 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80'), 
-('Juan Manuel', 'Jerónimo', 'Riojas', NULL, 0x6d11115f1b3144adb5e2e12489209424, 'juan manuel.riojas@zeb.mx', NULL),
+('Juan', 'Jerónimo', 'Riojas', NULL, 0x6d11115f1b3144adb5e2e12489209424, 'juan.riojas@zeb.mx', NULL),
 ('Dolores', 'Ángel Daniel', 'Velázquez', 'Salcedo', 0x2e0806fafacc43d69b65ac68d432d01a, 'dolores.velázquez@zeb.mx', NULL),
 ('Berta', 'María de los Ángeles', 'Malave', 'Márquez', 0x50d56b9188544ebc8a96564aef938bcb, 'berta.malave@zeb.mx', NULL),
 ('Manuela', NULL, 'Serrato', 'Kyra', 0x288459f41939430abcc6a962d84f02db, 'manuela.serrato@zeb.mx', NULL),
-('Francisco Javier', 'Yolanda', 'Menchaca', 'Aparicio', 0x314b8c27b6734f218a76895bf07c9baf, 'francisco javier.menchaca@zeb.mx', NULL),
+('Francisco', 'Yolanda', 'Menchaca', 'Aparicio', 0x314b8c27b6734f218a76895bf07c9baf, 'francisco javier.menchaca@zeb.mx', NULL),
 ('Manuel', 'Israel', 'Arevalo', NULL, 0x485b3fbdf10743c0b0054d21297322f2, 'manuel.arevalo@zeb.mx', NULL),
-('José Emilio', 'Lourdes', 'Krasnova', 'Cordero', 0xeeb78b5378684fb4b80ca9f5b261b26e, 'josé emilio.krasnova@zeb.mx', NULL),
+('José', 'Lourdes', 'Krasnova', 'Cordero', 0xeeb78b5378684fb4b80ca9f5b261b26e, 'josé emilio.krasnova@zeb.mx', NULL),
 ('Santiago', 'Manuela', 'Casillas', NULL, 0xd5e277fcb25f492285ce59ff7eb90ebf, 'santiago.casillas@zeb.mx', NULL),
 ('Jennifer', NULL, 'Montemayor', NULL, 0x2d183d2c0f66468aa41973b1cbfa6ae3, 'jennifer.montemayor@zeb.mx', NULL),
 ('Manuel', 'Ramona', 'Pagan', NULL, 0x761c94851e564335b2e9f922a9b1dc2f, 'manuel.pagan@zeb.mx', NULL),
@@ -25,7 +25,7 @@ values
 ('Jorge Luis', 'Mariano', 'Gastélum', 'Espinal', 0xae5b6389f4764c0db44cacba808ec9a8, 'jorge luis.gastélum@zeb.mx', 'https://images.unsplash.com/photo-1501196354995-cbb51c65aaea?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1171&q=80'),
 ('Pedro', 'Maricarmen', 'Contreras', 'Mota', 0x86bfd67b082a4983b55c29df50e42a36, 'pedro.contreras@zeb.mx', NULL),
 ('Marcos', 'Jose Daniel', 'Balderas', 'Mateo', 0xbeb8b06427404ad58ab1e85754103f91, 'marcos.balderas@zeb.mx', 'https://images.unsplash.com/photo-1463453091185-61582044d556?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80'),
-('Juan Carlos', NULL, 'Santillán', NULL, 0x5fa51fcc5f5941de984cf1aebd2be6e8, 'juan carlos.santillán@zeb.mx', NULL),
+('Carlos', NULL, 'Santillán', NULL, 0x5fa51fcc5f5941de984cf1aebd2be6e8, 'carlos.santillán@zeb.mx', NULL),
 ('Germán', 'Esteban', 'Salinas', NULL, 0x855af815a12548e9afc46d5e76d47be7, 'germán.salinas@zeb.mx', NULL),
 ('Ana María', 'Florencia', 'Montalvo', 'Vázquez', 0xf5560c3193f1467f96d904991d5d8f9c, 'ana maría.montalvo@zeb.mx', 'https://images.unsplash.com/photo-1488426862026-3ee34a7d66df?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80'),
 ('David', NULL, 'Vaca', NULL, 0x0dd5d7250ac24d068d88d9ed7a500bee, 'david.vaca@zeb.mx', 'https://images.unsplash.com/photo-1492567291473-fe3dfc175b45?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=684&q=80'),
@@ -36,21 +36,7 @@ values
 ('Hugo', NULL, 'Batista', NULL, 0xcfad81e9330f406da0c73706549e44a2, 'hugo.batista@zeb.mx', NULL),
 ('Catalina', 'Juan Carlos', 'Quintana', 'Varela', 0xa117d3fdd64549c1b8631be87790e5d6, 'catalina.quintana@zeb.mx', NULL),
 ('Ricardo', NULL, 'Rincón', 'Luna', 0xe1f5799660614961a2a564819964332d, 'ricardo.rincón@zeb.mx', NULL),
-('Virginia', NULL, 'Ledesma', 'Figueroa', 0xeab66bc042e547a3a58ef1dfe88c0eed, 'virginia.ledesma@zeb.mx', 'https://images.unsplash.com/photo-1492446845049-9c50cc313f00?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80'),
-('Alfonso', 'Manuela', 'Zepeda', 'Lucero', 0x38a14b57dd094675bc5cf886102f1ae1, 'alfonso.zepeda@zeb.mx', NULL),
-('Saúl', 'Esperanza', 'Caraballo', NULL, 0xad05b7dae93245e2bd39314063738947, 'saúl.caraballo@zeb.mx', NULL), 
-('José Miguel', 'Guillermo', 'Rosas', NULL, 0x36739f88015d4742a8312cbbad241051, 'josé miguel.rosas@zeb.mx', NULL),
-('Manuela', 'Bernardo', 'Bahena', NULL, 0x5c80014060684bec8dc4ee5164bfecc4, 'manuela.bahena@zeb.mx', NULL),
-('Concepción', 'Lucia', 'Balderas', 'Delarosa', 0x7b12920f116a4bacbc64e98300757ce4, 'concepción.balderas@zeb.mx', 'https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=761&q=80'),
-('Soledad', 'Liliana', 'Gurule', 'Preciado', 0x2c5ebacd36344d9c80b5da77ca262b1c, 'soledad.gurule@zeb.mx', NULL),
-('Rosa María', NULL, 'Delgado', 'Ceballos', 0x1fd1ad4254b9453cac26030bef6bb1f0, 'rosa maría.delgado@zeb.mx', NULL),
-('Leticia', NULL, 'Curiel', 'Vaca', 0x8ffa3d9284da4cb2ab4ad77313c3d4e4, 'leticia.curiel@zeb.mx', NULL),
-('Federico', 'Ana Victoria', 'Rentería', 'Cardenas', 0x4fbd61df38454068a4801348906985dc, 'federico.rentería@zeb.mx', NULL),
-('Ivanna', 'Erick', 'Mendoza', NULL, 0xe9bc8aed2c29466fb79d9aed112aea54, 'ivanna.mendoza@zeb.mx', NULL),
-('Juan', NULL, 'Agosto', 'Murillo', 0xe2a4878d03aa46c19e7e3dc0d317db52, 'juan.agosto@zeb.mx', NULL),
-('David', 'José Miguel', 'Karam', 'Atencio', 0x2aab4a236bdc4aad913d6c30a72c17c8, 'david.karam@zeb.mx', NULL),
-('Fernando', 'Damián', 'Nevárez', NULL, 0xa0be3009aebf44ce857573d983b88968, 'fernando.nevárez@zeb.mx', NULL);
-
+('Virginia', NULL, 'Ledesma', 'Figueroa', 0xeab66bc042e547a3a58ef1dfe88c0eed, 'virginia.ledesma@zeb.mx', 'https://images.unsplash.com/photo-1492446845049-9c50cc313f00?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80');
 -- Insertando datos en la tabla Rol
 insert into Rol
     (nombreRol)

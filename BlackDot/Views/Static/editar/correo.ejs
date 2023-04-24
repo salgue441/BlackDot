@@ -7,19 +7,21 @@
     <br />
     <br />
 
-    <h1 class="title is-1 has-text-left">Empleados</h1>
-    <div class="container is-marginless ">
+    <div class="is-flex is-align-self-flex-start mb-6">
+      <h1 class="title is-1">Empleados</h1>
+    </div>
+    <div class="container is-marginless">
       <div class="columns is-multiline">
         <div class="column is-three-quarters">
           <div class="columns is-multiline">
-            <% for(let i = 0; i< empleados.length; i++){ %>
-              <% if(empleados[i].idRol != 3){ %>
-            <div class="column is-6">
-              <div class="box boxEmpleado m-2 p-2">
+            <% for(let i = 0; i< empleados.length; i++){ %> <%
+            if(empleados[i].idRol != 3){ %>
+            <div class="column is-one-third colEmpleado">
+              <div class="box boxEmpleado m-2 p-3">
                 <div
-                  class="empleadoContainer is-flex is-vcentered is-justify-content-space-around mt-4"
+                  class="empleadoContainer is-flex is-vcentered is-justify-content-space-evenly mt-4"
                 >
-                <% if(empleados[i].googleProfilePicture != null){ %>
+                  <% if(empleados[i].googleProfilePicture != null){ %>
                   <img
                     src="<%= empleados[i].googleProfilePicture %>"
                     alt="Profile Picture"
@@ -39,66 +41,59 @@
                     </p>
                     <p><%= empleados[i].googleEmail %></p>
 
-        
-                    <p><%= empleados[i].nombreRol %></p>
+                    <% if(empleados[i].idRol == 1){ %>
+                    <p class="button is-warning nombreRol is-small">
+                      <%= empleados[i].nombreRol %>
+                    </p>
+                    <% }else{ %>
+                    <p class="button is-info nombreRol is-small">
+                      <%= empleados[i].nombreRol %>
+                    </p>
+                    <% } %>
                   </div>
                 </div>
               </div>
             </div>
-            <% } %>
-            <% } %>
+            <% } %> <% } %>
           </div>
         </div>
 
-        <div class="column is-one-quarter">
-          <section class="optionsContainer">
-            <section>
-              <div class="box boxAddEmail">
-                <p class="subtitle">Agregar correo</p>
-                <form
-                  class="mt-3 is-flex is-flex-direction-column is-justify-content-space-evenly"
-                >
-                  <input
-                    class="input"
-                    type="text"
-                    placeholder="Correo@zeb.mx"
-                  />
-                  <br />
+        <div class="column is-one-quarter p-2">
+          <section class="optionsContainer mt-3">
+            <section class="box">
+              <p class="subtitle">Empleados por aceptar:</p>
 
-                  <button
-                    type="submit"
-                    class="plusButton button is-primary is-rounded m-2"
-                  >
-                    <span class="icon">
-                      <i class="fas fa-plus"></i>
-                    </span>
-                  </button>
-                </form>
-              </div>
+              <a
+                class="aceptarEmpButton is-success button"
+                href="/editar/empleados/aceptar"
+              >
+                Empleados</a
+              >
             </section>
+
             <section class="mt-6">
               <div class="box boxAddEmail">
                 <p class="subtitle">Gestionar roles</p>
-                <div class="mt-3 is-flex is-flex-direction-column
-                is-justify-content-space-evenly" >
-                <!-- Select empleado -->
-                <p class="mb-2">Selecciona Empleado</p>
-                <div class="select">
-                  <select class="mb-3">
-                    <!-- title -->
+                <div
+                  class="mt-3 is-flex is-flex-direction-column is-justify-content-space-evenly"
+                >
+                  <!-- Select empleado -->
+                  <p class="mb-2">Selecciona Empleado</p>
+                  <div class="select">
+                    <select class="mb-3">
+                      <!-- title -->
+                      <option>Empleado</option>
 
-                    
-                    <% for(let i = 0; i< empleados.length; i++){ %>
-                    <option
-                      href="/editar/addusuario/ <%= empleados[i].idEmpleado %>"
-                    >
-                      <%= empleados[i].primerNombre + " " +
-                      empleados[i].apellidoPaterno %>
-                    </option>
-                    <% } %>
-                  </select>
+                      <% for(let i = 0; i< empleados.length; i++){ %>
+                      <option>
+                        <%= empleados[i].primerNombre + " " +
+                        empleados[i].apellidoPaterno %>
+                      </option>
+                      <% } %>
+                    </select>
+                  </div>
                   <!-- Select Rol -->
-                  <p class="mb-2">Seleccionar Rol</p>
+                  <p class="mb-3 mt-2">Seleccionar Rol</p>
                   <div class="select">
                     <select>
                       <option>Rol</option>
@@ -107,6 +102,9 @@
                       <% } %>
                     </select>
                   </div>
+                  <button class="button is-success mt-3">
+                    Guardar Cambios
+                  </button>
                 </div>
               </div>
             </section>
@@ -126,15 +124,11 @@
     flex-direction: column;
   }
 
-
-
   .empleadoContainer {
     width: 100%;
   }
 
   .Container {
-    width: 75%;
-
   }
 
   .boxEmpleado {
@@ -147,6 +141,9 @@
     display: flex;
   }
 
+  .nombreRol {
+    cursor: default !important;
+  }
   /* Set the styles for the first child div (two-thirds width) */
   .container .left {
     flex: 2;
@@ -164,5 +161,9 @@
     width: 50px;
     height: 50px;
     align-self: center;
+  }
+
+  select {
+    width: 100%;
   }
 </style>

@@ -97,6 +97,7 @@ exports.getCurretRetroalimentacion = async (req, res) => {
       const quantitative = await retroPregunta.getQuantitativeAnswerByID(
         idRetro
       )
+
       const simplifiedQuantitative = simplifyAnswers(quantitative)
 
       for (const question of simplifiedQuantitative) {
@@ -125,16 +126,6 @@ exports.getCurretRetroalimentacion = async (req, res) => {
       res.render(path.join(__dirname, "../Views/Static/error.ejs"), { error })
     }
   })
-  res.render(
-    path.join(__dirname, "../Views/Static/actual/verRetroalimentacion.ejs"),
-    {
-      idRetroalimentacion: quantitative[0].idRetroalimentacion,
-      fechaRetroalimentacion: quantitative[0].fechaRetroalimentacion,
-      simplifiedQuantitative: simplifiedQuantitative,
-      simplifiedQualitative: simplifiedQualitative,
-      retros,
-    }
-  )
 }
 
 /**
