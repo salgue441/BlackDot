@@ -77,8 +77,8 @@ module.exports = class EmpleadoRol {
    * */
 
   static async getAllWithRoles() {
-    const query = `SELECT E.idEmpleado, E.primerNombre, E.apellidoPaterno, E.idGoogleAuth, E.googleEmail, E.googleProfilePicture, ER.idRol  FROM empleado E, empleadorol ER
-        WHERE E.idEmpleado = ER.idEmpleado;`
+    const query = `SELECT E.idEmpleado, E.primerNombre, E.apellidoPaterno, E.idGoogleAuth, E.googleEmail, E.googleProfilePicture, ER.idRol, R.nombreRol  FROM empleado E, empleadorol ER, rol R
+    WHERE E.idEmpleado = ER.idEmpleado and R.idRol = ER.idRol;`
     const [rows, _] = await dataBase.execute(query)
 
     return rows

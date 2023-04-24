@@ -14,7 +14,8 @@
         <!-- Employees -->
 
         <section class="columns is-multiline">
-          <% for(let i = 0; i < empleadoSinRol.length; i++){ %>
+          <%if(empleadoSinRol.length > 0){ %> <% for(let i = 0; i <
+          empleadoSinRol.length; i++){ %>
           <div class="column is-one-quarter">
             <div
               class="box is-flex is-flex-direction-column is-justify-content-center"
@@ -65,6 +66,8 @@
               </div>
             </div>
           </div>
+          <% } }else{ %>
+          <h1 class="title is-1 mb-5">No hay empleados por aceptar</h1>
           <% } %>
         </section>
       </div>

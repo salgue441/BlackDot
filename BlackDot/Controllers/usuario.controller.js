@@ -131,17 +131,19 @@ exports.postRechazarUsuario = async (req, res) => {
  * @throws {Error} - Error message
  * */
 /** */
-exports.getEditarUsuarioRol = async (req, res) => {
-  try {
-    const empleados = await Empleado.getAll()
-    const empleadoRoles = await EmpleadoRol.getAll()
 
-    // Render the EJS template with the usuarios and empleadoRoles
-    res.render("Static/editar/editarUsuarioRol.ejs", {
+exports.getEditarUsuario = async (req, res) => {
+  try {
+    const empleados = await EmpleadoRol.getAllWithRoles()
+    const roles = await Rol.getAll()
+
+    res.render(path.join(__dirname, "../Views/Static/editar/correo.ejs"), {
       empleados,
-      empleadoRoles,
+      roles,
     })
   } catch (error) {
-    res.render(path.join(__dirname, "../Views/Static/error.ejs"), { error })
+    res.render(path.join(__dirname, "../Views/Static/error.ejs"), {
+      error,
+    })
   }
 }

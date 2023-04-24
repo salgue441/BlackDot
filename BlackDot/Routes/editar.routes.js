@@ -26,10 +26,9 @@ router.get(
   crearRetroalimentacion.getRetroalimentacionExitosa
 )
 
-const Correo = require("../Controllers/correo.controller")
-router.get("/empleados", Correo.mostrarCorreos)
-
 const usuario = require("../Controllers/usuario.controller")
+router.get("/empleados", usuario.getEditarUsuario)
+
 router.get("/empleados/aceptar", usuario.getRegistrarUsuario)
 
 router.post("/empleados/aceptar", usuario.postAceptarUsuario)
