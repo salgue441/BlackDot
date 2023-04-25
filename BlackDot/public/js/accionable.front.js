@@ -8,66 +8,60 @@
  * @copyright Copyright (c) 2023 - MIT License
  */
 
-/**
- * @brief
- * Fetches the data from the ghost route. The data is obtained from the dababase.
- * @returns {Array} data - data in json format
- */
+ let idsAccionables = []
+ 
 
 /**
  * @brief
- * Gets the checkbox input and saves them into a new array.
- * @returns {Array} accionables - Array with the selected answers
+ * Handles the state of Checkboxes
  */
-async function handleCheckBox() {
-  const data = await fetchActionables()
+ function handleCheckBox() {
   const checkboxes = document.querySelectorAll(
-    'input[type="checkbox"][name="accionable"]'
+    'input[type="checkbox"][name = "accionable"]'
   )
-  let accionables = []
+  const input = document.getElementById('selected-accionables')
 
   for (let i = 0; i < checkboxes.length; i++) {
     const checkbox = checkboxes[i]
-    const id = checkbox.id.split("-").pop()
+    const id = checkbox.id.split('-').pop()
     const isChecked = checkbox.checked
-    const contenido = data.waitingAnswers[i].contenido
 
-    // Add the checkbox to the accionables array if it's checked
     if (isChecked) {
-      const index = data.waitingAnswers.findIndex(
-        (item) => item.idCualitativa === id
-      )
-
-      if (index === -1) {
-        accionables.push(id)
-      }
+      idsAccionables.push(id)
+      input.value = idsAccionables.join(',')
     } else {
-      // Remove the checkbox from the accionables array if it's unchecked
-      const index = accionables.findIndex((item) => item === id)
-
-      if (index !== -1) {
-        accionables.splice(index, 1)
-      }
+      idsAccionables = idsAccionables.filter((item) => item !== id)
+      input.value = idsAccionables.join(',')
     }
   }
+
+  $.ajax({
+    url: '/actual/admin/saveAccionables',
+    method: 'POST',
+    data: {idsAccionables},
+    success: function(data) {
+      console.log(data)
+    },
+    error: function(error) {
+      console.log(error)
+    }
+  })
 }
 
-/**
- * @brief
- * Sends data to accionable to a JSON.
- */
-async function sendData() {
-  const accionablesData = await handleCheckBox()
+
+const aceptarAccionable = async () => {
+  const selectedAccionablesInput = document.getElementById('selected-accionables')
+  const selectedAccionables = selectedAccionablesInput.value.split(',')
 
   try {
-    const response = fetch("http://localhost:3000/actual/accionables", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
+    const response = await $.ajax({
+      url: '/actual/admin/saveAccionables',
+      method: 'POST',
+      data: { idsAccionables: selectedAccionables },
     })
+
+    console.log(response)
   } catch (error) {
-    throw new Error(error)
+    console.log(error)
   }
 }

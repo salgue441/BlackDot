@@ -53,10 +53,9 @@ module.exports = class Cualitativa {
    * @returns {Promise<Cualitativa[]>} - Arreglo de objetos de tipo Cualitativa
    */
   static async getAll() {
-    const query = `select * from Cualitativa`;
-    const [rows] = await dataBase.execute(query);
+    const [rows, _] = await dataBase.execute("select * from Cualitativa")
 
-    return rows.map((row) => new Cualitativa(row));
+    return rows
   }
 
   /**
