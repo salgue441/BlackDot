@@ -16,7 +16,7 @@
           <div class="columns is-multiline">
             <% for(let i = 0; i< empleados.length; i++){ %> <%
             if(empleados[i].idRol != 3){ %>
-            <div class="column is-one-third colEmpleado">
+            <div class="column is-one-third colEmpleado is-paddingless">
               <div class="box boxEmpleado m-2 p-3">
                 <div
                   class="empleadoContainer is-flex is-vcentered is-justify-content-space-evenly mt-4"
@@ -51,6 +51,8 @@
                     </p>
                     <% } %>
                   </div>
+
+                  <a class="icon fas fa-times deleteIcon text" href="/home"></a>
                 </div>
               </div>
             </div>
@@ -59,7 +61,7 @@
         </div>
 
         <div class="column is-one-quarter p-2">
-          <section class="optionsContainer mt-3">
+          <section class="optionsContainer">
             <section class="box">
               <p class="subtitle">Empleados por aceptar:</p>
 
@@ -129,10 +131,20 @@
   }
 
   .Container {
+    width: 120%;
   }
 
   .boxEmpleado {
     height: 120px;
+  }
+
+  .deleteIcon {
+    cursor: pointer;
+    color: black;
+  }
+
+  .deleteIcon:hover {
+    color: hsl(348, 100%, 61%);
   }
 
   .mainContainer {
