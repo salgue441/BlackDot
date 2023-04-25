@@ -135,59 +135,41 @@ const refreshTokenAPI = async (req, res, next) => {
 }
 
 const registrarEmpleado = async (req, res) => {
+
   
   const { refreshToken } = req.body
   const verified = authUtil.verifyToken(refreshToken, "refresh")
   
   const nombre = verified.primerNombre.split(" ")
-  let userData = {}
-
-  if (nombre.length > 1) 
-  {
-
-  
-  const primerNombre = nombre[0]
-  const segundoNombre = nombre[1]
-  
   const apellido = verified.apellidoPaterno.split(" ")
 
-    if (apellido.length > 1) 
-    {
+  
+  
+  let userData = {
+    primerNombre: nombre[0],
+    segundoNombre:null,
+    apellidoPaterno: apellido[0],
+    apellidoMaterno: null,
+    idGoogleAuth: verified.idGoogleAuth,	
+    googleEmail:  verified.googleEmail,
+    googleProfilePicture: verified.googleProfilePicture,
 
+  }
 
-    const apellidoPaterno = apellido[0]
-    const apellidoMaterno = apellido[1]
-    
-    userData = 
-      {
-      
-        primerNombre: primerNombre,
-        segundoNombre: segundoNombre,
-        apellidoPaterno: apellidoPaterno,
-        apellidoMaterno: apellidoMaterno,
-        idGoogleAuth: verified.idGoogleAuth,
-        googleEmail: verified.googleEmail,
-        googleProfilePicture: verified.googleProfilePicture,
-      }
-    }
-  } else {
-    userData = {
-        
-      primerNombre: verified.primerNombre,
-      segundoNombre: verified.segundoNombre,
-      apellidoPaterno: verified.apellidoPaterno,
-      apellidoMaterno: verified.apellidoMaterno,
-      idGoogleAuth: verified.idGoogleAuth,
-      googleEmail: verified.googleEmail,
-      googleProfilePicture: verified.googleProfilePicture,
-    }
+  
+
+  if (nombre.length > 1)
+  {
+    userData.segundoNombre = nombre[1]
+  }
+
+  if (apellido.length > 1)
+  {
+    userData.apellidoMaterno = apellido[1]
   }
 
 
 
-  
-  
-  
   try{
     const validacion = await Empleado.verifyByEmail(userData.googleEmail)
     console.log(validacion)
@@ -199,6 +181,7 @@ const registrarEmpleado = async (req, res) => {
       const nuevoEmpleado = new Empleado(userData)
       
       nuevoEmpleado.save()
+      
 
       const idNuevoEmpleado = await Empleado.getLastID()
 
