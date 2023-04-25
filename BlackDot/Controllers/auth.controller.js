@@ -18,7 +18,7 @@ const empleadoRol = require("../Models/empleado-rol.model")
  * @const bcrypt
  * @requires bcryptjs
  */
- const bcrypt = require('bcryptjs');
+const bcrypt = require("bcryptjs")
 
 /**
  * @brief
@@ -86,7 +86,7 @@ const logoutAPI = (req, res) => {
   authUtil.deleteSession(req, res)
 }
 
-let usuarioRegistrado = false 
+let usuarioRegistrado = false
 
 /**
  * @brief
@@ -97,8 +97,7 @@ let usuarioRegistrado = false
  */
 const refreshTokenAPI = async (req, res, next) => {
   try {
-
-    if(usuarioRegistrado == false){
+    if (usuarioRegistrado == false) {
       registrarEmpleado(req, res)
     }
 
@@ -108,9 +107,8 @@ const refreshTokenAPI = async (req, res, next) => {
     const verified = authUtil.verifyToken(refreshToken, "refresh")
 
     // to finish primerNombre: verified.primerNombre
-     
+
     const userData = {
-      
       primerNombre: verified.primerNombre,
       segundoNombre: verified.segundoNombre,
       apellidoPaterno: verified.apellidoPaterno,
@@ -132,8 +130,8 @@ const refreshTokenAPI = async (req, res, next) => {
          await authUtil.blacklistToken(refreshToken) */
 
     // Create tokens
-  const authToken = authUtil.createTokenLogin(userData)
-  const newRefreshToken = authUtil.createRefreshToken(userData)
+    const authToken = authUtil.createTokenLogin(userData)
+    const newRefreshToken = authUtil.createRefreshToken(userData)
 
     res.status(200).json({
       authToken,
@@ -141,7 +139,7 @@ const refreshTokenAPI = async (req, res, next) => {
     })
   } catch (error) {
     console.log(error)
-    //throw new Error(error)  
+    //throw new Error(error)
     res.redirect("/")
   }
 }
@@ -155,10 +153,9 @@ const refreshTokenAPI = async (req, res, next) => {
  */
 
 const registrarEmpleado = async (req, res) => {
-
   const { refreshToken } = req.body
   const verified = authUtil.verifyToken(refreshToken, "refresh")
-  
+
   const nombre = verified.primerNombre.split(" ")
   const apellido = verified.apellidoPaterno.split(" ")
 
@@ -173,33 +170,28 @@ const registrarEmpleado = async (req, res) => {
    * @param {String} userData.idGoogleAuth - Google Auth ID
    * @param {String} userData.googleEmail - Google Email
    * @param {String} userData.googleProfilePicture - Google Profile Picture
-   * @return {Object} userData 
+   * @return {Object} userData
    */
-
-
 
   let userData = {
     primerNombre: nombre[0],
-    segundoNombre:null,
+    segundoNombre: null,
     apellidoPaterno: apellido[0],
     apellidoMaterno: null,
-    idGoogleAuth: bcrypt.hashSync(verified.idGoogleAuth, 12),	
-    googleEmail:  verified.googleEmail,
+    idGoogleAuth: bcrypt.hashSync(verified.idGoogleAuth, 12),
+    googleEmail: verified.googleEmail,
     googleProfilePicture: verified.googleProfilePicture,
-
   }
 
-  if (nombre.length > 1)
-  {
+  if (nombre.length > 1) {
     userData.segundoNombre = nombre[1]
   }
 
-  if (apellido.length > 1)
-  {
+  if (apellido.length > 1) {
     userData.apellidoMaterno = apellido[1]
   }
 
-  /** 
+  /**
    * @brief
    * Checks if the user is already registered if not it registers it
    * @param {Object} userData - userData object
@@ -209,21 +201,15 @@ const registrarEmpleado = async (req, res) => {
    * @return {Object} nuevoEmpleado
    */
 
-  try{
+  try {
     const validacion = await Empleado.verifyByEmail(userData.googleEmail)
     console.log(validacion)
-    if(validacion){
+    if (validacion) {
       usuarioRegistrado = true
-  
-    }else{
-      
+    } else {
       const nuevoEmpleado = new Empleado(userData)
-      
-      nuevoEmpleado.save()
 
-      console.log("nuevoEmpleado")
-      console.log(nuevoEmpleado)
-      
+      await nuevoEmpleado.save()
 
       const idNuevoEmpleado = await Empleado.getLastID()
 
@@ -232,15 +218,11 @@ const registrarEmpleado = async (req, res) => {
         idRol: 3,
       })
 
-      nuevoEmpleadoRol.save()
-        
-
+      await nuevoEmpleadoRol.save()
     }
-  }
-  catch(error){
+  } catch (error) {
     console.log(error)
   }
-
 }
 
 module.exports = {
