@@ -527,41 +527,32 @@ exports.createAccionable = async (accionable) => {
   const projectName = process.env.JIRA_PROJECT_NAME_TEST;
 
   try {
+    const auth = {
+      username: jiraUser,
+      password: apiToken,
+    }
+
     const issue = {
       fields: {
         project: {
           key: projectName,
         },
-
         summary: accionable.nombreAccionable,
         description: accionable.descripcionAccionable,
-        priority: {
-          name: accionable.prioridadAccionable,
-        },
         issuetype: {
           name: "Accionable",
         },
-        assignee: {
-          name: "Bernardo Laing",
-        },
-        labels: accionable.labelAccionable,
-      },
-    };
-
-    const response = await axios.post(`${jiraUrl}/rest/api/2/issue`, {
-      auth: {
-        username: jiraUser,
-        password: apiToken,
-      },
-
-     headers: {
-        "Content-Type": "application/json",
-      },
-     
-    });
-
-    console.log(response.data);
-
+        priority: { name: 'Medium' },
+      }
+    }
+    
+    const response = await rateLimitedAxios.post(`${jiraUrl}/rest/api/3/issue`, issue, { auth });
+    console.log("New issue created: ", response.data);
+    const issueID = response.data.id;
+  
+    const backlogResponse = await axios.post(`${jiraUrl}/rest/agile/1.0/backlog/issue`, { issues: [issueID] }, { auth });
+    console.log("Issue added to backlog: ", backlogResponse.data);
+  
   } catch (error) {
     console.log(error);
     throw new Error(error);
