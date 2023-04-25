@@ -153,20 +153,6 @@ const registrarEmpleado = async (req, res) => {
   const nombre = verified.primerNombre.split(" ")
   const apellido = verified.apellidoPaterno.split(" ")
 
-  /**
-   * @brief
-   * userData is the object that will be used to create a new employee
-   * @param {Object} userData - userData object
-   * @param {String} userData.primerNombre - First name
-   * @param {String} userData.segundoNombre - Second name
-   * @param {String} userData.apellidoPaterno - First last name
-   * @param {String} userData.apellidoMaterno - Second last name
-   * @param {String} userData.idGoogleAuth - Google Auth ID
-   * @param {String} userData.googleEmail - Google Email
-   * @param {String} userData.googleProfilePicture - Google Profile Picture
-   * @return {Object} userData
-   */
-
   let userData = {
     primerNombre: nombre[0],
     segundoNombre: null,
@@ -184,16 +170,6 @@ const registrarEmpleado = async (req, res) => {
   if (apellido.length > 1) {
     userData.apellidoMaterno = apellido[1]
   }
-
-  /**
-   * @brief
-   * Checks if the user is already registered if not it registers it
-   * @param {Object} userData - userData object
-   * @param {String} userData.googleEmail - Google Email
-   * @return {Boolean} usuarioRegistrado
-   * @return {Object} validacion
-   * @return {Object} nuevoEmpleado
-   */
 
   try {
     const validacion = await Empleado.verifyByEmail(userData.googleEmail)
@@ -213,6 +189,7 @@ const registrarEmpleado = async (req, res) => {
       })
 
       await nuevoEmpleadoRol.save()
+      usuarioRegistrado = true
     }
   } catch (error) {
     console.log(error)
