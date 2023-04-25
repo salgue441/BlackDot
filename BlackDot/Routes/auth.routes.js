@@ -7,7 +7,7 @@ const authController = require("../Controllers/auth.controller")
  * @brief
  */
 router.get("/", (req, res) => {
-  res.render("../views/static/auth.ejs")
+  res.render("../Views/Static/auth.ejs")
 })
 
 /**
