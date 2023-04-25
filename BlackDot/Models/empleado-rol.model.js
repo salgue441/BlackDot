@@ -78,7 +78,7 @@ module.exports = class EmpleadoRol {
 
     }
 
-}
+
 
 
 
