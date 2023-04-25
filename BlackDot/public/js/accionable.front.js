@@ -8,15 +8,17 @@
  * @copyright Copyright (c) 2023 - MIT License
  */
 
+ let idsAccionables = []
+ 
+
 /**
  * @brief
  * Handles the state of Checkboxes
  */
-function handleCheckBox() {
+ function handleCheckBox() {
   const checkboxes = document.querySelectorAll(
     'input[type="checkbox"][name = "accionable"]'
   )
-  let idsAccionables = []
   const input = document.getElementById('selected-accionables')
 
   for (let i = 0; i < checkboxes.length; i++) {
@@ -63,4 +65,3 @@ const aceptarAccionable = async () => {
     console.log(error)
   }
 }
-
