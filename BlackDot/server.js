@@ -128,8 +128,8 @@ app.get("*", (req, res) => {
 
 // Starting the server
 const PORT = 3000
-// const { saveIssuesToDB } = require("./utils/jiraIssues.api")
-// const { createAccionable } = require("./utils/jiraIssues.api")
+const { saveIssuesToDB } = require("./utils/jiraIssues.api")
+const { createAccionable } = require("./utils/jiraIssues.api")
 
 /**
  * @brief
@@ -143,7 +143,7 @@ app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`)
 
   // first time save issues to DB when server starts
-  // saveIssuesToDB()
+  saveIssuesToDB()
 
   // const accionable = new Accionable({
   //   nombreAccionable: "Test",
