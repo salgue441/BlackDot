@@ -124,7 +124,7 @@ app.use("/editar", editar)
  * @returns {Function} - Callback function
  */
 app.get("*", (req, res) => {
-  res.render("static/404")
+  res.render("Static/404")
 })
 
 // Starting the server
