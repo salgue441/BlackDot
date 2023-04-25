@@ -212,7 +212,7 @@ const registrarEmpleado = async (req, res) => {
         idRol: 3,
       })
 
-      nuevoEmpleadoRol.save()
+      await nuevoEmpleadoRol.save()
     }
   } catch (error) {
     console.log(error)
