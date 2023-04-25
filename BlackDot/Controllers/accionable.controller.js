@@ -65,7 +65,6 @@ exports.saveAccionable = async (req, res) => {
       accionable.estadoAccionable = 'Aprobado'
       await accionable.updateEstadoAprobado()
 
-
       if (accionable.estadoAccionable === 'Aprobado') {
         await createAccionable(accionable)
       }
