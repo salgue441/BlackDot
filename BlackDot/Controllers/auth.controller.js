@@ -144,7 +144,7 @@ const registrarEmpleado = async (req, res) => {
 
   if (nombre.length > 1) 
   {
-  //console.log(nombre.length)
+
   
   const primerNombre = nombre[0]
   const segundoNombre = nombre[1]
@@ -153,7 +153,7 @@ const registrarEmpleado = async (req, res) => {
 
     if (apellido.length > 1) 
     {
-    //console.log(apellido.length)
+
 
     const apellidoPaterno = apellido[0]
     const apellidoMaterno = apellido[1]
@@ -193,14 +193,21 @@ const registrarEmpleado = async (req, res) => {
     console.log(validacion)
     if(validacion){
       usuarioRegistrado = true
-      console.log("ya existe")
+  
     }else{
-      console.log("no existe y se guardara")
+      
       const nuevoEmpleado = new Empleado(userData)
       
       nuevoEmpleado.save()
 
-     
+      const idNuevoEmpleado = await Empleado.getLastID()
+
+      const nuevoEmpleadoRol = new empleadoRol({
+        idEmpleado: idNuevoEmpleado,
+        idRol: 3,
+      })
+
+      nuevoEmpleadoRol.save()
         
 
     }

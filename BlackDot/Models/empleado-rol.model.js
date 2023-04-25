@@ -69,4 +69,24 @@ module.exports = class EmpleadoRol {
         
         return rows
     }
+
+    /**
+     * @brief
+     * Guarda un empleadoRol en la base de datos
+     * @returns {Promise<EmpleadoRol>} - Query del empleadoRol guardado
+     * @throws {Error} - Si no se ha proporcionado un ID de empleado
+     * @throws {Error} - Si no se ha proporcionado un ID de rol
+     * @throws {Error} - Si el empleadoRol ya existe
+     * @throws {Error} - Si el empleadoRol no existe
+        */
+    async save() {
+        if (!this.idEmpleado) throw new Error("No se ha proporcionado un ID de empleado")
+
+        if (!this.idRol) throw new Error("No se ha proporcionado un ID de rol")
+
+        const query = `insert into EmpleadoRol (idEmpleado, idRol) values (?,?)`
+        const [rows,_] = await dataBase.execute(query, [this.idEmpleado, this.idRol])
+
+    }
+
 }

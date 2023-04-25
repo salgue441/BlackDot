@@ -168,4 +168,20 @@ module.exports = class Empleado {
     else
     return true
   }
+
+  /**
+   * @brief
+   * Obtiene el ultimo id de empleado
+   * @returns {Promise<int>} - id del ultimo empleado
+   * @throws {Error} - Si no se encuentra el ultimo empleado
+   * */
+
+  static async getLastID() {
+    const query = `select idEmpleado from Empleado order by idEmpleado desc limit 1`
+    const [rows] = await dataBase.execute(query)
+
+    if (rows.length === 0) throw new Error("No se ha encontrado el ultimo empleado")
+
+    return rows[0].idEmpleado
+  }
 }
