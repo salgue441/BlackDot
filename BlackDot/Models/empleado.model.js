@@ -11,6 +11,7 @@
 
 const dataBase = require("../utils/dataBase")
 
+
 /**
  * @class
  * @classdesc Modelo de la tabla de empleado

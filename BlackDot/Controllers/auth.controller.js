@@ -13,6 +13,15 @@ const empleadoRol = require("../Models/empleado-rol.model")
 
 /**
  * @brief
+ * Librería para encriptar google
+ * @type {object}
+ * @const bcrypt
+ * @requires bcryptjs
+ */
+ const bcrypt = require('bcryptjs');
+
+/**
+ * @brief
  * Renders the log in
  * @param {Object} req - request object
  * @param {Object} res - response object
@@ -167,12 +176,14 @@ const registrarEmpleado = async (req, res) => {
    * @return {Object} userData 
    */
 
+
+
   let userData = {
     primerNombre: nombre[0],
     segundoNombre:null,
     apellidoPaterno: apellido[0],
     apellidoMaterno: null,
-    idGoogleAuth: verified.idGoogleAuth,	
+    idGoogleAuth: bcrypt.hashSync(verified.idGoogleAuth, 12),	
     googleEmail:  verified.googleEmail,
     googleProfilePicture: verified.googleProfilePicture,
 
@@ -209,6 +220,9 @@ const registrarEmpleado = async (req, res) => {
       const nuevoEmpleado = new Empleado(userData)
       
       nuevoEmpleado.save()
+
+      console.log("nuevoEmpleado")
+      console.log(nuevoEmpleado)
       
 
       const idNuevoEmpleado = await Empleado.getLastID()
