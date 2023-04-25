@@ -507,6 +507,8 @@ exports.saveIssuesToDB = async () => {
         }
       }
     }
+
+    console.log("Fetch & Save completed successfully!")
   } catch (error) {
     console.log(error);
     throw new Error(error);
