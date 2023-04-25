@@ -15,7 +15,6 @@ const Bottleneck = require("bottleneck");
 const Issue = require("../Models/issue.model");
 const Sprint = require("../Models/sprint.model");
 const Epica = require("../Models/Epica.model");
-const Accionable = require("../Models/accionable.model");
 const SprintIssue = require("../Models/sprint-issue.model");
 const SprintEpica = require("../Models/sprintEpica.model");
 
