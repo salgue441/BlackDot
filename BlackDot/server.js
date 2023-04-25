@@ -14,13 +14,10 @@
  */
 
 const express = require("express")
-const app = express()
 const session = require("express-session")
 const bodyparser = require("body-parser")
 const cookieParser = require("cookie-parser")
-
-// Model
-const Accionable = require("./models/Accionable.model")
+const app = express()
 
 // Dotenv config
 require("dotenv").config()
@@ -42,7 +39,7 @@ app.use(cookieParser())
  * @param {String} "/auth" - Route
  * @param {Function} auth - Callback function
  */
-const auth = require("./routes/auth.routes")
+const auth = require("./Routes/auth.routes")
 const authMiddleware = require("./middlewares/auth")
 
 app.use("/auth", auth)
@@ -69,9 +66,14 @@ app.use(authMiddleware.validateTokenActive)
  */
 app.use(
   session({
+    secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
-    secret: process.env.SESSION_SECRET,
+    cookie: {
+      maxAge: 1000 * 60 * 60, // 1 hour
+      sameSite: true,
+      secure: false
+    }
   })
 )
 
@@ -82,7 +84,7 @@ app.use(
  * @param {String} "/" - Route
  * @param {Function} main - Callback function
  */
-const main = require("./routes/main.routes")
+const main = require("./Routes/main.routes")
 app.use(main)
 
 /**
@@ -100,7 +102,7 @@ app.use("/actual", actual)
  * @param {String} "/historico" - Route
  * @param {Function} historico - Callback function
  */
-const historico = require("./routes/historico.routes")
+const historico = require("./Routes/historico.routes")
 app.use("/historico", historico)
 
 /**
@@ -122,14 +124,17 @@ app.use("/editar", editar)
  * @returns {Function} - Callback function
  */
 app.get("*", (req, res) => {
-  // file in views/static/404.ejs
   res.render("static/404")
 })
 
 // Starting the server
 const PORT = 3000
+<<<<<<< HEAD
 const { saveIssuesToDB } = require("./utils/jiraIssues.api")
 const { createAccionable } = require("./utils/jiraIssues.api")
+=======
+const { saveIssuesToDB } = require("./Utils/jiraIssues.api")
+>>>>>>> afddfc12aebe44dc05d500fc229bc14d4806626e
 
 /**
  * @brief
@@ -142,21 +147,7 @@ const { createAccionable } = require("./utils/jiraIssues.api")
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`)
 
-  // first time save issues to DB when server starts
   saveIssuesToDB()
-
-  // const accionable = new Accionable({
-  //   nombreAccionable: "Test",
-  //   storyPoints: 1,
-  //   labelAccionable: "Test",
-  //   prioridadAccionable: "Highest",
-  //   estadoAccionable: "To Do",
-  //   estadoIssue: "To Do",
-  //   fechaCreacion: "2021-08-01",
-  //   fechaFinalizacion: "2021-08-01",
-  // })
-
-  // createAccionable(accionable)
 
   // if time is 00:00:00
   if (new Date().getHours() === 0) {

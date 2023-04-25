@@ -13,9 +13,9 @@ const express = require("express")
 const path = require("path")
 
 // Data Models
-const Empleado = require("../models/empleado.model")
-const Rol = require("../models/rol.model")
-const EmpleadoRol = require("../models/empleado-rol.model")
+const Empleado = require("../Models/empleado.model")
+const Rol = require("../Models/rol.model")
+const EmpleadoRol = require("../Models/empleado-rol.model")
 const authUtil = require("../Utils/auth")
 
 /**

@@ -8,7 +8,7 @@
  * @copyright Copyright (c) 2023 - MIT License
  */
 
-const dataBase = require("../utils/dataBase");
+const dataBase = require("../Utils/dataBase")
 
 /**
  * @class
@@ -96,7 +96,7 @@ module.exports = class Cualitativa {
    * @param {*} Cualitativa
    * @returns {boolean}
    */
-  static async verify(Cualitativa) {}
+  static async verify(Cualitativa) { }
 
   /**
    * @brief
