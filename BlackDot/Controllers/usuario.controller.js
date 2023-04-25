@@ -16,6 +16,7 @@ const path = require("path")
 const Empleado = require("../models/empleado.model")
 const Rol = require("../models/rol.model")
 const EmpleadoRol = require("../models/empleado-rol.model")
+const authUtil = require("../Utils/auth")
 
 /**
  * @brief
@@ -147,3 +148,5 @@ exports.getEditarUsuario = async (req, res) => {
     })
   }
 }
+
+

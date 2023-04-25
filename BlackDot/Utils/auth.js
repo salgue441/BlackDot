@@ -47,7 +47,7 @@ const createRefreshToken = (data) => {
         expiresIn: "8h",
     })
 
-    console.log(tokenRefreshed)
+    //console.log(tokenRefreshed)
     
     return tokenRefreshed
 }

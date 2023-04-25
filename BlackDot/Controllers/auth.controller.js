@@ -13,6 +13,15 @@ const empleadoRol = require("../Models/empleado-rol.model")
 
 /**
  * @brief
+ * Librería para encriptar google
+ * @type {object}
+ * @const bcrypt
+ * @requires bcryptjs
+ */
+ const bcrypt = require('bcryptjs');
+
+/**
+ * @brief
  * Renders the log in
  * @param {Object} req - request object
  * @param {Object} res - response object
@@ -52,8 +61,8 @@ const loginAPI = async (req, res, next) => {
       apellidoPaterno: data.family_name,
       googleProfilePicture: data.picture,
     }
-    console.log("este es el user:")
-    console.log(user)
+    //console.log("este es el user:")
+    //console.log(user)
 
     // Creating tokens
     const authToken = authUtil.createTokenLogin(user)
@@ -62,7 +71,8 @@ const loginAPI = async (req, res, next) => {
     res.status(200).json({ authToken, refreshToken })
   } catch (error) {
     console.log(error)
-    throw new Error(error)
+    //throw new Error(error)
+    res.redirect("/")
   }
 }
 
@@ -76,6 +86,8 @@ const logoutAPI = (req, res) => {
   authUtil.deleteSession(req, res)
 }
 
+let usuarioRegistrado = false 
+
 /**
  * @brief
  * Refreshes the token with a custom API
@@ -85,13 +97,20 @@ const logoutAPI = (req, res) => {
  */
 const refreshTokenAPI = async (req, res, next) => {
   try {
+
+    if(usuarioRegistrado == false){
+      registrarEmpleado(req, res)
+    }
+
     const { refreshToken } = req.body
     //console.log(refreshToken)
-    console.log("refreshTokenAPI")
+    //console.log("refreshTokenAPI")
     const verified = authUtil.verifyToken(refreshToken, "refresh")
 
     // to finish primerNombre: verified.primerNombre
+     
     const userData = {
+      
       primerNombre: verified.primerNombre,
       segundoNombre: verified.segundoNombre,
       apellidoPaterno: verified.apellidoPaterno,
@@ -101,7 +120,8 @@ const refreshTokenAPI = async (req, res, next) => {
       googleProfilePicture: verified.googleProfilePicture,
     }
 
-    //console.log(userData)
+    console.log("userData")
+    console.log(userData)
 
     // Blacklisting refresh token
     /*  const isBlacklisted = await authUtil.isBlacklisted(refreshToken)
@@ -112,8 +132,8 @@ const refreshTokenAPI = async (req, res, next) => {
          await authUtil.blacklistToken(refreshToken) */
 
     // Create tokens
-    const authToken = authUtil.createTokenLogin(userData)
-    const newRefreshToken = authUtil.createRefreshToken(userData)
+  const authToken = authUtil.createTokenLogin(userData)
+  const newRefreshToken = authUtil.createRefreshToken(userData)
 
     res.status(200).json({
       authToken,
@@ -121,8 +141,106 @@ const refreshTokenAPI = async (req, res, next) => {
     })
   } catch (error) {
     console.log(error)
-    throw new Error(error)
+    //throw new Error(error)  
+    res.redirect("/")
   }
+}
+
+/**
+ * @brief
+ * Registers a new employee
+ * @param {Object} req - request object
+ * @param {Object} res - response object
+ * @param {Object} next - Callback function
+ */
+
+const registrarEmpleado = async (req, res) => {
+
+  const { refreshToken } = req.body
+  const verified = authUtil.verifyToken(refreshToken, "refresh")
+  
+  const nombre = verified.primerNombre.split(" ")
+  const apellido = verified.apellidoPaterno.split(" ")
+
+  /**
+   * @brief
+   * userData is the object that will be used to create a new employee
+   * @param {Object} userData - userData object
+   * @param {String} userData.primerNombre - First name
+   * @param {String} userData.segundoNombre - Second name
+   * @param {String} userData.apellidoPaterno - First last name
+   * @param {String} userData.apellidoMaterno - Second last name
+   * @param {String} userData.idGoogleAuth - Google Auth ID
+   * @param {String} userData.googleEmail - Google Email
+   * @param {String} userData.googleProfilePicture - Google Profile Picture
+   * @return {Object} userData 
+   */
+
+
+
+  let userData = {
+    primerNombre: nombre[0],
+    segundoNombre:null,
+    apellidoPaterno: apellido[0],
+    apellidoMaterno: null,
+    idGoogleAuth: bcrypt.hashSync(verified.idGoogleAuth, 12),	
+    googleEmail:  verified.googleEmail,
+    googleProfilePicture: verified.googleProfilePicture,
+
+  }
+
+  if (nombre.length > 1)
+  {
+    userData.segundoNombre = nombre[1]
+  }
+
+  if (apellido.length > 1)
+  {
+    userData.apellidoMaterno = apellido[1]
+  }
+
+  /** 
+   * @brief
+   * Checks if the user is already registered if not it registers it
+   * @param {Object} userData - userData object
+   * @param {String} userData.googleEmail - Google Email
+   * @return {Boolean} usuarioRegistrado
+   * @return {Object} validacion
+   * @return {Object} nuevoEmpleado
+   */
+
+  try{
+    const validacion = await Empleado.verifyByEmail(userData.googleEmail)
+    console.log(validacion)
+    if(validacion){
+      usuarioRegistrado = true
+  
+    }else{
+      
+      const nuevoEmpleado = new Empleado(userData)
+      
+      nuevoEmpleado.save()
+
+      console.log("nuevoEmpleado")
+      console.log(nuevoEmpleado)
+      
+
+      const idNuevoEmpleado = await Empleado.getLastID()
+
+      const nuevoEmpleadoRol = new empleadoRol({
+        idEmpleado: idNuevoEmpleado,
+        idRol: 3,
+      })
+
+      nuevoEmpleadoRol.save()
+        
+
+    }
+  }
+  catch(error){
+    console.log(error)
+  }
+
 }
 
 module.exports = {
@@ -130,4 +248,5 @@ module.exports = {
   loginAPI,
   logoutAPI,
   refreshTokenAPI,
+  registrarEmpleado,
 }
