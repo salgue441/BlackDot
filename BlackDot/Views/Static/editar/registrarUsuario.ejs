@@ -1,49 +1,86 @@
 <html>
-    <%- include('../../include/header.ejs') %>
+  <%- include('../../include/header.ejs') %>
 
-    <body>
-        <%- include('../../include/navbar.ejs') %>
-        
-        <section class="hero is-medium is-bold">
-            <div class="hero-body has-text-centered">
-                <section> 
-                    <!--Title-->
-                    <section class="has-text-left">
-                        <h1 class="title is-1 mb-5">Empleados</h1>
-                    </section>
+  <body>
+    <%- include('../../include/navbar.ejs') %>
 
-                    <!--Columns-->
-                    <section>
-                        <div class="columns is-multiline">
-                            <% for(let i=0; i < empleados.length; i++) {%>
-                                <% if(empleadoRoles[i].idRol == 3) { %>
-                                    <!--Column for each employee-->
-                                    <div class="column is-one-third">
-                                        <div class="box" style="width: 300px; margin: auto;">
-                                            <div class="box is-flex" style="background-color: black; justify-content: center; width: 165px; margin: auto;">
-                                                <!--Employee picture-->
-                                                <figure>
-                                                    <% if(!!empleados[i].googleProfilePicture){ %>
-                                                        <img class="image is-128x128 ml-5" src= <%= empleados[i].googleProfilePicture  %>
-                                                    <% } else { %>
-                                                        <img class="image is-128x128 ml-5" src="https://static.vecteezy.com/system/resources/previews/008/302/421/non_2x/eps10-white-user-icon-or-logo-in-simple-flat-trendy-modern-style-isolated-on-black-background-free-vector.jpg">
-                                                    <% } %>
-                                                </figure>
-                                            </div>
-                                            <!--Employee name and mail-->
-                                            <p class="bd-notification is-info"> <%= empleados[i].primerNombre %>  <%= empleados[i].apellidoPaterno %>  </p>
-                                            <p class="bd-notification is-info"> <%= empleados[i].googleEmail %> </p>
-                                            <!--Buttons-->
-                                            <button class="button">✓</button>
-                                            <button class="button">✕</button>
-                                        </div>
-                                    </div>
-                                <% } %>
-                            <% } %>
-                        </div>
-                    </section>
-                </section>
-            </div>
+    <section class="hero is-medium is-bold">
+      <div class="hero-body has-text-centered">
+        <!--Title-->
+        <section class="has-text-left mb-5">
+          <h1 class="title is-1 mb-5">Aceptar Empleados</h1>
+          <a class="button is-link" href="/editar/empleados"
+            >Lista de empleados</a
+          >
         </section>
-    </body>
+
+        <!-- Employees -->
+
+        <section class="columns is-multiline">
+          <%if(empleadoSinRol.length > 0){ %> <% for(let i = 0; i <
+          empleadoSinRol.length; i++){ %>
+          <div class="column is-one-quarter">
+            <div
+              class="box is-flex is-flex-direction-column is-justify-content-center"
+            >
+              <div class="is-flex is-justify-content-center">
+                <img
+                  src="<%= empleadoSinRol[i].googleProfilePicture %>"
+                  alt="Profile Picture"
+                  class="image is-128x128 is-rounded"
+                />
+              </div>
+              <p><%= empleadoSinRol[i].primerNombre %></p>
+              <p><%= empleadoSinRol[i].googleEmail %></p>
+              <div class="optionsContainer is-2">
+                <!-- buttons for accept or reject -->
+                <form
+                  action="/editar/empleados/aceptar"
+                  method="POST"
+                  class="is-inline-block"
+                >
+                  <input
+                    type="hidden"
+                    name="idEmpleado"
+                    value="<%= empleadoSinRol[i].idEmpleado %>"
+                  />
+                  <button class="button is-success ml-1" type="submit">
+                    <span class="icon is-small">
+                      <i class="fas fa-check"></i>
+                    </span>
+                  </button>
+                </form>
+                <form
+                  action="/editar/empleados/rechazar"
+                  method="POST"
+                  class="is-inline-block"
+                >
+                  <input
+                    type="hidden"
+                    name="idEmpleado"
+                    value="<%= empleadoSinRol[i].idEmpleado %>"
+                  />
+                  <button class="button is-danger ml-1" type="submit">
+                    <span class="icon is-small">
+                      <i class="fas fa-times"></i>
+                    </span>
+                  </button>
+                </form>
+              </div>
+            </div>
+          </div>
+          <% } }else{ %>
+          <h1 class="title is-1 mb-5">No hay empleados por aceptar</h1>
+          <% } %>
+        </section>
+      </div>
+    </section>
+  </body>
 </html>
+
+<style>
+  .box {
+    gap: 0.5rem;
+    height: 20rem;
+  }
+</style>

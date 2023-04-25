@@ -144,7 +144,7 @@ module.exports = class Empleado {
    * @param {*} idEmpleado - id del empleado
    * @returns {Promise<void>} - Query del empleado eliminado
    */
-  async deleteByID(idEmpleado) {
+  static async deleteByID(idEmpleado) {
     const query = `delete from Empleado where idEmpleado = ?`
 
     await dataBase.execute(query, [idEmpleado])
