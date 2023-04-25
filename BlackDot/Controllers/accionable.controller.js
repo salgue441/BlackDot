@@ -72,6 +72,7 @@ exports.saveAccionable = async (req, res) => {
 
     res.status(200).json({ message: 'Accinoables saved successfully' });
   } catch (error) {
+    console.log(error)
     return res.status(500).json({ message: error.message });
   }
 };

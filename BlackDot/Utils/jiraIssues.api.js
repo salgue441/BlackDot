@@ -521,46 +521,49 @@ exports.saveIssuesToDB = async () => {
  * @param {*} accionable - The accionable to be created
  */
 exports.createAccionable = async (accionable) => {
-  const jiraUrl = process.env.JIRA_URL_TEST
-  const jiraUser = process.env.JIRA_USER_TEST
-  const apiToken = process.env.JIRA_API_TOKEN_TEST
-  const projectName = process.env.JIRA_PROJECT_NAME_TEST
+  const jiraUrl = process.env.JIRA_URL_TEST;
+  const jiraUser = process.env.JIRA_USER_TEST;
+  const apiToken = process.env.JIRA_API_TOKEN_TEST;
+  const projectName = process.env.JIRA_PROJECT_NAME_TEST;
 
   try {
-    const response = await rateLimitedAxios.post(
-      `${jiraUrl}/rest/api/3/issue`,
-      {
-        fields: {
-          project: {
-            key: projectName,
-          },
-          summary: accionable.nombreAccionable,
-          priority: {
-            name: accionable.prioridadAccionable,
-          },
-          issuetype: {
-            name: "Accionable",
-          },
-          labels: accionable.labelAccionable,
+    const issue = {
+      fields: {
+        project: {
+          key: projectName,
         },
+
+        summary: accionable.nombreAccionable,
+        description: accionable.descripcionAccionable,
+        priority: {
+          name: accionable.prioridadAccionable,
+        },
+        issuetype: {
+          name: "Accionable",
+        },
+        assignee: {
+          name: "Bernardo Laing",
+        },
+        labels: accionable.labelAccionable,
       },
-      {
-        auth: {
-          username: jiraUser,
-          password: apiToken,
-        },
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
+    };
 
-        validateStatus: (status) => status >= 200 && status < 300,
-      }
-    )
+    const response = await axios.post(`${jiraUrl}/rest/api/2/issue`, {
+      auth: {
+        username: jiraUser,
+        password: apiToken,
+      },
 
-    return response
+     headers: {
+        "Content-Type": "application/json",
+      },
+     
+    });
+
+    console.log(response.data);
+
   } catch (error) {
-    console.log(error)
-    throw new Error(error)
+    console.log(error);
+    throw new Error(error);
   }
-}
+};
