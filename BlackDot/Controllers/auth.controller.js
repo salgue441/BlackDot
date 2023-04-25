@@ -87,21 +87,54 @@ const refreshTokenAPI = async (req, res, next) => {
   try {
     const { refreshToken } = req.body
     //console.log(refreshToken)
-    console.log("refreshTokenAPI")
+    //console.log("refreshTokenAPI")
     const verified = authUtil.verifyToken(refreshToken, "refresh")
 
     // to finish primerNombre: verified.primerNombre
-    const userData = {
-      primerNombre: verified.primerNombre,
-      segundoNombre: verified.segundoNombre,
-      apellidoPaterno: verified.apellidoPaterno,
-      apellidoMaterno: verified.apellidoMaterno,
-      idGoogleAuth: verified.idGoogleAuth,
-      googleEmail: verified.googleEmail,
-      googleProfilePicture: verified.googleProfilePicture,
-    }
 
-    //console.log(userData)
+    const nombre = verified.primerNombre.split(" ")
+    if (nombre.length > 1) 
+    {
+    //console.log(nombre.length)
+    
+    const primerNombre = nombre[0]
+    const segundoNombre = nombre[1]
+    
+    const apellido = verified.apellidoPaterno.split(" ")
+      if (apellido.length > 1) 
+      {
+      //console.log(apellido.length)
+
+      const apellidoPaterno = apellido[0]
+      const apellidoMaterno = apellido[1]
+      
+      const userData = 
+        {
+        
+          primerNombre: primerNombre,
+          segundoNombre: segundoNombre,
+          apellidoPaterno: apellidoPaterno,
+          apellidoMaterno: apellidoMaterno,
+          idGoogleAuth: verified.idGoogleAuth,
+          googleEmail: verified.googleEmail,
+          googleProfilePicture: verified.googleProfilePicture,
+        }
+        console.log("userData")
+        console.log(userData)
+      }
+    
+    }
+     
+      const userData = {
+        
+        primerNombre: verified.primerNombre,
+        segundoNombre: verified.segundoNombre,
+        apellidoPaterno: verified.apellidoPaterno,
+        apellidoMaterno: verified.apellidoMaterno,
+        idGoogleAuth: verified.idGoogleAuth,
+        googleEmail: verified.googleEmail,
+        googleProfilePicture: verified.googleProfilePicture,
+      }
 
     // Blacklisting refresh token
     /*  const isBlacklisted = await authUtil.isBlacklisted(refreshToken)
@@ -112,8 +145,8 @@ const refreshTokenAPI = async (req, res, next) => {
          await authUtil.blacklistToken(refreshToken) */
 
     // Create tokens
-    const authToken = authUtil.createTokenLogin(userData)
-    const newRefreshToken = authUtil.createRefreshToken(userData)
+  const authToken = authUtil.createTokenLogin(userData)
+  const newRefreshToken = authUtil.createRefreshToken(userData)
 
     res.status(200).json({
       authToken,
@@ -121,7 +154,7 @@ const refreshTokenAPI = async (req, res, next) => {
     })
   } catch (error) {
     console.log(error)
-    throw new Error(error)
+    throw new Error(error)  
   }
 }
 
