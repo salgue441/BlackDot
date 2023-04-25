@@ -76,6 +76,8 @@ const logoutAPI = (req, res) => {
   authUtil.deleteSession(req, res)
 }
 
+let usuarioRegistrado = false 
+
 /**
  * @brief
  * Refreshes the token with a custom API
@@ -85,56 +87,30 @@ const logoutAPI = (req, res) => {
  */
 const refreshTokenAPI = async (req, res, next) => {
   try {
+
+    if(usuarioRegistrado == false){
+      registrarEmpleado(req, res)
+    }
+
     const { refreshToken } = req.body
     //console.log(refreshToken)
     //console.log("refreshTokenAPI")
     const verified = authUtil.verifyToken(refreshToken, "refresh")
 
     // to finish primerNombre: verified.primerNombre
-
-    const nombre = verified.primerNombre.split(" ")
-    if (nombre.length > 1) 
-    {
-    //console.log(nombre.length)
-    
-    const primerNombre = nombre[0]
-    const segundoNombre = nombre[1]
-    
-    const apellido = verified.apellidoPaterno.split(" ")
-      if (apellido.length > 1) 
-      {
-      //console.log(apellido.length)
-
-      const apellidoPaterno = apellido[0]
-      const apellidoMaterno = apellido[1]
-      
-      const userData = 
-        {
-        
-          primerNombre: primerNombre,
-          segundoNombre: segundoNombre,
-          apellidoPaterno: apellidoPaterno,
-          apellidoMaterno: apellidoMaterno,
-          idGoogleAuth: verified.idGoogleAuth,
-          googleEmail: verified.googleEmail,
-          googleProfilePicture: verified.googleProfilePicture,
-        }
-        console.log("userData")
-        console.log(userData)
-      }
-    
-    }
      
-      const userData = {
-        
-        primerNombre: verified.primerNombre,
-        segundoNombre: verified.segundoNombre,
-        apellidoPaterno: verified.apellidoPaterno,
-        apellidoMaterno: verified.apellidoMaterno,
-        idGoogleAuth: verified.idGoogleAuth,
-        googleEmail: verified.googleEmail,
-        googleProfilePicture: verified.googleProfilePicture,
-      }
+    const userData = {
+      
+      primerNombre: verified.primerNombre,
+      segundoNombre: verified.segundoNombre,
+      apellidoPaterno: verified.apellidoPaterno,
+      apellidoMaterno: verified.apellidoMaterno,
+      idGoogleAuth: verified.idGoogleAuth,
+      googleEmail: verified.googleEmail,
+      googleProfilePicture: verified.googleProfilePicture,
+    }
+
+    console.log(userData)
 
     // Blacklisting refresh token
     /*  const isBlacklisted = await authUtil.isBlacklisted(refreshToken)
@@ -158,9 +134,87 @@ const refreshTokenAPI = async (req, res, next) => {
   }
 }
 
+const registrarEmpleado = async (req, res) => {
+  
+  const { refreshToken } = req.body
+  const verified = authUtil.verifyToken(refreshToken, "refresh")
+  
+  const nombre = verified.primerNombre.split(" ")
+  let userData = {}
+
+  if (nombre.length > 1) 
+  {
+  //console.log(nombre.length)
+  
+  const primerNombre = nombre[0]
+  const segundoNombre = nombre[1]
+  
+  const apellido = verified.apellidoPaterno.split(" ")
+
+    if (apellido.length > 1) 
+    {
+    //console.log(apellido.length)
+
+    const apellidoPaterno = apellido[0]
+    const apellidoMaterno = apellido[1]
+    
+    userData = 
+      {
+      
+        primerNombre: primerNombre,
+        segundoNombre: segundoNombre,
+        apellidoPaterno: apellidoPaterno,
+        apellidoMaterno: apellidoMaterno,
+        idGoogleAuth: verified.idGoogleAuth,
+        googleEmail: verified.googleEmail,
+        googleProfilePicture: verified.googleProfilePicture,
+      }
+    }
+  } else {
+    userData = {
+        
+      primerNombre: verified.primerNombre,
+      segundoNombre: verified.segundoNombre,
+      apellidoPaterno: verified.apellidoPaterno,
+      apellidoMaterno: verified.apellidoMaterno,
+      idGoogleAuth: verified.idGoogleAuth,
+      googleEmail: verified.googleEmail,
+      googleProfilePicture: verified.googleProfilePicture,
+    }
+  }
+
+
+
+  
+  
+  
+  try{
+    const validacion = await Empleado.verifyByEmail(userData.googleEmail)
+    console.log(validacion)
+    if(validacion){
+      usuarioRegistrado = true
+      console.log("ya existe")
+    }else{
+      console.log("no existe y se guardara")
+      const nuevoEmpleado = new Empleado(userData)
+      
+      nuevoEmpleado.save()
+
+     
+        
+
+    }
+  }
+  catch(error){
+    console.log(error)
+  }
+
+}
+
 module.exports = {
   renderLogin,
   loginAPI,
   logoutAPI,
   refreshTokenAPI,
+  registrarEmpleado,
 }

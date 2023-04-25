@@ -29,15 +29,15 @@ module.exports = class Empleado {
    * Constructor de la clase Empleado
    * @param {*} Empleado - Objeto de tipo Empleado
    */
-  constructor(Empleado) {
-    this.idEmpleado = Empleado.idEmpleado
-    this.primerNombre = Empleado.primerNombre
-    this.segundoNombre = Empleado.segundoNombre
-    this.apellidoPaterno = Empleado.apellidoPaterno
-    this.apellidoMaterno = Empleado.apellidoMaterno
-    this.idGoogleAuth = Empleado.idGoogleAuth
-    this.googleEmail = Empleado.googleEmail
-    this.googleProfilePicture = Empleado.googleProfilePicture
+  constructor(empleado) {
+    this.idEmpleado = empleado.idEmpleado
+    this.primerNombre = empleado.primerNombre
+    this.segundoNombre = empleado.segundoNombre
+    this.apellidoPaterno = empleado.apellidoPaterno
+    this.apellidoMaterno = empleado.apellidoMaterno
+    this.idGoogleAuth = empleado.idGoogleAuth
+    this.googleEmail = empleado.googleEmail
+    this.googleProfilePicture = empleado.googleProfilePicture
   }
 
   /**
@@ -147,5 +147,25 @@ module.exports = class Empleado {
     const query = `delete from Empleado where idEmpleado = ?`
 
     await dataBase.execute(query, [idEmpleado])
+  }
+
+  /**
+   * @brief
+   * cheks if an employee exists in the database.
+   * @returns {Promise<boolean>} - True if exists, false if not
+   * throws {Error} - If idEmpleado is not provided
+   * */
+
+  static async verifyByEmail(googleEmail) {
+    if (!googleEmail) throw new Error("No se ha proporcionado el ID del empleado")
+
+    const [empleado,_] = await dataBase.query(
+      `select * from Empleado where googleEmail = ?`,
+      [googleEmail]
+    )
+
+    if(empleado.length === 0) return false
+    else
+    return true
   }
 }

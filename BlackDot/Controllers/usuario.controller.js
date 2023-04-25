@@ -12,6 +12,7 @@
 const Empleado = require("../models/empleado.model")
 const Rol = require("../models/rol.model")
 const EmpleadoRol = require("../models/empleado-rol.model")
+const authUtil = require("../Utils/auth")
 
 
 /**
@@ -93,3 +94,5 @@ exports.getEditarUsuarioRol = async (request, response) => {
     })
   }
 }
+
+
