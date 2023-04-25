@@ -9,7 +9,7 @@
  * @copyright Copyright (c) 2023 - MIT License
  */
 
-const dataBase = require("../utils/dataBase")
+const dataBase = require("../Utils/dataBase")
 
 
 /**
@@ -160,14 +160,14 @@ module.exports = class Empleado {
   static async verifyByEmail(googleEmail) {
     if (!googleEmail) throw new Error("No se ha proporcionado el ID del empleado")
 
-    const [empleado,_] = await dataBase.query(
+    const [empleado, _] = await dataBase.query(
       `select * from Empleado where googleEmail = ?`,
       [googleEmail]
     )
 
-    if(empleado.length === 0) return false
+    if (empleado.length === 0) return false
     else
-    return true
+      return true
   }
 
   /**

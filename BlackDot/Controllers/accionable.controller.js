@@ -15,11 +15,7 @@ const path = require("path");
 const bodyparser = require("body-parser");
 bodyparser.urlencoded({ extended: true });
 
-const Accionable = require("../Models/accionable.model");
-const Cualitativa = require("../Models/cualitativa.model");
-const retroPregunta = require("../Models/retro-pregunta.model");
-const CualiAccionable = require("../Models/cuali-accionable.model");
-const { create } = require("domain");
+const Accionable = require("../Models/accionable.model.js");
 
 router.use(express.urlencoded({ extended: true }));
 router.use(express.json());

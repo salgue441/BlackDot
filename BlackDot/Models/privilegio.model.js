@@ -8,7 +8,7 @@
  * @copyright Copyright (c) 2023 - MIT License
  */
 
-const dataBase = require("../utils/dataBase")
+const dataBase = require("../Utils/dataBase")
 
 /**
  * @class
@@ -65,16 +65,16 @@ module.exports = class Privilegio {
      * @throws {Error} - Si no se ha proporcionado una descripción de Privilegio
      */
     save() {
-        if (!this.nombrePrivilegio) 
+        if (!this.nombrePrivilegio)
             throw new Error("No se ha proporcionado nombre de privilegio")
         if (!this.descripcionPrivilegio)
             throw new Error("No se ha proporcionado una descripción de privilegio")
 
         return dataBase.query(
             "insert into Privilegio (nombrePrivilegio, descripcionPrivilegio) values (?, ?)", [
-                this.nombrePrivilegio,
-                this.descripcionPrivilegio
-            ]
+            this.nombrePrivilegio,
+            this.descripcionPrivilegio
+        ]
         )
     }
 
@@ -85,7 +85,7 @@ module.exports = class Privilegio {
      * @throws {Error} - Si no se envia el id de privilegio
      */
     static async verify(Privilegio) {
-        if (!Privilegio.idPrivilegio) 
+        if (!Privilegio.idPrivilegio)
             throw new Error("No se ha proporcionado un id de privilegio")
 
         const [privilegio] = await dataBase.query(
@@ -106,11 +106,11 @@ module.exports = class Privilegio {
     async verify() {
         if (!this.nombrePrivilegio) throw new Error("No se ha proporcionado un nombrePrivilegio");
         if (this.nombrePrivilegio.length > 50)
-        throw new Error("El nombrePrivilegio es muy largo");
+            throw new Error("El nombrePrivilegio es muy largo");
 
         if (!this.descripcionPrivilegio) throw new Error("No se ha proporcionado una descripcionPrivilegio");
         if (this.nombrePrivilegio.length > 200)
-        throw new Error("El nombrePrivilegio es muy largo");
+            throw new Error("El nombrePrivilegio es muy largo");
 
         const [privilegio] = await dataBase.query(
             "select * from Privilegio where nombrePrivilegio = ? and descripcionPrivilegio = ?",
@@ -131,11 +131,11 @@ module.exports = class Privilegio {
     async deleteByID(idPrivilegio) {
         if (!idPrivilegio) throw new Error("No se envio el ID");
         if (typeof idPrivilegio !== "number")
-        throw new Error("El ID debe ser un numero");
+            throw new Error("El ID debe ser un numero");
 
         const result = await dataBase.query(
-        `delete from Privilegio where idPrivilegio = $1`,
-        [idPrivilegio]
+            `delete from Privilegio where idPrivilegio = $1`,
+            [idPrivilegio]
         );
 
         return result.rowCount > 0;
