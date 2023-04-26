@@ -49,9 +49,15 @@ exports.getLanding = async (req, res) => {
     );
   });
 
-  res.render("Static/index.ejs", {
-    sprint: sprints,
-  });
+
+
+
+  res.render(
+    path.join(__dirname, "../Views/Static/index.ejs"),
+    {
+      sprint: sprints,
+    }
+  );
 };
 
 /**
