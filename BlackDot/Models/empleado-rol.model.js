@@ -33,7 +33,7 @@ module.exports = class EmpleadoRol {
     if (!idRol) throw new Error("No se ha proporcionado un ID de rol")
 
     const [rol] = await dataBase.query(
-      "select * from EmpleadoRol where idRol = ?",
+      "select * from empleadorol where idRol = ?",
       [idRol]
     )
 
@@ -50,7 +50,7 @@ module.exports = class EmpleadoRol {
     if (!idEmpleado) throw new Error("No se ha proporcionado un ID de empleado")
 
     const [empleado] = await dataBase.query(
-      "select * from EmpleadoRol where idEmpleado = ?",
+      "select * from empleadorol where idEmpleado = ?",
       [idEmpleado]
     )
 
@@ -72,7 +72,7 @@ module.exports = class EmpleadoRol {
 
     if (!this.idRol) throw new Error("No se ha proporcionado un ID de rol")
 
-    const query = `insert into EmpleadoRol (idEmpleado, idRol) values (?,?)`
+    const query = `insert into empleadorol (idEmpleado, idRol) values (?,?)`
     const [rows, _] = await dataBase.execute(query, [
       this.idEmpleado,
       this.idRol,
@@ -85,7 +85,7 @@ module.exports = class EmpleadoRol {
    * @returns {EmpleadoRol[]} - Arreglo de objetos de tipo empleadoRol
    */
   static async getAll() {
-    const query = `select * from EmpleadoRol`
+    const query = `select * from empleadorol`
     const [rows, _] = await dataBase.execute(query)
 
     return rows
@@ -117,7 +117,7 @@ module.exports = class EmpleadoRol {
   async update() {
     if (!this) throw new Error("No se ha proporcionado un empleadoRol")
 
-    const query = `UPDATE EmpleadoRol SET idRol = ? WHERE idEmpleado = ?`
+    const query = `UPDATE empleadorol SET idRol = ? WHERE idEmpleado = ?`
     const [result] = await dataBase.execute(query, [
       this.idRol,
       this.idEmpleado,
@@ -137,7 +137,7 @@ module.exports = class EmpleadoRol {
   static async deleteById(idEmpleado) {
     if (!idEmpleado) throw new Error("No se ha proporcionado un idEmpleado")
 
-    const query = `DELETE FROM EmpleadoRol WHERE idEmpleado = ?`
+    const query = `DELETE FROM empleadorol WHERE idEmpleado = ?`
     const [result] = await dataBase.execute(query, [idEmpleado])
 
     return result

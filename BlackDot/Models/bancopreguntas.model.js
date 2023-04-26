@@ -33,7 +33,7 @@ module.exports = class BancoPregunta {
     if (!idPreguntaBanco) throw new Error("No se ha proporcionado un ID")
 
     const [pregunta] = await dataBase.query(
-      "select * from BancoPreguntas where idPreguntaBanco = ?",
+      "select * from bancopreguntas where idPreguntaBanco = ?",
       [idPreguntaBanco]
     )
 
@@ -62,7 +62,7 @@ module.exports = class BancoPregunta {
       throw new Error("El ID debe ser un numero entero")
 
     const result = await dataBase.query(
-      `delete from bancoPreguntas where idPreguntaBanco = ?`,
+      `delete from bancopreguntas where idPreguntaBanco = ?`,
       [idPreguntaBanco]
     )
 
@@ -75,7 +75,7 @@ module.exports = class BancoPregunta {
    * @returns {Promise<Pregunta[]>} - Arreglo de objetos de tipo Pregunta
    */
   static async getAll() {
-    const [preguntas, _] = await dataBase.query("select * from BancoPreguntas")
+    const [preguntas, _] = await dataBase.query("select * from bancopreguntas")
 
     return preguntas
   }
@@ -95,7 +95,7 @@ module.exports = class BancoPregunta {
     if (!this.tipoPregunta)
       throw new Error("No se ha proporcionado el tipo de Pregunta")
 
-    const query = `insert into BancoPreguntas (contenido, tipoPregunta) values(?, ?)`
+    const query = `insert into bancopreguntas (contenido, tipoPregunta) values(?, ?)`
     const result = await dataBase.query(query, [
       this.contenido,
       this.tipoPregunta,
@@ -124,7 +124,7 @@ module.exports = class BancoPregunta {
     if (!this.tipoPregunta)
       throw new Error("No se ha proporcionado el tipo de Pregunta")
 
-    const query = `update BancoPreguntas set contenido = ?, tipoPregunta = ? where idPreguntaBanco = ?`
+    const query = `update bancopreguntas set contenido = ?, tipoPregunta = ? where idPreguntaBanco = ?`
     const result = await dataBase.query(query, [
       this.contenido,
       this.tipoPregunta,
@@ -155,7 +155,7 @@ module.exports = class BancoPregunta {
       throw new Error("No se ha proporcionado el tipo de Pregunta")
 
     const [pregunta] = await dataBase.query(
-      "select * from BancoPreguntas where contenido = ? and tipoPregunta = ?",
+      "select * from bancopreguntas where contenido = ? and tipoPregunta = ?",
       [this.contenido, this.tipoPregunta]
     )
 

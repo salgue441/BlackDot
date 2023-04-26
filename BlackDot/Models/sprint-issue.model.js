@@ -34,7 +34,7 @@ module.exports = class SprintIssue {
     if (!idIssue) throw new Error("No se ha proporcionado un ID de issue")
 
     const [issue] = await dataBase.query(
-      "select * from SprintIssue where idIssue = ?",
+      "select * from sprintissue where idIssue = ?",
       [idIssue]
     )
 
@@ -51,7 +51,7 @@ module.exports = class SprintIssue {
     if (!idSprint) throw new Error("No se ha proporcionado un ID de sprint")
 
     const [sprint, _] = await dataBase.query(
-      "select * from SprintIssue where idSprint = ?",
+      "select * from sprintissue where idSprint = ?",
       [idSprint]
     )
 
@@ -81,7 +81,7 @@ module.exports = class SprintIssue {
     if (!this.idSprint) throw new Error("No se ha proporcionado un ID de sprint")
 
     const [sprintissue, _] = await dataBase.query(
-      "insert into SprintIssue (idIssue, idSprint) values (?, ?) on duplicate key update idSprint = ?",
+      "insert into sprintissue (idIssue, idSprint) values (?, ?) on duplicate key update idSprint = ?",
       [this.idIssue, this.idSprint, this.idSprint]
     )
 

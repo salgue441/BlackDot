@@ -38,7 +38,7 @@ module.exports = class Cualitativa {
    * @returns {object} - Objeto de tipo Cualitativa
    */
   static async getByID(idCualitativa) {
-    const query = `select * from Cualitativa where idCualitativa = ?`;
+    const query = `select * from cualitativa where idCualitativa = ?`;
     const [rows] = await dataBase.execute(query, [idCualitativa]);
 
     if (rows.length === 0)
@@ -53,7 +53,7 @@ module.exports = class Cualitativa {
    * @returns {Promise<Cualitativa[]>} - Arreglo de objetos de tipo Cualitativa
    */
   static async getAll() {
-    const [rows, _] = await dataBase.execute("select * from Cualitativa")
+    const [rows, _] = await dataBase.execute("select * from cualitativa")
 
     return rows
   }
@@ -65,7 +65,7 @@ module.exports = class Cualitativa {
    */
 
   static async getLastid() {
-    const query = `select idCualitativa from Cualitativa order by idCualitativa desc limit 1`;
+    const query = `select idCualitativa from cualitativa order by idCualitativa desc limit 1`;
     const [idCualitativa, _] = await dataBase.execute(query);
 
     const id = idCualitativa[0].idCualitativa;
@@ -79,7 +79,7 @@ module.exports = class Cualitativa {
    * @returns {Promise<Cualitativa>} - Query de la respuesta cualitativa guardada
    */
   async save() {
-    const query = `insert into Cualitativa(contenido, idPregunta, idRetroalimentacion) values (?, ?, ?)`;
+    const query = `insert into cualitativa(contenido, idPregunta, idRetroalimentacion) values (?, ?, ?)`;
 
     const [result] = await dataBase.execute(query, [
       this.contenido,
@@ -105,7 +105,7 @@ module.exports = class Cualitativa {
    * @returns {Promise<void>} - Query de la respuesta cualitativa eliminada
    */
   static async deleteByID(idCualitativa) {
-    const query = `delete from Cualitativa where idCualitativa = ?`;
+    const query = `delete from cualitativa where idCualitativa = ?`;
 
     await dataBase.execute(query, [idCualitativa]);
   }
@@ -115,7 +115,7 @@ module.exports = class Cualitativa {
    * Actualiza el contenido de la respuesta
    */
   async update(Cualitativa) {
-    const query = `update Cualitativa set contenido = ? where idCualitativa = ?`;
+    const query = `update cualitativa set contenido = ? where idCualitativa = ?`;
 
     await dataBase.execute(query, [Cualitativa.contenido, this.idCualitativa]);
     this.contenido = Cualitativa.contenido;

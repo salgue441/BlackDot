@@ -76,7 +76,7 @@ module.exports = class SprintEpica {
 
 
       const [sprintEpica, _] = await dataBase.query(
-        "insert into sprintEpica (idEpica, idSprint) values (?, ?)",
+        "insert into sprintepica (idEpica, idSprint) values (?, ?)",
         [this.idEpica, this.idSprint]
       )
 

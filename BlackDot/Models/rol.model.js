@@ -36,7 +36,7 @@ module.exports = class Rol {
   static async getByID(idRol) {
     if (!idRol) throw new Error("No se ha proporcionado un ID")
 
-    const [rol] = await dataBase.query("select * from Rol where idRol = ?", [
+    const [rol] = await dataBase.query("select * from rol where idRol = ?", [
       idRol,
     ])
 
@@ -49,7 +49,7 @@ module.exports = class Rol {
    * @returns {Promise<Rol[]>} - Arreglo de objetos de tipo Rol
    */
   static async getAll() {
-    const [roles, _] = await dataBase.query("select * from Rol")
+    const [roles, _] = await dataBase.query("select * from rol")
 
     return roles
   }
@@ -63,7 +63,7 @@ module.exports = class Rol {
   save() {
     if (!this.nombreRol) throw new Error("No se ha proporcionado nombre de rol")
 
-    return dataBase.query("insert into Rol (nombreRol) values (?)", [
+    return dataBase.query("insert into rol (nombreRol) values (?)", [
       this.nombreRol,
     ])
   }
@@ -80,7 +80,7 @@ module.exports = class Rol {
     if (this.nombreRol.length > 25) throw new Error("El nombreRol es muy largo")
 
     const [rol] = await dataBase.query(
-      "select * from Rol where nombreRol = ?",
+      "select * from rol where nombreRol = ?",
       [this.nombreRol]
     )
 
@@ -99,7 +99,7 @@ module.exports = class Rol {
     if (!idRol) throw new Error("No se envio el ID")
     if (typeof idRol !== "number") throw new Error("El ID debe ser un numero")
 
-    const result = await dataBase.query(`delete from Rol where idRol = $1`, [
+    const result = await dataBase.query(`delete from rol where idRol = ?`, [
       idRol,
     ])
 

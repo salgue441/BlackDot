@@ -33,7 +33,7 @@ module.exports = class RolPrivilegio {
         if (!idPrivilegio) throw new Error("No se ha proporcionado un ID de privilegio")
 
         const [privilegio] = await dataBase.query(
-            "select * from RolPrivilegio where idPrivilegio = ?",
+            "select * from rolprivilegio where idPrivilegio = ?",
             [idPrivilegio]
         )
 
@@ -50,7 +50,7 @@ module.exports = class RolPrivilegio {
         if (!idRol) throw new Error("No se ha proporcionado un ID de rol")
 
         const [rol] = await dataBase.query(
-            "select * from RolPrivilegio where idRol = ?",
+            "select * from rolprivilegio where idRol = ?",
             [idRol]
         )
 
@@ -63,7 +63,7 @@ module.exports = class RolPrivilegio {
      * @returns {Promise<RolPrivilegio[]>} - Arreglo de objetos de tipo RolPrivilegio
      */
     static async getAll() {
-        const rolprivilegio = await dataBase.query("select * from RolPrivilegio")
+        const rolprivilegio = await dataBase.query("select * from rolprivilegio")
 
         return rolprivilegio.map((rolprivilegio) => new RolPrivilegio(rolprivilegio))
     }
