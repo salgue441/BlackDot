@@ -51,24 +51,43 @@ exports.getRegistrarAprobacion = async (req, res) => {
 
 exports.saveAccionable = async (req, res) => {
   const { idsAccionables } = req.body;
-  const { createAccionable } = require('../Utils/jiraIssues.api')
+  const { createAccionable } = require("../Utils/jiraIssues.api");
 
   try {
     for (let i = 0; i < idsAccionables.length; i++) {
-      const idAccionable = idsAccionables[i]
-      const accionable = await Accionable.getbyId(idAccionable)
+      const idAccionable = idsAccionables[i];
+      const accionable = await Accionable.getbyId(idAccionable);
 
-      accionable.estadoAccionable = 'Aprobado'
-      await accionable.updateEstadoAprobado()
+      accionable.estadoAccionable = "Aprobado";
+      await accionable.updateEstadoAprobado();
 
-      if (accionable.estadoAccionable === 'Aprobado') {
-        await createAccionable(accionable)
+      if (accionable.estadoAccionable === "Aprobado") {
+        await createAccionable(accionable);
       }
     }
 
-    res.status(200).json({ message: 'Accinoables saved successfully' });
+    res.status(200).json({ message: "Accinoables saved successfully" });
   } catch (error) {
-    console.log(error)
+    console.log(error);
     return res.status(500).json({ message: error.message });
+  }
+};
+
+/** 
+ * @brief
+ * Error view when there is no actionable available
+ * @param {Request} req - Request object
+ * @param {Response} res - Response object
+ * @returns {Response} - Response object
+ * @throws {Error} - Error message
+ **/
+
+exports.getNoAccionable = (req, res) => {
+  try {
+    res.render(path.join(__dirname, "../Views/Static/actual/noAccionable.ejs"));
+  } catch (error) {
+    res.status(500).json({
+      message: error.message || "Error al obtener vista de error",
+    });
   }
 };
