@@ -37,7 +37,7 @@ module.exports = class SprintEpica {
   static async getByIDE(idEpica) {
     if (!idEpica) throw new Error("No se ha proporcionado un ID");
     const epica = await dataBase.query(
-      "select * from sprintepica where idEpica = ?",
+      "select * from sprintEpica where idEpica = ?",
       [idEpica]
     );
     return new SprintEpica(epica);
@@ -46,7 +46,7 @@ module.exports = class SprintEpica {
   static async getByIDS(idsprint) {
     if (!idsprint) throw new Error("No se ha proporcionado un ID");
     const [sprint, _] = await dataBase.query(
-      "select * from sprintepica where idSprint = ?",
+      "select * from sprintEpica where idSprint = ?",
       [idsprint]
     );
 
@@ -64,7 +64,7 @@ module.exports = class SprintEpica {
    */
 
   static async getAll() {
-    const [epicas, _] = await dataBase.query("select * from sprintepica");
+    const [epicas, _] = await dataBase.query("select * from sprintEpica");
     return epicas
   }
 
@@ -76,7 +76,7 @@ module.exports = class SprintEpica {
 
 
       const [sprintEpica, _] = await dataBase.query(
-        "insert into sprintepica (idEpica, idSprint) values (?, ?)",
+        "insert into sprintEpica (idEpica, idSprint) values (?, ?)",
         [this.idEpica, this.idSprint]
       )
 

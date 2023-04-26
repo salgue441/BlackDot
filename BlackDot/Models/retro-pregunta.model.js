@@ -36,7 +36,7 @@ class retroPregunta {
    * @return {* } retroPreguntas entities
    */
   static async getByRetroalimentacion(idRetroalimentacion) {
-    const query = `select * from retroalimentacionpregunta 
+    const query = `select * from retroalimentacionPregunta 
                    where idRetroalimentacion = ?`
 
     const retro = await dataBase.query(query, [idRetroalimentacion])
@@ -54,7 +54,7 @@ class retroPregunta {
    */
 
   static async getIdsPreguntas(idRetroalimentacion) {
-    const query = `select idPregunta from retroalimentacionpregunta
+    const query = `select idPregunta from retroalimentacionPregunta
                   where idRetroalimentacion = ?`
 
     const [idsPreguntas, _] = await dataBase.query(query, [idRetroalimentacion])
@@ -76,7 +76,7 @@ class retroPregunta {
    * @return {* } retroPreguntas entities
    */
   static async getByPregunta(idPregunta) {
-    const query = `select * from retroalimentacionpregunta 
+    const query = `select * from retroalimentacionPregunta 
                    where idPregunta = ?`
 
     const retro = await dataBase.query(query, [idPregunta])
@@ -97,10 +97,10 @@ class retroPregunta {
           pregunta.contenido as Pregunta, 
           cualitativa.contenido
         from retroalimentacion
-        join retroalimentacionpregunta on retroalimentacion.idRetroalimentacion = retroalimentacionpregunta.idPregunta
-        join pregunta on retroalimentacionpregunta.idPregunta = pregunta.idPregunta
-        join cualitativa on retroalimentacionpregunta.idPregunta = cualitativa.idPregunta
-        and retroalimentacionpregunta.idRetroalimentacion = cualitativa.idRetroalimentacion 
+        join retroalimentacionPregunta on retroalimentacion.idRetroalimentacion = retroalimentacionPregunta.idPregunta
+        join pregunta on retroalimentacionPregunta.idPregunta = pregunta.idPregunta
+        join cualitativa on retroalimentacionPregunta.idPregunta = cualitativa.idPregunta
+        and retroalimentacionPregunta.idRetroalimentacion = cualitativa.idRetroalimentacion 
         where pregunta.tipoPregunta = 'Cualitativa';
 `
 
@@ -129,9 +129,9 @@ class retroPregunta {
           cualitativa.contenido,
           retroalimentacion.fechaFinalizacion
         from retroalimentacion 
-        join retroalimentacionpregunta on retroalimentacion.idRetroalimentacion = retroalimentacionpregunta.idRetroalimentacion 
-        join pregunta on retroalimentacionpregunta.idPregunta = pregunta.idPregunta 
-        join cualitativa on retroalimentacionpregunta.idPregunta = cualitativa.idPregunta and retroalimentacion.idRetroalimentacion = cualitativa.idRetroalimentacion 
+        join retroalimentacionPregunta on retroalimentacion.idRetroalimentacion = retroalimentacionPregunta.idRetroalimentacion 
+        join pregunta on retroalimentacionPregunta.idPregunta = pregunta.idPregunta 
+        join cualitativa on retroalimentacionPregunta.idPregunta = cualitativa.idPregunta and retroalimentacion.idRetroalimentacion = cualitativa.idRetroalimentacion 
         where pregunta.tipoPregunta = 'Cualitativa' 
         and retroalimentacion.idRetroalimentacion = ?;`
 
@@ -161,9 +161,9 @@ class retroPregunta {
           cuantitativa.contenido,
           retroalimentacion.fechaFinalizacion
         from retroalimentacion 
-        join retroalimentacionpregunta on retroalimentacion.idRetroalimentacion = retroalimentacionpregunta.idRetroalimentacion 
+        join retroalimentacionPregunta on retroalimentacion.idRetroalimentacion = retroalimentacionPregunta.idRetroalimentacion 
         join pregunta on retroalimentacionpregunta.idPregunta = pregunta.idPregunta 
-        join cuantitativa on retroalimentacionpregunta.idPregunta = cuantitativa.idPregunta and retroalimentacion.idRetroalimentacion = cuantitativa.idRetroalimentacion 
+        join cuantitativa on retroalimentacionPregunta.idPregunta = cuantitativa.idPregunta and retroalimentacionPregunta.idRetroalimentacion = cuantitativa.idRetroalimentacion 
         where pregunta.tipoPregunta = 'Cuantitativa';`
 
       const [quantitatives, _] = await dataBase.query(query)
@@ -192,9 +192,9 @@ class retroPregunta {
           cuantitativa.contenido,
           retroalimentacion.fechaFinalizacion
         from retroalimentacion 
-        join retroalimentacionpregunta on retroalimentacion.idRetroalimentacion = retroalimentacionpregunta.idRetroalimentacion 
-        join pregunta on retroalimentacionpregunta.idPregunta = pregunta.idPregunta 
-        join cuantitativa on retroalimentacionpregunta.idPregunta = cuantitativa.idPregunta and retroalimentacion.idRetroalimentacion = cuantitativa.idRetroalimentacion 
+        join retroalimentacionPregunta on retroalimentacion.idRetroalimentacion = retroalimentacionPregunta.idRetroalimentacion 
+        join pregunta on retroalimentacionPregunta.idPregunta = pregunta.idPregunta 
+        join cuantitativa on retroalimentacionPregunta.idPregunta = cuantitativa.idPregunta and retroalimentacionPregunta.idRetroalimentacion = cuantitativa.idRetroalimentacion 
         where pregunta.tipoPregunta = 'Cuantitativa' 
         and retroalimentacion.idRetroalimentacion = ?;`
 
@@ -230,9 +230,9 @@ class retroPregunta {
           cualitativa.contenido,
           retroalimentacion.fechaFinalizacion
         from retroalimentacion 
-        join retroalimentacionpregunta on retroalimentacion.idRetroalimentacion = retroalimentacionpregunta.idRetroalimentacion 
-        join pregunta on retroalimentacionpregunta.idPregunta = pregunta.idPregunta 
-        join cualitativa on retroalimentacionpregunta.idPregunta = cualitativa.idPregunta and retroalimentacion.idRetroalimentacion = cualitativa.idRetroalimentacion 
+        join retroalimentacionPregunta on retroalimentacion.idRetroalimentacion = retroalimentacionPregunta.idRetroalimentacion 
+        join pregunta on retroalimentacionPregunta.idPregunta = pregunta.idPregunta 
+        join cualitativa on retroalimentacionPregunta.idPregunta = cualitativa.idPregunta and retroalimentacion.idRetroalimentacion = cualitativa.idRetroalimentacion 
         where pregunta.tipoPregunta = 'Cualitativa' 
         and retroalimentacionpregunta.idPregunta = ?;  
       `
@@ -253,7 +253,7 @@ class retroPregunta {
    * */
 
   async save() {
-    const query = `insert into retroalimentacionpregunta (idRetroalimentacion, idPregunta) values (?, ?)`
+    const query = `insert into retroalimentacionPregunta (idRetroalimentacion, idPregunta) values (?, ?)`
 
     const retro = await dataBase.query(query, [
       this.idRetroalimentacion,
