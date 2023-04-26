@@ -23,7 +23,7 @@ const Token = require('../Models/token.model')
  * @throws {Error} returns to /auth 
  */
 const createTokenLogin = (data) => {
-    console.log("token login creado")
+    //console.log("token login creado")
 
     return jwt.sign(data, process.env.JWT_LOGIN, {
         expiresIn: "300s",
@@ -41,7 +41,7 @@ const createTokenLogin = (data) => {
 const createRefreshToken = (data) => {
     data.createdAt = Date.now()
 
-    console.log("token refresh creado")
+    //console.log("token refresh creado")
 
     let tokenRefreshed =  jwt.sign(data, process.env.JWT_REFRESH, {
         expiresIn: "8h",
