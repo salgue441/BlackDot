@@ -33,9 +33,9 @@ module.exports = class Sprint {
     this.state = Sprint.state || "To Do"
     this.boardID = Sprint.boardID || 0
     this.fechaCreacion = Sprint.fechaCreacion
-      || new Date().toISOString().slice(0, 19).replace('T', ' ')
+      || new Date()
     this.fechaFinalizacion = Sprint.fechaFinalizacion
-      || new Date().toISOString().slice(0, 19).replace('T', ' ')
+      || new Date()
   }
 
   /**

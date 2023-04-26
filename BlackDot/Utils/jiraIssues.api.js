@@ -455,8 +455,8 @@ exports.saveIssuesToDB = async () => {
           sprintName: sprint.sprintName,
           state: sprint.sprintState,
           boardID: sprint.originBoardID,
-          fechaCreacion: sprint.sprintStartDate,
-          fechaFinalizacion: sprint.sprintEndDate,
+          fechaCreacion: new Date(sprint.sprintStartDate),
+          fechaFinalizacion: new Date(sprint.sprintEndDate),
         });
 
         const savedSprint = await newSprint.save();
