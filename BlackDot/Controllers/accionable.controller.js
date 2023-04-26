@@ -84,7 +84,7 @@ exports.saveAccionable = async (req, res) => {
 
 exports.getNoAccionable = (req, res) => {
   try {
-    res.render(path.join(__dirname, "../Views/Static/actual/noAccionable.ejs"));
+    res.render(path.join(__dirname, "../Views/Static/NoAvailable.ejs"));
   } catch (error) {
     res.status(500).json({
       message: error.message || "Error al obtener vista de error",
