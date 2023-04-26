@@ -36,8 +36,10 @@ exports.getRegistrarAprobacion = async (req, res) => {
       (item) => item.estadoAccionable === "No aprobado"
     );
 
-    if(filterAccionables.length === 0) return res.render(path.join(__dirname, "../Views/Static/NoAvailable.ejs"));
-
+    if (filterAccionables.length === 0)
+      return res.render(
+        path.join(__dirname, "../Views/Static/NoAvailable.ejs")
+      );
 
     res.render(
       path.join(__dirname, "../Views/Static/actual/aprobarAccionable.ejs"),

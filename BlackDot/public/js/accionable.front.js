@@ -8,60 +8,45 @@
  * @copyright Copyright (c) 2023 - MIT License
  */
 
- let idsAccionables = []
- 
+let idsAccionables = [];
 
 /**
  * @brief
  * Handles the state of Checkboxes
  */
- function handleCheckBox() {
-  const checkboxes = document.querySelectorAll(
-    'input[type="checkbox"][name = "accionable"]'
-  )
-  const input = document.getElementById('selected-accionables')
+
+function handleCheckBox(accionableId) {
+  const checkboxes = document.querySelectorAll(`checkbox-${accionableId}`);
 
   for (let i = 0; i < checkboxes.length; i++) {
-    const checkbox = checkboxes[i]
-    const id = checkbox.id.split('-').pop()
-    const isChecked = checkbox.checked
+    const checkbox = checkboxes[i];
+    const id = checkbox.id.split("-").pop();
+    const isChecked = checkbox.checked;
 
     if (isChecked) {
-      idsAccionables.push(id)
-      input.value = idsAccionables.join(',')
+      console.log("Checked");
     } else {
-      idsAccionables = idsAccionables.filter((item) => item !== id)
-      input.value = idsAccionables.join(',')
+      console.log("Unchecked");
     }
   }
-
-  $.ajax({
-    url: '/actual/admin/saveAccionables',
-    method: 'POST',
-    data: {idsAccionables},
-    success: function(data) {
-      console.log(data)
-    },
-    error: function(error) {
-      console.log(error)
-    }
-  })
 }
 
+function saveAccionables() {
+  const selectedAccionablesInput = document.getElementById(
+    "selected-accionables"
+  );
+  const selectedAccionables = selectedAccionablesInput.value.split(",");
 
-const aceptarAccionable = async () => {
-  const selectedAccionablesInput = document.getElementById('selected-accionables')
-  const selectedAccionables = selectedAccionablesInput.value.split(',')
-
-  try {
-    const response = await $.ajax({
-      url: '/actual/admin/saveAccionables',
-      method: 'POST',
-      data: { idsAccionables: selectedAccionables },
-    })
-
-    console.log(response)
-  } catch (error) {
-    console.log(error)
-  }
+  // Make the AJAX request to save the selected accionables
+  $.ajax({
+    url: "/historico/historicoAccionables",
+    method: "POST",
+    data: { idsAccionables: selectedAccionables },
+    success: function (data) {
+      console.log(data);
+    },
+    error: function (error) {
+      console.log(error);
+    },
+  });
 }
