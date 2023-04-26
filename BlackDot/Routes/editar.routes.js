@@ -34,4 +34,6 @@ router.get("/empleados/aceptar", usuario.getRegistrarUsuario)
 router.post("/empleados/aceptar", usuario.postAceptarUsuario)
 router.post("/empleados/rechazar", usuario.postRechazarUsuario)
 
+router.get("/empleados/eliminar/:id", usuario.getEliminarUsuario)
+
 module.exports = router
