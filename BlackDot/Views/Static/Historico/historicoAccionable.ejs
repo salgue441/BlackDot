@@ -3,8 +3,8 @@
 
   <body>
     <%- include('../../Include/Navbar.ejs') %>
-    <section class="hero is-medium is-bold">
-      <div class="hero-body has-text-centered">
+    <section class="section is-medium is-bold">
+      <div class="has-text-centered">
         <!-- Title & Button to Accept -->
         <div class="columns">
           <div class="column is-half is-flex">
@@ -25,13 +25,15 @@
       </div>
       <!-- End of Title & Button -->
 
+      <br />  
+      <br />  
       <!-- Accionables -->
       <div class="columns is-multiline">
         <% accionables.forEach((accionable) => { %> <%
         if(accionable.nombreAccionable !== '') { %>
         <div class="column is-4">
           <div
-            class="box is-flex is-flex-direction-column is-justify-content-center"
+            class="box is-flex is-flex-direction-column is-justify-content-center accionable"
           >
             <div class="content">
               <p><%= accionable.nombreAccionable %></p>
@@ -55,11 +57,7 @@
 
 <style>
   .accionable {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100px;
-    text-align: left;
+    top: 20rem !important;
   }
 
   .EstadoNoAprobado {
