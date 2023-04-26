@@ -37,22 +37,28 @@ function handleCheckBox(accionableId) {
   console.log(idsAccionables);
 }
 
-function saveAccionables() {
+async function saveAccionables() {
   try {
     const selectedAccionables = idsAccionables;
     console.log(selectedAccionables);
 
-    $.ajax({
-      url: "/actual/admin/saveAccionables",
-      method: "POST",
-      data: { idsAccionables: selectedAccionables },
-      success: function (data) {
-        console.log(data);
-      },
-      error: function (error) {
-        console.log(error);
-      },
+    await new Promise((resolve, reject) => {
+      $.ajax({
+        url: "/actual/admin/saveAccionables",
+        method: "POST",
+        data: { idsAccionables: selectedAccionables },
+        success: function (data) {
+          console.log(data);
+          resolve(); // Resolve the promise when the AJAX request is successful
+        },
+        error: function (error) {
+          console.log(error);
+          reject(error); // Reject the promise if there's an error in the AJAX request
+        },
+      });
     });
+
+    window.location.href = "/historico/historicoAccionables";
   } catch (error) {
     console.log(error);
   }

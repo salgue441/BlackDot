@@ -70,6 +70,8 @@ exports.saveAccionable = async (req, res) => {
       }
     }
 
+    console.log("Accionables saved successfully");
+
     res.status(200).json({ message: "Accinoables saved successfully" });
   } catch (error) {
     console.log(error);
