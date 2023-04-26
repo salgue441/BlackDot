@@ -32,10 +32,12 @@ module.exports = class Sprint {
     this.sprintName = Sprint.sprintName || ""
     this.state = Sprint.state || "To Do"
     this.boardID = Sprint.boardID || 0
-    this.fechaCreacion = Sprint.fechaCreacion
-      || new Date().toISOString().slice(0, 19).replace('T', ' ')
-    this.fechaFinalizacion = Sprint.fechaFinalizacion
-      || new Date().toISOString().slice(0, 19).replace('T', ' ')
+    this.fechaCreacion =
+      Sprint.fechaCreacion ||
+      new Date().toISOString().slice(0, 19).replace("T", " ")
+    this.fechaFinalizacion =
+      Sprint.fechaFinalizacion ||
+      new Date().toISOString().slice(0, 19).replace("T", " ")
   }
 
   /**
@@ -48,13 +50,12 @@ module.exports = class Sprint {
   static async getbyID(id) {
     if (!id) throw new Error("No se envio el id")
 
-    const [sprint,_] = await dataBase.query(
-      "select * from Sprint where idSprint = ?",
+    const [sprint, _] = await dataBase.query(
+      "select * from sprint where idSprint = ?",
       [id]
     )
 
     return sprint
-
   }
 
   /**
@@ -64,7 +65,7 @@ module.exports = class Sprint {
    */
   static async getByJiraID(jiraID) {
     const [sprint] = await dataBase.query(
-      "select * from Sprint where jiraID = ?",
+      "select * from sprint where jiraID = ?",
       [jiraID]
     )
 
@@ -80,7 +81,7 @@ module.exports = class Sprint {
    */
 
   static async getAll() {
-    const [sprints, _] = await dataBase.query("select * from Sprint")
+    const [sprints, _] = await dataBase.query("select * from sprint")
     return sprints
   }
 
@@ -95,13 +96,12 @@ module.exports = class Sprint {
   static async getSprintActual() {
     const estado = "active"
     const [sprint, _] = await dataBase.query(
-      "select * from Sprint where state = ?",
+      "select * from sprint where state = ?",
       [estado]
     )
 
     return sprint
   }
-  
 
   /**
    * @brief
@@ -116,7 +116,7 @@ module.exports = class Sprint {
 
       if (existingSprint) {
         const [result, _] = await dataBase.query(
-          "UPDATE Sprint SET sprintName = ?, state = ?, boardID = ?, FechaCreacion = ?, FechaFinalizacion = ? WHERE jiraID = ?",
+          "UPDATE sprint SET sprintName = ?, state = ?, boardID = ?, fechaCreacion = ?, fechaFinalizacion = ? WHERE jiraID = ?",
           [
             this.sprintName,
             this.state,
@@ -132,11 +132,9 @@ module.exports = class Sprint {
         }
 
         this.idSprint = existingSprint.idSprint
-      }
-      else {
-
+      } else {
         const [result, _] = await dataBase.query(
-          "INSERT INTO Sprint (jiraID, sprintName, state, boardID, FechaCreacion, FechaFinalizacion) VALUES (?, ?, ?, ?, ?, ?)",
+          "INSERT INTO sprint (jiraID, sprintName, state, boardID, fechaCreacion, fechaFinalizacion) VALUES (?, ?, ?, ?, ?, ?)",
           [
             this.jiraID,
             this.sprintName,

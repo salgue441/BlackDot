@@ -36,7 +36,7 @@ class retroPregunta {
    * @return {* } retroPreguntas entities
    */
   static async getByRetroalimentacion(idRetroalimentacion) {
-    const query = `select * from retroalimentacionPregunta 
+    const query = `select * from retroalimentacionpregunta 
                    where idRetroalimentacion = ?`
 
     const retro = await dataBase.query(query, [idRetroalimentacion])
@@ -54,7 +54,7 @@ class retroPregunta {
    */
 
   static async getIdsPreguntas(idRetroalimentacion) {
-    const query = `select idPregunta from retroalimentacionPregunta
+    const query = `select idPregunta from retroalimentacionpregunta
                   where idRetroalimentacion = ?`
 
     const [idsPreguntas, _] = await dataBase.query(query, [idRetroalimentacion])
@@ -76,7 +76,7 @@ class retroPregunta {
    * @return {* } retroPreguntas entities
    */
   static async getByPregunta(idPregunta) {
-    const query = `select * from retroalimentacionPregunta 
+    const query = `select * from retroalimentacionpregunta 
                    where idPregunta = ?`
 
     const retro = await dataBase.query(query, [idPregunta])
@@ -253,7 +253,7 @@ class retroPregunta {
    * */
 
   async save() {
-    const query = `insert into retroalimentacionPregunta (idRetroalimentacion, idPregunta) values (?, ?)`
+    const query = `insert into retroalimentacionpregunta (idRetroalimentacion, idPregunta) values (?, ?)`
 
     const retro = await dataBase.query(query, [
       this.idRetroalimentacion,

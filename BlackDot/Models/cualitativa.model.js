@@ -8,7 +8,7 @@
  * @copyright Copyright (c) 2023 - MIT License
  */
 
-const dataBase = require("../utils/dataBase");
+const dataBase = require("../utils/dataBase")
 
 /**
  * @class
@@ -25,10 +25,10 @@ module.exports = class Cualitativa {
    * @param {*} Cualitativa - Objeto de tipo Cualitativa
    */
   constructor(Cualitativa) {
-    this.idCualitativa = Cualitativa.idCualitativa;
-    this.contenido = Cualitativa.contenido;
-    this.idPregunta = Cualitativa.idPregunta;
-    this.idRetroalimentacion = Cualitativa.idRetroalimentacion;
+    this.idCualitativa = Cualitativa.idCualitativa
+    this.contenido = Cualitativa.contenido
+    this.idPregunta = Cualitativa.idPregunta
+    this.idRetroalimentacion = Cualitativa.idRetroalimentacion
   }
 
   /**
@@ -38,13 +38,13 @@ module.exports = class Cualitativa {
    * @returns {object} - Objeto de tipo Cualitativa
    */
   static async getByID(idCualitativa) {
-    const query = `select * from Cualitativa where idCualitativa = ?`;
-    const [rows] = await dataBase.execute(query, [idCualitativa]);
+    const query = `select * from cualitativa where idCualitativa = ?`
+    const [rows] = await dataBase.execute(query, [idCualitativa])
 
     if (rows.length === 0)
-      throw new Error("Respuesta cualitativa no encontrada");
+      throw new Error("Respuesta cualitativa no encontrada")
 
-    return new Cualitativa(rows[0]);
+    return new Cualitativa(rows[0])
   }
 
   /**
@@ -53,7 +53,7 @@ module.exports = class Cualitativa {
    * @returns {Promise<Cualitativa[]>} - Arreglo de objetos de tipo Cualitativa
    */
   static async getAll() {
-    const [rows, _] = await dataBase.execute("select * from Cualitativa")
+    const [rows, _] = await dataBase.execute("select * from cualitativa")
 
     return rows
   }
@@ -65,12 +65,12 @@ module.exports = class Cualitativa {
    */
 
   static async getLastid() {
-    const query = `select idCualitativa from Cualitativa order by idCualitativa desc limit 1`;
-    const [idCualitativa, _] = await dataBase.execute(query);
+    const query = `select idCualitativa from cualitativa order by idCualitativa desc limit 1`
+    const [idCualitativa, _] = await dataBase.execute(query)
 
-    const id = idCualitativa[0].idCualitativa;
+    const id = idCualitativa[0].idCualitativa
 
-    return id;
+    return id
   }
 
   /**
@@ -79,15 +79,15 @@ module.exports = class Cualitativa {
    * @returns {Promise<Cualitativa>} - Query de la respuesta cualitativa guardada
    */
   async save() {
-    const query = `insert into Cualitativa(contenido, idPregunta, idRetroalimentacion) values (?, ?, ?)`;
+    const query = `insert into cualitativa(contenido, idPregunta, idRetroalimentacion) values (?, ?, ?)`
 
     const [result] = await dataBase.execute(query, [
       this.contenido,
       this.idPregunta,
       this.idRetroalimentacion,
-    ]);
+    ])
 
-    this.idCualitativa = result.insertId;
+    this.idCualitativa = result.insertId
   }
 
   /**
@@ -105,9 +105,9 @@ module.exports = class Cualitativa {
    * @returns {Promise<void>} - Query de la respuesta cualitativa eliminada
    */
   static async deleteByID(idCualitativa) {
-    const query = `delete from Cualitativa where idCualitativa = ?`;
+    const query = `delete from cualitativa where idCualitativa = ?`
 
-    await dataBase.execute(query, [idCualitativa]);
+    await dataBase.execute(query, [idCualitativa])
   }
 
   /**
@@ -115,11 +115,11 @@ module.exports = class Cualitativa {
    * Actualiza el contenido de la respuesta
    */
   async update(Cualitativa) {
-    const query = `update Cualitativa set contenido = ? where idCualitativa = ?`;
+    const query = `update cualitativa set contenido = ? where idCualitativa = ?`
 
-    await dataBase.execute(query, [Cualitativa.contenido, this.idCualitativa]);
-    this.contenido = Cualitativa.contenido;
+    await dataBase.execute(query, [Cualitativa.contenido, this.idCualitativa])
+    this.contenido = Cualitativa.contenido
 
-    return this;
+    return this
   }
-};
+}

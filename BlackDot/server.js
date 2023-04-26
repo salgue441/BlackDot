@@ -20,7 +20,7 @@ const bodyparser = require("body-parser")
 const cookieParser = require("cookie-parser")
 
 // Model
-const Accionable = require("./models/Accionable.model")
+const Accionable = require("./Models/accionable.model")
 
 // Dotenv config
 require("dotenv").config()

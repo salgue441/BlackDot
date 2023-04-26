@@ -8,8 +8,7 @@
  * @copyright Copyright (c) 2023 - MIT License
  */
 
-const dataBase = require("../utils/dataBase");
-
+const dataBase = require("../utils/dataBase")
 
 /**
  * @class
@@ -39,7 +38,7 @@ module.exports = class Cuantitativa {
    * @returns {object} - Objeto de tipo Cuantitativa
    */
   static async getByID(idCuantitativa) {
-    const query = `select * from Cuantitativa where idCuantitativa = ?`
+    const query = `select * from cuantitativa where idCuantitativa = ?`
     const [rows] = await dataBase.execute(query, [idCuantitativa])
 
     if (rows.length === 0)
@@ -66,7 +65,7 @@ module.exports = class Cuantitativa {
    * @returns {Promise<Cuantitativa>} - Query de la respuesta Cuantitativa guardada
    */
   async save() {
-    const query = `insert into Cuantitativa(contenido, idPregunta, idRetroalimentacion) values (?, ?, ?)`
+    const query = `insert into cuantitativa(contenido, idPregunta, idRetroalimentacion) values (?, ?, ?)`
 
     const [result] = await dataBase.execute(query, [
       this.contenido,
@@ -92,7 +91,7 @@ module.exports = class Cuantitativa {
    * @returns {Promise<void>} - Query de la respuesta Cuantitativa eliminada
    */
   static async deleteByID(idCuantitativa) {
-    const query = `delete from Cuantitativa where idCuantitativa = ?`
+    const query = `delete from cuantitativa where idCuantitativa = ?`
 
     await dataBase.execute(query, [idCuantitativa])
   }
@@ -103,7 +102,7 @@ module.exports = class Cuantitativa {
    * @param {*} Cuantitativa - Objeto de tipo Cuantitativa
    */
   async update(Cuantitativa) {
-    const query = `update Cuantitativa set contenido = ? where idCuantitativa = ?`
+    const query = `update cuantitativa set contenido = ? where idCuantitativa = ?`
 
     await dataBase.execute(query, [Cuantitativa.contenido, this.idCuantitativa])
 
