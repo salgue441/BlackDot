@@ -126,7 +126,7 @@ app.use("/editar", editar)
  * @returns {Function} - Callback function
  */
 app.get("*", (req, res) => {
-  res.render(path.join(__dirname, "/Views/404.ejs"),
+  res.render(path.join(__dirname, "/Views/Static/404.ejs"),
   )
 })
 
