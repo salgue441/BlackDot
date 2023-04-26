@@ -491,8 +491,8 @@ exports.saveIssuesToDB = async () => {
             labelIssue: issue.labels.join(","),
             prioridadIssue: issue.priority,
             estadoIssue: issue.status,
-            fechaCreacion: issue.created,
-            fechaFinalizacion: issue.resolutiondate,
+            fechaCreacion: new Date(issue.created),
+            fechaFinalizacion: new Date(issue.resolutiondate),
           });
 
           const savedIssue = await newIssue.save();
