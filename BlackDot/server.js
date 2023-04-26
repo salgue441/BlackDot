@@ -141,7 +141,7 @@ const { saveIssuesToDB } = require("./Utils/jiraIssues.api")
  * @param {Number} PORT - Port number
  * @param {Function} () - Callback function
  * @returns {Function} - Callback function
- */
+ */ 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`)
 
