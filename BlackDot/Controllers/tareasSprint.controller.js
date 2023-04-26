@@ -9,9 +9,9 @@
  */
 
 // Data Models
-const Issue = require("../models/issue.model");
-const Sprint = require("../models/sprint.model");
-const SprintIssue = require("../models/sprint-issue.model");
+const Issue = require("../Models/issue.model");
+const Sprint = require("../Models/sprint.model");
+const SprintIssue = require("../Models/sprint-issue.model");
 
 /**
  * @brief

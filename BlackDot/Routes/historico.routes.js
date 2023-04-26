@@ -1,7 +1,7 @@
 const express = require("express")
 const router = express.Router()
 
-const metricasEpicas = require("../controllers/metricaEpica.controller")
+const metricasEpicas = require("../Controllers/metricaEpica.controller")
 router.get("/metricasEpicas", metricasEpicas.getAllEpicas)
 
 // Fetches all epicas and their metrics
