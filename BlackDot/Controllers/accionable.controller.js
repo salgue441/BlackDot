@@ -63,7 +63,6 @@ exports.saveAccionable = async (req, res) => {
       const idAccionable = idsAccionables[i];
       const accionable = await Accionable.getbyId(idAccionable);
 
-      accionable.estadoAccionable = "Aprobado";
       await accionable.updateEstadoAprobado();
 
       if (accionable.estadoAccionable === "Aprobado") {

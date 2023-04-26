@@ -40,19 +40,19 @@ function handleCheckBox(accionableId) {
 function saveAccionables() {
   try {
     const selectedAccionables = idsAccionables;
-  console.log(selectedAccionables);
+    console.log(selectedAccionables);
 
-  $.ajax({
-    url: "/actual/admin/saveAccionables",
-    method: "POST",
-    data: { idsAccionables: selectedAccionables },
-    success: function (data) {
-      console.log(data);
-    },
-    error: function (error) {
-      console.log(error);
-    },
-  });
+    $.ajax({
+      url: "/actual/admin/saveAccionables",
+      method: "POST",
+      data: { idsAccionables: selectedAccionables },
+      success: function (data) {
+        console.log(data);
+      },
+      error: function (error) {
+        console.log(error);
+      },
+    });
   } catch (error) {
     console.log(error);
   }
