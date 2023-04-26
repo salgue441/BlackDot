@@ -93,7 +93,7 @@ exports.getAllEpicas = async (req, res) => {
     })
 
     res.render(
-      path.join(__dirname, "../Views/Static/historico/verMetricasEpicas.ejs"),
+      path.join(__dirname, "../Views/Static/Historico/verMetricasEpicas.ejs"),
       {
         epicas: epicas,
         sprints: sprintNames,
