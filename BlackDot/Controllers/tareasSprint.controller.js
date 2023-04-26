@@ -49,7 +49,7 @@ exports.getLanding = async (req, res) => {
     );
   });
 
-  res.render("static/index", {
+  res.render("Static/index", {
     sprint: sprints,
   });
 };
