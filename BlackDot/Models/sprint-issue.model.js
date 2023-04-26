@@ -64,7 +64,7 @@ module.exports = class SprintIssue {
    * @returns {Promise<SprintIssue[]>} - Arreglo de objetos de tipo SprintIssue
    */
   static async getAll() {
-    const [sprintissue, _] = await dataBase.query("select * from SprintIssue")
+    const [sprintissue, _] = await dataBase.query("select * from sprintissue")
 
     return sprintissue
   }
