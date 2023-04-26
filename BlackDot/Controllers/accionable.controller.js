@@ -36,6 +36,9 @@ exports.getRegistrarAprobacion = async (req, res) => {
       (item) => item.estadoAccionable === "No aprobado"
     );
 
+    if(filterAccionables.length === 0) return res.render(path.join(__dirname, "../Views/Static/NoAvailable.ejs"));
+
+
     res.render(
       path.join(__dirname, "../Views/Static/actual/aprobarAccionable.ejs"),
       {
@@ -70,24 +73,5 @@ exports.saveAccionable = async (req, res) => {
   } catch (error) {
     console.log(error);
     return res.status(500).json({ message: error.message });
-  }
-};
-
-/** 
- * @brief
- * Error view when there is no actionable available
- * @param {Request} req - Request object
- * @param {Response} res - Response object
- * @returns {Response} - Response object
- * @throws {Error} - Error message
- **/
-
-exports.getNoAccionable = (req, res) => {
-  try {
-    res.render(path.join(__dirname, "../Views/Static/NoAvailable.ejs"));
-  } catch (error) {
-    res.status(500).json({
-      message: error.message || "Error al obtener vista de error",
-    });
   }
 };
