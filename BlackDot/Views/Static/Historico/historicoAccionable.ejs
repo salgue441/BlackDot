@@ -22,33 +22,34 @@
             </div>
           </div>
         </div>
-        <!-- End of Title & Button -->
+      </div>
+      <!-- End of Title & Button -->
 
-        <!-- Accionables -->
-        <% let numAccionable = 0 %> <% for(var i = 0; i < accionables.length;
-        i++) { %> <% if(accionables[i].nombreAccionable !== '') { %> <%
-        numAccionable++ %>
-        <div class="columns is-multiline">
-          <div class="column is-4">
-            <div class="box is-flex is-flex-direction-column is-justify-content-center">
-              <div class="content">
-                <p><%= accionables[i].nombreAccionable %></p>
-                <% if(accionables[i].estadoAccionable === 'No aprobado') { %>
-                <p class="box is-flex is-align-items-center EstadoNoAprobado">
-                  <%= accionables[i].estadoAccionable %>
-                </p>
-                <% } else { %>
-                <p class="box is-flex is-align-items-center EstadoAprobado">
-                  <%= accionables[i].estadoAccionable %>
-                </p>
-                <% } %>
-              </div>
+      <!-- Accionables -->
+
+      <div class="columns is-multiline">
+        <% accionables.forEach((accionable) => { %> <%
+        if(accionable.nombreAccionable !== '') { %>
+        <div class="column is-4">
+          <div
+            class="box is-flex is-flex-direction-column is-justify-content-center"
+          >
+            <div class="content">
+              <p><%= accionable.nombreAccionable %></p>
+              <% if(accionable.estadoAccionable === 'No aprobado') { %>
+              <p class="box is-flex is-align-items-center EstadoNoAprobado">
+                <%= accionable.estadoAccionable %>
+              </p>
+              <% } else { %>
+              <p class="box is-flex is-align-items-center EstadoAprobado">
+                <%= accionable.estadoAccionable %>
+              </p>
+              <% } %>
             </div>
           </div>
         </div>
+        <% } %> <% }) %>
       </div>
-
-      ////////
 
       <!-- <div class="columns">
           <div class="column is-4">
