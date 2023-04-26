@@ -181,6 +181,8 @@ const registrarEmpleado = async (req, res) => {
 
       await nuevoEmpleado.save()
 
+      console.log("Empleado registrado")
+
       const idNuevoEmpleado = await Empleado.getLastID()
 
       const nuevoEmpleadoRol = new empleadoRol({
