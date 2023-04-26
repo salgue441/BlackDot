@@ -32,6 +32,8 @@ app.set("view engine", "ejs")
 app.use(express.static("public"))
 app.use(cookieParser())
 
+const path = require("path");
+
 // /auth
 /**
  * @brief
@@ -72,7 +74,7 @@ app.use(
     cookie: {
       maxAge: 1000 * 60 * 60, // 1 hour
       sameSite: true,
-      secure: false
+      secure: true
     }
   })
 )
@@ -124,7 +126,8 @@ app.use("/editar", editar)
  * @returns {Function} - Callback function
  */
 app.get("*", (req, res) => {
-  res.render("static/404")
+  res.render(path.join(__dirname, "/Views/Static/404.ejs"),
+  )
 })
 
 // Starting the server

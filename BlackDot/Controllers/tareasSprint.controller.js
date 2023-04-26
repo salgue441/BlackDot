@@ -13,6 +13,8 @@ const Issue = require("../Models/issue.model");
 const Sprint = require("../Models/sprint.model");
 const SprintIssue = require("../Models/sprint-issue.model");
 
+const path = require("path");
+
 /**
  * @brief
  * Landing page rout for the app
@@ -49,9 +51,15 @@ exports.getLanding = async (req, res) => {
     );
   });
 
-  res.render("static/index", {
-    sprint: sprints,
-  });
+
+
+
+  res.render(
+    path.join(__dirname, "../Views/Static/index.ejs"),
+    {
+      sprint: sprints,
+    }
+  );
 };
 
 /**
