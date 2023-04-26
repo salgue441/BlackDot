@@ -26,7 +26,6 @@
       <!-- End of Title & Button -->
 
       <!-- Accionables -->
-
       <div class="columns is-multiline">
         <% accionables.forEach((accionable) => { %> <%
         if(accionable.nombreAccionable !== '') { %>
@@ -50,42 +49,6 @@
         </div>
         <% } %> <% }) %>
       </div>
-
-      <!-- <div class="columns">
-          <div class="column is-4">
-            <div
-              class="box is-black is-flex is-align-items-center accionable"
-              style="height: 100px !important"
-            >
-              <div class="content">
-                <p><%= accionables[i].nombreAccionable %></p>
-              </div>
-            </div>
-          </div>
-          <div class="column">
-            <% if(accionables[i].estadoAccionable === 'No aprobado') { %>
-            <div
-              class="box is-flex is-align-items-center accionable EstadoNoAprobado"
-              style="height: 100px !important"
-            >
-              <div class="content">
-                <p><%= accionables[i].estadoAccionable %></p>
-              </div>
-            </div>
-            <% } else { %>
-            <div
-              class="box is-flex is-align-items-center accionable EstadoAprobado"
-              style="height: 100px !important"
-            >
-              <div class="content">
-                <p><%= accionables[i].estadoAccionable %></p>
-              </div>
-            </div>
-            <% } %>
-          </div>
-        </div>
-        <% } %> <% } %>
-      </div> -->
     </section>
   </body>
 </html>
