@@ -13,6 +13,8 @@ const Issue = require("../Models/issue.model");
 const Sprint = require("../Models/sprint.model");
 const SprintIssue = require("../Models/sprint-issue.model");
 
+const path = require("path");
+
 /**
  * @brief
  * Landing page rout for the app
