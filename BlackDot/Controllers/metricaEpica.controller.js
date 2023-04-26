@@ -22,6 +22,8 @@ const Sprint = require("../Models/sprint.model");
 const SprintIssue = require("../Models/sprint-issue.model");
 const SprintEpica = require("../Models/sprintEpica.model")
 
+
+
 /**
  * @brief
  * Gets all epicas and their metrics
