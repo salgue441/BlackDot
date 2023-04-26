@@ -100,7 +100,7 @@ exports.getAllEpicas = async (req, res) => {
       }
     );
   } catch (error) {
-    res.render(path.join(__dirname, "../Views/Static/error.ejs"), { error });
+    res.render(path.join(__dirname, "../Views/Static/Error.ejs"), { error });
   }
 };
 
@@ -175,6 +175,6 @@ exports.getAllEpicasAPI = async (req, res) => {
 
     res.status(200).json({ epicas: epicas });
   } catch (error) {
-    res.render(path.join(__dirname, "../Views/Static/error.ejs"), { error });
+    res.render(path.join(__dirname, "../Views/Static/Error.ejs"), { error });
   }
 };
