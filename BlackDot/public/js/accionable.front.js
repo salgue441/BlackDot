@@ -16,7 +16,9 @@ let idsAccionables = [];
  */
 
 function handleCheckBox(accionableId) {
-  const checkboxes = document.querySelectorAll(`checkbox-${accionableId}`);
+  const checkboxes = document.querySelectorAll(`#checkbox-${accionableId}`);
+
+  const input = document.getElementById("selected-accionables");
 
   for (let i = 0; i < checkboxes.length; i++) {
     const checkbox = checkboxes[i];
@@ -24,22 +26,24 @@ function handleCheckBox(accionableId) {
     const isChecked = checkbox.checked;
 
     if (isChecked) {
-      console.log("Checked");
+      idsAccionables.push(id);
+      input.value = idsAccionables.join(",");
     } else {
-      console.log("Unchecked");
+      idsAccionables = idsAccionables.filter((item) => item !== id);
+      input.value = idsAccionables.join(",");
     }
   }
+
+  console.log(idsAccionables);
 }
 
 function saveAccionables() {
-  const selectedAccionablesInput = document.getElementById(
-    "selected-accionables"
-  );
-  const selectedAccionables = selectedAccionablesInput.value.split(",");
+  try {
+    const selectedAccionables = idsAccionables;
+  console.log(selectedAccionables);
 
-  // Make the AJAX request to save the selected accionables
   $.ajax({
-    url: "/historico/historicoAccionables",
+    url: "/actual/admin/saveAccionables",
     method: "POST",
     data: { idsAccionables: selectedAccionables },
     success: function (data) {
@@ -49,4 +53,7 @@ function saveAccionables() {
       console.log(error);
     },
   });
+  } catch (error) {
+    console.log(error);
+  }
 }
