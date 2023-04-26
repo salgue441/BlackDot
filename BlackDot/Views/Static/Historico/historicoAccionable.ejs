@@ -33,9 +33,9 @@
         if(accionable.nombreAccionable !== '') { %>
         <div class="column is-4">
           <div
-            class="box is-flex is-flex-direction-column is-justify-content-center accionable"
+            class="box is-flex is-flex-direction-column accionable"
           >
-            <div class="content">
+            <div class="content is-align-content-center	">
               <p><%= accionable.nombreAccionable %></p>
               <% if(accionable.estadoAccionable === 'No aprobado') { %>
               <p class="box is-flex is-align-items-center EstadoNoAprobado">
@@ -63,10 +63,12 @@
   .EstadoNoAprobado {
     background-color: hsl(348, 100%, 61%);
     color: hsl(0, 0%, 96%);
+    width: 50%;
   }
 
   .EstadoAprobado {
     background-color: hsl(171, 100%, 41%);
+    width: 50%;
   }
 
   .reporte-button {
