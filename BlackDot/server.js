@@ -58,7 +58,7 @@ app.use(
 );
 
 // Routes
-const initRoutes = require("./Routes/index.routes");
+const initRoutes = require("./src/Routes/index.routes");
 initRoutes(app);
 
 app.get("/", (req, res) => {
@@ -84,7 +84,7 @@ app.get("*", (req, res) => {
  * @param {Function} () - Callback function
  * @returns {Function} - Callback function
  */
-const { saveIssuesToDB } = require("./Utils/jiraIssues.api");
+const { saveIssuesToDB } = require("./src/Utils/jiraIssues.api");
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 
