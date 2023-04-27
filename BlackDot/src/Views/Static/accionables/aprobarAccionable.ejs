@@ -13,7 +13,7 @@
           <a
             href="/historico/historicoAccionables"
             class="button is-danger reporte-button"
-            onclick="aceptarAccionable()"
+            onclick="event.preventDefault(); saveAccionables();"
           >
             Aprobar Accionables
           </a>
@@ -54,7 +54,7 @@
                       type="checkbox"
                       name="accionable"
                       class="checkbox"
-                      onclick="handleCheckBox()"
+                      onclick="handleCheckBox('<%= accionables[i].idAccionable %>')"
                       id="checkbox-<%= accionables[i].idAccionable %>"
                     />
 

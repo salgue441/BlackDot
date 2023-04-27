@@ -1,6 +1,6 @@
 /**
  * @file historicoAccionable.controller.js
- * @brief Controlador de Accionable
+ * @brief Controller of Actionable history
  * @author Yuna Chung
  * @date 2023.04.05
  * @version 1.0
@@ -8,9 +8,9 @@
  * @copyright Copyright (c) 2023 - MIT License
  **/
 
-const path = require("path")
+const path = require("path");
 
-const Accionable = require("../models/accionable.model")
+const Accionable = require("../models/accionable.model");
 
 /**
  * @brief
@@ -23,17 +23,22 @@ const Accionable = require("../models/accionable.model")
 
 exports.getAllAccionables = async (req, res) => {
   try {
-    const accionables = await Accionable.getAll()
+    const accionables = await Accionable.getAll();
+
+    if (accionables.length === 0)
+      return res.render(
+        path.join(__dirname, "../views/static/accionables/noAvailable.ejs")
+      );
 
     res.render(
-      path.join(__dirname, "../Views/Static/accionables/historicoAccionable.ejs"),
+      path.join(__dirname, "../views/static/accionables/historicoAccionable.ejs"),
       {
         accionables: accionables,
       }
-    )
+    );
   } catch (error) {
     res.status(500).json({
       message: error.message || "Error al obtener Accionables",
-    })
+    });
   }
-}
+};
