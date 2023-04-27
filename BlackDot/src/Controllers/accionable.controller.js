@@ -37,7 +37,7 @@ exports.getRegistrarAprobacion = async (req, res) => {
     );
 
     res.render(
-      path.join(__dirname, "../Views/Static/actual/aprobarAccionable.ejs"),
+      path.join(__dirname, "../Views/Static/accionables/aprobarAccionable.ejs"),
       {
         accionables: filterAccionables,
       }

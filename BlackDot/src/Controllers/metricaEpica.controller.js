@@ -93,7 +93,7 @@ exports.getAllEpicas = async (req, res) => {
     })
 
     res.render(
-      path.join(__dirname, "../Views/Static/historico/verMetricasEpicas.ejs"),
+      path.join(__dirname, "../views/static/epicas/verMetricasEpicas.ejs"),
       {
         epicas: epicas,
         sprints: sprintNames,
@@ -175,6 +175,6 @@ exports.getAllEpicasAPI = async (req, res) => {
 
     res.status(200).json({ epicas: epicas });
   } catch (error) {
-    res.render(path.join(__dirname, "../Views/Static/error.ejs"), { error });
+    res.render(path.join(__dirname, "../views/static/error/error.ejs"), { error });
   }
 };

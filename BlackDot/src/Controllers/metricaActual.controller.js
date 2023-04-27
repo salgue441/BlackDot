@@ -37,10 +37,10 @@ exports.getActual = async (req, res) => {
     }
 
     res.render(
-      path.join(__dirname, "../Views/Static/actual/verMetricasActuales.ejs")
+      path.join(__dirname, "../views/static/sprint/verMetricasActuales.ejs")
     );
   } catch (error) {
-    res.render(path.join(__dirname, "../Views/Static/error.ejs"), { error });
+    res.render(path.join(__dirname, "../views/static/error/error.ejs"), { error });
   }
 };
 

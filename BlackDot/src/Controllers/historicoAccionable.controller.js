@@ -26,7 +26,7 @@ exports.getAllAccionables = async (req, res) => {
     const accionables = await Accionable.getAll()
 
     res.render(
-      path.join(__dirname, "../Views/Static/Historico/historicoAccionable.ejs"),
+      path.join(__dirname, "../Views/Static/accionables/historicoAccionable.ejs"),
       {
         accionables: accionables,
       }
