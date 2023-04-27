@@ -1,3 +1,11 @@
+/**
+ * @brief 
+ * Google Auth handle login
+ * @param {*} response 
+ * @returns cookie
+ */
+
+
 async function handleLogin(response) {
   try {
     const token = response.credential;
