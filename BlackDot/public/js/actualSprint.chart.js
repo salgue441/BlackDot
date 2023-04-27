@@ -20,6 +20,10 @@
    * Creates the graph
    * @param {HTMLCanvasElement} canvas - Canvas element
    * @param {Array} data - Data to be displayed
+   * @param {Array} labels - Labels for the data
+   * @returns {Chart} - Chart object
+   * @param {Array} backgroundColors - Background colors for the bars
+   * @param {Array} borderColors - Border colors for the bars
    */
   const createBarChart = (canvas, data, labels) => {
     const ctx = canvas.getContext("2d")
@@ -105,7 +109,22 @@
    * @brief
    * Renders the graph. This function is called when the page is loaded
    * or refreshed
-   * @todo Add token when authentication is implemented
+   * @returns bar chart
+   * @param {Array} data - Data to be displayed
+   * @param {Array} labels - Labels for the data
+   * @param {Arrat} allStoryPoints - All story points
+   * @param {Array} todoIssues - all issues
+   * @param {Array} encursoIssues - Issues in En curso
+   * @param {Array} pullrequestIssues - Issues in Pull request
+   * @param {Array} QAIssues - Issues in QA
+   * @param {Array} blockedIssues - Issues in Blocked
+   * @param {Array} doneIssues - Issues in Done
+   * @param {Array} todoStoryPoints - Story points in To Do
+   * @param {Array} encursoStoryPoints - Story points in En curso
+   * @param {Array} pullrequestStoryPoints - Story points in Pull request
+   * @param {Array} QAStoryPoints - Story points in QA
+   * @param {Array} blockedStoryPoints - Story points in Blocked
+   * @param {Array} doneStoryPoints - Story points in Done 
    */
   ;(async function renderGraph() {
     const data = await fetchSprintData()
