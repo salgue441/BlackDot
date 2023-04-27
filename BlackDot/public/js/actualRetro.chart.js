@@ -11,7 +11,7 @@
 /**
  * @brief
  * Fetches the data from the server and sends them to the frontend
- * @todo Add token when authentication is implemented
+ * @return Add token when authentication is implemented
  */
 
 const fetchAnswersData = async () => {
@@ -25,6 +25,10 @@ const fetchAnswersData = async () => {
  * @brief
  * Color states for the graph
  * @type {Array} - Array of objects with the color states
+ * @property {string} label - Label of the state
+ * @property {number} value - Value of the state
+ * @property {string} color - Color of the state
+ * @property {string} borderColor - Border color of the state
  */
 const states = [
   {
@@ -65,8 +69,12 @@ const states = [
  * @param {HTMLCanvasElement} canvas - Canvas element
  * @param {Array} labels - Array of labels
  * @param {Array} data - Array of data
+ * @property {string} label - Label of the state
+ * @property {dara} data - 
+ * @property {string} backgroundColor - Color of the state
+ * @property {string} borderColor - Border color of the state
+ * @property {number} borderWidth - Border width of the state
  * @returns {Chart} - Chart object
- * @todo Add token when authentication is implemented
  */
 const createBarChart = (canvas, labels, data) => {
   const ctx = canvas.getContext("2d")
@@ -117,7 +125,7 @@ const createBarChart = (canvas, labels, data) => {
  * @brief
  * Renders the graphs. This function is called when the page
  * is loaded or refreshed
- * @todo Add token when authentication is implemented
+ * 
  */
 ;(async function renderGraphs() {
   const data = await fetchAnswersData()
