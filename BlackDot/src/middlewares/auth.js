@@ -1,9 +1,6 @@
 // Utils
 const authUtils = require("../utils/auth");
 
-// Data models
-const Empleado = require("../Models/empleado.model");
-
 // Middlewares
 /**
  * @brief

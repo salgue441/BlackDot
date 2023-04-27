@@ -15,7 +15,7 @@ const path = require("path");
 const bodyparser = require("body-parser");
 bodyparser.urlencoded({ extended: true });
 
-const Accionable = require("../Models/accionable.model.js");
+const Accionable = require("../models/accionable.model.js");
 
 router.use(express.urlencoded({ extended: true }));
 router.use(express.json());

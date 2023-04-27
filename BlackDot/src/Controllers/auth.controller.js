@@ -4,8 +4,8 @@ const path = require("path");
 const authUtils = require("../utils/auth");
 
 // Data models
-const Empleado = require("../Models/empleado.model");
-const empleadoRole = require("../Models/empleado-rol.model");
+const Empleado = require("../models/empleado.model");
+const empleadoRole = require("../models/empleado-rol.model");
 
 // Functions
 /**

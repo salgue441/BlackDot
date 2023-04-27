@@ -10,7 +10,7 @@
 
 const path = require("path")
 
-const Accionable = require("../Models/accionable.model")
+const Accionable = require("../models/accionable.model")
 
 /**
  * @brief

@@ -58,7 +58,7 @@ app.use(
 );
 
 // Routes
-const initRoutes = require("./src/Routes/index.routes");
+const initRoutes = require("./src/routes/index.routes");
 initRoutes(app);
 
 app.get("/", (req, res) => {
