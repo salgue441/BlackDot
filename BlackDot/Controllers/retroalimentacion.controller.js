@@ -106,11 +106,15 @@ exports.getCurretRetroalimentacion = async (req, res) => {
 
       // Qualitative answers
       const qualitative = await retroPregunta.getQualitativeAnswersByID(idRetro)
+      console.log(qualitative)
       const simplifiedQualitative = simplifyAnswers(qualitative)
 
       // Questions
 
       retros = await Retro.getAll()
+
+      // console.log(idRetro)
+      console.log(quantitative[0].idRetroalimentacion)
 
       res.render(
         path.join(__dirname, "../Views/Static/actual/verRetroalimentacion.ejs"),
@@ -185,19 +189,11 @@ exports.getRegistrarRespuestas = async (req, res) => {
           } else {
             try {
               Pregunta.getByIds(idsPreguntas).then(async (preguntas) => {
-                // Calculate progress percentage based on completed fields
-                const total = preguntas.length
-                const completed = req.query.respuestas
-                  ? Object.keys(req.query.respuestas).length
-                  : 0
-                const barProgress = 0
-
                 // Render the EJS template with the preguntas and progress variables
                 res.render(
                   "Static/actual/registrarRespuestasRetroalimentacion.ejs",
                   {
                     preguntas,
-                    barProgress,
                   }
                 )
               })
@@ -212,7 +208,6 @@ exports.getRegistrarRespuestas = async (req, res) => {
     })
   } catch (error) {
     res.render(path.join(__dirname, "../Views/Static/Error.ejs"), { error })
-    res.render(path.join(__dirname, "../Views/Static/error.view.ejs"))
   }
 }
 

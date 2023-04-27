@@ -19,7 +19,7 @@
             <div class="column is-one-third colEmpleado is-paddingless">
               <div class="box boxEmpleado m-2 p-3">
                 <div
-                  class="empleadoContainer is-flex is-vcentered is-justify-content-space-evenly mt-4"
+                  class="empleadoContainer is-flex is-flex-direction-column is-vcentered is-justify-content-space-evenly mt-4"
                 >
                   <% if(empleados[i].googleProfilePicture != null){ %>
                   <img
@@ -52,8 +52,10 @@
                     <% } %>
                   </div>
 
-                  <a class="delete deleteIcon" href="/editar/empleados/eliminar/<%=empleados[i].idEmpleado %>"></a>
-
+                  <a
+                    class="delete deleteIcon"
+                    href="/editar/empleados/eliminar/<%=empleados[i].idEmpleado %>"
+                  ></a>
                 </div>
               </div>
             </div>
@@ -111,8 +113,6 @@
                 </div>
               </div>
             </section>
-
-            
           </section>
         </div>
       </div>
@@ -134,11 +134,11 @@
   }
 
   .Container {
-    width: 120%;
+    width: 100vw;
   }
 
   .boxEmpleado {
-    height: 120px;
+    height: 300px;
   }
 
   .deleteIcon {
