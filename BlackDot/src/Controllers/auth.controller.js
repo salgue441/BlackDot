@@ -1,7 +1,7 @@
 const path = require("path");
 
 // Auth Utils
-const authUtils = require("../Utils/auth");
+const authUtils = require("../utils/auth");
 
 // Data models
 const Empleado = require("../Models/empleado.model");
@@ -17,7 +17,7 @@ const empleadoRole = require("../Models/empleado-rol.model");
  */
 const renderLogin = (req, res) => {
   if (req.session.currentUser) return res.redirect("/");
- 
+
   return res.render(path.join(__dirname, "../Views/Static/auth.ejs"), {
     title: "Login",
   });

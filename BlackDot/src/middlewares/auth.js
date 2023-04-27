@@ -1,5 +1,5 @@
 // Utils
-const authUtils = require("../Utils/auth");
+const authUtils = require("../utils/auth");
 
 // Data models
 const Empleado = require("../Models/empleado.model");

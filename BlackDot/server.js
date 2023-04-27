@@ -84,7 +84,7 @@ app.get("*", (req, res) => {
  * @param {Function} () - Callback function
  * @returns {Function} - Callback function
  */
-const { saveIssuesToDB } = require("./src/Utils/jiraIssues.api");
+const { saveIssuesToDB } = require("./src/utils/jiraIssues.api");
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 

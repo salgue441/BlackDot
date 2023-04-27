@@ -16,7 +16,7 @@ const path = require("path")
 const Empleado = require("../Models/empleado.model")
 const Rol = require("../Models/rol.model")
 const EmpleadoRol = require("../Models/empleado-rol.model")
-const authUtil = require("../Utils/auth")
+const authUtil = require("../utils/auth")
 
 /**
  * @brief

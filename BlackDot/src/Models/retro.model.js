@@ -1,4 +1,4 @@
-const dataBase = require("../Utils/dataBase")
+const dataBase = require("../utils/dataBase")
 
 /**
  * @class Retroalimentacion

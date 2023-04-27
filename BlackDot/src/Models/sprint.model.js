@@ -8,7 +8,7 @@
  * @copyright Copyright (c) 2023 - MIT License
  */
 
-const dataBase = require("../Utils/dataBase")
+const dataBase = require("../utils/dataBase")
 
 /**
  * @class Sprint
@@ -48,7 +48,7 @@ module.exports = class Sprint {
   static async getbyID(id) {
     if (!id) throw new Error("No se envio el id")
 
-    const [sprint,_] = await dataBase.query(
+    const [sprint, _] = await dataBase.query(
       "select * from Sprint where idSprint = ?",
       [id]
     )
@@ -101,7 +101,7 @@ module.exports = class Sprint {
 
     return sprint
   }
-  
+
 
   /**
    * @brief

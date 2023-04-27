@@ -1,4 +1,4 @@
-const dataBase = require('../Utils/dataBase')
+const dataBase = require('../utils/dataBase')
 
 module.exports = class Token {
     /**
@@ -22,17 +22,17 @@ module.exports = class Token {
     static async getByID(idToken) {
         if (idToken === 'String')
             throw new Error("Token is not a string")
-        
-        const query = 
+
+        const query =
             `select * from token where idToken = ?`
-        
-        const [result] = await dataBase.query(query, 
+
+        const [result] = await dataBase.query(query,
             this.idToken
         )
 
         if (result.length === 0)
             throw new Error("")
-        
+
         return new Token(result[0])
     }
 

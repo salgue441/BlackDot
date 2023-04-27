@@ -9,7 +9,7 @@
  * @copyright Copyright (c) 2023 - MIT License
  */
 
-const dataBase = require("../Utils/dataBase")
+const dataBase = require("../utils/dataBase")
 
 
 /**
