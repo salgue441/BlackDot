@@ -1,6 +1,6 @@
 /**
  * @file accionable.controller.js
- * @brief Controlador de Accionable
+ * @brief accionable controller
  * @author Yuna Chung
  * @date 2023.03.28
  * @version 1.0
