@@ -80,6 +80,7 @@ module.exports = class BancoPregunta {
   /**
    * @brief
    * get all questions
+   * @param {getAll} - get all questions
    * @returns {Promise<Pregunta[]>} - array of question objects
    */
   static async getAll() {
