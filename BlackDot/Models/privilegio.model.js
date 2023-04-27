@@ -39,7 +39,7 @@ module.exports = class Privilegio {
         if (!idPrivilegio) throw new Error("No se ha proporcionado un ID")
 
         const [privilegio] = await dataBase.query(
-            "select * from Privilegio where idPrivilegio = ?",
+            "select * from privilegio where idPrivilegio = ?",
             [idPrivilegio]
         )
 
@@ -52,7 +52,7 @@ module.exports = class Privilegio {
      * @returns {Promise<Privilegio[]>} - Arreglo de objetos de tipo Privilegio
      */
     static async getAll() {
-        const privilegios = await dataBase.query("select * from Privilegio")
+        const privilegios = await dataBase.query("select * from privilegio")
 
         return privilegios.map((privilegio) => new Privilegio(privilegio))
     }
@@ -71,7 +71,7 @@ module.exports = class Privilegio {
             throw new Error("No se ha proporcionado una descripción de privilegio")
 
         return dataBase.query(
-            "insert into Privilegio (nombrePrivilegio, descripcionPrivilegio) values (?, ?)", [
+            "insert into privilegio (nombrePrivilegio, descripcionPrivilegio) values (?, ?)", [
             this.nombrePrivilegio,
             this.descripcionPrivilegio
         ]
@@ -89,7 +89,7 @@ module.exports = class Privilegio {
             throw new Error("No se ha proporcionado un id de privilegio")
 
         const [privilegio] = await dataBase.query(
-            "select * from Privilegio where idPrivilegio = ?",
+            "select * from privilegio where idPrivilegio = ?",
             [Privilegio.idPrivilegio]
         )
     }
@@ -113,7 +113,7 @@ module.exports = class Privilegio {
             throw new Error("El nombrePrivilegio es muy largo");
 
         const [privilegio] = await dataBase.query(
-            "select * from Privilegio where nombrePrivilegio = ? and descripcionPrivilegio = ?",
+            "select * from privilegio where nombrePrivilegio = ? and descripcionPrivilegio = ?",
             [this.nombrePrivilegio, this.descripcionPrivilegio]
         );
 
@@ -134,7 +134,7 @@ module.exports = class Privilegio {
             throw new Error("El ID debe ser un numero");
 
         const result = await dataBase.query(
-            `delete from Privilegio where idPrivilegio = $1`,
+            `delete from privilegio where idPrivilegio = ?`,
             [idPrivilegio]
         );
 

@@ -32,6 +32,8 @@ app.set("view engine", "ejs")
 app.use(express.static("public"))
 app.use(cookieParser())
 
+const path = require("path");
+
 // /auth
 /**
  * @brief
@@ -124,7 +126,8 @@ app.use("/editar", editar)
  * @returns {Function} - Callback function
  */
 app.get("*", (req, res) => {
-  res.render("Static/404")
+  res.render(path.join(__dirname, "/Views/Static/404.ejs"),
+  )
 })
 
 // Starting the server
@@ -138,7 +141,7 @@ const { saveIssuesToDB } = require("./Utils/jiraIssues.api")
  * @param {Number} PORT - Port number
  * @param {Function} () - Callback function
  * @returns {Function} - Callback function
- */
+ */ 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`)
 

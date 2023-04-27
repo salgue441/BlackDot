@@ -54,7 +54,7 @@ const simplifyAnswers = (answers) => {
       return acc
     }, [])
   } catch (error) {
-    res.render(path.join(__dirname, "../Views/Static/error.ejs"), { error })
+    res.render(path.join(__dirname, "../Views/Static/Error.ejs"), { error })
   }
 }
 
@@ -123,7 +123,7 @@ exports.getCurretRetroalimentacion = async (req, res) => {
         }
       )
     } catch (error) {
-      res.render(path.join(__dirname, "../Views/Static/error.ejs"), { error })
+      res.render(path.join(__dirname, "../Views/Static/Error.ejs"), { error })
     }
   })
 }
@@ -152,8 +152,7 @@ exports.getCurretRetroalimentacionAPI = async (req, res) => {
       simplifiedQuantitative: simplifiedQuantitative,
     })
   } catch (error) {
-    res.render(path.join(__dirname, "../Views/Static/error.ejs"), { error })
-    res.render(path.join(__dirname, "../Views/Static/error.view.ejs"))
+    res.render(path.join(__dirname, "../Views/Static/Error.ejs"), { error })
   }
 }
 
@@ -170,7 +169,7 @@ exports.getRegistrarRespuestas = async (req, res) => {
     Retro.getRetroActual().then((retro) => {
       //Check if there is an active retroalimentacion
       if (!retro) {
-        res.render(path.join(__dirname, "../Views/Static/error.ejs"), {
+        res.render(path.join(__dirname, "../Views/Static/Error.ejs"), {
           //? VIsta Temporal
           error: "No hay retroalimentacion activa",
         })
@@ -180,7 +179,7 @@ exports.getRegistrarRespuestas = async (req, res) => {
         retroPregunta.getIdsPreguntas(idRetro).then(async (idsPreguntas) => {
           //Checks if the retro has questions
           if (idsPreguntas.length == 0) {
-            res.render(path.join(__dirname, "../Views/Static/error.ejs"), {
+            res.render(path.join(__dirname, "../Views/Static/Error.ejs"), {
               error: "No hay preguntas registradas",
             })
           } else {
@@ -203,7 +202,7 @@ exports.getRegistrarRespuestas = async (req, res) => {
                 )
               })
             } catch (error) {
-              res.render(path.join(__dirname, "../Views/Static/error.ejs"), {
+              res.render(path.join(__dirname, "../Views/Static/Error.ejs"), {
                 error,
               })
             }
@@ -212,7 +211,7 @@ exports.getRegistrarRespuestas = async (req, res) => {
       }
     })
   } catch (error) {
-    res.render(path.join(__dirname, "../Views/Static/error.ejs"), { error })
+    res.render(path.join(__dirname, "../Views/Static/Error.ejs"), { error })
     res.render(path.join(__dirname, "../Views/Static/error.view.ejs"))
   }
 }
@@ -279,7 +278,7 @@ exports.postRegistrarRespuestas = async (req, res) => {
       res.render(path.join(__dirname, "../Views/Static/actual/enviado.ejs"))
     })
   } catch (error) {
-    res.render(path.join(__dirname, "../Views/Static/error.ejs"), { error })
+    res.render(path.join(__dirname, "../Views/Static/Error.ejs"), { error })
   }
 }
 
@@ -308,7 +307,7 @@ exports.getPaginaEnviado = async (req, res) => {
 exports.getCrearRetroalimentacion = async (req, res) => {
   Retro.getRetroActual().then(async (retro) => {
     if (retro) {
-      res.render(path.join(__dirname, "../Views/Static/error.ejs"), {
+      res.render(path.join(__dirname, "../Views/Static/Error.ejs"), {
         error: "Ya hay una retroalimentacion activa",
       })
     } else {
@@ -320,7 +319,7 @@ exports.getCrearRetroalimentacion = async (req, res) => {
           })
         })
       } catch (error) {
-        res.render(path.join(__dirname, "../Views/Static/error.ejs"), { error })
+        res.render(path.join(__dirname, "../Views/Static/Error.ejs"), { error })
       }
     }
   })
@@ -340,7 +339,7 @@ exports.getEditarPreguntas = async (req, res) => {
 
   // If the id is -1, then the user didn't specify a question
   if (idPregunta == -1) {
-    res.render(path.join(__dirname, "../Views/Static/error.ejs"), {
+    res.render(path.join(__dirname, "../Views/Static/Error.ejs"), {
       error: "No se ha especificado una pregunta",
     })
     // If the id is 0, then the user wants to create a new question
@@ -388,7 +387,7 @@ exports.postEditarPreguntas = async (req, res) => {
       await pregunta.save()
       res.redirect("/editar/crearRetroalimentacion")
     } catch (error) {
-      res.render(path.join(__dirname, "../Views/Static/error.ejs"), { error })
+      res.render(path.join(__dirname, "../Views/Static/Error.ejs"), { error })
     }
   } else {
     if (preguntatest.contenido.length < 300) {
@@ -402,10 +401,10 @@ exports.postEditarPreguntas = async (req, res) => {
         await pregunta.update()
         res.redirect("/editar/crearRetroalimentacion")
       } catch (error) {
-        res.render(path.join(__dirname, "../Views/Static/error.ejs"), { error })
+        res.render(path.join(__dirname, "../Views/Static/Error.ejs"), { error })
       }
     } else {
-      res.render(path.join(__dirname, "../Views/Static/error.ejs"), {
+      res.render(path.join(__dirname, "../Views/Static/Error.ejs"), {
         error: "La pregunta no puede tener mas de 300 caracteres",
       })
     }
@@ -428,7 +427,7 @@ exports.getEliminarPreguntas = async (req, res) => {
     await BancoPreguntas.deleteByID(idPregunta)
     res.redirect("/editar/crearRetroalimentacion")
   } catch (error) {
-    res.render(path.join(__dirname, "../Views/Static/error.ejs"), { error })
+    res.render(path.join(__dirname, "../Views/Static/Error.ejs"), { error })
   }
 }
 
@@ -511,10 +510,10 @@ exports.getRetroalimentacionExitosa = async (req, res) => {
           })
         })
       } catch (error) {
-        res.render(path.join(__dirname, "../Views/Static/error.ejs"), { error })
+        res.render(path.join(__dirname, "../Views/Static/Error.ejs"), { error })
       }
     })
   } catch (error) {
-    res.render(path.join(__dirname, "../Views/Static/error.ejs"), { error })
+    res.render(path.join(__dirname, "../Views/Static/Error.ejs"), { error })
   }
 }

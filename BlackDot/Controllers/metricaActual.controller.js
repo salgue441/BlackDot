@@ -40,7 +40,7 @@ exports.getActual = async (req, res) => {
       path.join(__dirname, "../Views/Static/actual/verMetricasActuales.ejs")
     );
   } catch (error) {
-    res.render(path.join(__dirname, "../Views/Static/error.ejs"), { error });
+    res.render(path.join(__dirname, "../Views/Static/Error.ejs"), { error });
   }
 };
 
