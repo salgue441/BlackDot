@@ -4,7 +4,7 @@ const path = require("path");
 
 /**
  * @brief
- * obtiene vista de error
+ * get error view
  * @param {Request} req
  * @param {Response} res
  * @returns {View} error view
