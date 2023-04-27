@@ -159,7 +159,7 @@ app.listen(PORT, () => {
   // createAccionable(accionable)
 
   // if time is 00:00:00
-  if (new Date().getHours() === 0) {
-    saveIssuesToDB()
-  }
+  //if (new Date().getHours() === 0) {
+  //  saveIssuesToDB()
+  //}
 })

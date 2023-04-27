@@ -28,6 +28,7 @@ router.get(
 
 const usuario = require("../Controllers/usuario.controller")
 router.get("/empleados", usuario.getEditarUsuario)
+router.post("/empleados", usuario.postEditarUsuario)
 
 router.get("/empleados/aceptar", usuario.getRegistrarUsuario)
 

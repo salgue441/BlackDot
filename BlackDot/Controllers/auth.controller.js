@@ -11,6 +11,8 @@ const authUtil = require("../Utils/auth")
 const Empleado = require("../Models/empleado.model")
 const empleadoRol = require("../Models/empleado-rol.model")
 
+let usuarioRegistrado = false
+
 /**
  * @brief
  * Librería para encriptar google
@@ -84,7 +86,7 @@ const logoutAPI = (req, res) => {
   authUtil.deleteSession(req, res)
 }
 
-let usuarioRegistrado = false
+
 
 /**
  * @brief
@@ -188,8 +190,9 @@ const registrarEmpleado = async (req, res) => {
         idRol: 3,
       })
 
+      console.log(nuevoEmpleadoRol)
       await nuevoEmpleadoRol.save()
-      usuarioRegistrado = true
+    usuarioRegistrado = true
     }
   } catch (error) {
     console.log(error)
