@@ -1,0 +1,86 @@
+<html>
+  <%- include('../../partials/header.ejs') %>
+
+  <body>
+    <%- include('../../partials/navBar.ejs') %>
+
+    <section class="section is-medium is-bold">
+      <div class="has-text-centered">
+        <!-- Title & Button to Accept -->
+        <div class="columns">
+          <div class="column is-half is-flex">
+            <h1 class="title is-1">Accionables</h1>
+          </div>
+          <div class="column is-half is-flex is-justify-content-end">
+            <div class="is-grouped is-grouped-centered">
+              <input
+                class="button is-danger reporte-button"
+                id="sendButton"
+                type="submit"
+                value="Generar Reporte"
+                onclick=""
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- End of Title & Button -->
+
+    <!-- Accionables -->
+    <div class="container" style="margin-left: 15%">
+      <div class="columns is-multiline">
+        <% accionables.forEach((accionable) => { %> <%
+        if(accionable.nombreAccionable !== '') { %>
+        <div class="column is-4 has-text-centered is-align-items-center">
+          <div class="box is-flex is-flex-direction-column accionable">
+            <div class="content has-text-centered justify-content">
+              <p><%= accionable.nombreAccionable %></p>
+              <% if(accionable.estadoAccionable === 'No aprobado') { %>
+              <p
+                class="box is-flex is-align-items-center has-text-centered EstadoNoAprobado"
+                style="margin-left: 25%; text-align: center"
+              >
+                <%= accionable.estadoAccionable %>
+              </p>
+              <% } else { %>
+              <p
+                class="box is-flex is-align-items-center has-text-centered EstadoAprobado"
+                style="margin-left: 25%; text-align: center"
+              >
+                <%= accionable.estadoAccionable %>
+              </p>
+              <% } %>
+            </div>
+          </div>
+        </div>
+        <% } %> <% }) %>
+      </div>
+    </div>
+  </body>
+</html>
+
+<style>
+  .accionable {
+    top: 20rem !important;
+  }
+
+  .EstadoNoAprobado {
+    background-color: hsl(348, 100%, 61%);
+    color: hsl(0, 0%, 96%);
+    width: 50%;
+    height: 50px;
+  }
+
+  .EstadoAprobado {
+    background-color: hsl(171, 100%, 41%);
+    text-align: center;
+    width: 50%;
+    height: 50px;
+  }
+
+  .reporte-button {
+    height: 50px;
+    width: 200px;
+  }
+</style>

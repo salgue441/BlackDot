@@ -1,0 +1,41 @@
+<html>
+  <%- include('../../partials/header.ejs') %>
+
+  <body>
+    <%- include('../../partials/navBar.ejs') %>
+
+    <section class="hero is-medium is-bold">
+      <div class="hero-body has-text-centered">
+        <!-- Title -->
+        <div class="columns">
+          <div class="column is-half is-flex">
+            <h1 class="title is-1">Metricas Actuales</h1>
+          </div>
+        </div>
+        <!-- End of Title -->
+
+        <!-- Graph -->
+        
+            <div class="columns">
+                <div class="column is-12">
+                    <div class="container">
+                        <div
+                            class="box has-background-white has-text-centered"
+                            style="width: 100%"
+                        >
+                            <p class="subtitle is-4">Sprint Actual</p>
+                            <canvas id="ActualSprint"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+          </div>
+        </div>
+        <!-- End of Graph -->
+      </div>
+    </section>
+
+    <script src="/js/actualSprint.chart.js"></script>
+  </body>
+</html>
