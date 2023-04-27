@@ -2,9 +2,10 @@
   <%- include('../../Include/Header.ejs') %>
 
   <body>
-    <%- include('../../Include/NavBar.ejs') %>
-    <section class="hero is-medium is-bold">
-      <div class="hero-body has-text-centered">
+    <%- include('../../Include/Navbar.ejs') %>
+    
+    <section class="section is-medium is-bold">
+      <div class="has-text-centered">
         <!-- Title & Button to Accept -->
         <div class="columns">
           <div class="column is-half is-flex">
@@ -22,78 +23,60 @@
             </div>
           </div>
         </div>
-        <!-- End of Title & Button -->
-
-        <!-- Accionables -->
-        <% let numAccionable = 0 %> <% for(var i = 0; i < accionables.length;
-        i++) { %> <% if(accionables[i].nombreAccionable !== '') { %> <%
-        numAccionable++ %>
-        <div class="columns">
-          <div class="column is-11">
-            <div
-              class="box is-black is-flex is-align-items-center accionable"
-              style="height: 100px !important"
-            >
-              <div class="content">
-                <p><%= accionables[i].nombreAccionable %></p>
-              </div>
-            </div>
-          </div>
-          <div class="column">
-            <% if(accionables[i].estadoAccionable === 'No aprobado') { %>
-            <div
-              class="box is-flex is-align-items-center accionable EstadoNoAprobado"
-              style="height: 100px !important"
-            >
-              <div class="content">
-                <p><%= accionables[i].estadoAccionable %></p>
-              </div>
-            </div>
-            <% } else { %>
-            <div
-              class="box is-flex is-align-items-center accionable EstadoAprobado"
-              style="height: 100px !important"
-            >
-              <div class="content">
-                <p><%= accionables[i].estadoAccionable %></p>
-              </div>
-            </div>
-            <% } %>
-            <!-- <div class="box is-flex is-align-items-center accionable estadoContainer" style="height: 100px !important;">
-                                <div class="content ">
-                                    <p>
-                                        <%= accionables[i].estadoAccionable %>
-                                    </p>
-                                </div>
-                            </div> -->
-          </div>
-        </div>
-        <% } %> <% } %>
       </div>
     </section>
+      <!-- End of Title & Button -->
+
+      <!-- Accionables -->
+      <div class="container" style="margin-left: 15%;">
+      <div class="columns is-multiline">
+        <% accionables.forEach((accionable) => { %> <%
+        if(accionable.nombreAccionable !== '') { %>
+        <div class="column is-4 has-text-centered is-align-items-center">
+          <div
+            class="box is-flex is-flex-direction-column accionable"
+          >
+            <div class="content has-text-centered justify-content">
+              <p><%= accionable.nombreAccionable %></p>
+              <% if(accionable.estadoAccionable === 'No aprobado') { %>
+              <p class="box is-flex is-align-items-center has-text-centered EstadoNoAprobado" style="margin-left: 25%; text-align: center;">
+                <%= accionable.estadoAccionable %>
+              </p>
+              <% } else { %>
+              <p class="box is-flex is-align-items-center has-text-centered EstadoAprobado" style="margin-left: 25%; text-align: center;">
+                <%= accionable.estadoAccionable %>
+              </p>
+              <% } %>
+            </div>
+          </div>
+        </div>
+        <% } %> <% }) %>
+      </div>
+      </div>
   </body>
 </html>
 
 <style>
   .accionable {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100px;
-    text-align: left;
+    top: 20rem !important;
   }
 
   .EstadoNoAprobado {
     background-color: hsl(348, 100%, 61%);
     color: hsl(0, 0%, 96%);
+    width: 50%;
+    height: 50px;
   }
 
   .EstadoAprobado {
     background-color: hsl(171, 100%, 41%);
+    text-align: center;
+    width: 50%;
+    height: 50px;
   }
 
   .reporte-button {
-    height: 80px;
-    width: 300px;
+    height: 50px;
+    width: 200px;
   }
 </style>

@@ -1,0 +1,144 @@
+<aside class="menu sidebar is-hidden-touch" id="sidebar-data">
+  <section class="userDataContainer is-flex is-justify-content-center">
+    <!-- USer Data -->
+    <section class="UserData">
+      <img
+        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRrkZbcHSbochV6XkgyMt4NC6olUbysG4PjUw&usqp=CAU"
+        alt="Profile Picture"
+        class="image is-128x128 is-rounded mt-4"
+      />
+      <section class="has-text-centered mt-3">
+        <p class="is-size-6 has-text-weight-bold">Nombre</p>
+        <p class="is-size-7">Rol</p>
+      </section>
+    </section>
+  </section>
+  <!-- Navegacion -->
+
+  <section class="is-flex is-flex-direction-column">
+    <!-- Metricas -->
+
+    <section class="mt-3 mb-2">
+      <ul class="is-size-5 ml-5">
+        Metricas
+        <li>
+          <a class="navbar-item is-size-6 ml-2" href="/actual/metricasSprint"
+            >Sprint Actual</a
+          >
+        </li>
+        <li>
+          <a class="navbar-item is-size-6 ml-2" href="/historico/metricasEpicas"
+            >Epicas</a
+          >
+        </li>
+      </ul>
+    </section>
+
+    <!-- Retroalimentacion -->
+    <section class="mt-3 mb-2">
+      <ul class="is-size-5 ml-5">
+        Retroalimentacion
+        <li>
+          <a class="navbar-item is-size-6 ml-2" href="/actual/retroalimentacion"
+            >Responder</a
+          >
+        </li>
+        <li>
+          <a class="navbar-item is-size-6 ml-2" href="/actual/verRespuestas"
+            >Respuestas</a
+          >
+        </li>
+        <li>
+          <a
+            class="navbar-item is-size-6 ml-2"
+            href="/editar/crearRetroalimentacion"
+            >Crear</a
+          >
+        </li>
+      </ul>
+    </section>
+
+    <!-- Accionables -->
+    <section class="mt-3 mb-2">
+      <ul class="is-size-5 ml-5">
+        Accionables
+        <li>
+          <a class="navbar-item is-size-6 ml-2" href="/actual/accionables"
+            >Aprobar</a
+          >
+        </li>
+        <li>
+          <a
+            class="navbar-item is-size-6 ml-2"
+            href="/historico/historicoAccionables"
+            >Historico</a
+          >
+        </li>
+      </ul>
+    </section>
+
+    <!-- Editar -->
+    <section class="mt-3 mb-3">
+      <ul class="is-size-5 ml-5">
+        Editar
+        <li>
+          <a class="navbar-item is-size-6 ml-2" href="/editar/empleados"
+            >Empleado</a
+          >
+        </li>
+      </ul>
+    </section>
+
+    <!-- Log Out -->
+    <section class="is-flex ml-5">
+      <button class="button is-danger logout-button">
+        <img src="../../assets/logout.png" />
+        Log out
+      </button>
+    </section>
+  </section>
+</aside>
+
+<script>
+  const logoutButton = document.querySelector(".logout-button")
+  logoutButton.addEventListener("click", () => {
+    deleteTokens()
+    window.location.href = "/auth"
+  })
+</script>
+
+<!-- Sidebar custom styles -->
+<style>
+  /* Bulma CSS Override */
+
+  /* Custom Styles */
+  .sidebar {
+    position: fixed;
+    top: 45;
+    left: 0;
+    bottom: 0;
+    width: 250px;
+    height: 100vh;
+    background-color: #e4e5e3;
+    z-index: 100;
+    transition: transform 0.4s ease;
+  }
+
+  .image {
+    border-radius: 50%;
+  }
+
+  .userData {
+    justify-content: right;
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+
+  .navbar-item {
+    width: 80%;
+  }
+
+  .userDataContainer {
+    height: 25%;
+  }
+</style>

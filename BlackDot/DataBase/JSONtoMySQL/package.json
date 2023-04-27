@@ -1,0 +1,28 @@
+{
+  "name": "jsontomysql",
+  "version": "1.0.0",
+  "description": "Converts the json file provided by zebrands into sql queries",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node script.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/salgue441/Electrum-Dashboard.git"
+  },
+  "author": "Carlos Salguero",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/salgue441/Electrum-Dashboard/issues"
+  },
+  "homepage": "https://github.com/salgue441/Electrum-Dashboard#readme",
+  "dependencies": {
+    "deno": "^0.1.1",
+    "mysql2": "^3.2.0",
+    "random": "^4.1.0"
+  },
+  "devDependencies": {
+    "@faker-js/faker": "^7.6.0"
+  }
+}

@@ -1,6 +1,6 @@
 /**
  * @file accionable.controller.js
- * @brief Controlador de Accionable
+ * @brief Controller of approving Actionable
  * @author Yuna Chung
  * @date 2023.03.28
  * @version 1.0
@@ -36,6 +36,11 @@ exports.getRegistrarAprobacion = async (req, res) => {
       (item) => item.estadoAccionable === "No aprobado"
     );
 
+    if (filterAccionables.length === 0)
+      return res.render(
+        path.join(__dirname, "../Views/Static/NoAvailable.ejs")
+      );
+
     res.render(
       path.join(__dirname, "../Views/Static/actual/aprobarAccionable.ejs"),
       {
@@ -51,24 +56,25 @@ exports.getRegistrarAprobacion = async (req, res) => {
 
 exports.saveAccionable = async (req, res) => {
   const { idsAccionables } = req.body;
-  const { createAccionable } = require('../Utils/jiraIssues.api')
+  const { createAccionable } = require("../Utils/jiraIssues.api");
 
   try {
     for (let i = 0; i < idsAccionables.length; i++) {
-      const idAccionable = idsAccionables[i]
-      const accionable = await Accionable.getbyId(idAccionable)
+      const idAccionable = idsAccionables[i];
+      const accionable = await Accionable.getbyId(idAccionable);
 
-      accionable.estadoAccionable = 'Aprobado'
-      await accionable.updateEstadoAprobado()
+      await accionable.updateEstadoAprobado();
 
-      if (accionable.estadoAccionable === 'Aprobado') {
-        await createAccionable(accionable)
+      if (accionable.estadoAccionable === "Aprobado") {
+        await createAccionable(accionable);
       }
     }
 
-    res.status(200).json({ message: 'Accinoables saved successfully' });
+    console.log("Accionables saved successfully");
+
+    res.status(200).json({ message: "Accinoables saved successfully" });
   } catch (error) {
-    console.log(error)
+    console.log(error);
     return res.status(500).json({ message: error.message });
   }
 };
