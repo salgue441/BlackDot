@@ -1,149 +1,131 @@
-/**
- * @file auth.js
- * @brief Utils functions of Google Authentication
- * @author Oli Garcia
- * @date 2023-04-14
- * @version 1.0
- * 
- * @copyright Copyright (c) - MIT License
- */
-
-const jwt = require("jsonwebtoken");
-const { OAuth2Client } = require("google-auth-library");
+// Libraries
+const jwt = require('jsonwebtoken');
+const { OAuth2Client } = require('google-auth-library');
 const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 
-// Models
-const Token = require('../Models/token.model')
+// Data models
+const Token = require('../Models/token.model');
 
+// Functions
 /**
  * @brief
- * Creates a token login ID that expires in 30 seconds.
- * @param {Object} data - google Token
- * @return {Function} jwt.sign - log in token
- * @throws {Error} returns to /auth 
+ * Generates a JWT token with the given payload. 
+ * @note The tokens are valid for 5 minutes
+ * @param {Object} data - Payload data
+ * @returns {String} JWT token string
  */
 const createTokenLogin = (data) => {
-    console.log("token login creado")
-
-    return jwt.sign(data, process.env.JWT_LOGIN, {
-        expiresIn: "300s",
-
-    })
+    const expires = Date.now() + 1000 * 60 * 5;
+    return jwt.sign(data, process.env.JWT_SECRET, { expiresIn: expires });
 }
 
 /**
  * @brief
- * Creates a refresh token that expires in 8 hours
- * @param {Object} data - google Token
- * @return {Function} jwt.sign - Refresh token (renewable)
- * @throws {Error} returns to /auth
+ * Generates a JWT Refresh Token with the given payload.
+ * @note The tokens are valid for 8 hours. 
+ * @param {Object} data - Payload data
+ * @returns {String} JWT Refresh Token string
  */
-const createRefreshToken = (data) => {
+const createTokenRefresh = (data) => {
     data.createdAt = Date.now()
-
-    console.log("token refresh creado")
-
-    let tokenRefreshed =  jwt.sign(data, process.env.JWT_REFRESH, {
-        expiresIn: "8h",
-    })
-
-    //console.log(tokenRefreshed)
-    
-    return tokenRefreshed
+    return jwt.sign(data, process.env.JWT_SECRET, { expiresIn: '8h' });
 }
 
 /**
  * @brief
- * Verifies the token 
- * @param {Object} token - Google Token to be verified
- * @param {Object} type - default value is "login"
- * @return {Function} jwt.verifiy() result
- * @throws {Error}
+ * Verifies the tokens and returns the payload data
+ * @note The tokens are valid for 5 minutes
+ * @param {String} token - JWT token string
+ * @param {String} type - Token type. Default value is 'login'
+ * @returns {Object} Payload data object
  */
 const verifyToken = (token, type = "login") => {
-    let typeToken;
+    let tokenType;
 
-    if (type === "login")
-        typeToken = process.env.JWT_LOGIN;
+    if (type === "login") tokenType = process.env.JWT_LOGIN
+    if (type === "refresh") tokenType = process.env.JWT_REFRESH
 
-    if (type === "refresh")
-        typeToken = process.env.JWT_REFRESH;
+    try {
+        const decoded = jwt.verify(token, tokenType)
+        const { exp } = decoded
+        const currentTimestamp = Math.floor(Date.now() / 1000)
+        const expirationThreshold = 60 * 5
 
-    return jwt.verify(token, typeToken);
+        if (exp - currentTimestamp < expirationThreshold) {
+            const newToken = jwt.sign(decoded.payload, tokenType, {
+                expiresIn: '300s'
+            })
+
+            return { newToken, payload: decoded.payload }
+        }
+
+        return decoded.payload
+    } catch (error) {
+        throw new Error(error);
+    }
 }
 
 /**
  * @brief
- * Verifies the Google Token
- * @param {Object} token - Google token
- * @return {Function} payload - getPayload() 
- * @throws {Error} 
+ * Verifies the Google Token and returns the payload data
+ * @param {String} token - Google Token string
+ * @returns {Object} Payload data object
  */
 const verifyGoogleToken = async (token) => {
     const ticket = await client.verifyIdToken({
         idToken: token,
-        audience: process.env.GOOGLE_CLIENT_ID,
+        audience: process.env.GOOGLE_CLIENT_ID
     })
 
-    return ticket.getPayload()
+    const payload = ticket.getPayload();
+    return payload
 }
 
 /**
- * @brief
+ * @brief 
  * Verifies if a token is blacklisted
- * @param {Object} token - token to be checked
- * @return {Boolean} returns true if the token is blacklisted, otherwise false
+ * @param {String} token - JWT token string
+ * @return {Boolean} True if the token was blacklisted, false otherwise
  */
 const isBlacklisted = async (token) => {
     const tokenExists = await Token.getByID(token)
 
-    if (!tokenExists) return false
-
-    return true
+    if (tokenExists) return true;
+    return false;
 }
 
 /**
  * @brief
- * Blacklists a token 
- * @param {Object} token - token to be blacklisted
+ * Blacklists a token
+ * @param {String} token - JWT token string
+ * @returns {Object} Token object
  */
 const blacklistToken = async (token) => {
-    const tokenModel = new Token({
-        id: token,
-    })
-
-    await tokenModel.post()
+    const tokenModel = new Token({ id: token })
+    await tokenModel.save()
 }
 
 /**
  * @brief
- * Deletes a session from the server
- * @param {Object} res - response oject
- * @param {Object} req - request object
- * @return {Object} callback function
-*/
+ * Deletes the sessions cookies and session
+ * @param {Object} req - Request object
+ * @param {Object} res - Response object
+ * @returns {Object} Response object
+ */
 const deleteSession = (req, res) => {
-    // locals
-    res.locals.activeTeams = []
     res.locals.currentUser = null
-    res.locals.currentTeam = null
-
-    console.log("Sesion eliminada")
-
-    // session & cookies
     req.session.destroy()
-    res.clearCookie(this.cookie, { path: "/" })
 
+    // Delete cookies
+    res.clearCookie(this.cookie, { path: '/' })
+
+    // Redirect
     res.status(301).redirect('/')
 }
 
-/**
- * @brief
- * Exporting all the file functions
- */
 module.exports = {
     createTokenLogin,
-    createRefreshToken,
+    createTokenRefresh,
     verifyToken,
     verifyGoogleToken,
     isBlacklisted,

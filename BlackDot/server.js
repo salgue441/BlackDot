@@ -13,48 +13,33 @@
  * @copyright Copyright (c) 2023 - MIT License
  */
 
+// Dotenv config
+require("dotenv").config()
+
+// Modules
 const express = require("express")
 const session = require("express-session")
 const bodyparser = require("body-parser")
 const cookieParser = require("cookie-parser")
+
+// App
 const app = express()
+const path = require("path");
 
-// Dotenv config
-require("dotenv").config()
+// Port
+const PORT = 3000
 
+// Middlewares
 app.use(bodyparser.json())
 app.use(bodyparser.urlencoded({ extended: true }))
 
 // View engine
 app.set("view engine", "ejs")
+app.set("views", path.join(__dirname, "/Views/"));
 
 // Static Files
 app.use(express.static("public"))
 app.use(cookieParser())
-
-// /auth
-/**
- * @brief
- * Routes for the auth section
- * @param {String} "/auth" - Route
- * @param {Function} auth - Callback function
- */
-const auth = require("./Routes/auth.routes")
-const authMiddleware = require("./middlewares/auth")
-
-app.use("/auth", auth)
-
-/**
- * @brief
- * Redirects to /auth if the user is not logged in
- * @param {String} "/" - Route
- * @param {Function} (req, res) - Callback function
- */
-app.get("/", (req, res) => {
-  res.redirect("/auth")
-})
-
-app.use(authMiddleware.validateTokenActive)
 
 // Sessions
 /**
@@ -77,59 +62,10 @@ app.use(
   })
 )
 
-// Section routes
-/**
- * @brief
- * Routes for the main section
- * @param {String} "/" - Route
- * @param {Function} main - Callback function
- */
-const main = require("./Routes/main.routes")
-app.use(main)
+// Routes
+const initRoutes = require("./Routes/index.routes")
+initRoutes(app)
 
-/**
- * @brief
- * Routes for the actual section
- * @param {String} "/actual" - Route
- * @param {Function} actual - Callback function
- */
-const actual = require("./Routes/actual.routes")
-app.use("/actual", actual)
-
-/**
- * @brief
- * Route for the historico section
- * @param {String} "/historico" - Route
- * @param {Function} historico - Callback function
- */
-const historico = require("./Routes/historico.routes")
-app.use("/historico", historico)
-
-/**
- * @brief
- * Routes for the editar section
- * @param {String} "/editar" - Route
- * @param {Function} editar - Callback function
- * @returns {Function} - Callback function
- * */
-
-const editar = require("./Routes/editar.routes")
-app.use("/editar", editar)
-
-/**
- * @brief
- * 404 error page
- * @param {String} "*" - Route
- * @param {Function} (req, res) - Callback function
- * @returns {Function} - Callback function
- */
-app.get("*", (req, res) => {
-  res.render("Static/404")
-})
-
-// Starting the server
-const PORT = 3000
-const { saveIssuesToDB } = require("./Utils/jiraIssues.api")
 
 /**
  * @brief
@@ -139,6 +75,7 @@ const { saveIssuesToDB } = require("./Utils/jiraIssues.api")
  * @param {Function} () - Callback function
  * @returns {Function} - Callback function
  */
+const { saveIssuesToDB } = require("./Utils/jiraIssues.api")
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`)
 
@@ -149,3 +86,5 @@ app.listen(PORT, () => {
     saveIssuesToDB()
   }
 })
+
+
