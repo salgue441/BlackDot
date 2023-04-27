@@ -126,8 +126,6 @@ const registrarEmpleado = async (req, res) => {
     userData.apellidoMaterno = apellido[1];
   }
 
-  console.log(userData)
-
   try {
     const validacion = await Empleado.verifyByEmail(userData.googleEmail);
 
