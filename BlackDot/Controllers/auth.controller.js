@@ -5,6 +5,7 @@ const authUtils = require('../Utils/auth')
 
 // Data models
 const Empleado = require('../Models/empleado.model')
+const empleadoRole = require('../Models/empleado-rol.model')
 
 // Functions
 /**
@@ -87,8 +88,58 @@ const refreshTokenAPI = async (req, res, next) => {
   }
 }
 
+let usuarioRegistrado = false
+
+const registrarEmpleado = async (req, res) => {
+  const { refreshToken } = req.body
+  const verified = authUtils.verifyToken(refreshToken, "refresh")
+  const nombre = verified.primerNombre.split(" ")
+  const apellido = verified.apellidoPaterno.split(" ")
+
+  let userData = {
+    primerNombre: nombre[0],
+    segundoNombre: null,
+    apellidoPaterno: apellido[0],
+    apellidoMaterno: null,
+    idGoogleAuth: bcrypt.hashSync(verified.idGoogleAuth, 12),
+    googleEmail: verified.googleEmail,
+    googleProfilePicture: verified.googleProfilePicture,
+  }
+
+  if (nombre.length > 1) {
+    userData.segundoNombre = nombre[1]
+  }
+
+  if (apellido.length > 1) {
+    userData.apellidoMaterno = apellido[1]
+  }
+
+  try {
+    const validacion = await Empleado.verifyByEmail(userData.googleEmail)
+
+    if (validacion) {
+      usuarioRegistrado = true
+    } else {
+      const newEmpleado = new Empleado(userData)
+      await newEmpleado.save()
+
+      const idNuevoEmpleado = await Empleado.getLastID()
+      const nuevoEmpleadoRol = new empleadoRol({
+        idEmpleado: idNuevoEmpleado,
+        idRol: 3,
+      })
+
+      await nuevoEmpleadoRol.save()
+      usuarioRegistrado = true
+    }
+  } catch (error) {
+    throw new Error(error)
+  }
+}
+
 module.exports = {
   renderLogin,
   loginAPI,
-  refreshTokenAPI
+  refreshTokenAPI,
+  registrarEmpleado,
 }
