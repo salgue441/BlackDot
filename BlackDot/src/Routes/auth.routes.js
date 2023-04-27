@@ -1,7 +1,7 @@
 const express = require("express")
 
 // Auth Components
-const authController = require("../Controllers/auth.controller")
+const authController = require("../controllers/auth.controller")
 
 // Router
 const router = express.Router()

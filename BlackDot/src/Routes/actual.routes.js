@@ -7,7 +7,7 @@ const router = express.Router()
 const bodyParser = require("body-parser")
 const urlencodedParser = bodyParser.urlencoded({ extended: false })
 
-const Retro = require("../Controllers/retroalimentacion.controller")
+const Retro = require("../controllers/retroalimentacion.controller")
 router.get("/verRespuestas/:id", Retro.getCurretRetroalimentacion)
 router.get("/verRespuestas", Retro.getCurretRetroalimentacion)
 
@@ -19,13 +19,13 @@ router.post("/enviado", Retro.postRegistrarRespuestas)
 router.get("/respuestasRetro", Retro.getCurretRetroalimentacionAPI)
 
 // Sprint Actual
-const SprintActual = require("../Controllers/metricaActual.controller")
+const SprintActual = require("../controllers/metricaActual.controller")
 router.get("/metricasSprint", SprintActual.getActual)
 
 // Fetches all the epicas and their metrics for the actual sprint
 router.get("/sprintData", SprintActual.getActualAPI)
 
-const Accionable = require("../Controllers/accionable.controller")
+const Accionable = require("../controllers/accionable.controller")
 router.get("/accionables", Accionable.getRegistrarAprobacion)
 router.post("/admin/saveAccionables", Accionable.saveAccionable)
 

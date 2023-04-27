@@ -3,7 +3,7 @@ const router = express.Router()
 const bodyParser = require("body-parser")
 const urlencodedParser = bodyParser.urlencoded({ extended: false })
 
-const crearRetroalimentacion = require("../Controllers/retroalimentacion.controller")
+const crearRetroalimentacion = require("../controllers/retroalimentacion.controller")
 router.get(
   "/crearRetroalimentacion",
   crearRetroalimentacion.getCrearRetroalimentacion
@@ -26,7 +26,7 @@ router.get(
   crearRetroalimentacion.getRetroalimentacionExitosa
 )
 
-const usuario = require("../Controllers/usuario.controller")
+const usuario = require("../controllers/usuario.controller")
 router.get("/empleados", usuario.getEditarUsuario)
 
 router.get("/empleados/aceptar", usuario.getRegistrarUsuario)
