@@ -3,9 +3,11 @@ const express = require("express");
 const path = require("path");
 
 /**
- * @Get error view
+ * @brief
+ * obtiene vista de error
  * @param {Request} req
  * @param {Response} res
+ * @returns {View} error view
  */
 
 exports.getError = (req, res) => {
