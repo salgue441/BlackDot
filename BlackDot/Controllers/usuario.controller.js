@@ -44,7 +44,7 @@ exports.getEditarUsuario = async (req, res) => {
 
 /**
  * @brief
- *
+ * get of registrar usuarios
  * @param {Request} req - Request object
  * @param {Response} res - Response object
  * @returns {Response} - Response object
@@ -148,6 +148,16 @@ exports.getEditarUsuario = async (req, res) => {
     })
   }
 }
+
+/** 
+ * @brief
+ *  get of delete usuario
+ * @param {Request} request - Request object
+ * @param {Response} response - Response object
+ * @returns {Response} - Response object
+ * @throws {Error} - Error message
+ */ 
+
 
 exports.getEliminarUsuario = async (req, res) => {
   try {
