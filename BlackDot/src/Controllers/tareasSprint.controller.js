@@ -11,7 +11,7 @@
 // Data Models
 const Issue = require("../models/issue.model");
 const Sprint = require("../models/sprint.model");
-const SprintIssue = require("../models/sprint-issue.model");
+const SprintIssue = require("../models/sprintIssue.model");
 
 /**
  * @brief

@@ -8,14 +8,12 @@
  * @copyright Copyright (c) 2023 - MIT License
  */
 
-const bodyparser = require("body-parser")
-const express = require("express")
 const path = require("path")
 
 // Data Models
 const Empleado = require("../models/empleado.model")
 const Rol = require("../models/rol.model")
-const EmpleadoRol = require("../models/empleado-rol.model")
+const EmpleadoRol = require("../models/empleadoRol.model")
 const authUtil = require("../utils/auth")
 
 /**

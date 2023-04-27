@@ -16,10 +16,10 @@
 const path = require("path");
 
 // Models
-const Epica = require("../models/Epica.model");
+const Epica = require("../models/epica.model");
 const Issue = require("../models/issue.model");
 const Sprint = require("../models/sprint.model");
-const SprintIssue = require("../models/sprint-issue.model");
+const SprintIssue = require("../models/sprintIssue.model");
 const SprintEpica = require("../models/sprintEpica.model")
 
 /**

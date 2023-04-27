@@ -5,7 +5,7 @@ const authUtils = require("../utils/auth");
 
 // Data models
 const Empleado = require("../models/empleado.model");
-const empleadoRole = require("../models/empleado-rol.model");
+const empleadoRole = require("../models/empleadoRol.model");
 
 // Functions
 /**

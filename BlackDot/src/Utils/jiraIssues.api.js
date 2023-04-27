@@ -14,8 +14,8 @@ const Bottleneck = require("bottleneck");
 // Data Models
 const Issue = require("../models/issue.model");
 const Sprint = require("../models/sprint.model");
-const Epica = require("../models/Epica.model");
-const SprintIssue = require("../models/sprint-issue.model");
+const Epica = require("../models/epica.model");
+const SprintIssue = require("../models/sprintIssue.model");
 const SprintEpica = require("../models/sprintEpica.model");
 
 // Auxiliar functions
