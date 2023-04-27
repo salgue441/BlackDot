@@ -1,0 +1,30 @@
+<html>
+  <%- include('../Include/Header.ejs') %>
+
+  <body>
+    <%- include('../Include/Navbar.ejs') %>
+
+    <section class="section" style="margin-top: 2rem">
+      <div class="hero">
+        <h1 class="title is-1 has-text-centered">Error 404</h1>
+        <p class="subtitle has-text-centered">Page not found</p>
+        <img src="/assets/404.jpg" alt="404" />
+      </div>
+    </section>
+  </body>
+</html>
+
+<style>
+  .hero {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .hero img {
+    width: 100%;
+    max-width: 750px;
+    height: 100%;
+    max-height: 750px;
+  }
+</style>

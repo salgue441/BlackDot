@@ -1,0 +1,118 @@
+<div class="wrap mt-5 is-fixed-top">
+  <ul class="likert">
+    <li>
+      <input
+        type="radio"
+        class="likert"
+        name="<%= name %>"
+        value="1"
+        required
+      />
+      <label>Desacuerdo</label>
+    </li>
+    <li>
+      <input type="radio" class="likert" name="<%= name %>" value="2" />
+      <label></label>
+    </li>
+    <li>
+      <input type="radio" class="likert" name="<%= name %>" value="3" />
+      <label>Neutral</label>
+    </li>
+    <li>
+      <input type="radio" class="likert" name="<%= name %>" value="4" />
+      <label></label>
+    </li>
+    <li>
+      <input type="radio" class="likert" name="<%= name %>" value="5" />
+      <label>De acuerdo</label>
+    </li>
+  </ul>
+
+  <style>
+    html,
+    body {
+      padding: 0;
+      margin: 0;
+    }
+    .wrap {
+      font: 16px Arial, san-serif;
+    }
+
+    li label {
+      margin-left: 14%;
+    }
+
+    h1.likert-header {
+      padding-left: 4.25%;
+      margin: 20px 0 0;
+    }
+    form .statement {
+      display: block;
+      font-size: 14px;
+      font-weight: bold;
+      padding: 30px 0 0 4.25%;
+      margin-bottom: 10px;
+    }
+
+    form .likert li {
+      display: inline-block;
+      width: 19%;
+      text-align: center;
+      vertical-align: top;
+    }
+    form .likert li input[type="radio"] {
+      display: block;
+      position: relative;
+      top: 5;
+      left: 50%;
+      margin-left: -6px;
+      width: 3.4em;
+      height: 3.4rem;
+      transition: 120ms transform ease-in-out;
+    }
+
+    form .likert li label {
+      width: 100%;
+    }
+
+    ul.likert {
+      padding: 0;
+    }
+
+    @media screen and (max-width: 600px) {
+      .wrap {
+        font: 10px Arial, san-serif;
+      }
+
+      form .likert {
+        list-style: none;
+        width: 100%;
+        margin: 0;
+        padding: 0 0 35px;
+        display: block;
+        border-bottom: 2px solid #efefef;
+      }
+      form .likert:before {
+        content: "";
+        position: relative;
+        top: 18px;
+        left: 9.5%;
+        display: block;
+        background-color: #efefef;
+        height: 3px;
+        width: 78%;
+      }
+
+      form .likert li input[type="radio"] {
+        display: block;
+        position: relative;
+        top: 0;
+        left: 50%;
+        margin-left: -6px;
+        width: 2em;
+        height: 2rem;
+        transition: 120ms transform ease-in-out;
+      }
+    }
+  </style>
+</div>

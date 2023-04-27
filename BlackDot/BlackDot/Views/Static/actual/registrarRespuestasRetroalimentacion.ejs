@@ -1,0 +1,102 @@
+<html>
+  <%- include('../../Include/Header.ejs') %>
+
+  <body>
+    <%- include('../../Include/Navbar.ejs') %>
+
+    <section class="container">
+      <form class="preguntaContainer" method="POST" action="/actual/enviado">
+        <progress
+          class="progress is-danger is-fixed-top-desktop"
+          value="<%= barProgress %>"
+          max="100"
+        ></progress>
+
+        <% let cantCualitativas = 0; %> <% for (var i = 0; i < preguntas.length;
+        i++) { %> <% if(preguntas[i].contenido != '¿Que podemos mejorar?') { %>
+        <% if (preguntas[i].tipoPregunta === 'Cualitativa') { %> <%
+        cantCualitativas++; %>
+        <div class="box is-flex is-flex-direction-column">
+          <label class="label" for="respuestaCualitativa"
+            ><%= preguntas[i].contenido %></label
+          >
+          <input
+            class="input m-3 is-justify-content-center"
+            type="text"
+            id="respuestaCualitativa"
+            name="<%= preguntas[i].idPregunta %>"
+            placeholder="Respuesta"
+            onchange="updateProgressBar(event)"
+            required
+          />
+        </div>
+        <% } else { %>
+        <div class="box is-flex is-flex-direction-column is-vcentered">
+          <label class="label" for="respuestaCuantitativa"
+            ><%= preguntas[i].contenido %></label
+          >
+          <%- include('../../include/preguntaCuantitativa.ejs', { name:
+          preguntas[i].idPregunta }) %>
+        </div>
+        <%} %> <% } %> <% } %>
+
+        <div class="box is-flex is-flex-direction-column">
+          <label class="label" for="respuestaCualitativa"
+            >¿Que podemos mejorar?</label
+          >
+          <p class="is-italic has-text-grey">Posible aciconable</p>
+          <input
+            class="input m-3 is-justify-content-center"
+            type="text"
+            id="respuestaCualitativa"
+            name="8"
+            placeholder="Respuesta"
+            onchange="updateProgressBar(event)"
+            required
+          />
+        </div>
+
+        <div class="is-flex is-justify-content-center">
+          <input
+            class="button is-danger is-rounded is-medium"
+            type="submit"
+            value="Enviar"
+          />
+        </div>
+      </form>
+    </section>
+  </body>
+</html>
+
+<script>
+  function updateProgressBar(e) {
+    const contenido = e.target.value
+    const valor = 100 / "<%= cantCualitativas %>"
+    if (!contenido) {
+      document.querySelector("progress").value =
+        document.querySelector("progress").value - valor
+    } else {
+      document.querySelector("progress").value =
+        document.querySelector("progress").value + valor
+    }
+  }
+</script>
+
+<style>
+  .preguntaContainer {
+    margin-top: 5%;
+  }
+
+  .box {
+    height: 15rem;
+  }
+
+  .input {
+    width: 90%;
+    height: 75%;
+  }
+
+  .label {
+    font-size: 1.2rem;
+  }
+</style>
