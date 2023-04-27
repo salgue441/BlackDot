@@ -54,7 +54,9 @@ const simplifyAnswers = (answers) => {
       return acc
     }, [])
   } catch (error) {
-    res.render(path.join(__dirname, "../views/static/error/error.ejs"), { error })
+    res.render(path.join(__dirname, "../views/static/error/error.ejs"), {
+      error,
+    })
   }
 }
 
@@ -113,7 +115,10 @@ exports.getCurretRetroalimentacion = async (req, res) => {
       retros = await Retro.getAll()
 
       res.render(
-        path.join(__dirname, "../Views/Static/retroalimentacion/verRetroalimentacion.ejs"),
+        path.join(
+          __dirname,
+          "../Views/Static/retroalimentacion/verRetroalimentacion.ejs"
+        ),
         {
           idRetroalimentacion: quantitative[0].idRetroalimentacion,
           fechaRetroalimentacion: quantitative[0].fechaRetroalimentacion,
@@ -123,7 +128,9 @@ exports.getCurretRetroalimentacion = async (req, res) => {
         }
       )
     } catch (error) {
-      res.render(path.join(__dirname, "../views/static/error/error.ejs"), { error })
+      res.render(path.join(__dirname, "../views/static/error/error.ejs"), {
+        error,
+      })
     }
   })
 }
@@ -152,7 +159,9 @@ exports.getCurretRetroalimentacionAPI = async (req, res) => {
       simplifiedQuantitative: simplifiedQuantitative,
     })
   } catch (error) {
-    res.render(path.join(__dirname, "../views/static/error/error.ejs"), { error })
+    res.render(path.join(__dirname, "../views/static/error/error.ejs"), {
+      error,
+    })
   }
 }
 
@@ -179,39 +188,30 @@ exports.getRegistrarRespuestas = async (req, res) => {
         retroPregunta.getIdsPreguntas(idRetro).then(async (idsPreguntas) => {
           //Checks if the retro has questions
           if (idsPreguntas.length == 0) {
-            res.render(path.join(__dirname, "../views/static/error/error.ejs"), {
-              error: "No hay preguntas registradas",
-            })
+            res.render(
+              path.join(__dirname, "../views/static/error/error.ejs"),
+              {
+                error: "No hay preguntas registradas",
+              }
+            )
           } else {
-            try {
-              Pregunta.getByIds(idsPreguntas).then(async (preguntas) => {
-                // Calculate progress percentage based on completed fields
-                const total = preguntas.length
-                const completed = req.query.respuestas
-                  ? Object.keys(req.query.respuestas).length
-                  : 0
-                const barProgress = 0
-
-                // Render the EJS template with the preguntas and progress variables
-                res.render(
-                  "Static/retroalimentacion/registrarRespuestasRetroalimentacion.ejs",
-                  {
-                    preguntas,
-                    barProgress,
-                  }
-                )
-              })
-            } catch (error) {
-              res.render(path.join(__dirname, "../views/static/error/error.ejs"), {
-                error,
-              })
-            }
+            Pregunta.getByIds(idsPreguntas).then(async (preguntas) => {
+              // Render the EJS template with the preguntas and progress variables
+              res.render(
+                "Static/retroalimentacion/registrarRespuestasRetroalimentacion.ejs",
+                {
+                  preguntas,
+                }
+              )
+            })
           }
         })
       }
     })
   } catch (error) {
-    res.render(path.join(__dirname, "../views/static/error/error.ejs"), { error })
+    res.render(path.join(__dirname, "../views/static/error/error.ejs"), {
+      error,
+    })
   }
 }
 
@@ -274,10 +274,14 @@ exports.postRegistrarRespuestas = async (req, res) => {
         }
       }
 
-      res.render(path.join(__dirname, "../views/static/retroalimentacion/enviado.ejs"))
+      res.render(
+        path.join(__dirname, "../views/static/retroalimentacion/enviado.ejs")
+      )
     })
   } catch (error) {
-    res.render(path.join(__dirname, "../views/static/error/error.ejs"), { error })
+    res.render(path.join(__dirname, "../views/static/error/error.ejs"), {
+      error,
+    })
   }
 }
 
@@ -291,7 +295,9 @@ exports.postRegistrarRespuestas = async (req, res) => {
  * */
 
 exports.getPaginaEnviado = async (req, res) => {
-  res.render(path.join(__dirname, "../views/static/retroalimentacion/enviado.ejs"))
+  res.render(
+    path.join(__dirname, "../views/static/retroalimentacion/enviado.ejs")
+  )
 }
 
 /**
@@ -386,7 +392,9 @@ exports.postEditarPreguntas = async (req, res) => {
       await pregunta.save()
       res.redirect("/crearRetro/crearRetroalimentacion")
     } catch (error) {
-      res.render(path.join(__dirname, "../views/static/error/error.ejs"), { error })
+      res.render(path.join(__dirname, "../views/static/error/error.ejs"), {
+        error,
+      })
     }
   } else {
     if (preguntatest.contenido.length < 300) {
@@ -400,7 +408,9 @@ exports.postEditarPreguntas = async (req, res) => {
         await pregunta.update()
         res.redirect("/editar/crearRetroalimentacion")
       } catch (error) {
-        res.render(path.join(__dirname, "../views/static/error/error.ejs"), { error })
+        res.render(path.join(__dirname, "../views/static/error/error.ejs"), {
+          error,
+        })
       }
     } else {
       res.render(path.join(__dirname, "../views/static/error/error.ejs"), {
@@ -426,7 +436,9 @@ exports.getEliminarPreguntas = async (req, res) => {
     await BancoPreguntas.deleteByID(idPregunta)
     res.redirect("/editar/crearRetroalimentacion")
   } catch (error) {
-    res.render(path.join(__dirname, "../views/static/error/error.ejs"), { error })
+    res.render(path.join(__dirname, "../views/static/error/error.ejs"), {
+      error,
+    })
   }
 }
 
@@ -509,10 +521,14 @@ exports.getRetroalimentacionExitosa = async (req, res) => {
           })
         })
       } catch (error) {
-        res.render(path.join(__dirname, "../views/static/error/error.ejs"), { error })
+        res.render(path.join(__dirname, "../views/static/error/error.ejs"), {
+          error,
+        })
       }
     })
   } catch (error) {
-    res.render(path.join(__dirname, "../views/static/error/error.ejs"), { error })
+    res.render(path.join(__dirname, "../views/static/error/error.ejs"), {
+      error,
+    })
   }
 }
