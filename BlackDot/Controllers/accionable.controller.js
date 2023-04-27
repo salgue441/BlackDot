@@ -49,6 +49,15 @@ exports.getRegistrarAprobacion = async (req, res) => {
   }
 };
 
+/**
+ * @brief
+ * save Accionable in Jira
+ * @param {Request} req - Request object
+ * @param {Response} res - Response object
+ * @returns {Response} - accionables saved successfully
+ * @throws {Error} - Error message
+ */git 
+
 exports.saveAccionable = async (req, res) => {
   const { idsAccionables } = req.body;
   const { createAccionable } = require('../Utils/jiraIssues.api')
