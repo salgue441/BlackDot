@@ -1,5 +1,5 @@
 <nav
-  class="navbar is-fixed-top is-fullwidth is-flex"
+  class="navbar is-fixed-top is-fullwidth is-flex is-align-content-center"
   role="navigation"
   aria-label="main navigation"
 >
@@ -20,8 +20,8 @@
   </div>
 
   <!-- Logo -->
-  <div class="navbar-item-center">
-    <div class="navbar-item">
+  <div class="navbar-item-center mt-2">
+    <div class="navbar-item ">
       <a href="/home">
         <img
           src="../../assets/$zebrands-brand-logo.svg"
@@ -32,69 +32,73 @@
     </div>
   </div>
 
-  <div class="navbar-end">
-    <div class="navbar-item is-hidden-touch">
-      <img src="" alt="User Profile" class="is-rounded profile-img" />
+  <div class="navbar-end  mr-5">
+    <div class="field is-grouped is-flex mt-2">
+
+      <div class="control">
+        <div class="mt-2">John Doe</div>
+      </div>
+        <img src="" class='image is-32x32 is-rounded profile-img' alt="Profile" />
     </div>
   </div>
 </nav>
 
-<!-- Sidebar -->
-<%- include('./sidebarAdmin.ejs') %>
+  <!-- Sidebar -->
+  <%- include('./sidebarAdmin.ejs') %>
 
-<!-- Styles -->
-<style>
-  /* Custom Styles */
-  .navbar-item-center {
-    position: absolute;
-    left: 50%;
-    top: 10%;
-    transform: translateX(-50%);
-  }
-  .profile-img {
-    width: 40px;
-    height: 40px;
-    border: 1px solid #e4e5e3;
-    border-radius: 50%;
-    margin-right: 10px;
-  }
+  <!-- Styles -->
+  <style>
+    /* Custom Styles */
+    .navbar-item-center {
+      position: absolute;
+      left: 50%;
+      top: 10%;
+      transform: translateX(-50%);
+    }
+    .profile-img {
+      width: 40px;
+      height: 40px;
+      border: 1px solid #e4e5e3;
+      border-radius: 50%;
+    }
 
-  .logo svg {
-    width: 100px;
-    height: 100px;
-  }
+    .logo {
+      transform: scale(2);
+      z-index: 100 !important ;
+    }
 
-  /* Bulma Css */
-  .navbar {
-    background-color: #e4e5e3;
-    height: 60px;
-  }
-  @media screen and (max-width: 1023px) {
-    .navbar-end {
-      justify-content: flex-end;
-      margin-right: 10px;
+    /* Bulma Css */
+    .navbar {
+      background-color: #e4e5e3;
+      height: 60px;
     }
-    .navbar-item.is-hidden-touch {
-      display: block;
+    @media screen and (max-width: 1023px) {
+      .navbar-end {
+        justify-content: flex-end;
+        margin-right: 10px;
+      }
+      .navbar-item.is-hidden-touch {
+        display: block;
+      }
     }
-  }
-  @media screen and (min-width: 1024px) {
-    .navbar-burger {
-      display: block !important;
+    @media screen and (min-width: 1024px) {
+      .navbar-burger {
+        display: block !important;
+      }
+      .menu.is-hidden-touch {
+        display: none;
+      }
     }
-    .menu.is-hidden-touch {
-      display: none;
-    }
-  }
-</style>
+  </style>
 
-<!-- Hamburger icon functionality -->
-<script>
-  // When the hamburger icon is clicked, the sidebar opens
-  const toggleSidebar = (event) => {
-    var target = document.getElementById(event.target.dataset.target)
-    event.target.classList.toggle("is-active")
-    target.classList.toggle("is-active")
-    target.classList.toggle("is-hidden-touch")
-  }
-</script>
+  <!-- Hamburger icon functionality -->
+  <script>
+    // When the hamburger icon is clicked, the sidebar opens
+    const toggleSidebar = (event) => {
+      var target = document.getElementById(event.target.dataset.target)
+      event.target.classList.toggle("is-active")
+      target.classList.toggle("is-active")
+      target.classList.toggle("is-hidden-touch")
+    }
+  </script>
+</nav>
