@@ -9,9 +9,12 @@
  */
 
 // Data Models
-const Issue = require("../models/issue.model");
-const Sprint = require("../models/sprint.model");
-const SprintIssue = require("../models/sprint-issue.model");
+const Issue = require("../Models/issue.model")
+const Sprint = require("../Models/sprint.model")
+const SprintIssue = require("../Models/sprint-issue.model")
+const retro = require("../Models/retro.model")
+
+const path = require("path")
 
 /**
  * @brief
@@ -22,37 +25,45 @@ const SprintIssue = require("../models/sprint-issue.model");
  */
 exports.getLanding = async (req, res) => {
   // Data arrays
-  const issues = await Issue.getAll();
-  const sprints = await Sprint.getAll();
-  const sprintIssues = await SprintIssue.getAll();
+  const issues = await Issue.getAll()
+  const sprints = await Sprint.getAll()
+  const sprintIssues = await SprintIssue.getAll()
+
+  let retroActiva = await retro.getRetroActual()
+  if (retroActiva) {
+    retroActiva = true
+  } else {
+    retroActiva = false
+  }
 
   // Relating sprints and issues
-  const sprintIssuesMap = {};
+  const sprintIssuesMap = {}
 
   sprintIssues.forEach((sprintIssue) => {
-    const sprintID = sprintIssue.idSprint;
-    const issueID = sprintIssue.idIssue;
+    const sprintID = sprintIssue.idSprint
+    const issueID = sprintIssue.idIssue
 
     if (!sprintIssuesMap[sprintID]) {
-      sprintIssuesMap[sprintID] = [];
+      sprintIssuesMap[sprintID] = []
     }
 
-    sprintIssuesMap[sprintID].push(issueID);
-  });
+    sprintIssuesMap[sprintID].push(issueID)
+  })
 
   sprints.forEach((sprint) => {
-    const sprintID = sprint.idSprint;
-    const sprintIssues = sprintIssuesMap[sprintID] || [];
+    const sprintID = sprint.idSprint
+    const sprintIssues = sprintIssuesMap[sprintID] || []
 
     sprint.issues = issues.filter((issue) =>
       sprintIssues.includes(issue.idIssue)
-    );
-  });
+    )
+  })
 
-  res.render("static/index", {
+  res.render(path.join(__dirname, "../Views/Static/index.ejs"), {
     sprint: sprints,
-  });
-};
+    retroActiva: retroActiva,
+  })
+}
 
 /**
  * @brief
@@ -65,39 +76,39 @@ exports.getLanding = async (req, res) => {
 exports.getLandingAPI = async (req, res) => {
   try {
     // Data arrays
-    const issues = await Issue.getAll();
-    const sprints = await Sprint.getAll();
-    const sprintIssues = await SprintIssue.getAll();
+    const issues = await Issue.getAll()
+    const sprints = await Sprint.getAll()
+    const sprintIssues = await SprintIssue.getAll()
 
     // Relating sprints and issues
-    const sprintIssuesMap = {};
+    const sprintIssuesMap = {}
 
     sprintIssues.forEach((sprintIssue) => {
-      const sprintID = sprintIssue.idSprint;
-      const issueID = sprintIssue.idIssue;
+      const sprintID = sprintIssue.idSprint
+      const issueID = sprintIssue.idIssue
 
       if (!sprintIssuesMap[sprintID]) {
-        sprintIssuesMap[sprintID] = [];
+        sprintIssuesMap[sprintID] = []
       }
 
-      sprintIssuesMap[sprintID].push(issueID);
-    });
+      sprintIssuesMap[sprintID].push(issueID)
+    })
 
     sprints.forEach((sprint) => {
-      const sprintID = sprint.idSprint;
-      const sprintIssues = sprintIssuesMap[sprintID] || [];
+      const sprintID = sprint.idSprint
+      const sprintIssues = sprintIssuesMap[sprintID] || []
 
       sprint.issues = issues.filter((issue) =>
         sprintIssues.includes(issue.idIssue)
-      );
-    });
+      )
+    })
 
     res.json({
       sprint: sprints,
-    });
+    })
   } catch (error) {
     res.status(500).json({
       message: error.message || "Error al obtener metricas epicas",
-    });
+    })
   }
-};
+}

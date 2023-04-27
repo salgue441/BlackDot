@@ -12,12 +12,11 @@ const axios = require("axios");
 const Bottleneck = require("bottleneck");
 
 // Data Models
-const Issue = require("../models/issue.model");
-const Sprint = require("../models/sprint.model");
-const Epica = require("../Models/epica.model");
-const Accionable = require("../models/accionable.model");
-const SprintIssue = require("../models/sprint-issue.model");
-const SprintEpica = require("../models/sprintEpica.model");
+const Issue = require("../Models/issue.model");
+const Sprint = require("../Models/sprint.model");
+const Epica = require("../Models/Epica.model");
+const SprintIssue = require("../Models/sprint-issue.model");
+const SprintEpica = require("../Models/sprintEpica.model");
 
 // Auxiliar functions
 /**
@@ -456,8 +455,8 @@ exports.saveIssuesToDB = async () => {
           sprintName: sprint.sprintName,
           state: sprint.sprintState,
           boardID: sprint.originBoardID,
-          fechaCreacion: sprint.sprintStartDate,
-          fechaFinalizacion: sprint.sprintEndDate,
+          fechaCreacion: new Date(sprint.sprintStartDate),
+          fechaFinalizacion: new Date(sprint.sprintEndDate),
         });
 
         const savedSprint = await newSprint.save();
@@ -492,8 +491,8 @@ exports.saveIssuesToDB = async () => {
             labelIssue: issue.labels.join(","),
             prioridadIssue: issue.priority,
             estadoIssue: issue.status,
-            fechaCreacion: issue.created,
-            fechaFinalizacion: issue.resolutiondate,
+            fechaCreacion: new Date(issue.created),
+            fechaFinalizacion: new Date(issue.resolutiondate),
           });
 
           const savedIssue = await newIssue.save();
@@ -507,6 +506,8 @@ exports.saveIssuesToDB = async () => {
         }
       }
     }
+
+    console.log("Fetch & Save completed successfully!")
   } catch (error) {
     console.log(error);
     throw new Error(error);
@@ -545,14 +546,14 @@ exports.createAccionable = async (accionable) => {
         priority: { name: 'Medium' },
       }
     }
-    
+
     const response = await rateLimitedAxios.post(`${jiraUrl}/rest/api/3/issue`, issue, { auth });
     console.log("New issue created: ", response.data);
     const issueID = response.data.id;
-  
+
     const backlogResponse = await axios.post(`${jiraUrl}/rest/agile/1.0/backlog/issue`, { issues: [issueID] }, { auth });
     console.log("Issue added to backlog: ", backlogResponse.data);
-  
+
   } catch (error) {
     console.log(error);
     throw new Error(error);

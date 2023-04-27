@@ -8,7 +8,7 @@
  * @copyright Copyright (c) 2023 - MIT License
  */
 
-const dataBase = require("../utils/dataBase")
+const dataBase = require("../Utils/dataBase")
 
 /**
  * @class
@@ -134,7 +134,7 @@ module.exports = class Issue {
     }
 
     const [issue] = await dataBase.query(
-      "select * from Issue where nombreIssue = ? and labelIssue = ?",
+      "select * from issue where nombreIssue = ? and labelIssue = ?",
       [issueData.nombreIssue, issueData.labelIssue]
     )
 

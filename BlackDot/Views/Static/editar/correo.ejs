@@ -1,8 +1,8 @@
 <html>
-  <%- include('../../include/header.ejs') %>
+  <%- include('../../Include/Header.ejs') %>
 
   <body>
-    <%- include('../../include/navbar.ejs') %>
+    <%- include('../../Include/NavBar.ejs') %>
 
     <br />
     <br />
@@ -19,19 +19,26 @@
             <div class="column is-one-third colEmpleado is-paddingless">
               <div class="box boxEmpleado m-2 p-3">
                 <div
-                  class="empleadoContainer is-flex is-vcentered is-justify-content-space-evenly mt-4"
+                  class="empleadoContainer is-flex is-flex-direction-column has-text-centered"
                 >
+                  <div class="is-flex is-justify-content-right">
+                    <a
+                      class="delete deleteIcon"
+                      href="/editar/empleados/eliminar/<%=empleados[i].idEmpleado %>"
+                    ></a>
+                  </div>
+
                   <% if(empleados[i].googleProfilePicture != null){ %>
                   <img
                     src="<%= empleados[i].googleProfilePicture %>"
                     alt="Profile Picture"
-                    class="image is-64x64 is-rounded profilePicture"
+                    class="image is-128x128 is-rounded profilePicture is-align-self-center mb-2"
                   />
                   <% } else { %>
                   <img
                     src="https://i0.wp.com/ilacnet.org/wp-content/uploads/2021/01/default-1.png?ssl=1"
                     alt="Profile Picture"
-                    class="image is-64x64 is-rounded profilePicture"
+                    class="image is-128x128 is-rounded profilePicture is-align-self-center mb-2"
                   />
                   <% } %>
                   <div class="dataContainer">
@@ -39,20 +46,18 @@
                       <%= empleados[i].primerNombre + " " +
                       empleados[i].apellidoPaterno %>
                     </p>
-                    <p><%= empleados[i].googleEmail %></p>
+                    <p class="mb-2"><%= empleados[i].googleEmail %></p>
 
                     <% if(empleados[i].idRol == 1){ %>
-                    <p class="button is-warning nombreRol is-small">
+                    <p class="button is-warning nombreRol">
                       <%= empleados[i].nombreRol %>
                     </p>
                     <% }else{ %>
-                    <p class="button is-info nombreRol is-small">
+                    <p class="button is-info nombreRol">
                       <%= empleados[i].nombreRol %>
                     </p>
                     <% } %>
                   </div>
-
-                  <a class="icon fas fa-times deleteIcon text" href="/home"></a>
                 </div>
               </div>
             </div>
@@ -63,7 +68,7 @@
         <div class="column is-one-quarter p-2">
           <section class="optionsContainer">
             <section class="box">
-              <p class="subtitle">Empleados por aceptar:</p>
+              <p class="subtitle">Empleados por aceptar</p>
 
               <a
                 class="aceptarEmpButton is-success button"
@@ -138,20 +143,15 @@
   }
 
   .Container {
-    width: 120%;
+    width: 100vw;
   }
 
   .boxEmpleado {
-    height: 120px;
+    height: 300px;
   }
 
-  .deleteIcon {
-    cursor: pointer;
-    color: black;
-  }
-
-  .deleteIcon:hover {
-    color: hsl(348, 100%, 61%);
+  .delete:hover {
+    background-color: hsl(348, 100%, 61%) !important;
   }
 
   .mainContainer {

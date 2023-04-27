@@ -8,7 +8,7 @@
  * @copyright Copyright (c) 2023 - MIT License
  **/
 
-const dataBase = require("../utils/dataBase")
+const dataBase = require("../Utils/dataBase")
 
 /**
  * @class Accionable
@@ -51,7 +51,7 @@ module.exports = class Accionable {
    **/
 
   static async getbyId(idAccionable) {
-    const query = `SELECT * FROM Accionable where idAccionable = ?`
+    const query = `SELECT * FROM accionable where idAccionable = ?`
     const [rows] = await dataBase.execute(query, [idAccionable])
 
     if (rows.length === 0) throw new Error("Accionable no encontrada")
@@ -66,7 +66,7 @@ module.exports = class Accionable {
    **/
 
   static async getAll() {
-    const query = `SELECT * FROM Accionable`
+    const query = `SELECT * FROM accionable`
     const [rows, _] = await dataBase.execute(query)
 
     return rows
@@ -78,7 +78,7 @@ module.exports = class Accionable {
    * @returns {int} - id del ultimo accionable
    */
   static async getLastId() {
-    const query = `SELECT idAccionable FROM Accionable ORDER BY idAccionable DESC LIMIT 1`
+    const query = `SELECT idAccionable FROM accionable ORDER BY idAccionable DESC LIMIT 1`
 
     const [idAccionable, _] = await dataBase.execute(query)
 
@@ -94,7 +94,7 @@ module.exports = class Accionable {
    **/
 
   async save() {
-    const query = `INSERT INTO Accionable(nombreAccionable, storyPoints, labelAccionable) VALUES (?, ?, ?)`
+    const query = `INSERT INTO accionable(nombreAccionable, storyPoints, labelAccionable) VALUES (?, ?, ?)`
 
     const [result] = await dataBase.execute(query, [
       this.nombreAccionable,
@@ -110,7 +110,7 @@ module.exports = class Accionable {
    * Modifica Accionable
    **/
   async update() {
-    const query = `UPDATE Accionable SET nombreAccionable = ?, storyPoints = ?, labelAccionable = ?, prioridadAccionable = ?, estadoAccionable = ?, estadoIssue = ?, fechaCreacion = ?, fechaFinalizacion = ? WHERE idAccionable = ?`
+    const query = `UPDATE accionable SET nombreAccionable = ?, storyPoints = ?, labelAccionable = ?, prioridadAccionable = ?, estadoAccionable = ?, estadoIssue = ?, fechaCreacion = ?, fechaFinalizacion = ? WHERE idAccionable = ?`
 
     await dataBase.execute(query, [
       this.nombreAccionable,
@@ -132,7 +132,7 @@ module.exports = class Accionable {
    **/
 
   async updateEstadoAprobado() {
-    const query = `UPDATE Accionable SET estadoAccionable = 'Aprobado' WHERE idAccionable = ?`
+    const query = `UPDATE accionable SET estadoAccionable = 'Aprobado' WHERE idAccionable = ?`
     await dataBase.execute(query, [this.idAccionable])
   }
 }

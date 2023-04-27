@@ -1,8 +1,8 @@
 <html>
-  <%- include('../../include/header.ejs') %>
+  <%- include('../../Include/Header.ejs') %>
 
   <body>
-    <%- include('../../include/navbar.ejs') %>
+    <%- include('../../Include/NavBar.ejs') %>
 
     <section class="hero is-medium is-bold">
       <div class="hero-body has-text-centered">
@@ -12,13 +12,16 @@
           <a class="button is-link" href="/editar/empleados"
             >Lista de empleados</a
           >
+          <% if(empleadoSinRol.length == 0){ %>
+
+          <h1 class="title is-1 mt-5">No hay empleados por aceptar</h1>
+          <% }else{%>
         </section>
 
         <!-- Employees -->
 
         <section class="columns is-multiline">
-          <%if(empleadoSinRol.length > 0){ %> <% for(let i = 0; i <
-          empleadoSinRol.length; i++){ %>
+          <% for(let i = 0; i < empleadoSinRol.length; i++){ %>
           <div class="column is-one-quarter">
             <div
               class="box is-flex is-flex-direction-column is-justify-content-center"
@@ -69,9 +72,7 @@
               </div>
             </div>
           </div>
-          <% } }else{ %>
-          <h1 class="title is-1 mb-5">No hay empleados por aceptar</h1>
-          <% } %>
+          <% } } %>
         </section>
       </div>
     </section>

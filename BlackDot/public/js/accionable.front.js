@@ -8,60 +8,58 @@
  * @copyright Copyright (c) 2023 - MIT License
  */
 
- let idsAccionables = []
- 
+let idsAccionables = [];
 
 /**
  * @brief
  * Handles the state of Checkboxes
  */
- function handleCheckBox() {
-  const checkboxes = document.querySelectorAll(
-    'input[type="checkbox"][name = "accionable"]'
-  )
-  const input = document.getElementById('selected-accionables')
+
+function handleCheckBox(accionableId) {
+  const checkboxes = document.querySelectorAll(`#checkbox-${accionableId}`);
+
+  const input = document.getElementById("selected-accionables");
 
   for (let i = 0; i < checkboxes.length; i++) {
-    const checkbox = checkboxes[i]
-    const id = checkbox.id.split('-').pop()
-    const isChecked = checkbox.checked
+    const checkbox = checkboxes[i];
+    const id = checkbox.id.split("-").pop();
+    const isChecked = checkbox.checked;
 
     if (isChecked) {
-      idsAccionables.push(id)
-      input.value = idsAccionables.join(',')
+      idsAccionables.push(id);
+      input.value = idsAccionables.join(",");
     } else {
-      idsAccionables = idsAccionables.filter((item) => item !== id)
-      input.value = idsAccionables.join(',')
+      idsAccionables = idsAccionables.filter((item) => item !== id);
+      input.value = idsAccionables.join(",");
     }
   }
 
-  $.ajax({
-    url: '/actual/admin/saveAccionables',
-    method: 'POST',
-    data: {idsAccionables},
-    success: function(data) {
-      console.log(data)
-    },
-    error: function(error) {
-      console.log(error)
-    }
-  })
+  console.log(idsAccionables);
 }
 
-
-const aceptarAccionable = async () => {
-  const selectedAccionablesInput = document.getElementById('selected-accionables')
-  const selectedAccionables = selectedAccionablesInput.value.split(',')
-
+async function saveAccionables() {
   try {
-    const response = await $.ajax({
-      url: '/actual/admin/saveAccionables',
-      method: 'POST',
-      data: { idsAccionables: selectedAccionables },
-    })
+    const selectedAccionables = idsAccionables;
+    console.log(selectedAccionables);
 
-    console.log(response)
+    await new Promise((resolve, reject) => {
+      $.ajax({
+        url: "/actual/admin/saveAccionables",
+        method: "POST",
+        data: { idsAccionables: selectedAccionables },
+        success: function (data) {
+          console.log(data);
+          resolve(); // Resolve the promise when the AJAX request is successful
+        },
+        error: function (error) {
+          console.log(error);
+          reject(error); // Reject the promise if there's an error in the AJAX request
+        },
+      });
+    });
+
+    window.location.href = "/historico/historicoAccionables";
   } catch (error) {
-    console.log(error)
+    console.log(error);
   }
 }

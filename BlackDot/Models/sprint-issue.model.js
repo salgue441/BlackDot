@@ -8,7 +8,7 @@
  * @copyright Copyright (c) 2023 - MIT License
  */
 
-const dataBase = require("../utils/dataBase")
+const dataBase = require("../Utils/dataBase")
 
 /**
  * @class
@@ -34,7 +34,7 @@ module.exports = class SprintIssue {
     if (!idIssue) throw new Error("No se ha proporcionado un ID de issue")
 
     const [issue] = await dataBase.query(
-      "select * from SprintIssue where idIssue = ?",
+      "select * from sprintIssue where idIssue = ?",
       [idIssue]
     )
 
@@ -51,7 +51,7 @@ module.exports = class SprintIssue {
     if (!idSprint) throw new Error("No se ha proporcionado un ID de sprint")
 
     const [sprint, _] = await dataBase.query(
-      "select * from SprintIssue where idSprint = ?",
+      "select * from sprintIssue where idSprint = ?",
       [idSprint]
     )
 
@@ -64,7 +64,7 @@ module.exports = class SprintIssue {
    * @returns {Promise<SprintIssue[]>} - Arreglo de objetos de tipo SprintIssue
    */
   static async getAll() {
-    const [sprintissue, _] = await dataBase.query("select * from SprintIssue")
+    const [sprintissue, _] = await dataBase.query("select * from sprintIssue")
 
     return sprintissue
   }
@@ -81,7 +81,7 @@ module.exports = class SprintIssue {
     if (!this.idSprint) throw new Error("No se ha proporcionado un ID de sprint")
 
     const [sprintissue, _] = await dataBase.query(
-      "insert into SprintIssue (idIssue, idSprint) values (?, ?) on duplicate key update idSprint = ?",
+      "insert into sprintIssue (idIssue, idSprint) values (?, ?) on duplicate key update idSprint = ?",
       [this.idIssue, this.idSprint, this.idSprint]
     )
 
