@@ -1,4 +1,7 @@
-
+/**
+ * @brief function updateTokens
+ * @returns tokens  - tokens from the cookies 
+ * */
 
 
 (function updateTokens() {
@@ -12,6 +15,13 @@
 
     return () => clearInterval(interval);
 })();
+
+/**
+ * @brief function to refresh tokens
+ * @returns tokens  - tokens from the cookies
+ * @error error - error message
+ * */
+
 
 async function refreshTokens() {
     const { refreshToken } = getTokens();
