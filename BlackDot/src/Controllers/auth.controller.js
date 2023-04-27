@@ -1,4 +1,5 @@
 const path = require("path");
+const bycript = require("bcryptjs");
 
 // Auth Utils
 const authUtils = require("../utils/auth");
@@ -40,13 +41,13 @@ const loginAPI = async (req, res, next) => {
       return res.status(401).json({ message: "Invalid token" });
     }
 
-    // TODO - Get user from DB or add user to DB
-
     const userData = {
-      name: data.given_name + " " + data.family_name,
-      email: data.email,
-      id_google: data.sub,
-    };
+      idGoogleAuth: data.sub,
+      googleEmail: data.email,
+      primerNombre: data.given_name,
+      apellidoPaterno: data.family_name,
+      googleProfilePicture: data.picture,
+    }
 
     const authToken = authUtils.createTokenLogin(userData);
     const refreshToken = authUtils.createTokenRefresh(userData);
@@ -65,6 +66,8 @@ const loginAPI = async (req, res, next) => {
   }
 };
 
+let usuarioRegistrado = false;
+
 /**
  * @brief
  * Refreshes the token with a new one
@@ -74,18 +77,13 @@ const loginAPI = async (req, res, next) => {
  */
 const refreshTokenAPI = async (req, res, next) => {
   try {
+
+    if (!usuarioRegistrado) {
+      registrarEmpleado(req, res);
+    }
+
     const { refreshToken } = req.body;
     const verified = authUtils.verifyToken(refreshToken, "refresh");
-
-    // const userData = {
-    //   primerNombre: verified.primerNombre,
-    //   segundoNombre: verified.segundoNombre,
-    //   apellidoPaterno: verified.apellidoPaterno,
-    //   apellidoMaterno: verified.apellidoMaterno,
-    //   idGoogleAuth: verified.idGoogleAuth,
-    //   googleEmail: verified.googleEmail,
-    //   googleProfilePicture: verified.googleProfilePicture,
-    // };
 
     const userData = {
       name: verified.name,
@@ -104,23 +102,21 @@ const refreshTokenAPI = async (req, res, next) => {
   }
 };
 
-let usuarioRegistrado = false;
-
 const registrarEmpleado = async (req, res) => {
   const { refreshToken } = req.body;
   const verified = authUtils.verifyToken(refreshToken, "refresh");
   const nombre = verified.primerNombre.split(" ");
   const apellido = verified.apellidoPaterno.split(" ");
 
-  let userData = {
+  const userData = {
     primerNombre: nombre[0],
     segundoNombre: null,
     apellidoPaterno: apellido[0],
     apellidoMaterno: null,
-    idGoogleAuth: bcrypt.hashSync(verified.idGoogleAuth, 12),
+    idGoogleAuth: bycript.hashSync(verified.idGoogleAuth, 12),
     googleEmail: verified.googleEmail,
     googleProfilePicture: verified.googleProfilePicture,
-  };
+  }
 
   if (nombre.length > 1) {
     userData.segundoNombre = nombre[1];
@@ -130,23 +126,25 @@ const registrarEmpleado = async (req, res) => {
     userData.apellidoMaterno = apellido[1];
   }
 
+  console.log(userData)
+
   try {
     const validacion = await Empleado.verifyByEmail(userData.googleEmail);
 
     if (validacion) {
       usuarioRegistrado = true;
     } else {
-      const newEmpleado = new Empleado(userData);
-      await newEmpleado.save();
+      const nuevoEmpleado = new Empleado(userData);
+      await nuevoEmpleado.save();
 
-      const idNuevoEmpleado = await Empleado.getLastID();
-      const nuevoEmpleadoRol = new empleadoRol({
+      const idNuevoEmpleado = await Empleado.getLastID()
+
+      const empleadoRol = new EmpleadoRol({
         idEmpleado: idNuevoEmpleado,
         idRol: 3,
-      });
+      })
 
-      await nuevoEmpleadoRol.save();
-      usuarioRegistrado = true;
+      await empleadoRol.save();
     }
   } catch (error) {
     throw new Error(error);
