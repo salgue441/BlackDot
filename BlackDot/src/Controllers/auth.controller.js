@@ -18,7 +18,7 @@ const empleadoRole = require("../models/empleadoRol.model");
 const renderLogin = (req, res) => {
   if (req.session.currentUser) return res.redirect("/");
 
-  return res.render(path.join(__dirname, "../Views/Static/auth.ejs"), {
+  return res.render(path.join(__dirname, "../views/static/auth/auth.ejs"), {
     title: "Login",
   });
 };
