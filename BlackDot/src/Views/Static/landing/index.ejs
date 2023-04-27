@@ -2,55 +2,61 @@
   <%- include('../../partials/header.ejs') %>
 
   <body>
-    <%- include('../../partials/navBar.ejs') %>
+    <%- include('../../partials/navBar.ejs') %> <%-
+    include('../../partials/sidebarAdmin.ejs') %>
 
-    <!-- Hero -->
-    <section class="hero is-medium is-bold">
-      <div class="hero-body has-text-centered">
-        <div class="container">
-          <h1 class="title is-1">
-            'CREANDO MARCAS <br />
-            PARA EL FUTURO'
-          </h1>
+    <div class="mainContainer">
+      <section class="hero is-medium is-bold">
+        <div class="hero-body has-text-centered">
+          <div class="container">
+            <h1 class="title is-1">
+              'CREANDO MARCAS <br />
+              PARA EL FUTURO'
+            </h1>
 
-          <br />
-
-          <% if(retroActiva) { %>
-          <button class="button is-success status-button">Retro Activa</button>
-          <% } else { %>
-          <button class="button is-danger status-button">Retro Inactiva</button>
-          <% } %>
-        </div>
-      </div>
-    </section>
-
-    <section class="section">
-      <!-- Graph  -->
-      <% if (sprint.length > 0) { %>
-      <div class="container is-fluid" style="z-index: 10">
-        <div
-          class="box has-background-white has-text-centered sprint-graph box-shadow--2"
-          style="height: 400px"
-        >
-          <div class="sprint-title">
-            <p class="subtitle is-2">Epicas</p>
             <br />
-          </div>
-          <canvas
-            id="Sprints"
-            style="width: 100%; height: calc(100% - 100px)"
-          ></canvas>
-        </div>
-      </div>
 
-      <% } else { %>
-      <div class="container">
-        <div class="box has-background-white has-text-centered has-shadow--2">
-          <p class="subtitle is-4">No hay Sprints disponibles</p>
+            <% if(retroActiva) { %>
+            <button class="button is-success status-button">
+              Retro Activa
+            </button>
+            <% } else { %>
+            <button class="button is-danger status-button">
+              Retro Inactiva
+            </button>
+            <% } %>
+          </div>
         </div>
-      </div>
-      <% } %>
-    </section>
+      </section>
+
+      <section class="section">
+        <!-- Graph  -->
+        <% if (sprint.length > 0) { %>
+        <div class="container is-fluid" style="z-index: 10">
+          <div
+            class="box has-background-white has-text-centered sprint-graph box-shadow--2"
+            style="height: 400px"
+          >
+            <div class="sprint-title">
+              <p class="subtitle is-2">Epicas</p>
+              <br />
+            </div>
+            <canvas
+              id="Sprints"
+              style="width: 100%; height: calc(100% - 100px)"
+            ></canvas>
+          </div>
+        </div>
+
+        <% } else { %>
+        <div class="container">
+          <div class="box has-background-white has-text-centered has-shadow--2">
+            <p class="subtitle is-4">No hay Sprints disponibles</p>
+          </div>
+        </div>
+        <% } %>
+      </section>
+    </div>
 
     <script src="/js/sprint.chart.js"></script>
   </body>
@@ -58,6 +64,20 @@
 
 <!-- Styles -->
 <style>
+  ::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+    background-color: transparent;
+  }
+
+  .mainContainer {
+    width: 85%;
+    margin-left: 15%;
+    height: 100%;
+
+    padding: 0px;
+  }
+
   /* Overriding Bulma CSS */
   .hero {
     background-image: url("../../assets/hero.png");
@@ -66,9 +86,9 @@
     height: 500px;
   }
 
-  .container {
+  /* .container {
     width: 100%;
-  }
+  } */
 
   .sprint-graph {
     margin-top: 30x;

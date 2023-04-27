@@ -10,12 +10,11 @@
       class="navbar-burger burger"
       aria-label="menu"
       aria-expanded="false"
-      data-target="sidebar-data"
-      onclick="toggleSidebar(event)"
+
     >
+      <!-- <span aria-hidden="true"></span>
       <span aria-hidden="true"></span>
-      <span aria-hidden="true"></span>
-      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span> -->
     </a>
   </div>
 
@@ -32,7 +31,7 @@
     </div>
   </div>
 
-  <div class="navbar-end  mr-5">
+  <div class="navbar-end  ">
     <div class="field is-grouped is-flex mt-2">
 
       <div class="control">
@@ -43,8 +42,6 @@
   </div>
 </nav>
 
-  <!-- Sidebar -->
-  <%- include('./sidebarAdmin.ejs') %>
 
   <!-- Styles -->
   <style>
@@ -70,7 +67,7 @@
     /* Bulma Css */
     .navbar {
       background-color: #e4e5e3;
-      height: 60px;
+      height: 8%;
     }
     @media screen and (max-width: 1023px) {
       .navbar-end {
@@ -92,13 +89,5 @@
   </style>
 
   <!-- Hamburger icon functionality -->
-  <script>
-    // When the hamburger icon is clicked, the sidebar opens
-    const toggleSidebar = (event) => {
-      var target = document.getElementById(event.target.dataset.target)
-      event.target.classList.toggle("is-active")
-      target.classList.toggle("is-active")
-      target.classList.toggle("is-hidden-touch")
-    }
-  </script>
+
 </nav>
