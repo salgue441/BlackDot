@@ -1,19 +1,31 @@
 // UTILS
+
+/**
+ * @brief
+ * Set tokens in httpOnly cookies
+ * @param {} tokens 
+ * @returns blackdotToken, blackdotRefreshToken
+ * @returns expires - date of expiration
+ */
+
+
 function setTokens(tokens) {
   const { authToken, refreshToken } = tokens;
 
   if (authToken) {
-    document.cookie = `blackdotToken=${authToken}; expires=${new Date(  ///NEED to change 
+    document.cookie = `blackdotToken=${authToken}; expires=${new Date(  
       Date.now() + 1000 * 60 * 60 * 24 * 30
     )}; path=/;`;
   }
 
   if (refreshToken) {
-    document.cookie = `blackdotRefreshToken=${refreshToken}; expires=${new Date(   ///NEED to change 
+    document.cookie = `blackdotRefreshToken=${refreshToken}; expires=${new Date(   
       Date.now() + 1000 * 60 * 60 * 24 * 30
     )}; path=/;`;
   }
 }
+
+
 
 function getTokens() {
   const cookies = document.cookie.split(";");
