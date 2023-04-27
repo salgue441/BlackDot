@@ -1,9 +1,0 @@
-{
-  "env": {
-    "NODE_ENV": "carlos",
-    "PORT": 3000
-  },
-  "execMap": {
-    "js": "node -r dotenv/config"
-  }
-}
