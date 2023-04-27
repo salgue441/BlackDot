@@ -174,7 +174,6 @@ exports.getRegistrarRespuestas = async (req, res) => {
       //Check if there is an active retroalimentacion
       if (!retro) {
         res.render(path.join(__dirname, "../Views/Static/Error.ejs"), {
-          //? VIsta Temporal
           error: "No hay retroalimentacion activa",
         })
       } else {
