@@ -8,6 +8,13 @@
  * @copyright Copyright (c) 2023 - MIT License
  */
 
+/**
+ * @brief
+ * Fetches the data from the server
+ * @returns {Array} - Data from the server
+ * 
+ */
+
 const fetchEpicasData = async () => {
   const res = await fetch("http://localhost:3000/historico/epicasData")
   const data = await res.json()
@@ -121,7 +128,7 @@ const createStackBarChart = (canvas, epicasData, labels) => {
    * @brief
    * Renders the sprint-comparison graph. This function is called when the page
    * is loaded or refreshed
-   * @todo Add token when authentication is implemented
+   *  @returns {void}
    */
   // Updated calling function
   ; (async function renderStackGraph() {
