@@ -147,4 +147,15 @@ exports.getEditarUsuario = async (req, res) => {
   }
 }
 
+exports.getEliminarUsuario = async (req, res) => {
+  try {
+    const idEmpleado = parseInt(req.params.id)
 
+    await EmpleadoRol.deleteById(idEmpleado)
+
+    await Empleado.deleteByID(idEmpleado)
+    res.redirect("/editar/empleados")
+  } catch (error) {
+    res.render(path.join(__dirname, "../Views/Static/error.ejs"), { error })
+  }
+}

@@ -1,12 +1,12 @@
-const path = require("path");
-const bycript = require("bcryptjs");
+const path = require("path")
+const bycript = require("bcryptjs")
 
 // Auth Utils
-const authUtils = require("../utils/auth");
+const authUtils = require("../utils/auth")
 
 // Data models
-const Empleado = require("../models/empleado.model");
-const EmpleadoRol = require("../models/empleadoRol.model");
+const Empleado = require("../models/empleado.model")
+const EmpleadoRol = require("../models/empleadoRol.model")
 
 // Functions
 /**
@@ -17,12 +17,12 @@ const EmpleadoRol = require("../models/empleadoRol.model");
  * @returns {Object} Rendered login page
  */
 const renderLogin = (req, res) => {
-  if (req.session.currentUser) return res.redirect("/");
+  if (req.session.currentUser) return res.redirect("/")
 
   return res.render(path.join(__dirname, "../views/static/auth/auth.ejs"), {
     title: "Login",
-  });
-};
+  })
+}
 
 /**
  * @brief
@@ -34,11 +34,11 @@ const renderLogin = (req, res) => {
  */
 const loginAPI = async (req, res, next) => {
   try {
-    const { token } = req.body;
-    const data = await authUtils.verifyGoogleToken(token);
+    const { token } = req.body
+    const data = await authUtils.verifyGoogleToken(token)
 
     if (!data) {
-      return res.status(401).json({ message: "Invalid token" });
+      return res.status(401).json({ message: "Invalid token" })
     }
 
     const userData = {
@@ -49,25 +49,25 @@ const loginAPI = async (req, res, next) => {
       googleProfilePicture: data.picture,
     }
 
-    const authToken = authUtils.createTokenLogin(userData);
-    const refreshToken = authUtils.createTokenRefresh(userData);
+    const authToken = authUtils.createTokenLogin(userData)
+    const refreshToken = authUtils.createTokenRefresh(userData)
 
-    res.status(200).json({ authToken, refreshToken });
+    res.status(200).json({ authToken, refreshToken })
   } catch (error) {
-    const errorMessage = error.message.split(" ");
-    errorMessage.pop();
+    const errorMessage = error.message.split(" ")
+    errorMessage.pop()
 
     if (errorMessage.join(" ") === "Invalid token signature: ") {
-      req.session.errorMessage = "La sesión ha expirado";
-      return res.status(401).json({ message: "La sesión ha expirado" });
+      req.session.errorMessage = "La sesión ha expirado"
+      return res.status(401).json({ message: "La sesión ha expirado" })
     }
 
-    next(error);
+    next(error)
   }
-};
+}
 
-let usuarioRegistrado = false;
-let refreshcantidad = 0;
+let usuarioRegistrado = false
+let refreshcantidad = 0
 
 /**
  * @brief
@@ -78,38 +78,36 @@ let refreshcantidad = 0;
  */
 const refreshTokenAPI = async (req, res, next) => {
   try {
-
     if (!usuarioRegistrado) {
-      registrarEmpleado(req, res);
+      registrarEmpleado(req, res)
     }
 
-    const { refreshToken } = req.body;
-    const verified = authUtils.verifyToken(refreshToken, "refresh");
+    const { refreshToken } = req.body
+    const verified = authUtils.verifyToken(refreshToken, "refresh")
 
     const userData = {
       name: verified.name,
       email: verified.email,
       id_google: verified.sub,
-    };
+    }
 
     // Creating tokens
-    const authToken = authUtils.createTokenLogin(userData);
-    const newRefreshToken = authUtils.createTokenRefresh(userData);
+    const authToken = authUtils.createTokenLogin(userData)
+    const newRefreshToken = authUtils.createTokenRefresh(userData)
 
-    res.status(200).json({ authToken, refreshToken: newRefreshToken });
+    res.status(200).json({ authToken, refreshToken: newRefreshToken })
   } catch (error) {
-    console.log("error: ", error);
-    authUtils.deleteSession(req, res);
+    console.log("error: ", error)
+    authUtils.deleteSession(req, res)
   }
-};
+}
 
 const registrarEmpleado = async (req, res) => {
-  const { refreshToken } = req.body;
-  const verified = authUtils.verifyToken(refreshToken, "refresh");
-  console.log("verified: ", verified);
-  const nombre = verified.primerNombre.split(" ");
-  const apellido = verified.apellidoPaterno.split(" ");
-
+  const { refreshToken } = req.body
+  const verified = authUtils.verifyToken(refreshToken, "refresh")
+  console.log("verified: ", verified)
+  const nombre = verified.primerNombre.split(" ")
+  const apellido = verified.apellidoPaterno.split(" ")
 
   const userData = {
     primerNombre: nombre[0],
@@ -122,22 +120,21 @@ const registrarEmpleado = async (req, res) => {
   }
 
   if (nombre.length > 1) {
-    userData.segundoNombre = nombre[1];
+    userData.segundoNombre = nombre[1]
   }
 
   if (apellido.length > 1) {
-    userData.apellidoMaterno = apellido[1];
+    userData.apellidoMaterno = apellido[1]
   }
 
   try {
-    const validacion = await Empleado.verifyByEmail(userData.googleEmail);
-
+    const validacion = await Empleado.verifyByEmail(userData.googleEmail)
 
     if (validacion) {
-      usuarioRegistrado = true;
+      usuarioRegistrado = true
     } else {
-      const nuevoEmpleado = new Empleado(userData);
-      await nuevoEmpleado.save();
+      const nuevoEmpleado = new Empleado(userData)
+      await nuevoEmpleado.save()
 
       const idNuevoEmpleado = await Empleado.getLastID()
 
@@ -146,17 +143,17 @@ const registrarEmpleado = async (req, res) => {
         idRol: 3,
       })
 
-
-      await empleadoRol.save();
+      await empleadoRol.save()
+      usuarioRegistrado = true
     }
   } catch (error) {
-    throw new Error(error);
+    throw new Error(error)
   }
-};
+}
 
 module.exports = {
   renderLogin,
   loginAPI,
   refreshTokenAPI,
   registrarEmpleado,
-};
+}
