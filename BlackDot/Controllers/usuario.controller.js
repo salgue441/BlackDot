@@ -129,9 +129,11 @@ exports.postEditarUsuario = async (req, res) => {
   try {
     const selectE = parseInt(req.body.selectEmpleado)
     const selectR = parseInt(req.body.selectRol)
-    console.log(selectE)
-    console.log(selectR)
-    EmpleadoRol.update()
+    const empleadoRol = new EmpleadoRol({
+      idEmpleado: selectE,
+      idRol: selectR,
+    })
+    await empleadoRol.update()
     const empleados = await EmpleadoRol.getAllWithRoles()
     const roles = await Rol.getAll()
 
@@ -164,51 +166,4 @@ exports.getEliminarUsuario = async (req, res) => {
       {error})
     }
 
-  }
-    
-
-
-exports.getEliminarUsuario = async (req, res) => {
-  try {
-    const idEmpleado = parseInt(req.params.id)
-
-    await EmpleadoRol.deleteById(idEmpleado)
-   
-    try{
-      await Empleado.deleteByID(idEmpleado)
-      res.redirect("/editar/empleados")
-    } catch (error) {
-      res.render(path.join(__dirname, "../Views/Static/error.ejs"), 
-      {error})
-    }
-      
-  }catch (error) {
-      res.render(path.join(__dirname, "../Views/Static/error.ejs"), 
-      {error})
-    }
-
-  }
-    
-
-
-exports.postEditarUsuario = async (req, res) => {
-  try {
-    const selectE = parseInt(req.body.selectEmpleado)
-    const selectR = parseInt(req.body.selectRol)
-    console.log(selectE)
-    console.log(selectR)
-    EmpleadoRol.update()
-    const empleados = await EmpleadoRol.getAllWithRoles()
-    const roles = await Rol.getAll()
-
-    res.render(path.join(__dirname, "../Views/Static/editar/correo.ejs"), {
-      empleados,
-      roles,
-    })
-  } catch (error) {
-    res.render(path.join(__dirname, "../Views/Static/error.ejs"), {
-      error,
-    })
-  }
 }
-

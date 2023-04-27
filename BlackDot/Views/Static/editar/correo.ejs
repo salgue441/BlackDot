@@ -92,7 +92,7 @@
                     <div class="select">
                       <select id="selectEmpleado" name="selectEmpleado" class="mb-3" required>
                         <!-- title -->
-                        <option>Empleado</option>
+                        <option value="" disabled selected>Empleado</option>
                         <% for(let i = 0; i< empleados.length; i++){ %>
                         <option value="<%= empleados[i].idEmpleado%>">
                           <%= empleados[i].primerNombre + " " +
@@ -106,8 +106,8 @@
                     <p class="mb-3 mt-2">Seleccionar Rol</p>
 
                     <div class="select">
-                      <select id="selectRol" name="selectRol" required>
-                        <option>Rol</option>
+                      <select id="selectRol" name="selectRol" required placeholder="rol">
+                        <option value="" disabled selected>Rol</option>
                         <% for(let i = 0; i< roles.length; i++){ %>
                         <option value="<%= roles[i].idRol %>"><%= roles[i].nombreRol %></option>
                         <% } %>
