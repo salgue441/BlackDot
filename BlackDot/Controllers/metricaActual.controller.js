@@ -1,6 +1,6 @@
 /**
  * @file retroalimentacion.controller.js
- * @brief Controller for retroalimentacion mdodel (historic).
+ * @brief retroalimentacion model controller.
  * @author Diego Llaca
  * @date 2023-03-30
  * @version 1.0
