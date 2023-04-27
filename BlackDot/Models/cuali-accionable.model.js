@@ -1,6 +1,6 @@
 /**
  * @file cuali-accionable.model.js
- * @brief Modelo de la tabla de cuali-accionable
+ * @brief cualitativa-accionable model (CualitativaAccionable)
  * @author Yuna Chung
  * @version 1.0
  * @date 2023.03.27
@@ -12,9 +12,9 @@ const dataBase = require("../Utils/dataBase")
 
 /**
  * @class
- * @classdesc Modelo de la tabla de cualitativaaccionable
- * @property {int} idCualitativa - Identificador de Cualitativa
- * @property {int} idAccionable - Identificador del Accionable
+ * @classdesc cualitativa-accionable model
+ * @property {int} idCualitativa - cualitativa id
+ * @property {int} idAccionable - accionable id
  **/
 
 module.exports = class CualitativaAccionable {
@@ -25,9 +25,9 @@ module.exports = class CualitativaAccionable {
 
   /**
    * @brief
-   * Obtiene una CualitativaAccionable de acuerdo con el ID del Accionable
-   * @param {*} IdAccionable - ID del Accionable
-   * @returns {object} - Objeto de tipo CualitativaAccionable
+   * obtains a CualitativaAccionable by ID
+   * @param {*} IdAccionable - Accionable ID
+   * @returns {object} - CualitativaAccionable object
    **/
 
   static async getByIDA(idAccionable) {
@@ -44,9 +44,9 @@ module.exports = class CualitativaAccionable {
 
   /**
    * @brief
-   * Obtiene un CualitativaAccionable de acuerdo con el ID de Cualitativa
-   * @param {*} idCualitativa - ID de Cualitativa
-   * @returns {object} - Objeeto de tipo CualitativaAccionable
+   * obtains a CualitativaAccionable by ID
+   * @param {*} idCualitativa - cualitativa ID
+   * @returns {object} - CualitativaAccionable object
    **/
 
   static async getByIDC(idCualitativa) {
@@ -63,8 +63,8 @@ module.exports = class CualitativaAccionable {
 
   /**
    * @brief
-   * Obtiene todos los CualitativaAccionables
-   * @returns {Promise<CualitativaAccionable[>} - Arreglo de objetos de tipo CualitativaAccionable
+   * obtains all CualitativaAccionables
+   * @returns {Promise<CualitativaAccionable[>} -  CualitativaAccionable array
    **/
 
   static async getAll() {
@@ -75,8 +75,8 @@ module.exports = class CualitativaAccionable {
 
   /**
    * @brief
-   * funcion que guarda un CualitativaAccionable en la base de datos
-   * @returns {Promise<CualitativaAccionable>} - Objeto de tipo CualitativaAccionable
+   * save a CualitativaAccionable in the database
+   * @returns {Promise<CualitativaAccionable>} - CualitativaAccionable object
    * */
 
   async save() {
