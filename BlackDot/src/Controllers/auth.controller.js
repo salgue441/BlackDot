@@ -6,7 +6,7 @@ const authUtils = require("../utils/auth");
 
 // Data models
 const Empleado = require("../models/empleado.model");
-const empleadoRole = require("../models/empleadoRol.model");
+const EmpleadoRol = require("../models/empleadoRol.model");
 
 // Functions
 /**
@@ -67,6 +67,7 @@ const loginAPI = async (req, res, next) => {
 };
 
 let usuarioRegistrado = false;
+let refreshcantidad = 0;
 
 /**
  * @brief
@@ -105,8 +106,10 @@ const refreshTokenAPI = async (req, res, next) => {
 const registrarEmpleado = async (req, res) => {
   const { refreshToken } = req.body;
   const verified = authUtils.verifyToken(refreshToken, "refresh");
+  console.log("verified: ", verified);
   const nombre = verified.primerNombre.split(" ");
   const apellido = verified.apellidoPaterno.split(" ");
+
 
   const userData = {
     primerNombre: nombre[0],
@@ -129,6 +132,7 @@ const registrarEmpleado = async (req, res) => {
   try {
     const validacion = await Empleado.verifyByEmail(userData.googleEmail);
 
+
     if (validacion) {
       usuarioRegistrado = true;
     } else {
@@ -141,6 +145,7 @@ const registrarEmpleado = async (req, res) => {
         idEmpleado: idNuevoEmpleado,
         idRol: 3,
       })
+
 
       await empleadoRol.save();
     }
