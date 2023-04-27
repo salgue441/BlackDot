@@ -8,6 +8,12 @@
  * @copyright Copyright (c) 2023 - MIT License
  */
 
+/**
+ * @brief
+ * Fetches the data from the server
+ * @returns {Array} - Data from the server
+ */
+
 const fetchSprintData = async () => {
   const res = await fetch("http://localhost:3000/sprintData");
   const data = await res.json();
@@ -20,6 +26,8 @@ const fetchSprintData = async () => {
  * Creates the graph
  * @param {HTMLCanvasElement} canvas - Canvas element
  * @param {Array} data - data to be displayed
+ * @param {Array} labels - labels for the data
+ * @returns {Chart} - Chart object
  */
 const createLineGraph = (canvas, data, labels) => {
   const ctx = canvas.getContext("2d");
@@ -89,7 +97,11 @@ const createLineGraph = (canvas, data, labels) => {
  * @brief
  * Renders the graph. This function is called when the webpage is loaded
  * or refreshed.
- * @todo Add token when authentication is implemented
+ * @param {HTMLCanvasElement} canvas - Canvas element
+ * @param {Array} data - Data to be displayed
+ * @param {Array} labels - Labels for the data
+ * @returns {Chart} - Chart object
+ * 
  */
 (async function renderGraph() {
   const data = await fetchSprintData();
