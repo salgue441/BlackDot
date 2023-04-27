@@ -27,8 +27,8 @@ const dataBase = require("../Utils/dataBase")
 module.exports = class Accionable {
   /**
    * @brief
-   * Constructor de la clase Accionable
-   * @param {*} Accionable - Objeto de tipo Accionable
+   * Accionable constructor.
+   * @param {*} Accionable - Accionable object
    **/
 
   constructor(Accionable) {
@@ -46,8 +46,8 @@ module.exports = class Accionable {
   /**
    * @brief
    * Recibe un Accionable de acuerdo con el ID.
-   * @param {*} idAccionable - ID del Accionable
-   * @returns {object} - Objeto de tipo Accionable
+   * @param {*} idAccionable - accionable id
+   * @returns {object} -accioanble object
    **/
 
   static async getbyId(idAccionable) {
@@ -61,8 +61,8 @@ module.exports = class Accionable {
 
   /**
    * @brief
-   * Obtiene todos los Accionables.
-   * @returns {Accionable[]} - Arreglo de objetos de tipo Accionable
+   * gets all accionables
+   * @returns {Accionable[]} - array of accionables
    **/
 
   static async getAll() {
@@ -74,8 +74,8 @@ module.exports = class Accionable {
 
   /**
    * @brief
-   * Obtiene el id del ultimo accionable
-   * @returns {int} - id del ultimo accionable
+   * gets last accionable id
+   * @returns {int} - last accionable id
    */
   static async getLastId() {
     const query = `SELECT idAccionable FROM accionable ORDER BY idAccionable DESC LIMIT 1`
@@ -89,8 +89,8 @@ module.exports = class Accionable {
 
   /**
    * @brief
-   * Guarda un nuevo Accionable
-   * @returns {Promise<Accionable>} - Query del Accioanble guardada
+   * save a new Accionable
+   * @returns {Promise<Accionable>} - Query of new Accionable
    **/
 
   async save() {
@@ -107,7 +107,9 @@ module.exports = class Accionable {
 
   /**
    * @brief
-   * Modifica Accionable
+   * updates content of an Accionable
+   * @returns {Promise<Accionable>} - Query of modified Accionable
+   * @throws {Error} - modified Accionable not found
    **/
   async update() {
     const query = `UPDATE accionable SET nombreAccionable = ?, storyPoints = ?, labelAccionable = ?, prioridadAccionable = ?, estadoAccionable = ?, estadoIssue = ?, fechaCreacion = ?, fechaFinalizacion = ? WHERE idAccionable = ?`
@@ -128,7 +130,9 @@ module.exports = class Accionable {
 
   /**
    * @brief
-   * Modifica el estado del accionable
+   * modified Accionable state to "Aprobado"
+   * @returns {Promise<Accionable>} - Query of modified Accionable
+   * 
    **/
 
   async updateEstadoAprobado() {
