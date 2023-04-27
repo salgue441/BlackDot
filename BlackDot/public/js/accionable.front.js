@@ -13,6 +13,7 @@ let idsAccionables = [];
 /**
  * @brief
  * Handles the state of Checkboxes
+ * @param {string} accionableId
  */
 
 function handleCheckBox(accionableId) {
@@ -36,6 +37,13 @@ function handleCheckBox(accionableId) {
 
   console.log(idsAccionables);
 }
+
+/**
+ * @brief
+ * save accionables in the database
+ * @returns promise
+ * @throws error
+ */
 
 async function saveAccionables() {
   try {
