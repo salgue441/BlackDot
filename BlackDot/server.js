@@ -35,7 +35,7 @@ app.use(bodyparser.urlencoded({ extended: true }));
 
 // View engine
 app.set("view engine", "ejs");
-app.set("views", path.join(__dirname, "/Views/"));
+app.set("views", path.join(__dirname, "/src/Views/"));
 
 // Static Files
 app.use(express.static("public"));
@@ -58,7 +58,7 @@ app.use(
 );
 
 // Routes
-const initRoutes = require("./Routes/index.routes");
+const initRoutes = require("./src/routes/index.routes");
 initRoutes(app);
 
 app.get("/", (req, res) => {
@@ -73,7 +73,7 @@ app.get("/", (req, res) => {
  * @returns {Function} - Callback function
  */
 app.get("*", (req, res) => {
-  res.render("Static/404");
+  res.render("Static/404/404");
 });
 
 /**
@@ -84,7 +84,7 @@ app.get("*", (req, res) => {
  * @param {Function} () - Callback function
  * @returns {Function} - Callback function
  */
-const { saveIssuesToDB } = require("./Utils/jiraIssues.api");
+const { saveIssuesToDB } = require("./src/utils/jiraIssues.api");
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 
