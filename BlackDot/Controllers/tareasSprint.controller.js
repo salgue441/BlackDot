@@ -1,6 +1,6 @@
 /**
  * @file tareasSprint.controller.js
- * @brief Controlador de tareas Sprint
+ * @brief tareas Sprint controller
  * @author Olimpia Garcia
  * @date 2023-03-28
  * @version 1.0
@@ -50,10 +50,6 @@ exports.getLanding = async (req, res) => {
       sprintIssues.includes(issue.idIssue)
     );
   });
-
-
-
-
   res.render(
     path.join(__dirname, "../Views/Static/index.ejs"),
     {
