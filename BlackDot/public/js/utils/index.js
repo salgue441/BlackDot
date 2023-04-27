@@ -8,7 +8,6 @@
  * @returns expires - date of expiration
  */
 
-
 function setTokens(tokens) {
   const { authToken, refreshToken } = tokens;
 
@@ -25,7 +24,11 @@ function setTokens(tokens) {
   }
 }
 
-
+/**
+ * @brief
+ * Get tokens from httpOnly cookies
+ * @returns blackdotToken, blackdotRefreshToken
+ */
 
 function getTokens() {
   const cookies = document.cookie.split(";");
@@ -34,16 +37,31 @@ function getTokens() {
     const [key, value] = cookie.split("=");
     tokens[key.trim()] = value;
   });
-  return { authToken: tokens.blackdotToken, refreshToken: tokens.blackdotRefreshToken };   ///NEED to change 
+  return { authToken: tokens.blackdotToken, refreshToken: tokens.blackdotRefreshToken };   
 }
+
+/**
+ * @brief
+ * Delete tokens from httpOnly cookies
+ * @returns blackdotToken, blackdotRefreshToken
+ * @returns expires - date of expiration
+ * @returns path - /
+ */ 
 
 function deleteTokens() {
   // Delete cookies
   document.cookie =
-    "blackdotToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";   ///NEED to change 
+    "blackdotToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";  
   document.cookie =
-    "blackdotRefreshToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";   ///NEED to change 
+    "blackdotRefreshToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";   
 }
+
+/**
+ * @brief
+ * Decode JWT token
+ * @param {} token
+ * @returns JSON object
+ */ 
 
 function decodeJwtResponse(token) {
   var base64Url = token.split(".")[1];
