@@ -20,6 +20,7 @@ const SprintIssue = require("../models/sprintIssue.model");
  * @param {Response} res - Response object
  * @returns {Response} - Response object
  */
+
 exports.getLanding = async (req, res) => {
   // Data arrays
   const issues = await Issue.getAll();
@@ -62,6 +63,7 @@ exports.getLanding = async (req, res) => {
  * @returns {Response} - Response object
  * @throws {Error} - Error message
  */
+
 exports.getLandingAPI = async (req, res) => {
   try {
     // Data arrays

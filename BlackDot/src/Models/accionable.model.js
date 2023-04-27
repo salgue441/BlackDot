@@ -75,6 +75,7 @@ module.exports = class Accionable {
   /**
    * @brief
    * gets last accionable id
+   * @param {*} idAccionable - accionable id
    * @returns {int} - last accionable id
    */
   static async getLastId() {
@@ -90,6 +91,7 @@ module.exports = class Accionable {
   /**
    * @brief
    * save a new Accionable
+   * @param {*} Accionable - Accionable object
    * @returns {Promise<Accionable>} - Query of new Accionable
    **/
 
@@ -108,6 +110,7 @@ module.exports = class Accionable {
   /**
    * @brief
    * updates content of an Accionable
+   * @param {*} Accionable - Accionable object
    * @returns {Promise<Accionable>} - Query of modified Accionable
    * @throws {Error} - modified Accionable not found
    **/

@@ -61,7 +61,7 @@ exports.getRegistrarAprobacion = async (req, res) => {
  * @param {Response} res - Response object
  * @returns {Response} - accionables saved successfully
  * @throws {Error} - Error message
- */git 
+ */
 
 exports.saveAccionable = async (req, res) => {
   const { idsAccionables } = req.body;
