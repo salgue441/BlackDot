@@ -48,7 +48,7 @@ module.exports = class Empleado {
    * @returns {object} - Objeto de tipo Empleado
    */
   static async getByID(idEmpleado) {
-    const query = `select * from Empleado where idEmpleado = ?`
+    const query = `select * from empleado where idEmpleado = ?`
     const [rows] = await dataBase.execute(query, [idEmpleado])
 
     if (rows.length === 0) throw new Error("Empleado no encontrado")
@@ -63,7 +63,7 @@ module.exports = class Empleado {
    * @returns {object} - Objeto de tipo Empleado
    */
   static async getByEmail(googleEmail) {
-    const query = `select * from Empleado where googleEmail = ?`
+    const query = `select * from empleado where googleEmail = ?`
     const [rows] = await dataBase.execute(query, [googleEmail])
 
     if (rows.length === 0) throw new Error("Empleado no encontrado")
@@ -77,7 +77,7 @@ module.exports = class Empleado {
    * @returns {Empleado[]} - Arreglo de objetos de tipo Empleado
    */
   static async getAll() {
-    const query = `select * from Empleado`
+    const query = `select * from empleado`
     const [rows, _] = await dataBase.execute(query)
 
     return rows
@@ -125,7 +125,7 @@ module.exports = class Empleado {
       throw new Error("No se ha proporcionado un correo de Google")
 
     const [empleado] = await dataBase.query(
-      `select * from Empleado where primerNombre = ? AND 
+      `select * from empleado where primerNombre = ? AND 
             apellidoPaterno = ? AND idGoogleAuth = ? AND googleEmail = ?`,
       [
         this.primerNombre,
@@ -145,7 +145,7 @@ module.exports = class Empleado {
    * @returns {Promise<void>} - Query del empleado eliminado
    */
   static async deleteByID(idEmpleado) {
-    const query = `delete from Empleado where idEmpleado = ?`
+    const query = `delete from empleado where idEmpleado = ?`
 
     await dataBase.execute(query, [idEmpleado])
   }
@@ -161,7 +161,7 @@ module.exports = class Empleado {
     if (!googleEmail) throw new Error("No se ha proporcionado el ID del empleado")
 
     const [empleado, _] = await dataBase.query(
-      `select * from Empleado where googleEmail = ?`,
+      `select * from empleado where googleEmail = ?`,
       [googleEmail]
     )
 
@@ -178,7 +178,7 @@ module.exports = class Empleado {
    * */
 
   static async getLastID() {
-    const query = `select idEmpleado from Empleado order by idEmpleado desc limit 1`
+    const query = `select idEmpleado from empleado order by idEmpleado desc limit 1`
     const [rows] = await dataBase.execute(query)
 
     if (rows.length === 0) throw new Error("No se ha encontrado el ultimo empleado")

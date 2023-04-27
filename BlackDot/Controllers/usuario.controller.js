@@ -16,7 +16,7 @@ const path = require("path")
 const Empleado = require("../Models/empleado.model")
 const Rol = require("../Models/rol.model")
 const EmpleadoRol = require("../Models/empleado-rol.model")
-const authUtil = require("../Utils/auth")
+
 
 /**
  * @brief
@@ -38,7 +38,7 @@ exports.getEditarUsuario = async (req, res) => {
       empleadoRoles,
     })
   } catch (error) {
-    res.render(path.join(__dirname, "../Views/Static/error.ejs"), { error })
+    res.render(path.join(__dirname, "../Views/Static/Error.ejs"), { error })
   }
 }
 
@@ -66,7 +66,7 @@ exports.getRegistrarUsuario = async (req, res) => {
       empleadoSinRol,
     })
   } catch (error) {
-    res.render(path.join(__dirname, "../Views/Static/error.ejs"), { error })
+    res.render(path.join(__dirname, "../Views/Static/Error.ejs"), { error })
   }
 }
 
@@ -93,7 +93,7 @@ exports.postAceptarUsuario = async (req, res) => {
 
     res.redirect("/editar/empleados/aceptar")
   } catch (error) {
-    res.render(path.join(__dirname, "../Views/Static/error.ejs"), { error })
+    res.render(path.join(__dirname, "../Views/Static/Error.ejs"), { error })
   }
 }
 
@@ -116,10 +116,10 @@ exports.postRechazarUsuario = async (req, res) => {
       await Empleado.deleteByID(idEmpleado)
       res.redirect("/editar/empleados/aceptar")
     } catch (error) {
-      res.render(path.join(__dirname, "../Views/Static/error.ejs"), { error })
+      res.render(path.join(__dirname, "../Views/Static/Error.ejs"), { error })
     }
   } catch (error) {
-    res.render(path.join(__dirname, "../Views/Static/error.ejs"), { error })
+    res.render(path.join(__dirname, "../Views/Static/Error.ejs"), { error })
   }
 }
 
@@ -143,10 +143,33 @@ exports.getEditarUsuario = async (req, res) => {
       roles,
     })
   } catch (error) {
-    res.render(path.join(__dirname, "../Views/Static/error.ejs"), {
+    res.render(path.join(__dirname, "../Views/Static/Error.ejs"), {
       error,
     })
   }
 }
+
+exports.getEliminarUsuario = async (req, res) => {
+  try {
+    const idEmpleado = parseInt(req.params.id)
+
+    await EmpleadoRol.deleteById(idEmpleado)
+   
+    try{
+      await Empleado.deleteByID(idEmpleado)
+      res.redirect("/editar/empleados")
+    } catch (error) {
+      res.render(path.join(__dirname, "../Views/Static/error.ejs"), 
+      {error})
+    }
+      
+  }catch (error) {
+      res.render(path.join(__dirname, "../Views/Static/error.ejs"), 
+      {error})
+    }
+
+  }
+    
+
 
 

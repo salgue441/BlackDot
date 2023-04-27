@@ -22,6 +22,8 @@ const Sprint = require("../Models/sprint.model");
 const SprintIssue = require("../Models/sprint-issue.model");
 const SprintEpica = require("../Models/sprintEpica.model")
 
+
+
 /**
  * @brief
  * Gets all epicas and their metrics
@@ -93,14 +95,14 @@ exports.getAllEpicas = async (req, res) => {
     })
 
     res.render(
-      path.join(__dirname, "../Views/Static/historico/verMetricasEpicas.ejs"),
+      path.join(__dirname, "../Views/Static/Historico/verMetricasEpicas.ejs"),
       {
         epicas: epicas,
         sprints: sprintNames,
       }
     );
   } catch (error) {
-    res.render(path.join(__dirname, "../Views/Static/error.ejs"), { error });
+    res.render(path.join(__dirname, "../Views/Static/Error.ejs"), { error });
   }
 };
 
@@ -175,6 +177,6 @@ exports.getAllEpicasAPI = async (req, res) => {
 
     res.status(200).json({ epicas: epicas });
   } catch (error) {
-    res.render(path.join(__dirname, "../Views/Static/error.ejs"), { error });
+    res.render(path.join(__dirname, "../Views/Static/Error.ejs"), { error });
   }
 };

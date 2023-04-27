@@ -15,6 +15,13 @@ const Token = require("../Models/token.model");
  * @returns {String} JWT token string
  */
 const createTokenLogin = (data) => {
+    //console.log("token login creado")
+
+    return jwt.sign(data, process.env.JWT_LOGIN, {
+        expiresIn: "300s",
+
+    })
+}
   const expires = Date.now() + 1000 * 60 * 5;
   return jwt.sign(data, process.env.JWT_LOGIN, { expiresIn: expires });
 };
@@ -26,6 +33,20 @@ const createTokenLogin = (data) => {
  * @param {Object} data - Payload data
  * @returns {String} JWT Refresh Token string
  */
+const createRefreshToken = (data) => {
+    data.createdAt = Date.now()
+
+    //console.log("token refresh creado")
+
+    let tokenRefreshed =  jwt.sign(data, process.env.JWT_REFRESH, {
+        expiresIn: "8h",
+    })
+
+    //console.log(tokenRefreshed)
+    
+    return tokenRefreshed
+}
+
 const createTokenRefresh = (data) => {
   data.createdAt = Date.now();
   return jwt.sign(data, process.env.JWT_REFRESH, { expiresIn: "8h" });
