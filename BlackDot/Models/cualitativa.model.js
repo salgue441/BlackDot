@@ -1,6 +1,6 @@
 /**
  * @file cualitativa.model.js
- * @brief Modelo de la tabla de respuestas cualitativas
+ * @brief model for table cualitativa (Cualitativa)
  * @author Carlos Salguero
  * @version 1.0
  * @date 2023-03-21
@@ -12,17 +12,17 @@ const dataBase = require("../Utils/dataBase")
 
 /**
  * @class
- * @classdesc Modelo de la tabla de respuestas cualitativas
- * @property {int} idCualitativa - Identificador de la respuesta
- * @property {string} contenido - Contenido de la respuesta
- * @property {int} idPregunta - Identificador de la pregunta
- * @property {int} idRetroalimentacion - Identificador de la retroalimentacion
+ * @classdesc model for table cualitativa
+ * @property {int} idCualitativa - answer id
+ * @property {string} contenido - answer content
+ * @property {int} idPregunta - question id
+ * @property {int} idRetroalimentacion - retroalimentacion id
  */
 module.exports = class Cualitativa {
   /**
    * @brief
-   * Constructor de la clase Cualitativa
-   * @param {*} Cualitativa - Objeto de tipo Cualitativa
+   * constructor for Cualitativa
+   * @param {*} Cualitativa - cualitativa object
    */
   constructor(Cualitativa) {
     this.idCualitativa = Cualitativa.idCualitativa;
@@ -33,9 +33,9 @@ module.exports = class Cualitativa {
 
   /**
    * @brief
-   * Recibe una respuesta cualitativa de acuerdo con el ID.
-   * @param {*} idCualitativa - ID de la respuesta cualitativa
-   * @returns {object} - Objeto de tipo Cualitativa
+   * get a Cualitativa answer by ID
+   * @param {*} idCualitativa - cualitativa answer ID
+   * @returns {object} - cualitativa object
    */
   static async getByID(idCualitativa) {
     const query = `select * from cualitativa where idCualitativa = ?`;
@@ -49,8 +49,8 @@ module.exports = class Cualitativa {
 
   /**
    * @brief
-   * Obtiene todas las respuestas cualitativas.
-   * @returns {Promise<Cualitativa[]>} - Arreglo de objetos de tipo Cualitativa
+   * gets all Cualitativa answers
+   * @returns {Promise<Cualitativa[]>} - cualitativa array object
    */
   static async getAll() {
     const [rows, _] = await dataBase.execute("select * from cualitativa")
@@ -60,8 +60,8 @@ module.exports = class Cualitativa {
 
   /**
    * @brief
-   * Obtiene la ultima respuesta cualitativa
-   * @returns  objeto tipo cualitativa
+   * gets last Cualitativa answer ID
+   * @returns  cualitativa ID object
    */
 
   static async getLastid() {
@@ -75,8 +75,8 @@ module.exports = class Cualitativa {
 
   /**
    * @brief
-   * Guarda una nueva respuesta cualitativa
-   * @returns {Promise<Cualitativa>} - Query de la respuesta cualitativa guardada
+   * save a Cualitativa answer
+   * @returns {Promise<Cualitativa>} - Query of the saved Cualitativa answer
    */
   async save() {
     const query = `insert into cualitativa(contenido, idPregunta, idRetroalimentacion) values (?, ?, ?)`;
@@ -90,13 +90,7 @@ module.exports = class Cualitativa {
     this.idCualitativa = result.insertId;
   }
 
-  /**
-   * @brief
-   * Verifica que el objeto sea de tipo Cualitativa
-   * @param {*} Cualitativa
-   * @returns {boolean}
-   */
-  static async verify(Cualitativa) { }
+
 
   /**
    * @brief
