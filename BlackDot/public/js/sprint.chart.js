@@ -9,7 +9,7 @@
  */
 
 const fetchSprintData = async () => {
-  const res = await fetch("http://localhost:3000/sprintData");
+  const res = await fetch("/sprintData");
   const data = await res.json();
 
   return data;
@@ -29,59 +29,59 @@ const createLineGraph = (canvas, data, labels) => {
   return new Chart(ctx, {
     type: "line",
     data: {
-        labels: labels,
-        datasets: [
-          {
-            label: "StoryPoints",
-            data: data,
-            fill: false,
-            borderColor: "rgba(6, 91, 183, 1)",
-            backgroundColor: "rgba(35, 32, 33, 1)",
-            tension: 0.3,
-          },
-        ],
-      },
+      labels: labels,
+      datasets: [
+        {
+          label: "StoryPoints",
+          data: data,
+          fill: false,
+          borderColor: "rgba(6, 91, 183, 1)",
+          backgroundColor: "rgba(35, 32, 33, 1)",
+          tension: 0.3,
+        },
+      ],
+    },
     options: {
-        scales: {
-          y: {
-            ticks: {
-              beginAtZero: true,
-            },
-  
-            title: {
-              display: true,
-              text: "Story Points",
-              color: "black",
-            },
+      scales: {
+        y: {
+          ticks: {
+            beginAtZero: true,
+          },
 
-            grid: {
-              color: "rgba(68, 68, 68, 1)"
-               
-            },
+          title: {
+            display: true,
+            text: "Story Points",
+            color: "black",
+          },
+
+          grid: {
+            color: "rgba(68, 68, 68, 1)"
 
           },
-          x: {
-            title: {
-              display: true,
-              text: "Sprints",
-              color: "black",
-            },
 
-            grid: {
-              color: "rgba(68, 68, 68, 1)"
-            },
-
-          },
         },
-
-        
-  
-        plugins: {
-          legend: {
-            display: false,
+        x: {
+          title: {
+            display: true,
+            text: "Sprints",
+            color: "black",
           },
+
+          grid: {
+            color: "rgba(68, 68, 68, 1)"
+          },
+
         },
       },
+
+
+
+      plugins: {
+        legend: {
+          display: false,
+        },
+      },
+    },
   });
 };
 

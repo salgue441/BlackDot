@@ -8,17 +8,16 @@
 -- author: Diego Sandoval
 -- author: Ivan Paredes
 -- version: 1.0
--- timestamp: 2023-03-11
+-- datetime: 2023-03-11
 -- copyright: Copyright (c) 2023 - MIT License
 -- copyright: Copyright (c) 2023 - MIT License
 
-create database if not exists blackdot 
-default character set utf8 collate utf8_spanish_ci;
+create database if not exists blackdot;
 
 use blackdot;
 
 -- Entidades
-create table if not exists Empleado
+create table if not exists empleado
 (
     idEmpleado int not null auto_increment primary key, 
     primerNombre varchar (25) not null, 
@@ -30,77 +29,75 @@ create table if not exists Empleado
     googleProfilePicture varchar(300)
 );
 
-create table if not exists Rol
+create table if not exists rol
 (
     idRol int not null auto_increment primary key, 
     nombreRol varchar (25) not null
 );
 
-create table if not exists Privilegio
+create table if not exists privilegio
 (
     idPrivilegio int not null auto_increment primary key,
     nombrePrivilegio varchar (50) not null,
     descripcionPrivilegio varchar (200)
 );
 
-create table if not exists EquipoTrabajo
-(
-    idEquipoTrabajo int not null auto_increment primary key 
-);
-
-
-create table if not exists Epica
+create table if not exists epica
 (
     idEpica int not null auto_increment primary key,
-    nombreEpica varchar
-(50)  
+    jiraID int unique,
+    jiraKey varchar(50),
+    nombreEpica varchar(150)
 );
 
-create table if not exists Sprint
+create table if not exists sprint
 (
     idSprint int not null auto_increment primary key, 
-    fechaCreacion timestamp not null default current_timestamp,
-    fechaFinalizacion timestamp not null default current_timestamp,
-    numeroSprint int not null,
-    idEpica int not null
+    jiraID int unique,
+    sprintName varchar(200),
+    state varchar(50),
+    boardID int not null,
+    fechaCreacion datetime not null default current_timestamp,
+    fechaFinalizacion datetime not null default current_timestamp
 );
 
-create table if not exists Issue
+create table if not exists issue
 (
     idIssue int not null auto_increment primary key,
+    issueKey varchar(30) unique,
     nombreIssue varchar (150) not null, 
     storyPoints int not null default 0,
-    labelIssue varchar (50),
-    prioridadIssue enum ('Alta', 'Media-Alta', 'Media', 'Media-Baja', 'Baja') not null default 'Baja',
-    estadoIssue enum ('To Do', 'In Progress', 'Done') not null default 'To Do',
-    fechaCreacion timestamp not null default current_timestamp,
-    fechaFinalizacion timestamp not null default current_timestamp
+    labelIssue varchar (100),
+    prioridadIssue enum ('Highest', 'High', 'Medium', 'Low', 'Lowest') not null default 'Lowest',
+    estadoIssue enum ('To Do', 'En curso', 'Pull request', 'QA', 'Blocked', 'Done') not null default 'To Do',
+    fechaCreacion datetime not null default current_timestamp,
+    fechaFinalizacion datetime null default null
 );
 
-create table if not exists Retroalimentacion
+create table if not exists retroalimentacion
 (
     idRetroalimentacion int not null auto_increment primary key, 
-    fechaCreacion timestamp not null default current_timestamp, 
-    fechaFinalizacion timestamp not null default current_timestamp,
+    fechaCreacion datetime not null default current_timestamp, 
+    fechaFinalizacion datetime not null default current_timestamp,
 
-    idSprint int not null,
-    idReporte int not null
+    idSprint int not null
 );
 
-create table if not exists Reporte
-(
-    idReporte int not null auto_increment primary key,
-    fechaCreacion timestamp default current_timestamp not null
-);
-
-create table if not exists Pregunta
+create table if not exists pregunta
 (
     idPregunta int not null auto_increment primary key, 
     contenido varchar (300) not null, 
     tipoPregunta enum ('Cuantitativa', 'Cualitativa')
 );
 
-create table if not exists Cuantitativa
+create table if not exists bancoPreguntas
+(
+    idPreguntaBanco int not null auto_increment primary key, 
+    contenido varchar (300) not null, 
+    tipoPregunta enum ('Cuantitativa', 'Cualitativa')
+);
+
+create table if not exists cuantitativa
 (
     idCuantitativa int not null auto_increment primary key, 
     contenido int not null,
@@ -109,7 +106,7 @@ create table if not exists Cuantitativa
     idRetroalimentacion int not null
 );
 
-create table if not exists Cualitativa
+create table if not exists cualitativa
 (
     idCualitativa int not null auto_increment primary key,
     contenido varchar(300) not null,
@@ -118,7 +115,7 @@ create table if not exists Cualitativa
     idRetroalimentacion int not null
 );
 
-create table if not exists Accionable
+create table if not exists accionable
 (
     idAccionable int not null auto_increment primary key,
     nombreAccionable varchar (50) null,
@@ -127,103 +124,88 @@ create table if not exists Accionable
     prioridadAccionable enum ('Alta', 'Media-Alta', 'Media', 'Media-Baja', 'Baja') not null default 'Media',
     estadoAccionable enum ('Aprobado', 'No aprobado') not null default 'No aprobado',
     estadoIssue enum ('To Do', 'In Progress', 'Done') not null default 'To Do',
-    fechaCreacion timestamp not null default current_timestamp ,
-    fechaFinalizacion timestamp not null default current_timestamp
+    fechaCreacion datetime not null default current_timestamp ,
+    fechaFinalizacion datetime not null default current_timestamp
 );
 
 -- Relaciones
-create table if not exists EmpleadoRol
+create table if not exists empleadoRol
 (
     idEmpleado int not null, 
     idRol int not null, 
 
     primary key (idEmpleado, idRol), 
-    foreign key (idEmpleado) references Empleado (idEmpleado),
-    foreign key (idRol) references Rol(idRol)
+    foreign key (idEmpleado) references empleado (idEmpleado),
+    foreign key (idRol) references rol(idRol)
 );
 
-create table if not exists RolPrivilegio
+create table if not exists rolPrivilegio
 (
     idRol int not null, 
     idPrivilegio int not null,
 
     primary key (idRol, idPrivilegio),
-    foreign key (idRol) references Rol (idRol),
-    foreign key (idPrivilegio) references Privilegio (idPrivilegio)
+    foreign key (idRol) references rol (idRol),
+    foreign key (idPrivilegio) references privilegio (idPrivilegio)
 );
 
-create table if not exists EmpleadoEquipoTrabajo
+create table if not exists sprintEpica
 (
-    idEmpleado int not null,
-    idEquipoTrabajo int not null,
+    idEpica int not null,
+    idSprint int not null,
 
-    primary key (idEmpleado, idEquipoTrabajo),
-    foreign key (idEmpleado) references Empleado (idEmpleado),
-    foreign key (idEquipoTrabajo) references EquipoTrabajo (idEquipoTrabajo)
+    primary key (idEpica, idSprint),
+    foreign key (idEpica) references epica (idEpica),
+    foreign key (idSprint) references sprint (idSprint)
 );
 
-create table if not exists EquipoTrabajoIssue
-(
-    idEquipoTrabajo int not null,
-    idIssue int not null,
-
-    primary key (idEquipoTrabajo, idIssue),
-    foreign key (idEquipoTrabajo) references EquipoTrabajo (idEquipoTrabajo),
-    foreign key (idIssue) references Issue (idIssue)
-);
-
-create table if not exists SprintIssue
+create table if not exists sprintIssue
 (
     idIssue int not null, 
     idSprint int not null, 
 
     primary key (idIssue, idSprint),
-    foreign key (idIssue) references Issue (idIssue),
-    foreign key (idSprint) references Sprint (idSprint)
+    foreign key (idIssue) references issue (idIssue),
+    foreign key (idSprint) references sprint (idSprint)
 );
 
-create table if not exists SprintEpica
-(
-    idSprint int not null,
-    idEpica int not null,
-
-    primary key (idSprint, idEpica),
-    foreign key (idSprint) references Sprint (idSprint),
-    foreign key (idEpica) references Epica (idEpica)
-);
-
-create table if not exists RetroalimentacionPregunta
+create table if not exists retroalimentacionPregunta
 (
     idRetroalimentacion int not null,
     idPregunta int not null,
     required boolean not null,
 
     primary key (idRetroalimentacion, idPregunta),
-    foreign key (idRetroalimentacion) references Retroalimentacion (idRetroalimentacion),
-    foreign key (idPregunta) references Pregunta (idPregunta)
+    foreign key (idRetroalimentacion) references retroalimentacion (idRetroalimentacion),
+    foreign key (idPregunta) references pregunta (idPregunta)
 );
 
 
-create table if not exists CualitativaAccionable
+create table if not exists cualitativaAccionable
 (
     idCualitativa int not null,
     idAccionable int not null,
 
     primary key (idCualitativa, idAccionable),
-    foreign key (idCualitativa) references Cualitativa (idCualitativa),
-    foreign key (idAccionable) references Accionable (idAccionable)
+    foreign key (idCualitativa) references cualitativa (idCualitativa),
+    foreign key (idAccionable) references accionable (idAccionable)
+);
+
+create table if not exists token
+(
+    id varchar (100) not null,
+    primary key (id)
 );
 
 
 -- Alterando las tablas para aniadir las llaves foraneas
-alter table Retroalimentacion
-add constraint fk_idSprint foreign key (idSprint) references Sprint(idSprint),
-add constraint fk_idReporte foreign key (idReporte) references Reporte (idReporte);
+alter table retroalimentacion
+add constraint fk_idSprint foreign key (idSprint) references sprint(idSprint);
 
-alter table Cuantitativa
-add constraint fk_idPreguntaCuanti foreign key (idPregunta) references RetroalimentacionPregunta(idPregunta),
-add constraint fk_idRetroalimentacionCuanti foreign key (idRetroalimentacion) references RetroalimentacionPregunta(idRetroalimentacion);
+alter table cuantitativa
+add constraint fk_idPreguntaCuanti foreign key (idPregunta) references retroalimentacionPregunta(idPregunta),
+add constraint fk_idRetroalimentacionCuanti foreign key (idRetroalimentacion) references retroalimentacionPregunta(idRetroalimentacion);
 
-alter table Cualitativa
-add constraint fk_idPreguntaCuali foreign key (idPregunta) references RetroalimentacionPregunta(idPregunta),
-add constraint fk_idRetroalimentacionCuali foreign key (idRetroalimentacion) references RetroalimentacionPregunta (idRetroalimentacion);
+alter table cualitativa
+add constraint fk_idPreguntaCuali foreign key (idPregunta) references retroalimentacionPregunta(idPregunta),
+add constraint fk_idRetroalimentacionCuali foreign key (idRetroalimentacion) references retroalimentacionPregunta (idRetroalimentacion);
