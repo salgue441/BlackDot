@@ -2,10 +2,10 @@
   <%- include('../../partials/header.ejs') %>
 
   <body>
-    <%- include('../../partials/navBar.ejs') %>
-    <%- include('../../partials/sidebarAdmin.ejs') %>
+    <%- include('../../partials/navBar.ejs') %> 
+  <%- include('../../partials/sidebarAdmin.ejs') %>
 
-   <div class="mainContainer"> <section class="section is flex" style="margin-top: 2rem">
+    <div class="mainContainer"> <section class="section " >
     <div class="columns is-vcentered">
       <div class="column">
         <h1 class="title is-1">Accionables</h1>
@@ -21,82 +21,43 @@
       </div>
     </div>
 
-    <% for (let i = 0; i < accionables.length; i++) { %>
-    <div class="card">
-      <div class="card-content">
-        <div class="columns">
-          <div class="column is-2">
-            <div class="media">
-              <div
-                class="media-left is-flex is-flex-direction-row is-align-items-center"
-              >
-                <figure class="image is-64x64">
-                  <img
-                    src="<%= accionables[i].profileImage %>"
-                    class="is-rounded"
-                    alt="Profile Image"
-                  />
-                </figure>
-                <p class="subtitle is-size-6 ml-4">User: None</p>
-              </div>
-            </div>
-          </div>
-          <div class="column is-8 is-flex">
-            <div class="media-content nombreAccionable">
-              <p class="title is-4"><%= accionables[i].nombreAccionable %></p>
-            </div>
-          </div>
-          <div class="column is-2 checkboxDiv">
-            <div class="content">
-              <!-- Toggle box -->
-              <div class="accionable-toggle is-flex justify-content-flex-end">
-                <figure class="image is-24x24">
-                  <input
-                    type="checkbox"
-                    name="accionable"
-                    class="checkbox"
-                    onclick="handleCheckBox('<%= accionables[i].idAccionable %>')"
-                    id="checkbox-<%= accionables[i].idAccionable %>"
-                  />
-
-                  <input
-                    type="hidden"
-                    id="selected-accionables"
-                    name="accionable"
-                    class="checkbox"
-                  />
-                </figure>
-              </div>
-              <!-- End of Toggle box -->
-            </div>
-          </div>
+    <section class="columns is-multiline">
+      <% for (let i = 0; i < accionables.length; i++) { %>
+      <div class="column is-one-third box">
+        <div class="is-flex is-justify-content-center">
+          <p class="title is-4"><%= accionables[i].nombreAccionable %></p>
         </div>
       </div>
-    </div>
-    <% if (i !== accionables.length - 1) { %>
-    <hr />
-    <% } %> <% } %>
-  </section></div>
+
+      <% } %>
+    </section>
+  </div>
   </body>
+
 
   <script src="/js/accionable.front.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
   <style>
-      ::-webkit-scrollbar {
-    width: 0;
-    height: 0;
-    background-color: transparent;
-  }
-  
-  .mainContainer {
-    width: 85%;
-    margin-left: 15%;
-    height: 92%;
-    margin-top: 6%;
+    hr {
+      opacity: 0;
+      margin: 1rem;
+    }
 
-    padding: 0px;
-  }
+    ::-webkit-scrollbar {
+      width: 0;
+      height: 0;
+      background-color: transparent;
+    }
+
+    .mainContainer {
+      width: 85%;
+      margin-left: 15%;
+      height: 92%;
+      margin-top: 6%;
+
+      padding: 0px;
+    }
     .nombreAccionable {
       display: flex !important;
       align-items: center !important;
