@@ -17,11 +17,11 @@
             <br />
 
             <% if(retroActiva) { %>
-            <button class="button is-success status-button">
+            <button class="button is-success status-button noHover">
               Retro Activa
             </button>
             <% } else { %>
-            <button class="button is-danger status-button">
+            <button class="button is-danger status-button noHover">
               Retro Inactiva
             </button>
             <% } %>
@@ -82,7 +82,7 @@
     background-image: url("../../assets/hero.png");
     background-size: cover;
     background-position: center;
-    height: 25rem;
+    height: 30rem;
   }
 
   /* .container {
@@ -91,11 +91,14 @@
 
   .sprint-graph {
     margin-top: 30x;
-    height: 600px !important;
+    height: 550px !important;
   }
 
   .title {
     color: #ffffff;
+  }
+  .noHover {
+    pointer-events: none;
   }
 
   .is-1 {
