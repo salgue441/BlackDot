@@ -44,6 +44,16 @@ exports.getActual = async (req, res) => {
   }
 };
 
+/**
+ * @brief
+ * Get Actual API
+ * @param {Request} req - Request object
+ * @param {Response} res - Response object
+ * @returns {Response} - Response object
+ * @throws {Error} - Error message
+ * 
+ */
+
 exports.getActualAPI = async (req, res) => {
   try {
     const sprint = await Sprint.getSprintActual();
