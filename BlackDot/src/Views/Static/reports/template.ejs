@@ -1,37 +1,70 @@
 <!DOCTYPE html>
 <html>
-<head>
-	<meta charset="utf-8">
-	<title>REPORT</title>
-	<style>
-		.heading {
-			display: flex;
-            justify-content: space-between;
-            align-items: center;
-		}
+  <head>
+    <meta charset="utf-8" />
+    <title>REPORT</title>
+    <style>
+      .header {
+        justify-content: space-between;
+        display: flex;
+        flex-direction: column;
+      }
+      .title {
+        display: flex;
+        text-align: center;
+      }
 
-		.footer {
-			text-align: right;
-		}
-	</style>
-</head>
-<body>
+      .footer {
+        text-align: right;
+      }
+
+      .left {
+        float: left;
+      }
+
+      .right {
+        float: right;
+      }
+
+      footer {
+        display: flex;
+        bottom: 0;
+        right: 0;
+      }
+
+      .graph {
+        margin: 0 auto;
+        align-items: center;
+      }
+    </style>
+  </head>
+  <body>
     <!-- header -->
-	<div class="heading">
-		<p><%= new Date().toLocaleDateString() %></p>
-		<h1><%= title %></h1>
-        <img src="/assets/%zebrands-brand-logo.svg" alt="logo" width="100" height="100">
-	</div>
-	
-	<!-- Your content goes here -->
-	<div class="content">
-        <img src="<%= image %>" alt="image" width="100%" height="100%">
+    <div class="header">
+      <div class="left">
+        <p><%= new Date().toLocaleDateString() %></p>
+      </div>
+      <div class="right">
+        <img
+          src="/assets/%zebrands-brand-logo.svg"
+          alt="logo"
+          width="100"
+          height="100"
+        />
+      </div>
+    </div>
+    <div class="title">
+      <h1><%= title %></h1>
     </div>
 
+    <!-- Your content goes here -->
+    <div class="content">
+      <img class="graph" src="<%= image %>" alt="image" width="100%" height="100%" />
+    </div>
 
     <!-- footer -->
-	<div class="footer">
-		<p>Page <%= pageNumber %> of <%= totalPages %></p>
-	</div>
-</body>
+    <footer>
+      <p>Page <%= pageNumber %> of <%= totalPages %></p>
+    </footer>
+  </body>
 </html>
