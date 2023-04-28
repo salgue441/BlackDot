@@ -105,41 +105,32 @@ const refreshTokenAPI = async (req, res, next) => {
 const registrarEmpleado = async (req, res) => {
   const { refreshToken } = req.body
   const verified = authUtils.verifyToken(refreshToken, "refresh")
-  console.log("verified: ", verified)
-  const nombre = verified.primerNombre.split(" ")
-  const apellido = verified.apellidoPaterno.split(" ")
+
+  // If name has more than one word, split it
+  const name = verified.primerNombre.split(" ")
+  const lastName = verified.apellidoPaterno.split(" ")
 
   const userData = {
-    primerNombre: nombre[0],
-    segundoNombre: null,
-    apellidoPaterno: apellido[0],
-    apellidoMaterno: null,
+    primerNombre: name[0],
+    segundoNombre: name[1] || null,
+    apellidoPaterno: lastName[0],
+    apellidoMaterno: lastName[1] || null,
     idGoogleAuth: bycript.hashSync(verified.idGoogleAuth, 12),
     googleEmail: verified.googleEmail,
     googleProfilePicture: verified.googleProfilePicture,
   }
 
-  if (nombre.length > 1) {
-    userData.segundoNombre = nombre[1]
-  }
-
-  if (apellido.length > 1) {
-    userData.apellidoMaterno = apellido[1]
-  }
-
   try {
     const validacion = await Empleado.verifyByEmail(userData.googleEmail)
 
-    if (validacion) {
-      usuarioRegistrado = true
-    } else {
+    if (!validacion) {
       const nuevoEmpleado = new Empleado(userData)
-      await nuevoEmpleado.save()
+      const empleado = await nuevoEmpleado.save()
 
-      const idNuevoEmpleado = await Empleado.getLastID()
+      console.log(empleado)
 
       const empleadoRol = new EmpleadoRol({
-        idEmpleado: idNuevoEmpleado,
+        idEmpleado: empleado.idEmpleado,
         idRol: 3,
       })
 
@@ -147,6 +138,7 @@ const registrarEmpleado = async (req, res) => {
       usuarioRegistrado = true
     }
   } catch (error) {
+    console.log(error)
     throw new Error(error)
   }
 }
