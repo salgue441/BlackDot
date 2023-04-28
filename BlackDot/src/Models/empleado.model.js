@@ -1,6 +1,6 @@
 /**
  * @file empleado.model.js
- * @brief Modelo de la tabla de empleados
+ * @brief Model of the table of empleado answers
  * @author Iván Paredes
  * @author Yuna Chung
  * @version 1.0
@@ -9,26 +9,35 @@
  * @copyright Copyright (c) 2023 - MIT License
  */
 
+// Require the database connection
 const dataBase = require("../utils/dataBase")
 
 
 /**
  * @class
- * @classdesc Modelo de la tabla de empleado
- * @property {int} idEmpleado - Identificador del empleado
- * @property {varchar} primerNombre - Contenido del primer nombre
- * @property {varchar} segundoNombre - Contenido del segundo nombre
- * @property {varchar} apellidoPaterno - Contenido del apellido paterno
- * @property {varchar} apellidoMaterno - Contenido del apellido materno
- * @property {binary} idGoogleAuth - Identificador de la autenticación de Google
- * @property {varchar} googleEmail - Correo electrónico de Google
- * @property {varchar} googleProfilePicture - Foto de Perfil de Google
+ * @classdesc Moodel of the table Empleado
+ * @property {int} idEmpleado - Employee ID
+ * @property {varchar} primerNombre - First name content
+ * @property {varchar} segundoNombre - Second name content
+ * @property {varchar} apellidoPaterno - last name content
+ * @property {varchar} apellidoMaterno - given name content
+ * @property {binary} idGoogleAuth - Google Auth ID
+ * @property {varchar} googleEmail - google email
+ * @property {varchar} googleProfilePicture - profile picture
  */
 module.exports = class Empleado {
   /**
    * @brief
-   * Constructor de la clase Empleado
+   * Empleado constructor
    * @param {*} Empleado - Objeto de tipo Empleado
+   * @property {int} idEmpleado - Employee ID
+    * @property {varchar} primerNombre - First name content
+    * @property {varchar} segundoNombre - Second name content
+    * @property {varchar} apellidoPaterno - last name content
+    * @property {varchar} apellidoMaterno - given name content
+    * @property {binary} idGoogleAuth - Google Auth ID
+    * @property {varchar} googleEmail - google email
+    * @property {varchar} googleProfilePicture - profile picture
    */
   constructor(empleado) {
     this.idEmpleado = empleado.idEmpleado
@@ -43,9 +52,9 @@ module.exports = class Empleado {
 
   /**
    * @brief
-   * Recibe un empleado de acuerdo con el ID
-   * @param {*} idEmpleado - ID del empleado
-   * @returns {object} - Objeto de tipo Empleado
+   * get an employee by ID
+   * @param {*} idEmpleado - Employee ID
+   * @returns {object} - employee object
    */
   static async getByID(idEmpleado) {
     const query = `select * from Empleado where idEmpleado = ?`
@@ -58,9 +67,9 @@ module.exports = class Empleado {
 
   /**
    * @brief
-   * Recibe un empleado de acuerdo con el mail
-   * @param {*} email - mail del empleado
-   * @returns {object} - Objeto de tipo Empleado
+   * get an employee by email
+   * @param {*} email - mail of the employee
+   * @returns {object} - employee object
    */
   static async getByEmail(googleEmail) {
     const query = `select * from Empleado where googleEmail = ?`
@@ -73,8 +82,8 @@ module.exports = class Empleado {
 
   /**
    * @brief
-   * Obtiene todos los empleados.
-   * @returns {Empleado[]} - Arreglo de objetos de tipo Empleado
+   * get all employees
+   * @returns {Empleado[]} - Array of employees
    */
   static async getAll() {
     const query = `select * from Empleado`
@@ -85,8 +94,17 @@ module.exports = class Empleado {
 
   /**
    * @brief
-   * Guarda un nuevo empleado
-   * @returns {Promise<Empleado>} - Query del empleado guardado
+   * Saves an employee in the database
+   * @returns {Promise<Empleado>} - Empleado object
+   * @property {int} idEmpleado - Employee ID
+   * @property {varchar} primerNombre - First name content
+   * @property {varchar} segundoNombre - Second name content
+   * @property {varchar} apellidoPaterno - last name content
+   * @property {varchar} apellidoMaterno - given name content
+   * @property {binary} idGoogleAuth - Google Auth ID
+   * @property {varchar} googleEmail - google email
+   * @property {varchar} googleProfilePicture - profile picture
+   * @throws {Error} - Si no se envia el primer nombre
    */
   async save() {
     const query = `insert into empleado(primerNombre, segundoNombre, apellidoPaterno, apellidoMaterno, 
@@ -107,12 +125,12 @@ module.exports = class Empleado {
 
   /**
    * @brief
-   * Verifica si un empleado existe en la base de datos.
+   * Verifies if an employee exists in the database
    * @returns {Promise<boolean>} - True si existe, false si no
-   * @throws {Error} - Si no se envia el primer nombre
-   * @throws {Error} - Si no se envia el apellido paterno
-   * @throws {Error} - Si no se envia id de Google Authenticator
-   * @throws {Error} - Si no se envia el correo electronico de Google
+   * @throws {Error} - if the first name is not provided
+   * @throws {Error} - if the last name is not provided
+   * @throws {Error} - if the google authenticator ID is not provided
+   * @throws {Error} - if the google email is not provided
    */
   async verify(Empleado) {
     if (!this.primerNombre)
@@ -140,9 +158,10 @@ module.exports = class Empleado {
 
   /**
    * @brief
-   * Elimina un empleado de acuerdo con el ID
-   * @param {*} idEmpleado - id del empleado
-   * @returns {Promise<void>} - Query del empleado eliminado
+   * Deletes an employee from the database by ID
+   * @param {*} idEmpleado - Employee ID
+   * @returns {Promise<void>} - Query result
+   * 
    */
   static async deleteByID(idEmpleado) {
     const query = `delete from Empleado where idEmpleado = ?`
@@ -172,9 +191,9 @@ module.exports = class Empleado {
 
   /**
    * @brief
-   * Obtiene el ultimo id de empleado
-   * @returns {Promise<int>} - id del ultimo empleado
-   * @throws {Error} - Si no se encuentra el ultimo empleado
+   * Gets last employee ID
+   * @returns {Promise<int>} - Last employee ID
+   * @throws {Error} - If no employee is found
    * */
 
   static async getLastID() {
