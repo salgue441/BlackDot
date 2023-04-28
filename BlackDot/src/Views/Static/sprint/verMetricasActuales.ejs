@@ -6,8 +6,8 @@
     <%- include('../../partials/navBar.ejs') %>
 
     <div class="mainContainer">
-      <section class="hero is-medium is-bold">
-        <div class="hero-body has-text-centered">
+      <section class="hero is-medium is-bold ">
+        <div class="hero-body has-text-centered pt-0">
           <!-- Title -->
           <div class="columns">
             <div class="column is-half is-flex">
@@ -22,7 +22,7 @@
                   <div class="column is-12">
                       <div class="container">
                           <div
-                              class="box has-background-white has-text-centered"
+                              class="box  has-text-centered"
                               style="width: 100%"
                           >
                               <p class="subtitle is-4">Sprint Actual</p>
@@ -46,15 +46,21 @@
 
 
 <style>
+    ::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+    background-color: transparent;
+  }
   .box{
-    border: 1px solid #dbdbdb;  
+    border: 1.5px solid #dbdbdb;  
   }
 
   .mainContainer {
     width: 85%;
     margin-left: 15%;
-    height: 100%;
+    height: 92%;
+    margin-top: 6%;
 
     padding: 0px;
-  }
+  } 
 </style>
