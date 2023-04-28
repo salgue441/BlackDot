@@ -103,6 +103,8 @@ module.exports = class Empleado {
     ])
 
     this.idEmpleado = result.insertId
+
+    return this
   }
 
   /**
