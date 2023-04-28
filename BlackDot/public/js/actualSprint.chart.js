@@ -109,8 +109,6 @@ const createBarChart = (canvas, data, labels) => {
    */
   ; (async function renderGraph() {
     const data = await fetchSprintData()
-    console.log(data)
-
     const canvas = document.getElementById("ActualSprint")
     let labels = ["To Do", "En curso", "Pull request", "QA", "Blocked", "Done"];
     let allStoryPoints = [];
