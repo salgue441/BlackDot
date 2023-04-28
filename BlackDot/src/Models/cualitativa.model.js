@@ -12,17 +12,22 @@ const dataBase = require("../utils/dataBase")
 
 /**
  * @class
- * @classdesc Modelo de la tabla de respuestas cualitativas
- * @property {int} idCualitativa - Identificador de la respuesta
- * @property {string} contenido - Contenido de la respuesta
- * @property {int} idPregunta - Identificador de la pregunta
- * @property {int} idRetroalimentacion - Identificador de la retroalimentacion
+ * @classdesc model of the table Cualitativa
+ * @property {int} idCualitativa - Cualitativa answer ID
+ * @property {string} contenido - Content of the answer
+ * @property {int} idPregunta - Question ID
+ * @property {int} idRetroalimentacion - Retroalimentacion ID
  */
 module.exports = class Cualitativa {
   /**
    * @brief
-   * Constructor de la clase Cualitativa
-   * @param {*} Cualitativa - Objeto de tipo Cualitativa
+   * Cualitativa constructor
+   * @param {*} Cualitativa - Cualitativa object
+   * @property {int} idCualitativa - Cualitativa answer ID
+   * @property {string} contenido - Content of the answer
+   * @property {int} idPregunta - Question ID
+   * @property {int} idRetroalimentacion - Retroalimentacion ID
+   * @returns {object} - Cualitativa object
    */
   constructor(Cualitativa) {
     this.idCualitativa = Cualitativa.idCualitativa;
@@ -33,9 +38,9 @@ module.exports = class Cualitativa {
 
   /**
    * @brief
-   * Recibe una respuesta cualitativa de acuerdo con el ID.
-   * @param {*} idCualitativa - ID de la respuesta cualitativa
-   * @returns {object} - Objeto de tipo Cualitativa
+   * gets a Cualitativa answers by ID
+   * @param {*} idCualitativa - id of the answer
+   * @returns {object} - Cualitativa object
    */
   static async getByID(idCualitativa) {
     const query = `select * from Cualitativa where idCualitativa = ?`;
@@ -49,8 +54,8 @@ module.exports = class Cualitativa {
 
   /**
    * @brief
-   * Obtiene todas las respuestas cualitativas.
-   * @returns {Promise<Cualitativa[]>} - Arreglo de objetos de tipo Cualitativa
+   * gets all Cualitativa answers
+   * @returns {Promise<Cualitativa[]>} - Array of Cualitativa objects
    */
   static async getAll() {
     const [rows, _] = await dataBase.execute("select * from Cualitativa")
@@ -60,8 +65,8 @@ module.exports = class Cualitativa {
 
   /**
    * @brief
-   * Obtiene la ultima respuesta cualitativa
-   * @returns  objeto tipo cualitativa
+   * gets all Cualitativa answers by question ID
+   * @returns  {Promise<Cualitativa[]>} - Array of Cualitativa objects
    */
 
   static async getLastid() {
@@ -75,8 +80,11 @@ module.exports = class Cualitativa {
 
   /**
    * @brief
-   * Guarda una nueva respuesta cualitativa
-   * @returns {Promise<Cualitativa>} - Query de la respuesta cualitativa guardada
+   * saves a Cualitativa answer
+   * @returns {Promise<Cualitativa>} - Cualitativa object 
+   * @property {string} contenido - Content of the answer
+   * @property {int} idPregunta - Question ID
+   * @property {int} idRetroalimentacion - Retroalimentacion ID 
    */
   async save() {
     const query = `insert into Cualitativa(contenido, idPregunta, idRetroalimentacion) values (?, ?, ?)`;
@@ -92,17 +100,9 @@ module.exports = class Cualitativa {
 
   /**
    * @brief
-   * Verifica que el objeto sea de tipo Cualitativa
-   * @param {*} Cualitativa
-   * @returns {boolean}
-   */
-  static async verify(Cualitativa) { }
-
-  /**
-   * @brief
-   * Elimina una respuesta cualitativa de acuerdo con el ID
-   * @param {*} idCualitativa - id de la respuesta
-   * @returns {Promise<void>} - Query de la respuesta cualitativa eliminada
+   * Deletes a Cualitativa answer by ID
+   * @param {*} idCualitativa - id of the answer
+   * @returns {Promise<void>} - Query result
    */
   static async deleteByID(idCualitativa) {
     const query = `delete from Cualitativa where idCualitativa = ?`;
@@ -112,7 +112,10 @@ module.exports = class Cualitativa {
 
   /**
    * @brief
-   * Actualiza el contenido de la respuesta
+   * Updates a Cualitativa answer
+   * @param {*} Cualitativa - Cualitativa object
+   * @property {string} contenido - Content of the answer
+   * @returns {Promise<Cualitativa>} - Cualitativa object	
    */
   async update(Cualitativa) {
     const query = `update Cualitativa set contenido = ? where idCualitativa = ?`;
