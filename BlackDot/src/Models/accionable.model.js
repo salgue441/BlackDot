@@ -1,6 +1,6 @@
 /**
  * @file accionable.model.js
- * @brief Modelo de la tabla de Accionables
+ * @brief Model of the Accionable table
  * @author Yuna Chung
  * @version 1.0
  * @date 2023.03.21
@@ -11,16 +11,16 @@ const dataBase = require("../utils/dataBase")
 
 /**
  * @class Accionable
- * @classdesc Modelo de la tabla de Accionables
- * @property {int} idAccionable - Identificador del Accionable
- * @property {string} nombreAccionable - Nombre del Accionable
- * @property {int} storyPoints - StoryPoint asignado al Accionable
- * @property {string} labelAccionable - Label del Accionable
- * @property {enum} prioridadAccionable - Prioridad del Accionable
- * @property {enum} estadoAccioanble - Estado del Accionable
- * @property {enum} estadoIssue - Estado del issue
- * @property {string:Date} fechaCreacion - Fecha de creación del Accioanble
- * @property {string:Date} fechaFinalizacion - Fecha de finalización del Accionable
+ * @classdesc Model of the Accionable 
+ * @property {int} idAccionable - Accionable ID
+ * @property {string} nombreAccionable - Accionable name
+ * @property {int} storyPoints - StoryPoint assigned to the Accionable
+ * @property {string} labelAccionable - Accionable label
+ * @property {enum} prioridadAccionable - Accionable priority
+ * @property {enum} estadoAccioanble - Accionable state
+ * @property {enum} estadoIssue - Issue state
+ * @property {string:Date} fechaCreacion - Accionable creation date
+ * @property {string:Date} fechaFinalizacion - Accionable finish date
  **/
 
 module.exports = class Accionable {
@@ -28,6 +28,15 @@ module.exports = class Accionable {
    * @brief
    * Constructor de la clase Accionable
    * @param {*} Accionable - Objeto de tipo Accionable
+   * @property {int} idAccionable - Accionable ID
+   * @property {string} nombreAccionable - Accionable name
+   * @property {int} storyPoints - StoryPoint assigned to the Accionable
+   * @property {string} labelAccionable - Accionable label
+   * @property {enum} prioridadAccionable - Accionable priority
+   * @property {enum} estadoAccioanble - Accionable state
+   * @property {enum} estadoIssue - Issue state
+   * @property {string:Date} fechaCreacion - Accionable creation date
+   * @property {string:Date} fechaFinalizacion - Accionable finish date
    **/
 
   constructor(Accionable) {
@@ -61,6 +70,7 @@ module.exports = class Accionable {
   /**
    * @brief
    * Obtiene todos los Accionables.
+   * @param {*} idAccionable - ID del Accionable
    * @returns {Accionable[]} - Arreglo de objetos de tipo Accionable
    **/
 
@@ -74,6 +84,7 @@ module.exports = class Accionable {
   /**
    * @brief
    * Obtiene el id del ultimo accionable
+   * @param {*} idAccionable - ID del Accionable
    * @returns {int} - id del ultimo accionable
    */
   static async getLastId() {
@@ -90,6 +101,9 @@ module.exports = class Accionable {
    * @brief
    * Guarda un nuevo Accionable
    * @returns {Promise<Accionable>} - Query del Accioanble guardada
+   * @property {string} nombreAccionable - Accionable name
+   * @property {int} storyPoints - StoryPoint assigned to the Accionable
+   * @property {string} labelAccionable - Accionable label 
    **/
 
   async save() {
@@ -106,7 +120,17 @@ module.exports = class Accionable {
 
   /**
    * @brief
-   * Modifica Accionable
+   * update an accionable
+   * @returns {Promise<Accionable>} - Query del Accioanble guardada
+   * @property {string} nombreAccionable - Accionable name
+   * @property {int} storyPoints - StoryPoint assigned to the Accionable
+   * @property {string} labelAccionable - Accionable label
+   * @property {enum} prioridadAccionable - Accionable priority
+   * @property {enum} estadoAccioanble - Accionable state
+   * @property {enum} estadoIssue - Issue state
+   * @property {string:Date} fechaCreacion - Accionable creation date
+   * @property {string:Date} fechaFinalizacion - Accionable finish date
+   * 
    **/
   async update() {
     const query = `UPDATE Accionable SET nombreAccionable = ?, storyPoints = ?, labelAccionable = ?, prioridadAccionable = ?, estadoAccionable = ?, estadoIssue = ?, fechaCreacion = ?, fechaFinalizacion = ? WHERE idAccionable = ?`
@@ -127,7 +151,9 @@ module.exports = class Accionable {
 
   /**
    * @brief
-   * Modifica el estado del accionable
+   * Modifies the state of an accionable to "Aprobado"
+   * @returns {Promise<Accionable>} - Query del Accioanble guardada
+   * @property {string} nombreAccionable - Accionable name
    **/
 
   async updateEstadoAprobado() {
