@@ -23,20 +23,18 @@
 
     <section class="columns is-multiline is-3 is-variable">
       <% for (let i = 0; i < accionables.length; i++) { %>
-      <div class="box column is-one-quarter mr-5 ml-5 p-5">
-        <div class="mb-4">
-          <p class="title is-4 mb-1">Contenido:</p>
-          <p class="is-size-5"><%= accionables[i].nombreAccionable %></p>
-          <div class=" is-flex mt-4 ">
-            <p class="title mb-3 mr-2 is-5 mt-1">Prioridad:</p>
-            <span class="button is-warning is-small noHover "><%= accionables[i].prioridadAccionable %></span>
+        <div class="box column is-one-quarter mr-5 ml-5 p-5 is-flex ">
+          <div class="mb-4">
+            <p class="title is-4 mb-2">Contenido:</p>
+            <p class="is-size-5"><%= accionables[i].nombreAccionable %></p>
+            <div class="is-flex mt-4">
+              <p class="title mb-3 mr-2 is-5 mt-1">Prioridad:</p>
+              <span class="button is-warning is-small noHover"><%= accionables[i].prioridadAccionable %></span>
+            </div>
           </div>
-           
-        </div>
-        <div class="column checkboxDiv is-flex is-justify-content-center is-align-self-flex-end">
-          <div class="content">
+          <div class="column checkboxDiv is-flex is-align-items-start is-justify-content-end ml-2">
             <!-- Toggle box -->
-            <div class="accionable-toggle ">
+            <div class="accionable-toggle">
               <figure class="image is-24x24">
                 <input
                   type="checkbox"
@@ -45,20 +43,13 @@
                   onclick="handleCheckBox('<%= accionables[i].idAccionable %>')"
                   id="checkbox-<%= accionables[i].idAccionable %>"
                 />
-  
-                <input
-                  type="hidden"
-                  id="selected-accionables"
-                  name="accionable"
-                  class="checkbox"
-                />
+                <input type="hidden" id="selected-accionables" name="accionable" class="checkbox" />
               </figure>
             </div>
             <!-- End of Toggle box -->
           </div>
         </div>
-      </div>
-    
+        
       <% } %>
     </section>
     
@@ -75,9 +66,7 @@
     pointer-events: none;
   }    
 
-.columns.is-variable {
-  --column-gap: 2rem;
-}
+
 
 .button {
   padding: 0.3rem;
@@ -131,7 +120,7 @@
     .box {
     gap: 0.5rem;
 
-    min-height: 10rem;
+
    
    
 
