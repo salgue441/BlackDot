@@ -105,7 +105,7 @@ const refreshTokenAPI = async (req, res, next) => {
 const registrarEmpleado = async (req, res) => {
   const { refreshToken } = req.body
   const verified = authUtils.verifyToken(refreshToken, "refresh")
-  console.log("verified: ", verified)
+  
   const nombre = verified.primerNombre.split(" ")
   const apellido = verified.apellidoPaterno.split(" ")
 
@@ -129,6 +129,7 @@ const registrarEmpleado = async (req, res) => {
 
   try {
     const validacion = await Empleado.verifyByEmail(userData.googleEmail)
+    console.log("validacion: ", validacion)
 
     if (validacion) {
       usuarioRegistrado = true

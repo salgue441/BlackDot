@@ -3,8 +3,9 @@
 
   <body>
     <%- include('../../partials/navBar.ejs') %>
+    <%- include('../../partials/sidebarAdmin.ejs') %>
 
-    <section class="section is-medium is-bold">
+    <div class="mainContainer"><section class="section is-medium is-bold">
       <div class="has-text-centered">
         <!-- Title & Button to Accept -->
         <div class="columns">
@@ -28,7 +29,7 @@
     <!-- End of Title & Button -->
 
     <!-- Accionables -->
-    <div class="container" style="margin-left: 15%">
+    <div class="container" >
       <div class="columns is-multiline">
         <% accionables.forEach((accionable) => { %> <%
         if(accionable.nombreAccionable !== '') { %>
@@ -54,7 +55,7 @@
         </div>
         <% } %> <% }) %>
       </div>
-    </div>
+    </div></div>
   </body>
 </html>
 
@@ -84,5 +85,19 @@
 
   .box {
     border: 1px solid #dbdbdb !important;
+  }
+
+  ::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+    background-color: transparent;
+  }
+  
+  .mainContainer {
+    width: 85%;
+    margin-left: 15%;
+    height: 92%;
+
+    padding: 0px;
   }
 </style>
