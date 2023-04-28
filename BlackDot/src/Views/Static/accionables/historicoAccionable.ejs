@@ -34,19 +34,17 @@
         if(accionable.nombreAccionable !== '') { %>
         <div class="column is-4 has-text-centered is-align-items-center">
           <div class="box is-flex is-flex-direction-column accionable">
-            <div class="content has-text-centered justify-content">
+            <div class="content">
               <p><%= accionable.nombreAccionable %></p>
               <% if(accionable.estadoAccionable === 'No aprobado') { %>
               <p
                 class="box is-flex is-align-items-center has-text-centered EstadoNoAprobado"
-                style="margin-left: 25%; text-align: center"
               >
                 <%= accionable.estadoAccionable %>
               </p>
               <% } else { %>
               <p
                 class="box is-flex is-align-items-center has-text-centered EstadoAprobado"
-                style="margin-left: 25%; text-align: center"
               >
                 <%= accionable.estadoAccionable %>
               </p>
@@ -82,5 +80,9 @@
   .reporte-button {
     height: 50px;
     width: 200px;
+  }
+
+  .box {
+    border: 1px solid #dbdbdb !important;
   }
 </style>

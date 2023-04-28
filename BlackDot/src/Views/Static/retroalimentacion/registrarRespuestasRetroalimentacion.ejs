@@ -6,12 +6,6 @@
 
     <section class="container">
       <form class="preguntaContainer" method="POST" action="/actual/enviado">
-        <progress
-          class="progress is-danger is-fixed-top-desktop"
-          value="<%= barProgress %>"
-          max="100"
-        ></progress>
-
         <% let cantCualitativas = 0; %> <% for (var i = 0; i < preguntas.length;
         i++) { %> <% if(preguntas[i].contenido != '¿Que podemos mejorar?') { %>
         <% if (preguntas[i].tipoPregunta === 'Cualitativa') { %> <%
@@ -35,10 +29,10 @@
           <label class="label" for="respuestaCuantitativa"
             ><%= preguntas[i].contenido %></label
           >
-          <%- include('../../partials/preguntaCuantitativa.ejs', { name:
-          preguntas[i].idPregunta }) %>
+          <%- include('../../partials/preguntaCuantitativa.ejs', {
+          name:preguntas[i].idPregunta }) %>
         </div>
-        <%} %> <% } %> <% } %>
+        <%} } } %>
 
         <div class="box is-flex is-flex-direction-column">
           <label class="label" for="respuestaCualitativa"
@@ -68,20 +62,6 @@
   </body>
 </html>
 
-<script>
-  function updateProgressBar(e) {
-    const contenido = e.target.value
-    const valor = 100 / "<%= cantCualitativas %>"
-    if (!contenido) {
-      document.querySelector("progress").value =
-        document.querySelector("progress").value - valor
-    } else {
-      document.querySelector("progress").value =
-        document.querySelector("progress").value + valor
-    }
-  }
-</script>
-
 <style>
   .preguntaContainer {
     margin-top: 5%;
@@ -98,5 +78,8 @@
 
   .label {
     font-size: 1.2rem;
+  }
+  .box {
+    border: 1px solid #dbdbdb;
   }
 </style>

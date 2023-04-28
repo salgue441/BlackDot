@@ -14,10 +14,12 @@
           </h1>
 
           <br />
-          <button class="button is-success status-button">STATUS</button>
 
-          <!-- red button
-            <button class="button is-success status-button>STATUS</button>" -->
+          <% if(retroActiva) { %>
+          <button class="button is-success status-button">Retro Activa</button>
+          <% } else { %>
+          <button class="button is-danger status-button">Retro Inactiva</button>
+          <% } %>
         </div>
       </div>
     </section>
@@ -92,6 +94,10 @@
 
   .button.is-success {
     background-color: #356959 !important;
+  }
+
+  .box {
+    border: 1px solid #dbdbdb;
   }
 
   @media screen and (max-width: 768px) {
