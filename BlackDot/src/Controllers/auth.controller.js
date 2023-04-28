@@ -30,7 +30,10 @@ const renderLogin = (req, res) => {
  * @param {Object} req - Request object
  * @param {Object} res - Response object
  * @param {Function} next - Next function
+ * @param {String} req.body.token - Google token
+ * @param {String} req.body.refreshToken - Refresh token
  * @returns {Object} Response object
+ * @param {string} res.message - Response message
  */
 const loginAPI = async (req, res, next) => {
   try {
@@ -66,6 +69,7 @@ const loginAPI = async (req, res, next) => {
   }
 }
 
+// Variables
 let usuarioRegistrado = false
 let refreshcantidad = 0
 
@@ -101,6 +105,18 @@ const refreshTokenAPI = async (req, res, next) => {
     authUtils.deleteSession(req, res)
   }
 }
+
+/** 
+ * @brief
+ * Registers a new employee
+ * @param {Object} req - Request object
+ * @param {Object} res - Response object
+ * @param {String} req.body.refreshToken - Refresh token
+ * @returns {Boolean} True if the user was registered, false otherwise
+ * @save {Object} Empleado - New employee
+ * @save {Object} EmpleadoRol - New employee role
+ * @throws {Error} If an error occurs
+ */ 
 
 const registrarEmpleado = async (req, res) => {
   const { refreshToken } = req.body
