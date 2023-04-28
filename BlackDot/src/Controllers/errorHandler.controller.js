@@ -4,6 +4,8 @@ const path = require("path");
  * @Get error view
  * @param {Request} req
  * @param {Response} res
+ * @returns error view
+ * @throws {Error} - Error message
  */
 exports.getError = (req, res) => {
   try {
