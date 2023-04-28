@@ -3,24 +3,9 @@
   role="navigation"
   aria-label="main navigation"
 >
-  <div class="navbar-brand">
-    <!-- Hamburger icon -->
-    <a
-      role="button"
-      class="navbar-burger burger"
-      aria-label="menu"
-      aria-expanded="false"
-
-    >
-      <!-- <span aria-hidden="true"></span>
-      <span aria-hidden="true"></span>
-      <span aria-hidden="true"></span> -->
-    </a>
-  </div>
-
   <!-- Logo -->
   <div class="navbar-item-center mt-2">
-    <div class="navbar-item ">
+    <div class="navbar-item">
       <a href="/home">
         <img
           src="../../assets/$zebrands-brand-logo.svg"
@@ -31,63 +16,62 @@
     </div>
   </div>
 
-  <div class="navbar-end  ">
-    <div class="field is-grouped is-flex mt-2">
-
+  <div class="navbar-end">
+    <div class="field is-grouped is-flex mt-2 mr-5">
       <div class="control">
-        <div class="mt-2">John Doe</div>
+        <div class="">John Doe</div>
       </div>
-        <img src="" class='image is-32x32 is-rounded profile-img' alt="Profile" />
+      <img src="" class="image is-32x32 is-rounded profile-img" alt="Profile" />
     </div>
   </div>
 </nav>
 
+<!-- Styles -->
+<style>
+  /* Custom Styles */
+  .navbar-item-center {
+    position: absolute;
+    left: 50%;
+    top: 10%;
+    transform: translateX(-50%);
+  }
+  .profile-img {
+    width: 40px;
+    height: 40px;
+    border: 1px solid #e4e5e3;
+    border-radius: 50%;
+  }
 
-  <!-- Styles -->
-  <style>
-    /* Custom Styles */
-    .navbar-item-center {
-      position: absolute;
-      left: 50%;
-      top: 10%;
-      transform: translateX(-50%);
-    }
-    .profile-img {
-      width: 40px;
-      height: 40px;
-      border: 1px solid #e4e5e3;
-      border-radius: 50%;
-    }
+  .logo {
+    transform: scale(1.5);
+    z-index: 10 !important ;
+  }
 
-    .logo {
-      transform: scale(2);
-      z-index: 100 !important ;
+  /* Bulma Css */
+  .navbar {
+    background-color: #e4e5e3;
+    height: 8%;
+    border-bottom: 1px solid #444444;
+    box-shadow: 0px 1px 1px #444444;
+    z-index: 10;
+  }
+  @media screen and (max-width: 1023px) {
+    .navbar-end {
+      justify-content: flex-end;
+      margin-right: 10px;
     }
+    .navbar-item.is-hidden-touch {
+      display: block;
+    }
+  }
+  @media screen and (min-width: 1024px) {
+    .navbar-burger {
+      display: block !important;
+    }
+    .menu.is-hidden-touch {
+      display: none;
+    }
+  }
+</style>
 
-    /* Bulma Css */
-    .navbar {
-      background-color: #e4e5e3;
-      height: 8%;
-    }
-    @media screen and (max-width: 1023px) {
-      .navbar-end {
-        justify-content: flex-end;
-        margin-right: 10px;
-      }
-      .navbar-item.is-hidden-touch {
-        display: block;
-      }
-    }
-    @media screen and (min-width: 1024px) {
-      .navbar-burger {
-        display: block !important;
-      }
-      .menu.is-hidden-touch {
-        display: none;
-      }
-    }
-  </style>
-
-  <!-- Hamburger icon functionality -->
-
-</nav>
+<!-- Hamburger icon functionality -->
