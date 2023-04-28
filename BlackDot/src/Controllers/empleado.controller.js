@@ -147,6 +147,15 @@ exports.getEditarUsuario = async (req, res) => {
   }
 }
 
+/**
+ * @brief
+ * Post of eliminar usuario
+ * @param {Request} request - Request object
+ * @param {Response} response - Response object
+ * @returns {Response} - Response object
+ * @throws {Error} - Error message
+ */
+
 exports.getEliminarUsuario = async (req, res) => {
   try {
     const idEmpleado = parseInt(req.params.id)
