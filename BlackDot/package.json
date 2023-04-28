@@ -7,7 +7,7 @@
     "test": "jest",
     "test:watch": "jest --watchAll",
     "test:carlos": "jest --config jest.config.js",
-    "start": "node server.js",
+    "start": "nodemon server.js",
     "start:carlos": "nodemon server.js --config nodemon.json",
     "start:diego": "npx kill-port 3000 && nodemon server.js --config nodemon.json"
   },
@@ -27,6 +27,7 @@
   },
   "homepage": "https://github.com/salgue441/BlackDot#readme",
   "dependencies": {
+    "@pdfme/generator": "^1.1.10",
     "axios": "^1.3.4",
     "bcrypt": "^5.1.0",
     "bcryptjs": "^2.4.3",
