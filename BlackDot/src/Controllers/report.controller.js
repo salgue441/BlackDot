@@ -90,30 +90,3 @@ module.exports = {
   generateTemplate,
   generatePDF,
 };
-
-// const generatePDF = (req, res) => {
-//   const pdfData = req.body.pdfData;
-//   console.log(pdfData);
-
-//   const options = { format: "Letter" };
-//   pdf.create(pdfData, options).toFile("report.pdf", (err, result) => {
-//     if (err) {
-//       console.log(err);
-//       res.status(500).send("An error occurred");
-//     } else {
-//       console.log(result);
-//       const filePath = result.filename;
-//       const fileStream = fs.createReadStream(filePath);
-
-//       res.setHeader("Content-type", "application/pdf");
-//       res.setHeader("Content-Disposition", "attachment; filename=report.pdf");
-
-//       fileStream.pipe(res);
-//     }
-//   });
-// };
-
-// module.exports = {
-//   generateTemplate,
-//   generatePDF,
-// };
