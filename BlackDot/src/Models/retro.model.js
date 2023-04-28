@@ -91,9 +91,16 @@ module.exports = class Retroalimentacion {
    */
 
   static async getLastId() {
-    const query = `select * from retroalimentacion order by idRetroalimentacion desc limit 1`
-    const [rows] = await dataBase.execute(query)
+    try {
+      const query = `select * from retroalimentacion order by idRetroalimentacion desc limit 1`
 
-    return rows[0].idRetroalimentacion
+      const [rows] = await dataBase.execute(query)
+
+      return rows[0].idRetroalimentacion
+    }
+    catch (error) {
+      console.log(error)
+      throw new Error("Error al obtener la ultima id de la retroalimentacion")
+    }
   }
 }

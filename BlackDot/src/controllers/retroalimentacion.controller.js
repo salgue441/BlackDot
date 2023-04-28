@@ -89,50 +89,73 @@ function countDuplicates(data) {
 let retroObj = {}
 
 exports.getCurretRetroalimentacion = async (req, res) => {
-  Retro.getLastId().then(async (retro) => {
-    try {
-      const idRetro = req.params.id || retro
+  Retro.getLastId()
+    .then(async (retro) => {
+      try {
+        const idRetro = req.params.id || retro
 
-      retroObj.id = idRetro
-
-      // Quantitative answers
-      const quantitative = await retroPregunta.getQuantitativeAnswerByID(
-        idRetro
-      )
-
-      const simplifiedQuantitative = simplifyAnswers(quantitative)
-
-      for (const question of simplifiedQuantitative) {
-        question.respuestas = countDuplicates(question.respuestas)
-      }
-
-      // Qualitative answers
-      const qualitative = await retroPregunta.getQualitativeAnswersByID(idRetro)
-      const simplifiedQualitative = simplifyAnswers(qualitative)
-
-      // Questions
-
-      retros = await Retro.getAll()
-
-      res.render(
-        path.join(
-          __dirname,
-          "../Views/Static/retroalimentacion/verRetroalimentacion.ejs"
-        ),
-        {
-          idRetroalimentacion: quantitative[0].idRetroalimentacion,
-          fechaRetroalimentacion: quantitative[0].fechaRetroalimentacion,
-          simplifiedQuantitative: simplifiedQuantitative,
-          simplifiedQualitative: simplifiedQualitative,
-          retros,
+        if (!idRetro) {
+          res.render(path.join(__dirname, "../views/static/error/error.ejs"), {
+            error: "No hay retroalimentacion activa",
+          })
         }
-      )
-    } catch (error) {
+
+        retroObj.id = idRetro
+
+        if (!retroObj.id) {
+          res.render(path.join(__dirname, "../views/static/error/error.ejs"), {
+            error: "No hay retroalimentacion activa",
+          })
+        }
+
+        // Quantitative answers
+        const quantitative = await retroPregunta.getQuantitativeAnswerByID(
+          idRetro
+        )
+
+        if (quantitative.idRetroalimentacion === undefined) {
+          res.render(path.join(__dirname, "../views/static/error/error.ejs"), {
+            error: "No hay retroalimentacion activa",
+          })
+        }
+
+        const simplifiedQuantitative = simplifyAnswers(quantitative)
+
+        for (const question of simplifiedQuantitative) {
+          question.respuestas = countDuplicates(question.respuestas)
+        }
+
+        // Qualitative answers
+        const qualitative = await retroPregunta.getQualitativeAnswersByID(idRetro)
+        const simplifiedQualitative = simplifyAnswers(qualitative)
+
+        // Questions
+        retros = await Retro.getAll()
+
+        res.render(
+          path.join(
+            __dirname,
+            "../Views/Static/retroalimentacion/verRetroalimentacion.ejs"
+          ),
+          {
+            idRetroalimentacion: quantitative[0].idRetroalimentacion,
+            fechaRetroalimentacion: quantitative[0].fechaRetroalimentacion,
+            simplifiedQuantitative: simplifiedQuantitative,
+            simplifiedQualitative: simplifiedQualitative,
+            retros,
+          }
+        )
+      } catch (error) {
+        res.render(path.join(__dirname, "../views/static/error/error.ejs"), {
+          error,
+        })
+      }
+    })
+    .catch((error) => {
       res.render(path.join(__dirname, "../views/static/error/error.ejs"), {
-        error,
+        error: "No existe una retroalimentacion",
       })
-    }
-  })
+    })
 }
 
 /**
