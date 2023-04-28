@@ -1,12 +1,7 @@
 /**
  * @file pregunta.model.js
- * @brief Modelo de la tabla de preguntas
- * @author Carlos Salguero
+ * @brief Questions model
  * @author Diego Sandoval
- * @author Olimpia Garcia
- * @author Diego Llaca
- * @author Yuna Chung
- * @author Ivan Paredes
  * @version 1.0
  * @date 2023-03-21
  *
@@ -15,6 +10,14 @@
 
 const dataBase = require("../utils/dataBase")
 
+/** 
+ * @class BancoPregunta
+ * @classdesc Questions model
+ * @property {number} idPreguntaBanco - Question ID
+ * @property {string} contenido - Question content
+ * @property {string} tipoPregunta - Question type
+ * @returns {object} - Question object
+ */
 module.exports = class BancoPregunta {
   constructor(bancoPregunta) {
     this.idPreguntaBanco = bancoPregunta.idPreguntaBanco
@@ -24,9 +27,9 @@ module.exports = class BancoPregunta {
 
   /**
    * @brief
-   * Obtiene una pregunta de acuerdo con el ID.
-   * @param {number} idPreguntaBanco - ID de la pregunta
-   * @returns {Promise<Pregunta>} - Objeto de tipo Pregunta
+   * Obtains a question by ID.
+   * @param {number} idPreguntaBanco -Question ID
+   * @returns {Promise<Pregunta>} - Object of type Pregunta
    */
 
   static async getByID(idPreguntaBanco) {
@@ -44,13 +47,13 @@ module.exports = class BancoPregunta {
 
   /**
    * @brief
-   * elimina una pregunta de acuerdo con el ID.
-   * @param {number} idPreguntaBanco - ID de la pregunta
-   * @returns {Promise<Pregunta>} - Objeto de tipo Pregunta
-   * @throws {Error} - Si no se ha proporcionado un ID
-   * @throws {Error} - Si el ID no es un numero
-   * @throws {Error} - Si no se encuentra la pregunta
-   * @throws {Error} - Si no se pudo eliminar la pregunta
+   * delete a question by ID.
+   * @param {number} idPreguntaBanco - Question ID
+   * @returns {Promise<Pregunta>} - Object of type Pregunta
+   * @throws {Error} - if the ID is not provided
+   * @throws {Error} - if the ID is not a number
+   * @throws {Error} - if the ID is not an integer
+   * @throws {Error} - if the ID is not found
    * */
 
   static async deleteByID(idPreguntaBanco) {
@@ -71,8 +74,8 @@ module.exports = class BancoPregunta {
 
   /**
    * @brief
-   * Obtiene todas las preguntas.
-   * @returns {Promise<Pregunta[]>} - Arreglo de objetos de tipo Pregunta
+   * obtains all questions.
+   * @returns {Promise<Pregunta[]>} - Array of type Pregunta
    */
   static async getAll() {
     const [preguntas, _] = await dataBase.query("select * from BancoPreguntas")
@@ -82,10 +85,11 @@ module.exports = class BancoPregunta {
 
   /**
    * @brief
-   * Guarda una pregunta en la base de datos.
-   * @returns {Promise<Pregunta>} - Objeto de tipo Pregunta
-   * @throws {Error} - Si no se ha proporcionado un contenido
-   * @throws {Error} - Si no se ha proporcionado un tipo de pregunta
+   * Gsave a question in the database.
+   * @returns {Promise<Pregunta>} - Object of type Pregunta
+   * @throws {Error} - if the content is not provided
+   * @throws {Error} - if the type of question is not provided
+   * @throws {Error} - if the question could not be saved
    * */
 
   async save() {
@@ -110,11 +114,15 @@ module.exports = class BancoPregunta {
 
   /**
    * @brief
-   * Actualiza una pregunta en la base de datos.
-   * @returns {Promise<Pregunta>} - Objeto de tipo Pregunta
-   * @throws {Error} - Si no se ha proporcionado un ID
-   * @throws {Error} - Si no se ha proporcionado un contenido
-   * @throws {Error} - Si no se ha proporcionado un tipo de pregunta
+   * Update a question in the database.
+   * @returns {Promise<Pregunta>} - Object of type Pregunta
+   * @property {number} idPreguntaBanco - Question ID
+   * @property {string} contenido - Question content
+   * @property {string} tipoPregunta - Question type
+   * @throws {Error} - if the ID is not provided
+   * @throws {Error} - if the content is not provided
+   * @throws {Error} - if the type of question is not provided
+   * @throws {Error} - if the question could not be updated
    * */
 
   async update() {
@@ -139,11 +147,11 @@ module.exports = class BancoPregunta {
 
   /**
    * @brief
-   * Verifica si una pregunta cumple con los requisitos para ser guardada en la base de datos.
-   * @returns {Promise<boolean>} - True si existe, false si no
-   * @throws {Error} - Si no se envia el contenido
-   * @throws {Error} - Si el contenido es muy largo
-   * @throws {Error} - Si no se envia el tipo de pregunta
+   * Verify if a question exists in the database.
+   * @returns {Promise<boolean>} - True if the question exists, false if not
+   * @throws {Error} - if the content is not provided
+   * @throws {Error} -if the content is too long
+   * @throws {Error} - if the type of question is not provided
    */
 
   async verify() {
