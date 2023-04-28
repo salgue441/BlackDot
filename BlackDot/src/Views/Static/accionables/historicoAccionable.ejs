@@ -2,80 +2,72 @@
   <%- include('../../partials/header.ejs') %>
 
   <body>
-    <%- include('../../partials/navBar.ejs') %>
-    <%- include('../../partials/sidebarAdmin.ejs') %>
+    <%- include('../../partials/navBar.ejs') %> <%-
+    include('../../partials/sidebarAdmin.ejs') %>
 
-    <div class="mainContainer"><section class="section is-medium is-bold">
-      <div class="has-text-centered">
-        <!-- Title & Button to Accept -->
-        <div class="columns">
-          <div class="column is-half is-flex">
-            <h1 class="title is-1">Accionables</h1>
-          </div>
-          <div class="column is-half is-flex is-justify-content-end">
-            <div class="is-grouped is-grouped-centered">
-              <input
-                class="button is-danger reporte-button"
-                id="sendButton"
-                type="submit"
-                value="Generar Reporte"
-                onclick=""
-              />
+    <div class="mainContainer">
+      <section class="section is-medium is-bold pb-6">
+        <div class="has-text-centered">
+          <!-- Title & Button to Accept -->
+          <div class="columns">
+            <div class="column is-half is-flex">
+              <h1 class="title is-1">Historico de Accionables</h1>
+            </div>
+            <div class="column is-half is-flex is-justify-content-end">
+              <div class="is-grouped is-grouped-centered">
+                <input
+                  class="button is-danger reporte-button"
+                  id="sendButton"
+                  type="submit"
+                  value="Generar Reporte"
+                  onclick=""
+                />
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </section>
-    <!-- End of Title & Button -->
+      </section>
+      <!-- End of Title & Button -->
 
-    <!-- Accionables -->
-    <div class="container" >
-      <div class="columns is-multiline">
-        <% accionables.forEach((accionable) => { %> <%
-        if(accionable.nombreAccionable !== '') { %>
-        <div class="column is-4 has-text-centered is-align-items-center">
-          <div class="box is-flex is-flex-direction-column accionable">
-            <div class="content">
-              <p><%= accionable.nombreAccionable %></p>
-              <% if(accionable.estadoAccionable === 'No aprobado') { %>
-              <p
-                class="box is-flex is-align-items-center has-text-centered EstadoNoAprobado"
-              >
-                <%= accionable.estadoAccionable %>
-              </p>
-              <% } else { %>
-              <p
-                class="box is-flex is-align-items-center has-text-centered EstadoAprobado"
-              >
-                <%= accionable.estadoAccionable %>
-              </p>
-              <% } %>
+      <!-- Accionables -->
+      <div class="container">
+        <div class="columns is-multiline">
+          <% accionables.forEach((accionable) => { %> <%
+          if(accionable.nombreAccionable !== '') { %>
+          <div class="column is-3">
+            <div class="box has-text-centered is-fullheight">
+              <div class="content">
+                <p class="title is-5 mb-2">
+                  <%= accionable.nombreAccionable %>
+                </p>
+                <% if(accionable.estadoAccionable === 'No aprobado') { %>
+                <div class="box EstadoNoAprobado is-narrow">
+                  <p><%= accionable.estadoAccionable %></p>
+                </div>
+                <% } else { %>
+                <div class="box EstadoAprobado is-narrow">
+                  <p><%= accionable.estadoAccionable %></p>
+                </div>
+                <% } %>
+              </div>
             </div>
           </div>
+
+          <% } %> <% }) %>
         </div>
-        <% } %> <% }) %>
       </div>
-    </div></div>
+    </div>
   </body>
 </html>
 
 <style>
-  .accionable {
-    top: 20rem !important;
-  }
-
   .EstadoNoAprobado {
     background-color: hsl(348, 100%, 61%);
     color: hsl(0, 0%, 96%);
-    width: 50%;
-    height: 50px;
   }
 
   .EstadoAprobado {
     background-color: hsl(171, 100%, 41%);
-    text-align: center;
-    width: 50%;
-    height: 50px;
   }
 
   .reporte-button {
@@ -92,7 +84,7 @@
     height: 0;
     background-color: transparent;
   }
-  
+
   .mainContainer {
     width: 85%;
     margin-left: 15%;

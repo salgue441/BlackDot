@@ -49,9 +49,11 @@
                       name="idEmpleado"
                       value="<%= empleadoSinRol[i].idEmpleado %>"
                     />
+
                     <button class="button is-success ml-1" type="submit">
                       <span class="icon is-small">
-                        <i class="fas fa-check"></i>
+                        <img src="/assets/approval.svg" alt=""
+                        class="aprovalIcon" " />
                       </span>
                     </button>
                   </form>
@@ -67,7 +69,8 @@
                     />
                     <button class="button is-danger ml-1" type="submit">
                       <span class="icon is-small">
-                        <i class="fas fa-times"></i>
+                        <img src="/assets/disapproval.svg" alt=""
+                        class="disAprovalIcon" " />
                       </span>
                     </button>
                   </form>
@@ -105,5 +108,18 @@
 
   .profilePicture {
     border-radius: 50%;
+  }
+
+  .aprovalIcon {
+    width: 1.5rem;
+    height: 1.5rem;
+    filter: invert(100%);
+  }
+
+  .disAprovalIcon {
+    width: 1.5rem;
+    height: 1.5rem;
+    filter: invert(100%) sepia(0%) saturate(7487%) hue-rotate(85deg)
+      brightness(101%) contrast(96%);
   }
 </style>
