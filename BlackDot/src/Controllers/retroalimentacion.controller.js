@@ -223,6 +223,7 @@ exports.getRegistrarRespuestas = async (req, res) => {
  * @returns {Response} - Response object
  * @throws {Error} - Error message
  * */
+
 exports.postRegistrarRespuestas = async (req, res) => {
   const respuestas = req.body
 
