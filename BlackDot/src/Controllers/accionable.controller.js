@@ -8,6 +8,7 @@
  * @copyright Copyright (c) 2023 - MIT License
  **/
 
+//Includes
 const axios = require("axios");
 const express = require("express");
 const router = express.Router();
@@ -15,8 +16,10 @@ const path = require("path");
 const bodyparser = require("body-parser");
 bodyparser.urlencoded({ extended: true });
 
+//Data Models
 const Accionable = require("../models/accionable.model.js");
 
+//Middlewares
 router.use(express.urlencoded({ extended: true }));
 router.use(express.json());
 
@@ -53,6 +56,15 @@ exports.getRegistrarAprobacion = async (req, res) => {
     });
   }
 };
+
+/** 
+ * @brief
+ * Saves the approved Actionable
+ * @param {Request} req - Request object
+ * @param {Response} res - Response object
+ * @returns {Response} - Accionable saved successfully
+ * @throws {Error} - Error message
+ */
 
 exports.saveAccionable = async (req, res) => {
   const { idsAccionables } = req.body;
