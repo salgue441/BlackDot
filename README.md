@@ -27,15 +27,12 @@ TC2005B.401 - Construcción de Software y Toma de Decisiones
 
 ### Blackdot - Plataforma de Recopilación de Feedback y Análisis de Métricas
 
-<<<<<<< HEAD
 Blackdot es una aplicación web diseñada para facilitar la recopilación de feedback de
 los empleados durante cada sprints, brindando una visualizació de las respuetas,
 métricas del sprint actual y métricas históricas de hasta seis sprints a nivel de
 epicas. Además, permite la creación de acciones basadas en las respuestas de
 los empleados y ofrece la capacidad de mandarlos al backlog de la plataforma Jira.
-=======
-ª
->>>>>>> main
+
 
 #### Características Principales
 
