@@ -107,8 +107,8 @@ const registrarEmpleado = async (req, res) => {
   const verified = authUtils.verifyToken(refreshToken, "refresh")
 
   // If name has more than one word, split it
-  const name = verified.primerNombre.split(" ")
-  const lastName = verified.apellidoPaterno.split(" ")
+  const name = verified.primerNombre ? verified.primerNombre.split(" ") : []
+  const lastName = verified.apellidoPaterno ? verified.apellidoPaterno.split(" ") : []
 
   const userData = {
     primerNombre: name[0],
