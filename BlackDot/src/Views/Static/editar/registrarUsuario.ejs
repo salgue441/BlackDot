@@ -30,7 +30,7 @@
                 <img
                   src="<%= empleadoSinRol[i].googleProfilePicture %>"
                   alt="Profile Picture"
-                  class="image is-128x128 is-rounded"
+                  class="image is-128x128 is-rounded profilePicture"
                 />
               </div>
               <p><%= empleadoSinRol[i].primerNombre %></p>
@@ -85,5 +85,9 @@
     height: 20rem;
 
     border: 1px solid #dbdbdb;
+  }
+
+  .profilePicture {
+    border-radius: 50%;
   }
 </style>
