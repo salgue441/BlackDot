@@ -7,6 +7,7 @@ const authUtils = require("../utils/auth");
  * Handles the validation of the login form
  */
 const authMiddleware = {
+ 
   /**
    * @brief
    * Validates that the token is active
@@ -15,6 +16,7 @@ const authMiddleware = {
    * @param {Function} next - Next function
    * @returns {Function} Next function
    */
+  
   verifyToken: async (req, res, next) => {
     let token;
 
