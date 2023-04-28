@@ -1,13 +1,15 @@
 <aside class="menu sidebar" id="sidebar-data">
-  <section class="userDataContainer is-flex is-justify-content-center">
+  <section
+    class="userDataContainer is-flex is-justify-content-center sectionSideBar"
+  >
     <!-- USer Data -->
-    <section class="UserData">
+    <section class="UserData sectionSideBar">
       <img
         src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRrkZbcHSbochV6XkgyMt4NC6olUbysG4PjUw&usqp=CAU"
         alt="Profile Picture"
         class="image is-128x128 is-rounded mt-4"
       />
-      <section class="has-text-centered mt-3">
+      <section class="has-text-centered mt-3 sectionSideBar">
         <p class="is-size-6 has-text-weight-bold">Nombre</p>
         <p class="is-size-7">Rol</p>
       </section>
@@ -15,10 +17,10 @@
   </section>
   <!-- Navegacion -->
 
-  <section class="is-flex is-flex-direction-column">
+  <section class="is-flex is-flex-direction-column sectionSideBar">
     <!-- Metricas -->
 
-    <section class="mt-3 mb-2">
+    <section class="mt-3 mb-2 sectionSideBar">
       <ul class="is-size-5 ml-5">
         Metricas
         <li>
@@ -35,7 +37,7 @@
     </section>
 
     <!-- Retroalimentacion -->
-    <section class="mt-3 mb-2">
+    <section class="mt-3 mb-2 sectionSideBar">
       <ul class="is-size-5 ml-5">
         Retroalimentacion
         <li>
@@ -44,7 +46,9 @@
           >
         </li>
         <li>
-          <a class="navbar-item is-size-6 ml-2" href="/actual/verRespuestas"
+          <a
+            class="navbar-item is-size-6 ml-2 sectionSideBar"
+            href="/actual/verRespuestas"
             >Respuestas</a
           >
         </li>
@@ -59,7 +63,7 @@
     </section>
 
     <!-- Accionables -->
-    <section class="mt-3 mb-2">
+    <section class="mt-3 mb-2 sectionSideBar">
       <ul class="is-size-5 ml-5">
         Accionables
         <li>
@@ -78,7 +82,7 @@
     </section>
 
     <!-- Editar -->
-    <section class="mt-3 mb-3">
+    <section class="mt-3 mb-3 sectionSideBar">
       <ul class="is-size-5 ml-5">
         Editar
         <li>
@@ -90,7 +94,7 @@
     </section>
 
     <!-- Log Out -->
-    <section class="is-flex ml-5">
+    <section class="is-flex ml-5 sectionSideBar">
       <button class="button is-danger logout-button">
         <img src="../../assets/logout.png" />
         Log out
@@ -109,13 +113,14 @@
 
 <!-- Sidebar custom styles -->
 <style>
-  /* Bulma CSS Override */
+  .sectionSideBar {
+    background-color: #272b2c !important;
+  }
 
   body {
     color: #e3e1dd;
   }
 
-  /* Custom Styles */
   .sidebar {
     position: fixed;
     left: 0;
