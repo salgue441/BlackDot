@@ -3,8 +3,9 @@
 
   <body>
     <%- include('../../partials/navBar.ejs') %>
+    <%- include('../../partials/sidebarAdmin.ejs') %>
 
-    <section class="hero is-hero mt-6 is-flex is-flex-direction-column">
+    <div class="mainContainer"><section class="hero is-hero mt-6 is-flex is-flex-direction-column">
       <section class="container mt-6">
         <h1 class="title is-1 has-text-centered">
           ¡Se ha creado la retroalimentacion!
@@ -15,11 +16,24 @@
           >Responder Preguntas</a
         >
       </section>
-    </section>
+    </section></div>
   </body>
 </html>
 
 <style>
+   ::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+    background-color: transparent;
+  }
+  .mainContainer {
+    width: 85%;
+    margin-left: 15%;
+    height: 92%;
+    margin-top: 6%;
+
+    padding: 0px;
+  } 
   .container {
     display: flex;
     flex-direction: column;
