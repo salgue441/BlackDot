@@ -125,7 +125,7 @@ create table if not exists Sprint
     create table if not exists Accionable
     (
         idAccionable int not null auto_increment primary key,
-        nombreAccionable varchar (50) null,
+        nombreAccionable varchar (300) null,
         storyPoints int default 0 not null,
         labelAccionable varchar (50),
         prioridadAccionable enum ('Alta', 'Media-Alta', 'Media', 'Media-Baja', 'Baja') not null default 'Media',

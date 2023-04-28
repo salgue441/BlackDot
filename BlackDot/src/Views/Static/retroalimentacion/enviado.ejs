@@ -2,20 +2,39 @@
   <%- include('../../partials/header.ejs') %>
 
   <body>
-    <%- include('../../partials/navBar.ejs') %>
+    <%- include('../../partials/navBar.ejs') %> <%-
+    include('../../partials/sidebarAdmin.ejs') %>
 
-    <section class="hero is-hero mt-6 is-flex is-flex-direction-column">
-      <section class="container mt-6">
-        <h1 class="title is-1 has-text-centered">¡Gracias por tu respuesta!</h1>
-        <a class="button is-primary is-medium is-center" href="/home"
-          >Ir al Menu</a
-        >
+    <div class="mainContainer">
+      <section class="hero is-hero mt-6 is-flex is-flex-direction-column">
+        <section class="container mt-6">
+          <h1 class="title is-1 has-text-centered">
+            ¡Gracias por tu respuesta!
+          </h1>
+          <a class="button is-primary is-medium is-center" href="/home"
+            >Ir al Menu</a
+          >
+        </section>
       </section>
-    </section>
+    </div>
   </body>
 </html>
 
 <style>
+  ::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+    background-color: transparent;
+  }
+
+  .mainContainer {
+    width: 85%;
+    margin-left: 15%;
+    height: 92%;
+    margin-top: 6%;
+
+    padding: 0px;
+  }
   .container {
     display: flex;
     flex-direction: column;

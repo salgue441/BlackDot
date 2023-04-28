@@ -8,7 +8,7 @@
     <div class="mainContainer"> <section class="section " >
     <div class="columns is-vcentered">
       <div class="column">
-        <h1 class="title is-1">Accionables</h1>
+        <h1 class="title is-1 mb-4">Accionables</h1>
       </div>
       <div class="column is-narrow">
         <a
@@ -21,16 +21,47 @@
       </div>
     </div>
 
-    <section class="columns is-multiline">
+    <section class="columns is-multiline is-3 is-variable">
       <% for (let i = 0; i < accionables.length; i++) { %>
-      <div class="column is-one-third box">
-        <div class="is-flex is-justify-content-center">
-          <p class="title is-4"><%= accionables[i].nombreAccionable %></p>
+      <div class="box column is-one-quarter mr-5 ml-5 p-5">
+        <div class="mb-4">
+          <p class="title is-4 mb-1">Contenido:</p>
+          <p class="is-size-5"><%= accionables[i].nombreAccionable %></p>
+          <div class=" is-flex mt-4 ">
+            <p class="title mb-3 mr-2 is-5 mt-1">Prioridad:</p>
+            <span class="button is-warning is-small noHover "><%= accionables[i].prioridadAccionable %></span>
+          </div>
+           
+        </div>
+        <div class="column checkboxDiv is-flex is-justify-content-center is-align-self-flex-end">
+          <div class="content">
+            <!-- Toggle box -->
+            <div class="accionable-toggle ">
+              <figure class="image is-24x24">
+                <input
+                  type="checkbox"
+                  name="accionable"
+                  class="checkbox"
+                  onclick="handleCheckBox('<%= accionables[i].idAccionable %>')"
+                  id="checkbox-<%= accionables[i].idAccionable %>"
+                />
+  
+                <input
+                  type="hidden"
+                  id="selected-accionables"
+                  name="accionable"
+                  class="checkbox"
+                />
+              </figure>
+            </div>
+            <!-- End of Toggle box -->
+          </div>
         </div>
       </div>
-
+    
       <% } %>
     </section>
+    
   </div>
   </body>
 
@@ -39,6 +70,20 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
   <style>
+
+  .noHover {
+    pointer-events: none;
+  }    
+
+.columns.is-variable {
+  --column-gap: 2rem;
+}
+
+.button {
+  padding: 0.3rem;
+ 
+}
+
     hr {
       opacity: 0;
       margin: 1rem;
@@ -82,6 +127,18 @@
       border: 2px solid #000;
       border-radius: 4px;
     }
+
+    .box {
+    gap: 0.5rem;
+
+    min-height: 10rem;
+   
+   
+
+    border: 1px solid #dbdbdb;
+
+
+  }
 
     .checkbox::before {
       content: "";
