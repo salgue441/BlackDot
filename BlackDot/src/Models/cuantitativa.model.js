@@ -1,6 +1,6 @@
 /**
  * @file cuantitativa.model.js
- * @brief Modelo de la tabla de respuestas cuantitativa
+ * @brief Model of the table of cuantitativa answers
  * @author Carlos Salguero & Olimpia Garcia
  * @version 1.0
  * @date 2023-03-22
@@ -13,17 +13,22 @@ const dataBase = require("../utils/dataBase")
 
 /**
  * @class
- * @classdesc Modelo de la tabla de respuestas cuantitativas
- * @property {int} idCuantitativa - Identificador de la respuesta
- * @property {string} contenido - Contenido de la respuesta
- * @property {int} idPregunta - Identificador de la pregunta
- * @property {int} idRetroalimentacion - Identificador de la retroalimentacion
+ * @classdesc model of the table Cuantitativa
+ * @property {int} idCuantitativa - cuantitativa answer ID
+ * @property {string} contenido - Content of the answer
+ * @property {int} idPregunta - Question ID
+ * @property {int} idRetroalimentacion - Retroalimentacion ID
  */
 module.exports = class Cuantitativa {
   /**
    * @brief
-   * Constructor de la clase Cuantitativa
-   * @param {*} Cuantitativa - Objeto de tipo Cuantitativa
+   * Cuantitativa constructor
+   * @param {*} Cuantitativa - Cuantitativa object	
+   * @property {int} idCuantitativa - cuantitativa answer ID
+   * @property {string} contenido - Content of the answer
+   * @property {int} idPregunta - Question ID
+   * @property {int} idRetroalimentacion - Retroalimentacion ID
+   * @returns {object} - Object of type Cuantitativa
    */
   constructor(Cuantitativa) {
     this.idCuantitativa = Cuantitativa.idCuantitativa
@@ -34,9 +39,9 @@ module.exports = class Cuantitativa {
 
   /**
    * @brief
-   * Recibe una respuesta Cuantitativa de acuerdo con el ID.
-   * @param {*} idCuantitativa - ID de la respuesta Cuantitativa
-   * @returns {object} - Objeto de tipo Cuantitativa
+   * get the ID of the Cuantitativa answer
+   * @param {*} idCuantitativa - Cuantitativa answer ID
+   * @returns {object} - Object of type Cuantitativa
    */
   static async getByID(idCuantitativa) {
     const query = `select * from Cuantitativa where idCuantitativa = ?`
@@ -50,8 +55,8 @@ module.exports = class Cuantitativa {
 
   /**
    * @brief
-   * Obtiene todas las respuestas Cuantitativas.
-   * @returns {Promise<Cuantitativa[]>} - Arreglo de objetos de tipo Cuantitativa
+   * get all the Cuantitativa answers
+   * @returns {Promise<Cuantitativa[]>} - array of Cuantitativa objects
    */
   static async getAll() {
     const query = `select * from Cuantitativa`
@@ -62,8 +67,11 @@ module.exports = class Cuantitativa {
 
   /**
    * @brief
-   * Guarda una nueva respuesta Cuantitativa
-   * @returns {Promise<Cuantitativa>} - Query de la respuesta Cuantitativa guardada
+   * save a Cuantitativa answer
+   * @returns {Promise<Cuantitativa>} - Object of type Cuantitativa
+   * @property {string} contenido - Content of the answer
+   * @property {int} idPregunta - Question ID
+   * @property {int} idRetroalimentacion - Retroalimentacion ID 
    */
   async save() {
     const query = `insert into Cuantitativa(contenido, idPregunta, idRetroalimentacion) values (?, ?, ?)`
@@ -79,17 +87,9 @@ module.exports = class Cuantitativa {
 
   /**
    * @brief
-   * Verifica que el objeto sea de tipo Cuantitativa
-   * @param {*} Cuantitativa
-   * @returns {boolean}
-   */
-  static async verify(Cuantitativa) { }
-
-  /**
-   * @brief
-   * Elimina una respuesta Cuantitativa de acuerdo con el ID
-   * @param {*} idCuantitativa - id de la respuesta
-   * @returns {Promise<void>} - Query de la respuesta Cuantitativa eliminada
+   * Delete a Cuantitativa answer
+   * @param {*} idCuantitativa - Cuantitativa answer ID
+   * @returns {Promise<void>} - Quert result
    */
   static async deleteByID(idCuantitativa) {
     const query = `delete from Cuantitativa where idCuantitativa = ?`
@@ -99,8 +99,9 @@ module.exports = class Cuantitativa {
 
   /**
    * @brief
-   * Actualiza el contenido de la respuesta
-   * @param {*} Cuantitativa - Objeto de tipo Cuantitativa
+   * Update a Cuantitativa answer
+   * @param {*} Cuantitativa - Cuantitativa object
+   * @returns {Promise<Cuantitativa>} - Object of type Cuantitativa
    */
   async update(Cuantitativa) {
     const query = `update Cuantitativa set contenido = ? where idCuantitativa = ?`
