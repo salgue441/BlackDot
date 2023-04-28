@@ -30,8 +30,8 @@ const path = require("path");
 const PORT = 3000;
 
 // Middlewares
-app.use(bodyparser.json());
-app.use(bodyparser.urlencoded({ extended: true }));
+app.use(bodyparser.json({ limit: "100mb" }));
+app.use(bodyparser.urlencoded({ limit: "100mb", extended: true }));
 
 // View engine
 app.set("view engine", "ejs");

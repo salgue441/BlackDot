@@ -33,6 +33,7 @@ async function generateReport(canvasID) {
       contentType: "application/json",
       success: function (response) {
         console.log(response);
+        generatePDF(response);
       },
 
       error: function (response) {
@@ -55,6 +56,17 @@ function convertChart2Image(canvasID) {
   return img;
 }
 
-function generatePDFReport(data) {
-  console.log(data);
-}
+const generatePDF = (pdfData) => {
+  const form = document.createElement("form");
+  form.method = "POST";
+  form.action = "/report/admin/generate-pdf";
+  const input = document.createElement("input");
+  input.type = "hidden";
+  input.name = "pdfData";
+  input.value = pdfData;
+  form.appendChild(input);
+  document.body.appendChild(form);
+
+  // Submit the form to download the PDF file
+  form.submit();
+};
