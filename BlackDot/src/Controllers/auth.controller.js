@@ -146,8 +146,8 @@ const registrarEmpleado = async (req, res) => {
         idRol: 3,
       })
 
-
       await empleadoRol.save();
+      usuarioRegistrado = true;
     }
   } catch (error) {
     throw new Error(error);

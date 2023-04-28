@@ -97,10 +97,10 @@ class retroPregunta {
           pregunta.contenido as Pregunta, 
           cualitativa.contenido
         from retroalimentacion
-        join retroalimentacionpregunta on retroalimentacion.idRetroalimentacion = retroalimentacionpregunta.idPregunta
+        join retroalimentacionPregunta on retroalimentacion.idRetroalimentacion = retroalimentacionpregunta.idPregunta
         join pregunta on retroalimentacionpregunta.idPregunta = pregunta.idPregunta
         join cualitativa on retroalimentacionpregunta.idPregunta = cualitativa.idPregunta
-        and retroalimentacionpregunta.idRetroalimentacion = cualitativa.idRetroalimentacion 
+        and retroalimentacionPregunta.idRetroalimentacion = cualitativa.idRetroalimentacion 
         where pregunta.tipoPregunta = 'Cualitativa';
 `
 
@@ -129,9 +129,9 @@ class retroPregunta {
           cualitativa.contenido,
           retroalimentacion.fechaFinalizacion
         from retroalimentacion 
-        join retroalimentacionpregunta on retroalimentacion.idRetroalimentacion = retroalimentacionpregunta.idRetroalimentacion 
-        join pregunta on retroalimentacionpregunta.idPregunta = pregunta.idPregunta 
-        join cualitativa on retroalimentacionpregunta.idPregunta = cualitativa.idPregunta and retroalimentacion.idRetroalimentacion = cualitativa.idRetroalimentacion 
+        join retroalimentacionPregunta on retroalimentacion.idRetroalimentacion = retroalimentacionpregunta.idRetroalimentacion 
+        join pregunta on retroalimentacionPregunta.idPregunta = pregunta.idPregunta 
+        join cualitativa on retroalimentacionPregunta.idPregunta = cualitativa.idPregunta and retroalimentacion.idRetroalimentacion = cualitativa.idRetroalimentacion 
         where pregunta.tipoPregunta = 'Cualitativa' 
         and retroalimentacion.idRetroalimentacion = ?;`
 
@@ -161,9 +161,9 @@ class retroPregunta {
           cuantitativa.contenido,
           retroalimentacion.fechaFinalizacion
         from retroalimentacion 
-        join retroalimentacionpregunta on retroalimentacion.idRetroalimentacion = retroalimentacionpregunta.idRetroalimentacion 
-        join pregunta on retroalimentacionpregunta.idPregunta = pregunta.idPregunta 
-        join cuantitativa on retroalimentacionpregunta.idPregunta = cuantitativa.idPregunta and retroalimentacion.idRetroalimentacion = cuantitativa.idRetroalimentacion 
+        join retroalimentacionPregunta on retroalimentacion.idRetroalimentacion = retroalimentacionPregunta.idRetroalimentacion 
+        join pregunta on retroalimentacionPregunta.idPregunta = pregunta.idPregunta 
+        join cuantitativa on retroalimentacionPregunta.idPregunta = cuantitativa.idPregunta and retroalimentacion.idRetroalimentacion = cuantitativa.idRetroalimentacion 
         where pregunta.tipoPregunta = 'Cuantitativa';`
 
       const [quantitatives, _] = await dataBase.query(query)
@@ -192,9 +192,9 @@ class retroPregunta {
           cuantitativa.contenido,
           retroalimentacion.fechaFinalizacion
         from retroalimentacion 
-        join retroalimentacionpregunta on retroalimentacion.idRetroalimentacion = retroalimentacionpregunta.idRetroalimentacion 
-        join pregunta on retroalimentacionpregunta.idPregunta = pregunta.idPregunta 
-        join cuantitativa on retroalimentacionpregunta.idPregunta = cuantitativa.idPregunta and retroalimentacion.idRetroalimentacion = cuantitativa.idRetroalimentacion 
+        join retroalimentacionPregunta on retroalimentacion.idRetroalimentacion = retroalimentacionPregunta.idRetroalimentacion 
+        join pregunta on retroalimentacionPregunta.idPregunta = pregunta.idPregunta 
+        join cuantitativa on retroalimentacionPregunta.idPregunta = cuantitativa.idPregunta and retroalimentacion.idRetroalimentacion = cuantitativa.idRetroalimentacion 
         where pregunta.tipoPregunta = 'Cuantitativa' 
         and retroalimentacion.idRetroalimentacion = ?;`
 
@@ -230,11 +230,11 @@ class retroPregunta {
           cualitativa.contenido,
           retroalimentacion.fechaFinalizacion
         from retroalimentacion 
-        join retroalimentacionpregunta on retroalimentacion.idRetroalimentacion = retroalimentacionpregunta.idRetroalimentacion 
-        join pregunta on retroalimentacionpregunta.idPregunta = pregunta.idPregunta 
-        join cualitativa on retroalimentacionpregunta.idPregunta = cualitativa.idPregunta and retroalimentacion.idRetroalimentacion = cualitativa.idRetroalimentacion 
+        join retroalimentacionPregunta on retroalimentacion.idRetroalimentacion = retroalimentacionPregunta.idRetroalimentacion 
+        join pregunta on retroalimentacionPregunta.idPregunta = pregunta.idPregunta 
+        join cualitativa on retroalimentacionPregunta.idPregunta = cualitativa.idPregunta and retroalimentacion.idRetroalimentacion = cualitativa.idRetroalimentacion 
         where pregunta.tipoPregunta = 'Cualitativa' 
-        and retroalimentacionpregunta.idPregunta = ?;  
+        and retroalimentacionPregunta.idPregunta = ?;  
       `
 
       const [qualitatives, _] = await dataBase.execute(query, [idPregunta])

@@ -130,7 +130,6 @@ exports.postRechazarUsuario = async (req, res) => {
  * @throws {Error} - Error message
  * */
 /** */
-
 exports.getEditarUsuario = async (req, res) => {
   try {
     const empleados = await EmpleadoRol.getAllWithRoles()

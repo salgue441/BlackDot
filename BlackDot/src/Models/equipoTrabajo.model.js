@@ -8,7 +8,7 @@
  * @copyright Copyright (c) 2023 - MIT License
  */
 
-const dataBase = require("../Utils/dataBase")
+const dataBase = require("../utils/dataBase")
 
 /**
  * @class
@@ -35,7 +35,7 @@ module.exports = class EquipoTrabajo {
         if (!idEquipoTrabajo) throw new Error("No se ha proporcionado un ID")
 
         const [equipoTrabajo] = await dataBase.query(
-            "select * from EquipoTrabajo where idEquipoTrabajo = ?",
+            "select * from equipoTrabajo where idEquipoTrabajo = ?",
             [idEquipoTrabajo]
         )
 
@@ -48,7 +48,7 @@ module.exports = class EquipoTrabajo {
      * @returns {Promise<EquipoTrabajo[]>} - Arreglo de objetos de tipo EquipoTrabajo
      */
     static async getAll() {
-        const equipoTrabajos = await dataBase.query("select * from EquipoTrabajo")
+        const equipoTrabajos = await dataBase.query("select * from equipoTrabajo")
 
         return equipoTrabajos.map((equipoTrabajo) => new EquipoTrabajo(equipoTrabajo))
     }
@@ -60,7 +60,7 @@ module.exports = class EquipoTrabajo {
      */
     save() {
         return dataBase.query(
-            "INSERT INTO equipotrabajo VALUES(DEFAULT)"
+            "INSERT INTO equipoTrabajo VALUES(DEFAULT)"
         )
     }
 
@@ -73,7 +73,7 @@ module.exports = class EquipoTrabajo {
     async verify() {
 
         const [equipoTrabajo] = await dataBase.query(
-            "select * from EquipoTrabajo where idEquipoTrabajo = ?",
+            "select * from equipoTrabajo where idEquipoTrabajo = ?",
             [this.idEquipoTrabajo]
         );
 
