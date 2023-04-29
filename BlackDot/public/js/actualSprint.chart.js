@@ -26,27 +26,27 @@
 
     const colors = [
       {
-        backgroundColor: "rgba(255, 99, 132, 0.6)",
+        backgroundColor: "rgba(255, 99, 132, 1)",
         borderColor: "rgba(255, 99, 132, 1)",
       },
       {
-        backgroundColor: "rgba(54, 162, 235, 0.6)",
+        backgroundColor: "rgba(54, 162, 235, 1)",
         borderColor: "rgba(54, 162, 235, 1)",
       },
       {
-        backgroundColor: "rgba(255, 206, 86, 0.6)",
+        backgroundColor: "rgba(255, 206, 86, 1)",
         borderColor: "rgba(255, 206, 86, 1)",
       },
       {
-        backgroundColor: "rgba(165, 199, 139, 0.6)",
+        backgroundColor: "rgba(165, 199, 139, 1)",
         borderColor: "rgba(165, 199, 139, 1)",
       },
       {
-        backgroundColor: "rgba(75, 192, 192, 0.6)",
+        backgroundColor: "rgba(75, 192, 192, 1)",
         borderColor: "rgba(75, 192, 192, 1)",
       },
       {
-        backgroundColor: "rgba(153, 102, 255, 0.6)",
+        backgroundColor: "rgba(153, 102, 255, 1)",
         borderColor: "rgba(153, 102, 255, 1)",
       },
     ]
@@ -74,30 +74,37 @@
       },
       options: {
         scales: {
-          y: {
-            ticks: {
-              beginAtZero: true,
-            },
-  
-            title: {
-              display: true,
-              text: "Story Points",
-            },
-          },
           x: {
             title: {
-              display: true,
-              text: "Estado",
+              color: 'white'
             },
+            ticks: {
+              color: 'white'
+            },
+            grid: {
+              color: 'rgba(227, 225, 221, 1)'
+            }
           },
+          y: {
+            title: {
+              color: 'white'
+            },
+            ticks: {
+              beginAtZero: true,
+              color: 'white'
+            },
+            grid: {
+              color: 'rgba(227, 225, 221, 1)'
+            }
+          }
         },
-  
         plugins: {
           legend: {
-            display: false,
-          },
-        },
-      },
+            display: false
+          }
+        }
+      }
+  
     })
   }
   
