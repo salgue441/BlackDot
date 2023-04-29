@@ -13,21 +13,19 @@
             <h1 class="title is-1"> Responder retroalimentacion</h1>
 
         <form class="preguntaContainer" method="POST" action="/actual/enviado">
-          <% let cantCualitativas = 0; %> <% for (var i = 0; i < preguntas.length;
+          <% let cantCualitativas = 0; %> <% for (let i = 0; i < preguntas.length;
           i++) { %> <% if(preguntas[i].contenido != '¿Que podemos mejorar?') { %>
-          <% if (preguntas[i].tipoPregunta === 'Cualitativa') { %> <%
-          cantCualitativas++; %>
-          <div class="box is-flex is-flex-direction-column">
-            <label class="label" for="respuestaCualitativa"
+          <% if (preguntas[i].tipoPregunta === 'Cualitativa') { %> 
+          <div class="box is-flex is-flex-direction-column is-align-self-center">
+            <label class="label " for="respuestaCualitativa"
               ><%= preguntas[i].contenido %></label
             >
             <input
-              class="input m-3 is-justify-content-center"
+              class="input m-3 is-justify-content-center is-align-self-center"
               type="text"
               id="respuestaCualitativa"
               name="<%= preguntas[i].idPregunta %>"
               placeholder="Respuesta"
-              onchange="updateProgressBar(event)"
               required
             />
           </div>
@@ -44,14 +42,14 @@
             <label class="label" for="respuestaCualitativa"
               >¿Que podemos mejorar?</label
             >
-            <p class="is-italic has-text-grey">Posible aciconable</p>
+            <p class="is-italic has-text-white accionableText">Esta respuesta puede volverse un task en Jira</p>
             <input
-              class="input m-3 is-justify-content-center"
+              class="input m-3 is-justify-content-center is-align-self-center"
               type="text"
               id="respuestaCualitativa"
               name="8"
               placeholder="Respuesta"
-              onchange="updateProgressBar(event)"
+  
               required
             />
           </div>
@@ -76,12 +74,40 @@
     height: 0;
     background-color: transparent;
   }
+  .box {
+    background-color: rgb(38, 43, 43) !important;
+    border: 1px solid #181a1b !important;
+  }
+
+  .title {
+    color: #e3e1dd !important;
+  }
+
+  .label {
+    color: #e3e1dd !important;
+    margin-left: 4rem;
+  }
+
+  body {
+    background-color: #181a1b;
+    color: #e3e1dd !important;
+  }
+
+  section {
+    background-color: #181a1b;
+  }
+
+  .accionableText{
+    margin-left: 4rem;
+  }
   
   .mainContainer {
+    background-color: #181a1b;
     width: 85%;
     margin-left: 15%;
+    padding-top: 6% !important;
     height: 92%;
-    margin-top: 6%;
+    
 
     padding: 0px;
   } 
