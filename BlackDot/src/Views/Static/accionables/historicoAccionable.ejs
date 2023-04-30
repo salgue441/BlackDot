@@ -37,7 +37,7 @@
           <div class="column is-3">
             <div class="box has-text-centered is-fullheight">
               <div class="content">
-                <p class="title is-5 mb-2">
+                <p class="title is-5 mb-4">
                   <%= accionable.nombreAccionable %>
                 </p>
                 <% if(accionable.estadoAccionable === 'No aprobado') { %>
@@ -115,20 +115,30 @@ color: #e3e1dd !important;
   }
   
   .EstadoNoAprobado {
-    background-color: hsl(348, 100%, 61%) !important;
+    background-color: #BC4749 !important;
     color: hsl(0, 0%, 96%);
   }
 
   .EstadoAprobado {
-    background-color: hsl(171, 100%, 41%) !important;
+    background-color: #6A994E !important;
+    color: #e3e1dd !important ;
   }
+
+
 
   .reporte-button {
     height: 50px;
     width: 200px;
   }
 
+  .is-danger{
+    background-color: #BC4749 !important;
+    
+  }
 
+  .is-danger:hover{
+    background-color: #D9534F !important;
+  }
 
   ::-webkit-scrollbar {
     width: 0;

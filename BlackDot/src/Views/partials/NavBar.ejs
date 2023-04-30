@@ -28,7 +28,7 @@ aria-label="main navigation">
     </a>
 
     <div class="navbar-dropdown dropLogOut is-right pl-4 pr-4">
-      <a class="navbar-item dropdownItem has-text-centered pl-2  logOut" onclick="logOut()">
+      <a class="navbar-item dropdownItem has-text-centered pl-2  logOut" onclick="logOut()" id="logOut">
         Cerrar Sesion
       </a>
      
@@ -56,13 +56,7 @@ aria-label="main navigation">
     color: #e3e1dd !important;
   }
 
-  /* Custom Styles */
-  .navbar-item-center {
-    position: absolute;
-    left: 50%;
-    top: 10%;
-    transform: translateX(-50%);
-  }
+  
   .profilePicture {
     
     border: 1px solid #e4e5e3;
@@ -114,25 +108,28 @@ aria-label="main navigation">
 
 
   .dropLogOut {
-    width: 15px !important;
+    width: 2rem !important;
     
   }
 
+  #logOut:hover{
+    background-color: #782B2D !important;
+    color: #e3e1dd !important;
+  }
+
+
+
   .dropdownItem{
-    background-color: red;
+    background-color: #d44143 !important;
 
 height: 8%;
 border-bottom: 1px solid #444444;
 box-shadow: 0px 1px 1px #444444;
 color: #e3e1dd !important;
-width: 100%;
+width: 100% !important;
   }
 
 
-  .dropdownItem:hover{
-    background-color: #444444 !important;
-    color: #e3e1dd !important;
-  } 
   
 
   .dropdownImg{
