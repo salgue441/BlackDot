@@ -30,31 +30,31 @@ const states = [
   {
     label: "Totalmente en desacuerdo",
     value: 1,
-    color: "rgba(255, 99, 132, 0.6)",
+    color: "rgba(255, 99, 132, 1)",
     borderColor: "rgba(255, 99, 132, 1)",
   },
   {
     label: "En desacuerdo",
     value: 2,
-    color: "rgba(54, 162, 235, 0.6)",
+    color: "rgba(54, 162, 235, 1)",
     borderColor: "rgba(54, 162, 235, 1)",
   },
   {
     label: "Neutro",
     value: 3,
-    color: "rgba(75, 192, 192, 0.6)",
+    color: "rgba(75, 192, 192, 1)",
     borderColor: "rgba(75, 192, 192, 1)",
   },
   {
     label: "De acuerdo",
     value: 4,
-    color: "rgba(255, 206, 86, 0.6)",
+    color: "rgba(255, 206, 86, 1)",
     borderColor: "rgba(255, 206, 86, 1)",
   },
   {
     label: "Totalmente de acuerdo",
     value: 5,
-    color: "rgba(153, 102, 255, 0.6)",
+    color: "rgba(153, 102, 255, 1)",
     borderColor: "rgba(153, 102, 255, 1)",
   },
 ]
@@ -70,7 +70,6 @@ const states = [
  */
 const createBarChart = (canvas, labels, data) => {
   const ctx = canvas.getContext("2d")
-
   return new Chart(ctx, {
     type: "bar",
     data: {
@@ -90,27 +89,42 @@ const createBarChart = (canvas, labels, data) => {
         y: {
           ticks: {
             beginAtZero: true,
+            color: "#fff",
           },
           title: {
             display: true,
             text: "Frecuencia",
+            color: "#fff",
+          },
+          grid: {
+            color: "rgba(227, 225, 221, 1)",
+            borderColor: "#fff",
           },
         },
         x: {
           title: {
             display: true,
             text: "Respuestas",
+            color: "#fff",
+          },
+          ticks: {
+            color: "#fff",
+          },
+          grid: {
+            color: "rgba(227, 225, 221, 1)",
+            borderColor: "#fff",
           },
         },
       },
-
       plugins: {
         legend: {
           display: false,
         },
       },
     },
-  })
+  });
+  
+
 }
 
 /**

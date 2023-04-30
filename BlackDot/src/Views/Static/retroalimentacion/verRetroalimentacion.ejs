@@ -68,7 +68,7 @@
                         <%= simplifiedQuantitative[i].Pregunta %>
                       </h1>
                       <canvas
-                        class="has-background-white graph-canvas"
+                        class=" graph-canvas"
                         id="graph-<%= simplifiedQuantitative[i].idPregunta %>"
                       ></canvas>
                     </div>
@@ -117,17 +117,53 @@
 </html>
 
 <style>
+
   ::-webkit-scrollbar {
     width: 0;
     height: 0;
     background-color: transparent;
   }
-  /* Override Bulma CSS */
+  .card {
+    background-color: rgb(38, 43, 43) !important;
+    border: 1px solid #181a1b !important;
+  }
+
+  .title {
+    color: #e3e1dd !important;
+  }
+
+  p {
+    color: #e3e1dd !important;
+  }
+  .subtitle {
+    color: #e3e1dd !important;
+  }
+
+  body {
+    background-color: #181a1b;
+    color: #e3e1dd !important;
+  }
+
+  section {
+    background-color: #181a1b;
+  }
+
+  .mainContainer {
+    background-color: #181a1b;
+    width: 85%;
+    margin-left: 15%;
+    padding-top: 6% !important;
+    height: 92%;
+    
+
+    padding: 0px;
+  } 
+
   .reporte-button {
     margin-left: 20px;
     width: 150px;
   }
-  /* Custom CSS */
+
   .custom-card {
     width: 100%;
     border-radius: 22px;
@@ -140,17 +176,7 @@
     width: 265px;
   }
 
-  .mainContainer {
-    width: 85%;
-    margin-left: 15%;
-    height: 92%;
-    margin-top: 6%;
 
-    padding: 0px;
-  } 
-  .card {
-    border: 1px solid #dbdbdb;
-  }
 </style>
 
 <script>

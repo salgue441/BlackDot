@@ -5,10 +5,11 @@
     <%- include('../../partials/navBar.ejs') %> 
   <%- include('../../partials/sidebarAdmin.ejs') %>
 
-    <div class="mainContainer"> <section class="section " >
+    <div class="mainContainer is-flex is-justify-content-center"> <section class="section " >
     <div class="is-flex is-justify-content-space-between">
-      <div class="">
-        <h1 class="title is-1 mb-6">Accionables</h1>
+      <div class="mb-6">
+        <h1 class="title is-1 ">Accionables</h1>
+        <p class="subtitle is-5 is-italic">Selecciona los accionables que quieras enviar a Jira</p>
         
       </div>
       <div class="mr-5"><a
@@ -67,6 +68,9 @@
   }    
 
 
+p{
+color: #e3e1dd !important;
+}
 
 .button {
   padding: 0.3rem;
@@ -85,13 +89,26 @@
     }
 
     .mainContainer {
-      width: 85%;
-      margin-left: 15%;
-      height: 92%;
-      margin-top: 6%;
+    background-color: #181a1b;
+    width: 85%;
+    margin-left: 15%;
+    padding-left: 10% !important;
+    padding-top: 6% !important;
+    height: 200vh;
+    
 
-      padding: 0px;
-    }
+    padding: 0px;
+  } 
+  
+  .title {
+    color: #e3e1dd !important;
+  }
+
+  .label {
+    color: #e3e1dd !important;
+    margin-left: 4rem;
+  }
+  
     .nombreAccionable {
       display: flex !important;
       align-items: center !important;
@@ -113,21 +130,17 @@
       transform: translate(-18%, -20%);
       appearance: none;
       outline: none;
-      border: 2px solid #000;
+      border: 2px solid #e3e1dd;
       border-radius: 4px;
+      padding: 0;
     }
 
     .box {
-    gap: 0.5rem;
-
-
-   
-   
-
-    border: 1px solid #dbdbdb;
-
-
-  }
+    background-color: rgb(38, 43, 43) !important;
+    border: 1px solid #181a1b !important;
+    gap : 0.5rem !important;
+    }
+  
 
     .checkbox::before {
       content: "";
@@ -137,7 +150,7 @@
       transform: translate(-50%, -50%);
       height: 20px;
       width: 20px;
-      background-color: #000;
+      background-color:#e3e1dd;
       border-radius: 2px;
       opacity: 0;
       transition: opacity 0.2s ease-in-out;
@@ -146,5 +159,7 @@
     .checkbox:checked::before {
       opacity: 1;
     }
+
+    
   </style>
 </html>
