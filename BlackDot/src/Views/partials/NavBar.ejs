@@ -1,4 +1,4 @@
-<nav class="navbar is-fixed-top is-fullwidth is-flex is-align-content-center"
+<nav class="navbar is-fixed-top is-fullwidth is-flex is-align-content-center p-4"
 role="navigation"
 aria-label="main navigation">
 
@@ -8,29 +8,33 @@ aria-label="main navigation">
   <div class="navbar-start blackDot">
     
       <img src="../../assets/Blackdot_Blanco.png">
+        <p class="is-align-self-center is-size-4">BlackD.t</p>
     </div>
 
     
   <div class="navbar-item-center logoZebrands "><img src="../../assets/$zebrands-brand-logo.svg"
     alt=""
-    class="logo" />
-    
+    class="logo is-align-self-center" />
+  
+
   </div>
 
-  <div class="navbar-item has-dropdown  navbar-end is-active">
+  <div class="navbar-item has-dropdown  navbar-end  profileInfo">
     <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png" alt="" class=" profilePicture
-     is-align-self-center  is-rounded" />
+     is-align-self-center  mt-1" />
 
-    <a class="navbar-link">
+    <a class="is-align-self-center ml-3 is-size-5 noHover">
       Juan Perez
     </a>
 
-    <div class="navbar-dropdown dropLogOut ">
-      <a class="navbar-item ">
+    <div class="navbar-dropdown dropLogOut is-right pl-4 pr-4">
+      <a class="navbar-item dropdownItem has-text-centered pl-2  ">
         Cerrar Sesion
       </a>
      
     </div>
+
+    <img src="../../assets/Dropdown.png" alt="a" class="dropdownImg is-align-self-center ml-2 mt-1 is-clickable"/>
   </div>
   </div>
 
@@ -45,6 +49,10 @@ aria-label="main navigation">
 <!-- Styles -->
 <style>
   a {
+    color: #e3e1dd !important;
+  }
+
+  p{
     color: #e3e1dd !important;
   }
 
@@ -68,6 +76,7 @@ aria-label="main navigation">
 
   .logoZebrands {
     transform: scale(2.5) !important;
+    height: 60px !important;
     filter: invert(1);
     z-index: 10 !important ;
   }
@@ -79,15 +88,57 @@ aria-label="main navigation">
     height: 8%;
     border-bottom: 1px solid #444444;
     box-shadow: 0px 1px 1px #444444;
-    z-index: 10
-    ;
+    z-index: 10;
+    padding-left: 5rem !important;
+    padding-right: 5rem !important;
   }
 
+  .navbar-dropdown {
+    width: 5px !important;
+    min-width: 8rem !important;
+    border-bottom: 1px solid #444444;
+    background-color: #272b2c;
+    border: none !important;
+   
+  }
+
+  .profileInfo{
+    width: 10rem !important;
+  }
 
   .dropLogOut {
-    width: 10 !important;
+    width: 15px !important;
     
   }
+
+  .dropdownItem{
+    background-color: red;
+
+height: 8%;
+border-bottom: 1px solid #444444;
+box-shadow: 0px 1px 1px #444444;
+color: #e3e1dd !important;
+width: 100%;
+  }
+
+
+  .dropdownItem:hover{
+    background-color: #444444 !important;
+    color: #e3e1dd !important;
+  } 
+  
+
+  .dropdownImg{
+    width: 1rem;
+    height: 0.5rem;
+    z-index: 15;
+    
+  }
+
+  .noHover{
+    pointer-events: none;
+  }
+
   @media screen and (max-width: 1023px) {
     .navbar-end {
       justify-content: flex-end;
@@ -107,4 +158,18 @@ aria-label="main navigation">
   }
 </style>
 
-<!-- Hamburger icon functionality -->
+<script>
+  const dropDownButton = document.querySelector('.dropdownImg');
+  const dropItem = document.querySelector('.profileInfo');
+
+  dropDownButton.addEventListener('click', function(event) {
+    event.stopPropagation();
+    dropItem.classList.toggle('is-active');
+  });
+
+  document.addEventListener('click', function(event) {
+    if (!dropItem.contains(event.target)) {
+      dropItem.classList.remove('is-active');
+    }
+  });
+</script>
