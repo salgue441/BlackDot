@@ -1,35 +1,51 @@
-<nav
-  class="navbar is-fixed-top is-fullwidth is-flex is-align-content-center"
-  role="navigation"
-  aria-label="main navigation"
->
-  <!-- Logo -->
-  <div class="navbar-item-center mt-2">
-    <div class="navbar-item">
-      <a href="/home">
-        <img
-          src="../../assets/$zebrands-brand-logo.svg"
-          alt="Zebrands"
-          class="logo"
-        />
-      </a>
+<nav class="navbar is-fixed-top is-fullwidth is-flex is-align-content-center"
+role="navigation"
+aria-label="main navigation">
+
+
+
+  
+  <div class="navbar-start blackDot">
+    
+      <img src="../../assets/Blackdot_Blanco.png">
     </div>
+
+    
+  <div class="navbar-item-center logoZebrands "><img src="../../assets/$zebrands-brand-logo.svg"
+    alt=""
+    class="logo" />
+    
   </div>
 
-  <div class="navbar-end">
-    <div class="field is-grouped is-flex mt-2 mr-5">
-      <div class="control">
-        <div class="">John Doe</div>
-      </div>
-      <img src="" class="image is-32x32 is-rounded profile-img" alt="Profile" />
+  <div class="navbar-item has-dropdown  navbar-end is-active">
+    <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png" alt="" class=" profilePicture
+     is-align-self-center  is-rounded" />
+
+    <a class="navbar-link">
+      Juan Perez
+    </a>
+
+    <div class="navbar-dropdown dropLogOut ">
+      <a class="navbar-item ">
+        Cerrar Sesion
+      </a>
+     
     </div>
   </div>
+  </div>
+
+
+
+</div>
+
+
+
 </nav>
 
 <!-- Styles -->
 <style>
-  body {
-    color: #e3e1dd;
+  a {
+    color: #e3e1dd !important;
   }
 
   /* Custom Styles */
@@ -39,15 +55,19 @@
     top: 10%;
     transform: translateX(-50%);
   }
-  .profile-img {
-    width: 40px;
-    height: 40px;
+  .profilePicture {
+    
     border: 1px solid #e4e5e3;
     border-radius: 50%;
   }
 
-  .logo {
-    transform: scale(2);
+  .logo{
+    width: 60px;
+    height: 60px;
+  }
+
+  .logoZebrands {
+    transform: scale(2.5) !important;
     filter: invert(1);
     z-index: 10 !important ;
   }
@@ -59,7 +79,14 @@
     height: 8%;
     border-bottom: 1px solid #444444;
     box-shadow: 0px 1px 1px #444444;
-    z-index: 10;
+    z-index: 10
+    ;
+  }
+
+
+  .dropLogOut {
+    width: 10 !important;
+    
   }
   @media screen and (max-width: 1023px) {
     .navbar-end {
