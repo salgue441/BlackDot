@@ -5,8 +5,6 @@
     <%- include('../../partials/navBar.ejs') %>
     <%- include('../../partials/sidebarAdmin.ejs') %>
 
-    <br />
-    <br />
 
    <div class="mainContainer is-flex is-flex-direction-column is-justify-content-center"> 
     <h1 class="title is-1">Empleados</h1>
@@ -68,7 +66,7 @@
 
       <div class="column is-one-quarter p-2">
         <section class="optionsContainer">
-          <section class="box">
+          <section class="box acceptEmpleado">
             <p class="subtitle">Empleados por aceptar</p>
 
             <a
@@ -125,23 +123,55 @@
 
 <style>
 
-  body{
-    padding-bottom: 0px !important;
-  }
   ::-webkit-scrollbar {
     width: 0;
     height: 0;
     background-color: transparent;
   }
-  
+  .box {
+    background-color: rgb(38, 43, 43) !important;
+    border: 1px solid #181a1b !important;
+    padding-left: 3rem;
+  }
+
+  .title {
+    color: #e3e1dd !important;
+  }
+
+  .label {
+    color: #e3e1dd !important;
+   
+  }
+
+  .subtitle {
+    color: #e3e1dd !important;
+  }
+
+
+  p {
+    color: #e3e1dd !important;
+  }
+
+
+
+  body {
+    background-color: #181a1b;
+    color: #e3e1dd !important;
+  }
+
+  section {
+    background-color: #181a1b;
+  }
+
+
   .mainContainer {
     width: 85%;
-    margin-left: 35%;
+
     height: 92%;
-
-
-    padding: 0px;
+    padding-left: 20%;
+    padding-top: 5% !important;
   }
+
   body {
     padding: 4rem;
     display: flex;
@@ -162,6 +192,7 @@
   .boxEmpleado {
     height: 300px;
   }
+
 
   .delete:hover {
     background-color: hsl(348, 100%, 61%) !important;
@@ -186,7 +217,13 @@
   }
 
   .boxAddEmail {
-    height: 18rem;
+    height: 19rem;
+    padding: 1rem 2rem !important;
+  }
+
+  .acceptEmpleado{
+    padding: 1rem 2rem !important;
+
   }
 
   .plusButton {

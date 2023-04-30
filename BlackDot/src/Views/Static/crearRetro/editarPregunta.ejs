@@ -19,19 +19,19 @@
             action="/editar/crearRetroalimentacion"
             method="POST"
           >
-            <input
+            <input 
               type="hidden"
               value="<%= pregunta.idPreguntaBanco %>"
               name="idPreguntaBanco"
             />
-            <div class="field">
+            <div class="field is-flex is-justify-content-center is-flex-direction-column">
               <label class="label m-2 mb-3 is-size-5" for="contenido"
                 >Contenido</label
               >
-              <div class="control m-2">
+              <div class="control m-2 ">
                 <input
                 required
-                  class="input textInput"
+                  class="input textInput is-align-content-centert"
                   type="text"
                   name="contenido"
                   id="contenido"
@@ -156,22 +156,53 @@
 </html>
 
 <style>
-  ::-webkit-scrollbar {
+    ::-webkit-scrollbar {
     width: 0;
     height: 0;
     background-color: transparent;
   }
+  .box {
+    background-color: rgb(38, 43, 43) !important;
+    border: 1px solid #181a1b !important;
+    padding-left: 3rem;
+  }
+
+  .title {
+    color: #e3e1dd !important;
+  }
+
+  .label {
+    color: #e3e1dd !important;
+   
+  }
+
+  .subtitle {
+    color: #e3e1dd !important;
+  }
+
+
+  p {
+    color: #e3e1dd !important;
+  }
+
+
+
+  body {
+    background-color: #181a1b;
+    color: #e3e1dd !important;
+  }
+
+  section {
+    background-color: #181a1b;
+  }
+
+
   .mainContainer {
     width: 85%;
     margin-left: 15%;
     height: 92%;
-    margin-top: 6%;
 
-    padding: 0px;
-  } 
-
-  .box {
-    border: 1px solid #dbdbdb;
+    padding-top: 4% !important;
   }
   .container {
     width: 65%;

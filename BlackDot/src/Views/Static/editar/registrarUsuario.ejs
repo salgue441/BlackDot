@@ -89,24 +89,50 @@
 </html>
 
 <style>
-  ::-webkit-scrollbar {
+   ::-webkit-scrollbar {
     width: 0;
     height: 0;
     background-color: transparent;
   }
 
+
   .mainContainer {
     width: 85%;
-    margin-left: 15%;
-    height: 92%;
 
-    padding: 0px;
+    height: 92%;
+    margin-left: 20%;
+   
   }
+  .title {
+    color: #e3e1dd !important;
+  }
+
+  .label {
+    color: #e3e1dd !important;
+   
+  }
+
+  .subtitle {
+    color: #e3e1dd !important;
+  }
+
+
+  p {
+    color: #e3e1dd !important;
+  }
+
   .box {
     gap: 0.5rem;
     height: 20rem;
 
-    border: 1px solid #dbdbdb;
+
+    background-color: rgb(38, 43, 43) !important;
+    border: 1px solid #181a1b !important;
+  }
+
+  body {
+    background-color: #181a1b;
+    color: #e3e1dd !important;
   }
 
   .profilePicture {
@@ -119,10 +145,18 @@
     filter: invert(100%);
   }
 
+  .aprovalIcon:hover {
+    transform: scale(1.2);
+  }
+
   .disAprovalIcon {
     width: 1.5rem;
     height: 1.5rem;
     filter: invert(100%) sepia(0%) saturate(7487%) hue-rotate(85deg)
       brightness(101%) contrast(96%);
+  }
+
+  .disAprovalIcon:hover {
+    transform: scale(1.2);
   }
 </style>

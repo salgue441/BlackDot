@@ -10,7 +10,7 @@
 
     <div class="mainContainer mt-6">
       <div class="is-flex is-justify-content-space-between">
-        <h1 class="title ml-6">Crear Retroalimentacion</h1>
+        <h1 class="title ml-6 is-1">Crear Retroalimentacion</h1>
         <div class="">
           <a class="button is-danger mr-6" type="submit" href="preguntas/0">
             Crear Pregunta
@@ -75,13 +75,13 @@
 
           <div class="is-flex">
             <a
-              class="button is-success mr-4"
+              class="button is-success mr-4 is-align-self-center"
               href="preguntas/<%= preguntas[i].idPreguntaBanco %>"
             >
               Editar
             </a>
             <a
-              class="button is-danger"
+              class="button is-danger is-align-self-center"
               href="preguntas/eliminar/<%= preguntas[i].idPreguntaBanco %>"
             >
               <input
@@ -117,20 +117,50 @@
     height: 0;
     background-color: transparent;
   }
+  .box {
+    background-color: rgb(38, 43, 43) !important;
+    border: 1px solid #181a1b !important;
+  }
+
+  .title {
+    color: #e3e1dd !important;
+  }
+
+  .label {
+    color: #e3e1dd !important;
+   
+  }
+
+  .subtitle {
+    color: #e3e1dd !important;
+  }
+
+
+  p {
+    color: #e3e1dd !important;
+  }
+
+  body {
+    background-color: #181a1b;
+    color: #e3e1dd !important;
+  }
+
+  section {
+    background-color: #181a1b;
+  }
+
+
   .mainContainer {
     width: 85%;
     margin-left: 15%;
     height: 92%;
-    margin-top: 6%;
 
-    padding: 0px;
+    padding-top: 4% !important;
   }
   .preguntaContainer {
     width: 70%;
   }
-  .box {
-    border: 1px solid #dbdbdb;
-  }
+
   .disAprovalIcon {
     width: 1.5rem;
     height: 1.5rem;
