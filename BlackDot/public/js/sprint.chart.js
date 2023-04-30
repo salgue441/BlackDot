@@ -35,7 +35,7 @@ const createLineGraph = (canvas, data, labels) => {
           label: "StoryPoints",
           data: data,
           fill: false,
-          borderColor: "rgba(98, 144, 200, 1)",
+          borderColor: "rgba(54, 162, 235, 1)",
           backgroundColor: "rgba(90, 32, 33, 1)",
           tension: 0.3,
         },

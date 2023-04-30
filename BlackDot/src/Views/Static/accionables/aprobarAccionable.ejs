@@ -30,7 +30,7 @@
             <p class="is-size-5"><%= accionables[i].nombreAccionable %></p>
             <div class="is-flex mt-4">
               <p class="title mb-3 mr-2 is-5 mt-1">Prioridad:</p>
-              <span class="button is-warning is-small noHover"><%= accionables[i].prioridadAccionable %></span>
+              <span class="button is-warning is-small noHover is-align-self-center mb-1"></span>
             </div>
           </div>
           <div class="column checkboxDiv is-flex is-align-items-start is-justify-content-end ml-2">
@@ -158,6 +158,13 @@ color: #e3e1dd !important;
 
     .checkbox:checked::before {
       opacity: 1;
+    }
+
+    .is-warning{
+      background-color: #D4AF37 !important;
+      width: 3rem !important;
+      height: 1rem !important;
+      border-radius:22% !important; ;
     }
 
     

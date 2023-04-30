@@ -19,7 +19,7 @@ aria-label="main navigation">
 
   </div>
 
-  <div class="navbar-item has-dropdown  navbar-end  profileInfo">
+  <div class="navbar-item has-dropdown  navbar-end  " id="profileInfo">
     <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png" alt="" class=" profilePicture
      is-align-self-center  mt-1" />
 
@@ -28,7 +28,7 @@ aria-label="main navigation">
     </a>
 
     <div class="navbar-dropdown dropLogOut is-right pl-4 pr-4">
-      <a class="navbar-item dropdownItem has-text-centered pl-2  ">
+      <a class="navbar-item dropdownItem has-text-centered pl-2  logOut" onclick="logOut()">
         Cerrar Sesion
       </a>
      
@@ -102,9 +102,16 @@ aria-label="main navigation">
    
   }
 
-  .profileInfo{
+  #profileInfo{
     width: 10rem !important;
   }
+
+  #profileInfo:hover {
+  background-color: inherit !important;
+  color: inherit !important;  
+}
+
+
 
   .dropLogOut {
     width: 15px !important;
@@ -135,6 +142,10 @@ width: 100%;
     
   }
 
+  .dropdownImg:hover{
+    transform: scale(1.2);
+  }
+
   .noHover{
     pointer-events: none;
   }
@@ -159,8 +170,9 @@ width: 100%;
 </style>
 
 <script>
+
   const dropDownButton = document.querySelector('.dropdownImg');
-  const dropItem = document.querySelector('.profileInfo');
+  const dropItem = document.querySelector('#profileInfo');
 
   dropDownButton.addEventListener('click', function(event) {
     event.stopPropagation();
@@ -172,4 +184,11 @@ width: 100%;
       dropItem.classList.remove('is-active');
     }
   });
+
+logOut = () => {
+  deleteTokens()
+  window.location.href = "/auth"
+}
+
 </script>
+
