@@ -1,0 +1,53 @@
+.sectionSideBar {
+  background-color: #272b2c !important;
+}
+
+body {
+  color: #e3e1dd;
+}
+
+ul {
+  color: #f7f4ef !important;
+}
+
+.sidebar {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 15%;
+  height: 93%;
+  background-color: #272b2c;
+  z-index: 1;
+  transition: transform 0.4s ease;
+  border-right: 1px solid #444444;
+  box-shadow: 0px 1px 1px #444444;
+}
+
+.image {
+  border-radius: 50%;
+}
+
+.userData {
+  justify-content: right;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.navbar-item {
+  width: 80%;
+  color: #e3e1dd;
+}
+
+.navbar-item:hover {
+  background-color: #444444 !important;
+  color: #e3e1dd !important;
+}
+
+.userDataContainer {
+  height: 25%;
+}
+
+hr {
+  width: 70%;
+  margin-left: 2rem;
+}

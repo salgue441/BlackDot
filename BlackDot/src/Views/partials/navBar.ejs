@@ -1,175 +1,50 @@
-<nav class="navbar is-fixed-top is-fullwidth is-flex is-align-content-center p-4"
-role="navigation"
-aria-label="main navigation">
-
-
-
-  
-  <div class="navbar-start blackDot">
-    
-      <img src="../../assets/Blackdot_Blanco.png">
-        <p class="is-align-self-center is-size-4">BlackD.t</p>
-    </div>
-
-    
-  <div class="navbar-item-center logoZebrands "><img src="../../assets/$zebrands-brand-logo.svg"
-    alt=""
-    class="logo is-align-self-center" />
-  
-
+<nav
+  class="navbar is-fixed-top is-fullwidth is-flex is-align-content-center p-4"
+  role="navigation"
+  aria-label="main navigation"
+>
+  <!-- Blackdot logo -->
+  <div class="navbar-start">
+    <img src="/assets/Blackdot_Blanco.png" alt="App Logo" class="blackdot" />
+    <p class="is-align-self-center blackdot__text">BlackD.t</p>
   </div>
 
-  <div class="navbar-item has-dropdown  navbar-end  " id="profileInfo">
-    <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png" alt="" class=" profilePicture
-     is-align-self-center  mt-1" />
+  <!-- Zebrands logo -->
+  <div class="navbar-item-center logo__zebrands">
+    <img
+      src="/assets/$zebrands-brand-logo.svg"
+      alt="Zebrands Logo"
+      class="is-align-self-center zebrands"
+    />
+  </div>
 
-    <a class="is-align-self-center ml-3 is-size-5 noHover">
-      Juan Perez
-    </a>
+  <!-- Profile picture && Dropdown -->
+  <div class="navbar-item has-dropdown navbar-end" id="profile__info">
+    <!-- Google Profile picture -->
+    <% if (locals.currentUser.googleProfilePicture) { %>
+    <img
+      src="<%= locals.currentUser.googleProfilePicture %>"
+      class="profile__picture"
+      id="profile__picture"
+      onclick="showDropdown()"
+    />
+    <% } else { %>
+    <div class="user__avatar">
+      <% currentUser.primerNombre[0] + currentUser.primerApellido[0] %>
+    </div>
+    <% } %>
 
-    <div class="navbar-dropdown dropLogOut is-right pl-4 pr-4">
-      <a class="navbar-item dropdownItem has-text-centered pl-2  logOut" onclick="logOut()" id="logOut">
+    <!-- Dropdown menu -->
+    <div class="navbar-dropdown drop__logout is-right pl-4 pr-4">
+      <a
+        class="navbar-item dropdownItem has-text-centered pl-2 log__out"
+        onclick="logOut()"
+        id="log__out"
+      >
         Cerrar Sesion
       </a>
-     
     </div>
-
-    <img src="../../assets/Dropdown.png" alt="a" class="dropdownImg is-align-self-center ml-2 mt-1 is-clickable"/>
   </div>
-  </div>
-
-
-
-</div>
-
-
-
 </nav>
 
-<!-- Styles -->
-<style>
-  a {
-    color: #e3e1dd !important;
-  }
-
-  p{
-    color: #e3e1dd !important;
-  }
-
-  
-  .profilePicture {
-    
-    border: 1px solid #e4e5e3;
-    border-radius: 50%;
-  }
-
-  .logo{
-    width: 60px;
-    height: 60px;
-  }
-
-  .logoZebrands {
-    transform: scale(2.5) !important;
-    height: 60px !important;
-    filter: invert(1);
-    z-index: 10 !important ;
-  }
-
-  /* Bulma Css */
-  .navbar {
-    background-color: #272b2c;
-
-    height: 8%;
-    border-bottom: 1px solid #444444;
-    box-shadow: 0px 1px 1px #444444;
-    z-index: 10;
-    padding-left: 5rem !important;
-    padding-right: 5rem !important;
-  }
-
-  .navbar-dropdown {
-    width: 5px !important;
-    min-width: 8rem !important;
-    border-bottom: 1px solid #444444;
-    background-color: #272b2c;
-    border: none !important;
-   
-  }
-
-  #profileInfo{
-    width: 10rem !important;
-  }
-
-  #profileInfo:hover {
-  background-color: inherit !important;
-  color: inherit !important;  
-}
-
-
-
-  .dropLogOut {
-    width: 2rem !important;
-    
-  }
-
-  #logOut:hover{
-    background-color: #782B2D !important;
-    color: #e3e1dd !important;
-  }
-
-
-
-  .dropdownItem{
-    background-color: #d44143 !important;
-
-height: 8%;
-border-bottom: 1px solid #444444;
-box-shadow: 0px 1px 1px #444444;
-color: #e3e1dd !important;
-width: 100% !important;
-  }
-
-
-  
-
-  .dropdownImg{
-    width: 1rem;
-    height: 0.5rem;
-    z-index: 15;
-    
-  }
-
-  .dropdownImg:hover{
-    transform: scale(1.2);
-  }
-
-  .noHover{
-    pointer-events: none;
-  }
-
-
-</style>
-
-<script>
-
-  const dropDownButton = document.querySelector('.dropdownImg');
-  const dropItem = document.querySelector('#profileInfo');
-
-  dropDownButton.addEventListener('click', function(event) {
-    event.stopPropagation();
-    dropItem.classList.toggle('is-active');
-  });
-
-  document.addEventListener('click', function(event) {
-    if (!dropItem.contains(event.target)) {
-      dropItem.classList.remove('is-active');
-    }
-  });
-
-logOut = () => {
-  deleteTokens()
-  window.location.href = "/auth"
-}
-
-</script>
-
+<script src="/js/navbar.front.js" defer></script>

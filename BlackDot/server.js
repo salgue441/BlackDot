@@ -72,8 +72,6 @@ app.use(
 app.use((req, res, next) => {
   if (req.session.currentUser) {
     res.locals.currentUser = req.session.currentUser
-
-    console.log(res.locals.currentUser)
   }
 
   next()
