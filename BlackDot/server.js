@@ -1,106 +1,119 @@
 /**
  * @file server.js
- * @brief This file contains the server configuration
- * @author Yuna Chung
+ * @brief Main file of the server. It contains the configuration of the server
  * @author Carlos Salguero
+ * @author Yuna Chung
  * @author Olimpia Garcia
  * @author Diego Sandoval
  * @author Diego Llaca
- * @author Ivan Paredes
+ * @version 1
  * @date 2023-03-31
- * @version 1.0
- *
- * @copyright Copyright (c) 2023 - MIT License
+ * 
+ * @copyright Copyright 2023 - MIT License
  */
+// Dotenv
+require('dotenv').config();
 
-// Dotenv config
-require("dotenv").config();
-
-// Modules
-const express = require("express");
-const session = require("express-session");
-const bodyparser = require("body-parser");
-const cookieParser = require("cookie-parser");
-const cors = require("cors");
+// Dependencies
+const express = require('express');
+const session = require('express-session');
+const bodyparser = require('body-parser');
+const cookieparser = require('cookie-parser');
+const cors = require('cors');
+const path = require('path');
 
 // App
 const app = express();
-const path = require("path");
-
-// Port
-const PORT = 3000;
+const PORT = 3000
 
 // Middlewares
-app.use(bodyparser.json());
-app.use(bodyparser.urlencoded({ extended: true }));
+app.use(bodyparser.json())
+app.use(bodyparser.urlencoded({ extended: true }))
+app.use(cookieparser())
+app.use(cors({
+  origin: ["https://padawan-0.laing.mx", "http://localhost:3000"],
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  allowedHeaders: ["Content-Type", "Authorization"]
+}))
 
-app.use(
-  cors({
-    origin: ["https://padawan-0.laing.mx/", "http://localhost:3000"],
-    methods: ["GET", "POST", "PATCH", "DELETE"],
-    allowHeaders: ["Content-Type", "Authorization"],
-  })
-)
+// View engine & static files
+app.set('view engine', 'ejs')
+app.set("views", path.join(__dirname, "/src/views"))
+app.use(express.static('public'))
 
-// View engine
-app.set("views", path.join(__dirname, "/src/Views/"));
-
-// Static Files
-app.use(express.static("public"));
-app.use(cookieParser());
-
-// Sessions
+// Session
 /**
  * @brief
- * Configures the session middleware
- * @param {Object} session - Session object
- * @param {Boolean} resave - Forces the session to be saved back to
- * the session store, even if the session was never modified during the request
+ * Session middleware. It creates a session for the user
+ * @param {*} req Request object
+ * @param {*} res Response object
+ * @param {*} next Next function
+ * @return {Object} Response object with error message
  */
 app.use(
   session({
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
+    cookie: { secure: false, maxAge: 1000 * 60 * 60 * 24 * 7 }
   })
-);
+)
+
+// Locals
+/**
+ * @brief
+ * Locals middleware. It checks if there is a user logged in and 
+ * saves it in the locals
+ * @param {*} req Request object
+ * @param {*} res Response object
+ * @param {*} next Next function
+ * @return {Object} Response object with error message
+ */
+app.use((req, res, next) => {
+  if (req.session.currentUser) {
+    res.locals.currentUser = req.session.currentUser
+
+    console.log(res.locals.currentUser)
+  }
+
+  next()
+})
 
 // Routes
-const initRoutes = require("./src/routes/index.routes");
-initRoutes(app);
+const initRoutes = require('./src/routes/index.routes')
+initRoutes(app)
 
-app.get("/", (req, res) => {
-  res.redirect("/home");
-});
-
+// 404 Error
 /**
  * @brief
- * 404 error page
- * @param {String} "*" - Route
- * @param {Function} (req, res) - Callback function
- * @returns {Function} - Callback function
+ * 404 Error handler
+ * @param {*} req Request object
+ * @param {*} res Response object
+ * @param {*} next Next function
+ * @returns {Object} Response object with error message
  */
-app.get("*", (req, res) => {
-  res.render("static/404/404.ejs");
-});
+app.get('*', (req, res) => {
+  res.render(path.join(__dirname, './src/views/static/404/404.ejs'))
+})
 
+// Server
 /**
  * @brief
- * Starts the server. The first time it saves the issues to the DB
- * and then it saves or updates the issues to the DB every day at 00:00:00
- * @param {Number} PORT - Port number
- * @param {Function} () - Callback function
- * @returns {Function} - Callback function
+ * Starts the server. The first time it saves the issues to the database.
+ * Then, it saves on 00:00:00 and 12:00:00 every day.
+ * @param {Number} PORT Port number
+ * @param {Function} callback Callback function
+ * @returns {Object} Response object with error message
  */
-const { saveIssuesToDB } = require("./src/utils/jiraIssues.api");
+const { saveIssuesToDB } = require('./src/utils/jiraIssues.api')
+app.listen(PORT, async () => {
+  console.log(`Server running on port ${PORT}`)
 
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+  // Save issues to DB
+  await saveIssuesToDB()
 
-  saveIssuesToDB();
-
-  // if time is 00:00:00
-  if (new Date().getHours() === 0) {
-    saveIssuesToDB();
-  }
-});
+  // Save issues to DB every 12 hours
+  setInterval(async () => {
+    await saveIssuesToDB()
+  }, 43200000)
+})
