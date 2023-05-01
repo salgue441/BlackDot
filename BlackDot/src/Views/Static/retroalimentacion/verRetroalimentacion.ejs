@@ -49,9 +49,7 @@
                   <div
                     class="column is-half is-flex is-justify-content-end"
                   ></div>
-                  <small class="subtitle is-5 is-flex is-justify-content-start">
-                    <%= fechaRetroalimentacion %>
-                  </small>
+                  
                 </div>
               </h1>
             </div>
@@ -61,6 +59,15 @@
 
           <!-- Showing the answers from retroalimentacion -->
           <div class="columns">
+
+            <% if(simplifiedQuantitative.length == 0 && simplifiedQualitative.length == 0){ %>
+
+              <h1 class="title is-4 has-text-left">
+                No hay respuestas para esta retroalimentacion
+              </h1>
+
+            <% }else{ %> 
+
             <!-- Quantitative Answers -->
             <div class="column is-half">
               <% for (let i = 0; i < simplifiedQuantitative.length; i++) { %>
@@ -104,6 +111,7 @@
                   </div>
                 </div>
               </div>
+              <% } %>
               <% } %>
             </div>
             <!-- End of Qualitative Answers -->

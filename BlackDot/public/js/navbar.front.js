@@ -15,7 +15,7 @@
  * @returns {void}
  */
 const showDropdown = () => {
-    const profilePicture = document.querySelector("#profile__picture");
+    const profilePicture = document.querySelector(".dropdownImg");
     const dropdown = document.querySelector(".drop__logout");
 
     profilePicture.addEventListener("click", (event) => {
