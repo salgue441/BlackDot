@@ -2,6 +2,7 @@
   <%- include('../../partials/header.ejs') %>
 
   <body>
+    <%- include('../../partials/sidebarAdmin.ejs') %>
     <%- include('../../partials/navBar.ejs') %>
 
     <section class="hero is-medium is-bold">
@@ -12,7 +13,7 @@
             <h1 class="title is-1">Metricas Actuales</h1>
           </div>
           <!-- Button -->
-          <div class="column is-narrow">
+          <div class="colun is-narrow">
             <a href="#" class="button is-danger reporte-button" onclick="generateReport(ActualSprint) ">
             Generar Reporte
             </a>
@@ -38,13 +39,56 @@
                     </div>
                 </div>
 
-            </div>
-          </div>
-        </div>
-        <!-- End of Graph -->
-      </div>
-    </section>
-
     <script src="/js/actualSprint.chart.js"></script>
   </body>
 </html>
+
+
+<style>
+    ::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+    background-color: transparent;
+  }
+  .box {
+    background-color: rgb(38, 43, 43) !important;
+    border: 1px solid #181a1b !important;
+  }
+
+  .title {
+    color: #e3e1dd !important;
+  }
+
+  .subtitle {
+    color: #e3e1dd !important;
+  }
+
+  body {
+    background-color: #181a1b;
+    color: #e3e1dd !important;
+  }
+
+  section {
+    background-color: #181a1b;
+  }
+
+  .mainContainer {
+    background-color: #181a1b;
+    width: 85%;
+    margin-left: 15%;
+    padding-top: 6% !important;
+    height: 92%;
+    
+
+    padding: 0px;
+  } 
+
+  .is-danger{
+    background-color: #BC4749 !important;
+    
+  }
+
+  .is-danger:hover{
+    background-color: #D9534F !important;
+  }
+</style>
