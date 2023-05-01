@@ -86,13 +86,11 @@ exports.postRechazarUsuario = async (req, res) => {
 
     await EmpleadoRol.deleteById(idEmpleado)
 
-    try {
+  
       await Empleado.deleteByID(idEmpleado)
       res.redirect("/editar/empleados/aceptar")
-    } catch (error) {
-      res.render(path.join(__dirname, "../views/static/error/error.ejs"), { error })
-    }
-  } catch (error) {
+    } 
+   catch (error) {
     res.render(path.join(__dirname, "../views/static/error/error.ejs"), { error })
   }
 }

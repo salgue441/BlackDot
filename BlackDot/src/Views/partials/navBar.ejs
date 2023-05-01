@@ -10,9 +10,9 @@
   </div>
 
   <!-- Zebrands logo -->
-  <div class="navbar-item-center logo__zebrands">
+  <div class="navbar-item-center logo__zebrands is-align-self-center">
     <img
-      src="/assets/$zebrands-brand-logo.svg"
+      src="/assets/zebrands.png"
       alt="Zebrands Logo"
       class="is-align-self-center zebrands"
     />
@@ -24,13 +24,15 @@
     <% if (locals.currentUser.googleProfilePicture) { %>
     <img
       src="<%= locals.currentUser.googleProfilePicture %>"
-      class="profile__picture"
+      class="profile__picture is-align-self-center"
       id="profile__picture"
       onclick="showDropdown()"
     />
+    <img src="../../assets/Dropdown.png" alt="a" class="dropdownImg is-align-self-center ml-2  is-clickable" onclick="showDropdown()"/>
     <% } else { %>
-    <div class="user__avatar">
+    <div class="user__avatar is-align-self-center">
       <% currentUser.primerNombre[0] + currentUser.primerApellido[0] %>
+      <img src="../../assets/Dropdown.png" alt="a" class="dropdownImg is-align-self-center ml-2  is-clickable" onclick="showDropdown()"/>
     </div>
     <% } %>
 
@@ -48,3 +50,86 @@
 </nav>
 
 <script src="/js/navbar.front.js" defer></script>
+
+<style>
+  a {
+    color: #e3e1dd !important;
+  }
+  p{
+    color: #e3e1dd !important;
+  }
+
+  #profile__info {
+    width: 10rem !important;
+  }
+  
+  .profilePicture {
+    
+    border: 1px solid #e4e5e3;
+    border-radius: 50%;
+  }
+ 
+  .Zebrands {
+    height: 40%;
+    width: auto;
+  }
+
+
+  .blackdot {
+    height:100% !important;
+    width: auto !important;
+  }
+  .navbar {
+    background-color: #272b2c;
+    height: 8%;
+    border-bottom: 1px solid #444444;
+    box-shadow: 0px 1px 1px #444444;
+    z-index: 10;
+    padding-left: 5rem !important;
+    padding-right: 5rem !important;
+  }
+  .navbar-dropdown {
+    width: 5px !important;
+    min-width: 8rem !important;
+    border-bottom: 1px solid #444444;
+    background-color: #272b2c;
+    border: none !important;
+   
+  }
+  #profileInfo{
+    width: 10rem !important;
+  }
+  #profileInfo:hover {
+  background-color: inherit !important;
+  color: inherit !important;  
+}
+  .dropLogOut {
+    width: 2rem !important;
+    
+  }
+  #logOut:hover{
+    background-color: #782B2D !important;
+    color: #e3e1dd !important;
+  }
+  .dropdownItem{
+    background-color: #d44143 !important;
+height: 8%;
+border-bottom: 1px solid #444444;
+box-shadow: 0px 1px 1px #444444;
+color: #e3e1dd !important;
+width: 100% !important;
+  }
+  
+  .dropdownImg{
+    width: 1rem;
+    height: 0.5rem;
+    z-index: 15;
+    
+  }
+  .dropdownImg:hover{
+    transform: scale(1.2);
+  }
+  .noHover{
+    pointer-events: none;
+  }
+</style>

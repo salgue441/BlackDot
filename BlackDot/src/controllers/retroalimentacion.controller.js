@@ -94,19 +94,19 @@ exports.getCurretRetroalimentacion = async (req, res) => {
       try {
         const idRetro = req.params.id || retro
 
-        if (!idRetro) {
-          res.render(path.join(__dirname, "../views/static/error/error.ejs"), {
-            error: "No hay retroalimentacion activa",
-          })
-        }
+        // if (!idRetro) {
+        //   res.render(path.join(__dirname, "../views/static/error/error.ejs"), {
+        //     error: "No hay retroalimentacion activa",
+        //   })
+        // }
 
         retroObj.id = idRetro
 
-        if (!retroObj.id) {
-          res.render(path.join(__dirname, "../views/static/error/error.ejs"), {
-            error: "No hay retroalimentacion activa",
-          })
-        }
+        // if (!retroObj.id) {
+        //   res.render(path.join(__dirname, "../views/static/error/error.ejs"), {
+        //     error: "No hay retroalimentacion activa",
+        //   })
+        // }
 
         // Quantitative answers
         const quantitative = await retroPregunta.getQuantitativeAnswerByID(
@@ -114,9 +114,11 @@ exports.getCurretRetroalimentacion = async (req, res) => {
         )
 
         if (quantitative.idRetroalimentacion === undefined) {
-          res.render(path.join(__dirname, "../views/static/error/error.ejs"), {
-            error: "No hay retroalimentacion activa",
-          })
+          
+          // console.log("No hay retroalimentacion activa")
+          // res.redirect("/actual/verRespuestas/1 ")
+          
+
         }
 
         const simplifiedQuantitative = simplifyAnswers(quantitative)
