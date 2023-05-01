@@ -33,6 +33,7 @@ métricas del sprint actual y métricas históricas de hasta seis sprints a nive
 epicas. Además, permite la creación de acciones basadas en las respuestas de
 los empleados y ofrece la capacidad de mandarlos al backlog de la plataforma Jira.
 
+
 #### Características Principales
 
 - **Recopilación de feedback**: Blackdot proporciona una forma intuitiva de recolectar

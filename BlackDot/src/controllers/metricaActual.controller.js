@@ -29,7 +29,6 @@ exports.getActual = async (req, res) => {
   try {
     const sprint = await Sprint.getSprintActual();
     const sprintIssues = await SprintIssue.getByIDS(sprint[0].idSprint);
-    console.log(sprintIssues)
     sprint.issues = sprintIssues;
 
     for (let i = 0; i < sprint.issues.length; i++) {

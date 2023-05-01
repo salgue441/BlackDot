@@ -9,7 +9,7 @@
  */
 
 const fetchEpicasData = async () => {
-  const res = await fetch("http://localhost:3000/historico/epicasData")
+  const res = await fetch("/historico/epicasData")
   const data = await res.json()
 
   return data

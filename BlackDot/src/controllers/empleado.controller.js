@@ -18,30 +18,6 @@ const authUtil = require("../utils/auth")
 
 /**
  * @brief
- * get of editar usuarios
- * @param {Request} request - Request object
- * @param {Response} response - Response object
- * @returns {Response} - Response object
- * @throws {Error} - Error message
- * */
-/** */
-exports.getEditarUsuario = async (req, res) => {
-  try {
-    const empleados = await Empleado.getAll()
-    const empleadoRoles = await EmpleadoRol.getAll()
-
-    // Render the EJS template with the usuarios and empleadoRoles
-    res.render("Static/editar/editarUsuario.ejs", {
-      empleados,
-      empleadoRoles,
-    })
-  } catch (error) {
-    res.render(path.join(__dirname, "../Views/Static/error.ejs"), { error })
-  }
-}
-
-/**
- * @brief
  *
  * @param {Request} req - Request object
  * @param {Response} res - Response object
@@ -130,13 +106,35 @@ exports.postRechazarUsuario = async (req, res) => {
  * @throws {Error} - Error message
  * */
 /** */
-
 exports.getEditarUsuario = async (req, res) => {
   try {
     const empleados = await EmpleadoRol.getAllWithRoles()
     const roles = await Rol.getAll()
 
     res.render(path.join(__dirname, "../Views/Static/editar/editarUsuario.ejs"), {
+      empleados,
+      roles,
+    })
+  } catch (error) {
+    res.render(path.join(__dirname, "../Views/Static/error.ejs"), {
+      error,
+    })
+  }
+}
+
+exports.postEditarUsuario = async (req, res) => {
+  try {
+    const selectE = parseInt(req.body.selectEmpleado)
+    const selectR = parseInt(req.body.selectRol)
+    const empleadoRol = new EmpleadoRol({
+      idEmpleado: selectE,
+      idRol: selectR,
+    })
+    await empleadoRol.update()
+    const empleados = await EmpleadoRol.getAllWithRoles()
+    const roles = await Rol.getAll()
+
+    res.render(path.join(__dirname, "../Views/Static/editar/correo.ejs"), {
       empleados,
       roles,
     })
@@ -159,3 +157,4 @@ exports.getEliminarUsuario = async (req, res) => {
     res.render(path.join(__dirname, "../Views/Static/error.ejs"), { error })
   }
 }
+

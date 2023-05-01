@@ -49,7 +49,7 @@ module.exports = class Sprint {
     if (!id) throw new Error("No se envio el id")
 
     const [sprint, _] = await dataBase.query(
-      "select * from Sprint where idSprint = ?",
+      "select * from sprint where idSprint = ?",
       [id]
     )
 
@@ -64,7 +64,7 @@ module.exports = class Sprint {
    */
   static async getByJiraID(jiraID) {
     const [sprint] = await dataBase.query(
-      "select * from Sprint where jiraID = ?",
+      "select * from sprint where jiraID = ?",
       [jiraID]
     )
 
@@ -80,7 +80,7 @@ module.exports = class Sprint {
    */
 
   static async getAll() {
-    const [sprints, _] = await dataBase.query("select * from Sprint")
+    const [sprints, _] = await dataBase.query("select * from sprint")
     return sprints
   }
 
@@ -95,7 +95,7 @@ module.exports = class Sprint {
   static async getSprintActual() {
     const estado = "active"
     const [sprint, _] = await dataBase.query(
-      "select * from Sprint where state = ?",
+      "select * from sprint where state = ?",
       [estado]
     )
 
@@ -116,7 +116,7 @@ module.exports = class Sprint {
 
       if (existingSprint) {
         const [result, _] = await dataBase.query(
-          "UPDATE Sprint SET sprintName = ?, state = ?, boardID = ?, FechaCreacion = ?, FechaFinalizacion = ? WHERE jiraID = ?",
+          "UPDATE sprint SET sprintName = ?, state = ?, boardID = ?, FechaCreacion = ?, FechaFinalizacion = ? WHERE jiraID = ?",
           [
             this.sprintName,
             this.state,
@@ -136,7 +136,7 @@ module.exports = class Sprint {
       else {
 
         const [result, _] = await dataBase.query(
-          "INSERT INTO Sprint (jiraID, sprintName, state, boardID, FechaCreacion, FechaFinalizacion) VALUES (?, ?, ?, ?, ?, ?)",
+          "INSERT INTO sprint (jiraID, sprintName, state, boardID, FechaCreacion, FechaFinalizacion) VALUES (?, ?, ?, ?, ?, ?)",
           [
             this.jiraID,
             this.sprintName,

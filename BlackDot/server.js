@@ -21,6 +21,7 @@ const express = require("express");
 const session = require("express-session");
 const bodyparser = require("body-parser");
 const cookieParser = require("cookie-parser");
+const cors = require("cors");
 
 // App
 const app = express();
@@ -33,8 +34,15 @@ const PORT = 3000;
 app.use(bodyparser.json());
 app.use(bodyparser.urlencoded({ extended: true }));
 
+app.use(
+  cors({
+    origin: ["https://padawan-0.laing.mx/", "http://localhost:3000"],
+    methods: ["GET", "POST", "PATCH", "DELETE"],
+    allowHeaders: ["Content-Type", "Authorization"],
+  })
+)
+
 // View engine
-app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "/src/Views/"));
 
 // Static Files
@@ -73,7 +81,7 @@ app.get("/", (req, res) => {
  * @returns {Function} - Callback function
  */
 app.get("*", (req, res) => {
-  res.render("Static/404/404");
+  res.render("static/404/404.ejs");
 });
 
 /**
@@ -85,6 +93,7 @@ app.get("*", (req, res) => {
  * @returns {Function} - Callback function
  */
 const { saveIssuesToDB } = require("./src/utils/jiraIssues.api");
+
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 

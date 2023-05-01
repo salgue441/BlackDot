@@ -15,7 +15,7 @@
  */
 
 const fetchAnswersData = async () => {
-  const res = await fetch("http://localhost:3000/actual/respuestasRetro")
+  const res = await fetch("/actual/respuestasRetro")
   const data = await res.json()
 
   return data
@@ -127,22 +127,22 @@ const createBarChart = (canvas, labels, data) => {
 
 }
 
-/**
- * @brief
- * Renders the graphs. This function is called when the page
- * is loaded or refreshed
- * @todo Add token when authentication is implemented
- */
-;(async function renderGraphs() {
-  const data = await fetchAnswersData()
-  console.log(data)
+  /**
+   * @brief
+   * Renders the graphs. This function is called when the page
+   * is loaded or refreshed
+   * @todo Add token when authentication is implemented
+   */
+  ; (async function renderGraphs() {
+    const data = await fetchAnswersData()
+    console.log(data)
 
-  data.simplifiedQuantitative.forEach((set) => {
-    const canvas = document.getElementById(`graph-${set.idPregunta}`)
+    data.simplifiedQuantitative.forEach((set) => {
+      const canvas = document.getElementById(`graph-${set.idPregunta}`)
 
-    const labels = Object.keys(set.respuestas)
-    const data = Object.values(set.respuestas)
+      const labels = Object.keys(set.respuestas)
+      const data = Object.values(set.respuestas)
 
-    createBarChart(canvas, labels, data)
-  })
-})()
+      createBarChart(canvas, labels, data)
+    })
+  })()

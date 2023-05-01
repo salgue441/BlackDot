@@ -105,49 +105,49 @@ const refreshTokenAPI = async (req, res, next) => {
 const registrarEmpleado = async (req, res) => {
   const { refreshToken } = req.body
   const verified = authUtils.verifyToken(refreshToken, "refresh")
+<<<<<<< HEAD:BlackDot/src/Controllers/auth.controller.js
   
   const nombre = verified.primerNombre.split(" ")
   const apellido = verified.apellidoPaterno.split(" ")
+=======
+
+  // If name has more than one word, split it
+  const name = verified.primerNombre ? verified.primerNombre.split(" ") : []
+  const lastName = verified.apellidoPaterno ? verified.apellidoPaterno.split(" ") : []
+>>>>>>> 8ec348e6362e62ca1545f7f5a64e1c497a7b1cdc:BlackDot/src/controllers/auth.controller.js
 
   const userData = {
-    primerNombre: nombre[0],
-    segundoNombre: null,
-    apellidoPaterno: apellido[0],
-    apellidoMaterno: null,
+    primerNombre: name[0],
+    segundoNombre: name[1] || null,
+    apellidoPaterno: lastName[0],
+    apellidoMaterno: lastName[1] || null,
     idGoogleAuth: bycript.hashSync(verified.idGoogleAuth, 12),
     googleEmail: verified.googleEmail,
     googleProfilePicture: verified.googleProfilePicture,
-  }
-
-  if (nombre.length > 1) {
-    userData.segundoNombre = nombre[1]
-  }
-
-  if (apellido.length > 1) {
-    userData.apellidoMaterno = apellido[1]
   }
 
   try {
     const validacion = await Empleado.verifyByEmail(userData.googleEmail)
     console.log("validacion: ", validacion)
 
-    if (validacion) {
-      usuarioRegistrado = true
-    } else {
+    if (!validacion) {
       const nuevoEmpleado = new Empleado(userData)
-      await nuevoEmpleado.save()
+      const empleado = await nuevoEmpleado.save()
 
-      const idNuevoEmpleado = await Empleado.getLastID()
+      console.log(empleado)
 
       const empleadoRol = new EmpleadoRol({
-        idEmpleado: idNuevoEmpleado,
+        idEmpleado: empleado.idEmpleado,
         idRol: 3,
       })
 
       await empleadoRol.save()
       usuarioRegistrado = true
     }
+
+    usuarioRegistrado = true
   } catch (error) {
+    console.log(error)
     throw new Error(error)
   }
 }
