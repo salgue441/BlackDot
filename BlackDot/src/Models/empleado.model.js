@@ -66,7 +66,7 @@ module.exports = class Empleado {
     const query = `select * from empleado where googleEmail = ?`
     const [rows] = await dataBase.execute(query, [googleEmail])
 
-    if (rows.length === 0) throw new Error("Empleado no encontrado")
+    if (rows.length === 0) return null
 
     return new Empleado(rows[0])
   }
@@ -103,7 +103,6 @@ module.exports = class Empleado {
     ])
 
     this.idEmpleado = result.insertId
-
     return this
   }
 
