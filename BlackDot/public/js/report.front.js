@@ -21,7 +21,7 @@ async function generateReport(canvasID) {
     const graphImage = convertChart2Image(canvasID);
 
     const data = {
-      graphImage: graphImage.toString(),
+      pdfData: graphImage.toString(),
     }
 
     console.log(data)
@@ -48,6 +48,7 @@ async function generateReport(canvasID) {
  * @param {HTMLCanvasElement} canvasID - Canvas element
  * @return {String} img - Image of the graph
  */
+
 function convertChart2Image(canvasID) {
   const canvas = canvasID;
   const ctx = canvas.getContext("2d");
@@ -56,6 +57,11 @@ function convertChart2Image(canvasID) {
   return img;
 }
 
+/**
+ * @brief
+ * Generates the PDF file
+ * @param {*} pdfData 
+ */
 const generatePDF = (pdfData) => {
   const form = document.createElement("form");
   form.method = "POST";
