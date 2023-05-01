@@ -2,22 +2,22 @@
   <%- include('../../partials/header.ejs') %>
 
   <body>
-    <%- include('../../partials/navBar.ejs') %>
-
-    <%- include('../../partials/sidebarAdmin.ejs') %>
+    <%- include('../../partials/navBar.ejs') %> <%-
+    include('../../partials/sideBarAdmin.ejs') %>
 
     <div class="mainContainer">
       <section class="container">
-
-          
-            <h1 class="title is-1"> Responder retroalimentacion</h1>
+        <h1 class="title is-1">Responder retroalimentacion</h1>
 
         <form class="preguntaContainer" method="POST" action="/actual/enviado">
-          <% let cantCualitativas = 0; %> <% for (let i = 0; i < preguntas.length;
-          i++) { %> <% if(preguntas[i].contenido != '¿Que podemos mejorar?') { %>
-          <% if (preguntas[i].tipoPregunta === 'Cualitativa') { %> 
-          <div class="box is-flex is-flex-direction-column is-align-self-center">
-            <label class="label " for="respuestaCualitativa"
+          <% let cantCualitativas = 0; %> <% for (let i = 0; i <
+          preguntas.length; i++) { %> <% if(preguntas[i].contenido != '¿Que
+          podemos mejorar?') { %> <% if (preguntas[i].tipoPregunta ===
+          'Cualitativa') { %>
+          <div
+            class="box is-flex is-flex-direction-column is-align-self-center"
+          >
+            <label class="label" for="respuestaCualitativa"
               ><%= preguntas[i].contenido %></label
             >
             <input
@@ -34,27 +34,29 @@
             <label class="label" for="respuestaCuantitativa"
               ><%= preguntas[i].contenido %></label
             >
-            <%- include('../../partials/preguntaCuantitativa.ejs', {name:preguntas[i].idPregunta }) %>
+            <%- include('../../partials/preguntaCuantitativa.ejs',
+            {name:preguntas[i].idPregunta }) %>
           </div>
-          <%} } } %>
-  
+          <%} } %>
+
           <div class="box is-flex is-flex-direction-column">
             <label class="label" for="respuestaCualitativa"
               >¿Que podemos mejorar?</label
             >
-            <p class="is-italic  accionableText">Esta respuesta puede volverse un task en Jira</p>
+            <p class="is-italic accionableText">
+              Esta respuesta puede volverse un task en Jira
+            </p>
             <input
               class="input m-3 is-justify-content-center is-align-self-center"
               type="text"
               id="respuestaCualitativa"
               name="8"
               placeholder="Respuesta"
-  
               required
             />
           </div>
-  
-          <div class="is-flex is-justify-content-center ">
+
+          <div class="is-flex is-justify-content-center">
             <input
               class="button is-danger is-rounded is-medium mb-6"
               type="submit"
@@ -64,7 +66,6 @@
         </form>
       </section>
     </div>
-    
   </body>
 </html>
 
@@ -97,20 +98,19 @@
     background-color: #181a1b;
   }
 
-  .accionableText{
+  .accionableText {
     margin-left: 4rem;
   }
-  
+
   .mainContainer {
     background-color: #181a1b;
     width: 85%;
     margin-left: 15%;
     padding-top: 6% !important;
     height: 92%;
-    
 
     padding: 0px;
-  } 
+  }
   .preguntaContainer {
     margin-top: 5%;
   }
@@ -131,12 +131,11 @@
   .box {
     border: 1px solid #dbdbdb;
   }
-  .is-danger{
-    background-color: #BC4749 !important;
-    
+  .is-danger {
+    background-color: #bc4749 !important;
   }
 
-  .is-danger:hover{
-    background-color: #D9534F !important;
+  .is-danger:hover {
+    background-color: #d9534f !important;
   }
 </style>

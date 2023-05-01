@@ -24,7 +24,7 @@ create table if not exists empleado
     segundoNombre varchar (25),
     apellidoPaterno varchar (25) not null,
     apellidoMaterno varchar (25), 
-    idGoogleAuth binary (16) not null, 
+    idGoogleAuth binary (64) not null, 
     googleEmail varchar (50) not null, 
     googleProfilePicture varchar(300)
 );
@@ -64,8 +64,8 @@ create table if not exists sprint
 create table if not exists issue
 (
     idIssue int not null auto_increment primary key,
-    issueKey varchar(30) unique,
-    nombreIssue varchar (150) not null, 
+    issueKey varchar(50) unique,
+    nombreIssue varchar (400) not null, 
     storyPoints int not null default 0,
     labelIssue varchar (100),
     prioridadIssue enum ('Highest', 'High', 'Medium', 'Low', 'Lowest') not null default 'Lowest',
@@ -115,24 +115,10 @@ create table if not exists cualitativa
         idRetroalimentacion int not null
     );
 
-<<<<<<< HEAD
-    create table if not exists Accionable
-    (
-        idAccionable int not null auto_increment primary key,
-        nombreAccionable varchar (300) null,
-        storyPoints int default 0 not null,
-        labelAccionable varchar (50),
-        prioridadAccionable enum ('Alta', 'Media-Alta', 'Media', 'Media-Baja', 'Baja') not null default 'Media',
-        estadoAccionable enum ('Aprobado', 'No aprobado') not null default 'No aprobado',
-        estadoIssue enum ('To Do', 'In Progress', 'Done') not null default 'To Do',
-        fechaCreacion timestamp not null default current_timestamp ,
-        fechaFinalizacion timestamp not null default current_timestamp
-    );
-=======
 create table if not exists accionable
 (
     idAccionable int not null auto_increment primary key,
-    nombreAccionable varchar (50) null,
+    nombreAccionable varchar (300) null,
     storyPoints int default 0 not null,
     labelAccionable varchar (50),
     prioridadAccionable enum ('Alta', 'Media-Alta', 'Media', 'Media-Baja', 'Baja') not null default 'Media',
@@ -141,7 +127,6 @@ create table if not exists accionable
     fechaCreacion datetime not null default current_timestamp ,
     fechaFinalizacion datetime not null default current_timestamp
 );
->>>>>>> 8ec348e6362e62ca1545f7f5a64e1c497a7b1cdc
 
 -- Relaciones
 create table if not exists empleadoRol

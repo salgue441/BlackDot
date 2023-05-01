@@ -2,7 +2,8 @@
   <%- include('../../partials/header.ejs') %>
 
   <body>
-    <%- include('../../partials/navBar.ejs') %>
+    <%- include('../../partials/sideBarAdmin.ejs') %> <%-
+    include('../../partials/navBar.ejs') %>
 
     <br />
     <br />
@@ -87,11 +88,15 @@
                   <!-- Select empleado -->
 
                   <form action="/editar/empleados" method="POST">
-
                     <p class="mb-2">Selecciona Empleado</p>
 
                     <div class="select">
-                      <select id="selectEmpleado" name="selectEmpleado" class="mb-3" required>
+                      <select
+                        id="selectEmpleado"
+                        name="selectEmpleado"
+                        class="mb-3"
+                        required
+                      >
                         <!-- title -->
                         <option value="" disabled selected>Empleado</option>
                         <% for(let i = 0; i< empleados.length; i++){ %>
@@ -107,10 +112,17 @@
                     <p class="mb-3 mt-2">Seleccionar Rol</p>
 
                     <div class="select">
-                      <select id="selectRol" name="selectRol" required placeholder="rol">
+                      <select
+                        id="selectRol"
+                        name="selectRol"
+                        required
+                        placeholder="rol"
+                      >
                         <option value="" disabled selected>Rol</option>
                         <% for(let i = 0; i< roles.length; i++){ %>
-                        <option value="<%= roles[i].idRol %>"><%= roles[i].nombreRol %></option>
+                        <option value="<%= roles[i].idRol %>">
+                          <%= roles[i].nombreRol %>
+                        </option>
                         <% } %>
                       </select>
                     </div>
@@ -118,7 +130,6 @@
                     <button class="button is-success mt-3" type="submit">
                       Guardar Cambios
                     </button>
-
                   </form>
                 </div>
               </div>

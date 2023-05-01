@@ -135,7 +135,7 @@ exports.getCurretRetroalimentacion = async (req, res) => {
         res.render(
           path.join(
             __dirname,
-            "../Views/Static/retroalimentacion/verRetroalimentacion.ejs"
+            "../views/static/retroalimentacion/verRetroalimentacion.ejs"
           ),
           {
             idRetroalimentacion: quantitative[0].idRetroalimentacion,
@@ -152,6 +152,7 @@ exports.getCurretRetroalimentacion = async (req, res) => {
       }
     })
     .catch((error) => {
+      console.log(error)
       res.render(path.join(__dirname, "../views/static/error/error.ejs"), {
         error: "No existe una retroalimentacion",
       })
@@ -221,7 +222,7 @@ exports.getRegistrarRespuestas = async (req, res) => {
             Pregunta.getByIds(idsPreguntas).then(async (preguntas) => {
               // Render the EJS template with the preguntas and progress variables
               res.render(
-                "Static/retroalimentacion/registrarRespuestasRetroalimentacion.ejs",
+                "static/retroalimentacion/registrarRespuestasRetroalimentacion.ejs",
                 {
                   preguntas,
                 }

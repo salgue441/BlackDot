@@ -5,15 +5,15 @@
     <%- include('../../partials/navBar.ejs') %>
     <%- include('../../partials/sidebarAdmin.ejs') %>
 
-    <div class="mainContainer ">
-      <section class="hero is-medium is-bold ">
+    <div class="mainContainer">
+      <section class="hero is-medium is-bold">
         <div class="hero-body has-text-centered pt-0">
           <!-- Sprint title & Button -->
           <div class="columns">
             <div class="column is-half is-flex">
               <h1 class="title is-1 has-text-left">
                 Retroalimentacion #<%= idRetroalimentacion %>
-  
+
                 <div>
                   <div class="dropdown mt-2" id="dropdown">
                     <div class="dropdown-trigger">
@@ -24,7 +24,11 @@
                       >
                         <span>Seleccionar Retroalimentacion </span>
                         <span class="icon is-small">
-                          <img src="../../assets/Dropdown.png" alt="a" class="dropdownImg is-align-self-center ml-2 mt-1 is-clickable"/>
+                          <img
+                            src="../../assets/Dropdown.png"
+                            alt="a"
+                            class="dropdownImg is-align-self-center ml-2 mt-1 is-clickable"
+                          />
                         </span>
                       </button>
                     </div>
@@ -52,9 +56,9 @@
               </h1>
             </div>
           </div>
-  
+
           <br />
-  
+
           <!-- Showing the answers from retroalimentacion -->
           <div class="columns">
             <!-- Quantitative Answers -->
@@ -68,7 +72,7 @@
                         <%= simplifiedQuantitative[i].Pregunta %>
                       </h1>
                       <canvas
-                        class=" graph-canvas"
+                        class="graph-canvas"
                         id="graph-<%= simplifiedQuantitative[i].idPregunta %>"
                       ></canvas>
                     </div>
@@ -78,7 +82,7 @@
               <% } %>
             </div>
             <!-- End of Quantitative Answers -->
-  
+
             <!-- Qualitative Answers -->
             <div class="column is-half">
               <% for (let i = 0; i < simplifiedQualitative.length; i++) { %>
@@ -110,19 +114,17 @@
       </section>
     </div>
 
-    
-
     <script src="/js/actualRetro.chart.js"></script>
   </body>
 </html>
 
 <style>
-
   ::-webkit-scrollbar {
     width: 0;
     height: 0;
     background-color: transparent;
   }
+
   .card {
     background-color: rgb(38, 43, 43) !important;
     border: 1px solid #181a1b !important;
@@ -135,6 +137,7 @@
   p {
     color: #e3e1dd !important;
   }
+
   .subtitle {
     color: #e3e1dd !important;
   }
@@ -154,10 +157,9 @@
     margin-left: 15%;
     padding-top: 6% !important;
     height: 92%;
-    
 
     padding: 0px;
-  } 
+  }
 
   .reporte-button {
     margin-left: 20px;
@@ -169,33 +171,34 @@
     border-radius: 22px;
     margin-bottom: 20px;
   }
+
   .graph-canvas {
     width: 100%;
   }
+
   #dropdown-menu3 {
     width: 265px;
   }
 
-  .is-danger{
-    background-color: #BC4749 !important;
-    
+  .is-danger {
+    background-color: #bc4749 !important;
   }
 
-  .is-danger:hover{
-    background-color: #D9534F !important;
+  .is-danger:hover {
+    background-color: #d9534f !important;
   }
 
-  .retroNumber{
+  .retroNumber {
     color: #e3e1dd !important;
     background-color: #181a1b !important;
   }
 
-  .retroNumber:hover{
+  .retroNumber:hover {
     color: #e3e1dd !important;
     background-color: #363636 !important;
   }
 
-  .dropdownImg:hover{
+  .dropdownImg:hover {
     transform: scale(1.2);
   }
 </style>

@@ -3,7 +3,7 @@
 
   <body>
     <%- include('../../partials/navBar.ejs') %> <%-
-    include('../../partials/sidebarAdmin.ejs') %>
+    include('../../sideBarAdmin.ejs') %>
 
     <br />
     <br />
@@ -42,14 +42,10 @@
             >
               Editar
               <span class="icon is-small editIcon">
-                <img
-                  src="/assets/edit.svg"
-                  alt=""
-                  class="disAprovalIcon"
-                />
+                <img src="/assets/edit.svg" alt="" class="disAprovalIcon" />
               </span>
             </a>
-            
+
             <a
               class="button is-danger"
               href="preguntas/eliminar/<%= preguntas[i].idPreguntaBanco %>"
@@ -88,11 +84,7 @@
             >
               Editar
               <span class="icon is-small editIcon">
-                <img
-                  src="/assets/edit.svg"
-                  alt=""
-                  class="disAprovalIcon"
-                />
+                <img src="/assets/edit.svg" alt="" class="disAprovalIcon" />
               </span>
             </a>
             <a
@@ -143,13 +135,11 @@
 
   .label {
     color: #e3e1dd !important;
-   
   }
 
   .subtitle {
     color: #e3e1dd !important;
   }
-
 
   p {
     color: #e3e1dd !important;
@@ -163,7 +153,6 @@
   section {
     background-color: #181a1b;
   }
-
 
   .mainContainer {
     width: 85%;
@@ -183,36 +172,34 @@
       brightness(101%) contrast(96%);
   }
 
-  .is-success{
-    background-color: #6A994E !important;
+  .is-success {
+    background-color: #6a994e !important;
     color: #e3e1dd !important ;
   }
 
-  .is-success:hover{
+  .is-success:hover {
     background-color: #78b147 !important;
   }
 
-  .is-danger{
-    background-color: #BC4749 !important;
-    
+  .is-danger {
+    background-color: #bc4749 !important;
   }
 
-  .is-danger:hover{
-    background-color: #D9534F !important;
+  .is-danger:hover {
+    background-color: #d9534f !important;
   }
 
-  .is-link{
-    background-color: #1F74AD !important;
+  .is-link {
+    background-color: #1f74ad !important;
   }
 
-  .is-link:hover{
-    background-color: #258CD0 !important;
+  .is-link:hover {
+    background-color: #258cd0 !important;
   }
 
-  .editIcon{
+  .editIcon {
     width: 1rem !important;
-   
-    margin-left: 0.4rem !important;
 
+    margin-left: 0.4rem !important;
   }
 </style>

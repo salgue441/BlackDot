@@ -2,22 +2,23 @@
   <%- include('../../partials/header.ejs') %>
 
   <body>
-    <%- include('../../partials/navBar.ejs') %>
-    <%- include('../../partials/sidebarAdmin.ejs') %>
+    <%- include('../../partials/navBar.ejs') %> <%-
+    include('../../partials/sideBarAdmin.ejs') %>
 
-    <div class="mainContainer "><section class="section mt-6" style="margin-top: 2rem">
-      <div class="hero mb-6">
-        <h1 class="title is-1 has-text-centered">Error 404</h1>
-        <p class="subtitle has-text-centered">Page not found</p>
-        <img src="/assets/404.png" alt="404" />
-      </div>
-    </section></div>
+    <div class="mainContainer">
+      <section class="section mt-6" style="margin-top: 2rem">
+        <div class="hero mb-6">
+          <h1 class="title is-1 has-text-centered">Error 404</h1>
+          <p class="subtitle has-text-centered">Page not found</p>
+          <img src="/assets/404.png" alt="404" />
+        </div>
+      </section>
+    </div>
   </body>
 </html>
 
 <style>
   .hero {
-
     display: flex;
     justify-content: center;
     align-items: center;
@@ -28,22 +29,21 @@
     width: 85%;
     margin-left: 15%;
     height: 100%;
- 
+
     padding: 0px;
-  } 
+  }
 
   ::-webkit-scrollbar {
-      width: 0;
-      height: 0;
-      background-color: transparent;
-    }
-    
+    width: 0;
+    height: 0;
+    background-color: transparent;
+  }
+
   .title {
     margin-top: 6 rem;
     color: #e3e1dd !important;
   }
 
-    
   .subtitle {
     color: #e3e1dd !important;
   }

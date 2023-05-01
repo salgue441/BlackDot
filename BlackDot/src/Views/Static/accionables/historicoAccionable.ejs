@@ -2,8 +2,8 @@
   <%- include('../../partials/header.ejs') %>
 
   <body>
-    <%- include('../../partials/navBar.ejs') %> <%-
-    include('../../partials/sidebarAdmin.ejs') %>
+    <%- include('../../partials/navBar.ejs') %><%-
+    include('../../partials/sideBarAdmin.ejs') %>
 
     <div class="mainContainer">
       <section class="section is-medium is-bold pb-6">
@@ -61,50 +61,45 @@
 </html>
 
 <style>
-
   .noHover {
     pointer-events: none;
-  }    
+  }
 
+  p {
+    color: #e3e1dd !important;
+  }
 
-p{
-color: #e3e1dd !important;
-}
+  .button {
+    padding: 0.3rem;
+  }
 
-.button {
-  padding: 0.3rem;
- 
-}
+  hr {
+    opacity: 0;
+    margin: 1rem;
+  }
 
-    hr {
-      opacity: 0;
-      margin: 1rem;
-    }
+  ::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+    background-color: transparent;
+  }
 
-    ::-webkit-scrollbar {
-      width: 0;
-      height: 0;
-      background-color: transparent;
-    }
-
-    .mainContainer {
+  .mainContainer {
     background-color: #181a1b;
     width: 85%;
     margin-left: 15%;
-    
- 
+
     height: 200vh;
-    
 
     padding: 0px;
-  } 
+  }
 
   .box {
     background-color: rgb(38, 43, 43) !important;
     border: 1px solid #181a1b !important;
-    gap : 0.5rem !important;
-    }
-  
+    gap: 0.5rem !important;
+  }
+
   .title {
     color: #e3e1dd !important;
   }
@@ -113,31 +108,28 @@ color: #e3e1dd !important;
     color: #e3e1dd !important;
     margin-left: 4rem;
   }
-  
+
   .EstadoNoAprobado {
-    background-color: #BC4749 !important;
+    background-color: #bc4749 !important;
     color: hsl(0, 0%, 96%);
   }
 
   .EstadoAprobado {
-    background-color: #6A994E !important;
+    background-color: #6a994e !important;
     color: #e3e1dd !important ;
   }
-
-
 
   .reporte-button {
     height: 50px;
     width: 200px;
   }
 
-  .is-danger{
-    background-color: #BC4749 !important;
-    
+  .is-danger {
+    background-color: #bc4749 !important;
   }
 
-  .is-danger:hover{
-    background-color: #D9534F !important;
+  .is-danger:hover {
+    background-color: #d9534f !important;
   }
 
   ::-webkit-scrollbar {
@@ -152,6 +144,5 @@ color: #e3e1dd !important;
     height: 400vh;
 
     padding: 0px;
-
   }
 </style>
