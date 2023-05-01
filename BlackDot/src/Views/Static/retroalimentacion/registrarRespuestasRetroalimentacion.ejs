@@ -1,8 +1,8 @@
 <html>
-  <%- include('../../partials/header.ejs') %>
+  <% include('../../partials/header.ejs') %>
 
   <body>
-    <%- include('../../partials/navBar.ejs') %> <%-
+    <% include('../../partials/navBar.ejs') %> <%
     include('../../partials/sideBarAdmin.ejs') %>
 
     <div class="mainContainer">
@@ -12,7 +12,7 @@
         <form class="preguntaContainer" method="POST" action="/actual/enviado">
           <% let cantCualitativas = 0; %> <% for (let i = 0; i <
           preguntas.length; i++) { %> <% if(preguntas[i].contenido != '¿Que
-          podemos mejorar?') { %> <% if (preguntas[i].tipoPregunta ===
+          podemos mejorar?') { %> <% if (preguntas[i].tipoPregunta ==
           'Cualitativa') { %>
           <div
             class="box is-flex is-flex-direction-column is-align-self-center"
@@ -34,18 +34,14 @@
             <label class="label" for="respuestaCuantitativa"
               ><%= preguntas[i].contenido %></label
             >
-            <%- include('../../partials/preguntaCuantitativa.ejs',
+            <% include('../../partials/preguntaCuantitativa.ejs',
             {name:preguntas[i].idPregunta }) %>
           </div>
-          <%} } %>
-
-          <div class="box is-flex is-flex-direction-column">
-            <label class="label" for="respuestaCualitativa"
-              >¿Que podemos mejorar?</label
+          <% } %> <% } else { %>
+          <div class="box is-flex is-flex-direction-column is-vcentered">
+            <label class="label" for="respuestaCuantitativa"
+              ><%= preguntas[i].contenido %></label
             >
-            <p class="is-italic accionableText">
-              Esta respuesta puede volverse un task en Jira
-            </p>
             <input
               class="input m-3 is-justify-content-center is-align-self-center"
               type="text"
@@ -55,6 +51,7 @@
               required
             />
           </div>
+          <% } %> <% } %>
 
           <div class="is-flex is-justify-content-center">
             <input
@@ -113,29 +110,5 @@
   }
   .preguntaContainer {
     margin-top: 5%;
-  }
-
-  .box {
-    height: 12rem;
-  }
-
-  .input {
-    width: 90%;
-    height: 75%;
-    background-color: #e7e7e7 !important;
-  }
-
-  .label {
-    font-size: 1.2rem;
-  }
-  .box {
-    border: 1px solid #dbdbdb;
-  }
-  .is-danger {
-    background-color: #bc4749 !important;
-  }
-
-  .is-danger:hover {
-    background-color: #d9534f !important;
   }
 </style>
