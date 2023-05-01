@@ -94,32 +94,26 @@ exports.getCurretRetroalimentacion = async (req, res) => {
       try {
         const idRetro = req.params.id || retro
 
-        // if (!idRetro) {
-        //   res.render(path.join(__dirname, "../views/static/error/error.ejs"), {
-        //     error: "No hay retroalimentacion activa",
-        //   })
-        // }
+     
 
         retroObj.id = idRetro
 
-        // if (!retroObj.id) {
-        //   res.render(path.join(__dirname, "../views/static/error/error.ejs"), {
-        //     error: "No hay retroalimentacion activa",
-        //   })
-        // }
+    
 
         // Quantitative answers
         const quantitative = await retroPregunta.getQuantitativeAnswerByID(
           idRetro
         )
 
-        if (quantitative.idRetroalimentacion === undefined) {
-          
-          // console.log("No hay retroalimentacion activa")
-          // res.redirect("/actual/verRespuestas/1 ")
-          
+          // Qualitative answers
+        const qualitative = await retroPregunta.getQualitativeAnswersByID(idRetro)
+        const simplifiedQualitative = simplifyAnswers(qualitative)
 
-        }
+        // Questions
+        retros = await Retro.getAll()
+
+
+    
 
         const simplifiedQuantitative = simplifyAnswers(quantitative)
 
@@ -127,21 +121,14 @@ exports.getCurretRetroalimentacion = async (req, res) => {
           question.respuestas = countDuplicates(question.respuestas)
         }
 
-        // Qualitative answers
-        const qualitative = await retroPregunta.getQualitativeAnswersByID(idRetro)
-        const simplifiedQualitative = simplifyAnswers(qualitative)
-
-        // Questions
-        retros = await Retro.getAll()
-
+   
         res.render(
           path.join(
             __dirname,
             "../views/static/retroalimentacion/verRetroalimentacion.ejs"
           ),
           {
-            idRetroalimentacion: quantitative[0].idRetroalimentacion,
-            fechaRetroalimentacion: quantitative[0].fechaRetroalimentacion,
+            idRetroalimentacion: idRetro,
             simplifiedQuantitative: simplifiedQuantitative,
             simplifiedQualitative: simplifiedQualitative,
             retros,
