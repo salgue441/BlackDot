@@ -2,111 +2,217 @@
   <%- include('../../partials/header.ejs') %>
 
   <body>
-    <%- include('../../partials/navBar.ejs') %>
+    <%- include('../../partials/navBar.ejs') %> <%-
+    include('../../partials/sidebarAdmin.ejs') %>
 
     <br />
     <br />
-    <br />
-    <br />
 
-    <div class="is-flex is-justify-content-space-between">
-      <h1 class="title ml-6">Crear Retroalimentacion</h1>
-      <div class="">
-        <a class="button is-danger mr-6" type="submit" href="preguntas/0">
-          Crear Pregunta
-        </a>
-      </div>
-    </div>
-    <section
-      class="container is-flex is-align-items-center is-flex-direction-column"
-    >
-      <br />
-      <h2 class="subtitle">Banco de preguntas</h2>
-
-      <% for (var i = 0; i < preguntas.length; i++) { %> <% if
-      (preguntas[i].tipoPregunta === 'Cualitativa') { %>
-      <div
-        class="box PreguntaContainer is-flex is-justify-content-space-between"
-      >
+    <div class="mainContainer mt-6">
+      <div class="is-flex is-justify-content-space-between">
+        <h1 class="title ml-6 is-1">Crear Retroalimentacion</h1>
         <div class="">
-          <label class="label" for="respuestaCualitativa"
-            ><%= preguntas[i].contenido %></label
-          >
-          <p>Respuesta Abierta</p>
-        </div>
-
-        <div class="is-flex">
-          <a
-            class="button is-success mr-4"
-            href="preguntas/<%= preguntas[i].idPreguntaBanco %>"
-          >
-            Editar
-          </a>
-          <a
-            class="button is-danger"
-            href="preguntas/eliminar/<%= preguntas[i].idPreguntaBanco %>"
-          >
-            <input
-              type="hidden"
-              name="idPregunta"
-              value="<%= preguntas[i].idPreguntaBanco %>"
-            />
-            <span>Eliminar</span>
-            <span class="icon is-small">
-              <i class="fas fa-times"></i>
-            </span>
+          <a class="button is-link mr-6" type="submit" href="preguntas/0">
+            Crear Nueva Pregunta
           </a>
         </div>
       </div>
-      <% } else { %>
-      <div
-        class="box preguntaContainer is-flex is-justify-content-space-between"
+      <section
+        class="container is-flex is-align-items-center is-flex-direction-column"
       >
-        <div>
-          <label class="label" for="respuestaCuantitativa"
-            ><%= preguntas[i].contenido %></label
-          >
-          <p>Respuesta 1 a 5</p>
-        </div>
+        <br />
+        <h2 class="subtitle">Banco de preguntas</h2>
 
-        <div class="is-flex">
-          <a
-            class="button is-success mr-4"
-            href="preguntas/<%= preguntas[i].idPreguntaBanco %>"
-          >
-            Editar
-          </a>
-          <a
-            class="button is-danger"
-            href="preguntas/eliminar/<%= preguntas[i].idPreguntaBanco %>"
-          >
-            <input
-              type="hidden"
-              name="idPregunta"
-              value="<%= preguntas[i].idPreguntaBanco %>"
-            />
-            <span>Eliminar</span>
-            <span class="icon is-small">
-              <i class="fas fa-times"></i>
-            </span>
-          </a>
+        <% for (let i = 0; i < preguntas.length; i++) { %> <% if
+        (preguntas[i].tipoPregunta === 'Cualitativa') { %>
+        <div
+          class="box PreguntaContainer is-flex is-justify-content-space-between"
+        >
+          <div class="">
+            <label class="label" for="respuestaCualitativa"
+              ><%= preguntas[i].contenido %></label
+            >
+            <p>Respuesta Abierta</p>
+          </div>
+
+          <div class="is-flex">
+            <a
+              class="button is-success mr-4"
+              href="preguntas/<%= preguntas[i].idPreguntaBanco %>"
+            >
+              Editar
+              <span class="icon is-small editIcon">
+                <img
+                  src="/assets/edit.svg"
+                  alt=""
+                  class="disAprovalIcon"
+                />
+              </span>
+            </a>
+            
+            <a
+              class="button is-danger"
+              href="preguntas/eliminar/<%= preguntas[i].idPreguntaBanco %>"
+            >
+              <input
+                type="hidden"
+                name="idPregunta"
+                value="<%= preguntas[i].idPreguntaBanco %>"
+              />
+              <span>Eliminar</span>
+              <span class="icon is-small">
+                <img
+                  src="/assets/disapproval.svg"
+                  alt=""
+                  class="disAprovalIcon"
+                />
+              </span>
+            </a>
+          </div>
         </div>
-      </div>
-      <%} %> <% } %>
-      <a
-        class="button is-danger mt-5 mb-5 is-medium"
-        href="/editar/crearRetroalimentacion/exitosa"
-        >Crear Retroalimentacion
-      </a>
-    </section>
+        <% } else { %>
+        <div
+          class="box preguntaContainer is-flex is-justify-content-space-between"
+        >
+          <div>
+            <label class="label" for="respuestaCuantitativa"
+              ><%= preguntas[i].contenido %></label
+            >
+            <p>Respuesta 1 a 5</p>
+          </div>
+
+          <div class="is-flex">
+            <a
+              class="button is-success mr-4 is-align-self-center"
+              href="preguntas/<%= preguntas[i].idPreguntaBanco %>"
+            >
+              Editar
+              <span class="icon is-small editIcon">
+                <img
+                  src="/assets/edit.svg"
+                  alt=""
+                  class="disAprovalIcon"
+                />
+              </span>
+            </a>
+            <a
+              class="button is-danger is-align-self-center"
+              href="preguntas/eliminar/<%= preguntas[i].idPreguntaBanco %>"
+            >
+              <input
+                type="hidden"
+                name="idPregunta"
+                value="<%= preguntas[i].idPreguntaBanco %>"
+              />
+              <span>Eliminar</span>
+              <span class="icon is-small">
+                <img
+                  src="/assets/disapproval.svg"
+                  alt=""
+                  class="disAprovalIcon"
+                />
+              </span>
+            </a>
+          </div>
+        </div>
+        <%} %> <% } %>
+        <a
+          class="button is-danger mt-5 mb-5 is-medium"
+          href="/editar/crearRetroalimentacion/exitosa"
+          >Crear Retroalimentacion
+        </a>
+      </section>
+    </div>
   </body>
 </html>
 
 <style>
+  ::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+    background-color: transparent;
+  }
+  .box {
+    background-color: rgb(38, 43, 43) !important;
+    border: 1px solid #181a1b !important;
+  }
+
+  .title {
+    color: #e3e1dd !important;
+  }
+
+  .label {
+    color: #e3e1dd !important;
+   
+  }
+
+  .subtitle {
+    color: #e3e1dd !important;
+  }
+
+
+  p {
+    color: #e3e1dd !important;
+  }
+
+  body {
+    background-color: #181a1b;
+    color: #e3e1dd !important;
+  }
+
+  section {
+    background-color: #181a1b;
+  }
+
+
+  .mainContainer {
+    width: 85%;
+    margin-left: 15%;
+    height: 92%;
+
+    padding-top: 4% !important;
+  }
   .preguntaContainer {
     width: 70%;
   }
-  .box {
-    border: 1px solid #dbdbdb;
+
+  .disAprovalIcon {
+    width: 1.5rem;
+    height: 1.5rem;
+    filter: invert(100%) sepia(0%) saturate(7487%) hue-rotate(85deg)
+      brightness(101%) contrast(96%);
+  }
+
+  .is-success{
+    background-color: #6A994E !important;
+    color: #e3e1dd !important ;
+  }
+
+  .is-success:hover{
+    background-color: #78b147 !important;
+  }
+
+  .is-danger{
+    background-color: #BC4749 !important;
+    
+  }
+
+  .is-danger:hover{
+    background-color: #D9534F !important;
+  }
+
+  .is-link{
+    background-color: #1F74AD !important;
+  }
+
+  .is-link:hover{
+    background-color: #258CD0 !important;
+  }
+
+  .editIcon{
+    width: 1rem !important;
+   
+    margin-left: 0.4rem !important;
+
   }
 </style>

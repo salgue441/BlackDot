@@ -3,121 +3,167 @@
 
   <body>
     <%- include('../../partials/navBar.ejs') %>
+    <%- include('../../partials/sidebarAdmin.ejs') %>
 
-    <section class="hero is-medium is-bold">
-      <div class="hero-body has-text-centered">
-        <!-- Sprint title & Button -->
-        <div class="columns">
-          <div class="column is-half is-flex">
-            <h1 class="title is-1 has-text-left">
-              Retroalimentacion #<%= idRetroalimentacion %>
-
-              <div>
-                <div class="dropdown mt-2" id="dropdown">
-                  <div class="dropdown-trigger">
-                    <button
-                      class="button is-danger"
-                      aria-haspopup="true"
-                      aria-controls="dropdown-menu3"
-                    >
-                      <span>Seleccionar Retroalimentacion </span>
-                      <span class="icon is-small">
-                        <i class="fas fa-angle-down" aria-hidden="false"></i>
-                      </span>
-                    </button>
-                  </div>
-                  <div class="dropdown-menu" id="dropdown-menu3" role="menu">
-                    <div class="dropdown-content">
-                      <% for (let i = 0; i < retros.length; i++) { %>
-                      <a
-                        href="/actual/verRespuestas/<%= retros[i].idRetroalimentacion  %>"
-                        class="dropdown-item is-center"
-                        onclick=""
+    <div class="mainContainer ">
+      <section class="hero is-medium is-bold ">
+        <div class="hero-body has-text-centered pt-0">
+          <!-- Sprint title & Button -->
+          <div class="columns">
+            <div class="column is-half is-flex">
+              <h1 class="title is-1 has-text-left">
+                Retroalimentacion #<%= idRetroalimentacion %>
+  
+                <div>
+                  <div class="dropdown mt-2" id="dropdown">
+                    <div class="dropdown-trigger">
+                      <button
+                        class="button is-danger"
+                        aria-haspopup="true"
+                        aria-controls="dropdown-menu3"
                       >
-                        Retroalimentacion <%= retros[i].idRetroalimentacion %>
-                      </a>
+                        <span>Seleccionar Retroalimentacion </span>
+                        <span class="icon is-small">
+                          <img src="../../assets/Dropdown.png" alt="a" class="dropdownImg is-align-self-center ml-2 mt-1 is-clickable"/>
+                        </span>
+                      </button>
+                    </div>
+                    <div class="dropdown-menu" id="dropdown-menu3" role="menu">
+                      <div class="dropdown-content is-paddingless">
+                        <% for (let i = 0; i < retros.length; i++) { %>
+                        <a
+                          href="/actual/verRespuestas/<%= retros[i].idRetroalimentacion  %>"
+                          class="dropdown-item is-center retroNumber"
+                          onclick=""
+                        >
+                          Retroalimentacion <%= retros[i].idRetroalimentacion %>
+                        </a>
+                        <% } %>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    class="column is-half is-flex is-justify-content-end"
+                  ></div>
+                  <small class="subtitle is-5 is-flex is-justify-content-start">
+                    <%= fechaRetroalimentacion %>
+                  </small>
+                </div>
+              </h1>
+            </div>
+          </div>
+  
+          <br />
+  
+          <!-- Showing the answers from retroalimentacion -->
+          <div class="columns">
+            <!-- Quantitative Answers -->
+            <div class="column is-half">
+              <% for (let i = 0; i < simplifiedQuantitative.length; i++) { %>
+              <div class="is-flex">
+                <div class="card custom-card">
+                  <div class="card-content">
+                    <div class="content">
+                      <h1 class="title is-4">
+                        <%= simplifiedQuantitative[i].Pregunta %>
+                      </h1>
+                      <canvas
+                        class=" graph-canvas"
+                        id="graph-<%= simplifiedQuantitative[i].idPregunta %>"
+                      ></canvas>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <% } %>
+            </div>
+            <!-- End of Quantitative Answers -->
+  
+            <!-- Qualitative Answers -->
+            <div class="column is-half">
+              <% for (let i = 0; i < simplifiedQualitative.length; i++) { %>
+              <div class="is-flex">
+                <div class="card custom-card">
+                  <div class="card-content">
+                    <div class="content">
+                      <h1 class="title is-4 has-text-left">
+                        <%= simplifiedQualitative[i].Pregunta %>
+                      </h1>
+                      <!-- Showing the ansews with a slider -->
+                      <% for (let j = 0; j <
+                      simplifiedQualitative[i].respuestas.length; j++) { %>
+                      <p class="has-text-left">
+                        <%= simplifiedQualitative[i].respuestas[j].trim() %>
+                      </p>
                       <% } %>
                     </div>
                   </div>
                 </div>
-                <div
-                  class="column is-half is-flex is-justify-content-end"
-                ></div>
-                <small class="subtitle is-5 is-flex is-justify-content-start">
-                  <%= fechaRetroalimentacion %>
-                </small>
               </div>
-            </h1>
-          </div>
-        </div>
-
-        <br />
-
-        <!-- Showing the answers from retroalimentacion -->
-        <div class="columns">
-          <!-- Quantitative Answers -->
-          <div class="column is-half">
-            <% for (let i = 0; i < simplifiedQuantitative.length; i++) { %>
-            <div class="is-flex">
-              <div class="card custom-card">
-                <div class="card-content">
-                  <div class="content">
-                    <h1 class="title is-4">
-                      <%= simplifiedQuantitative[i].Pregunta %>
-                    </h1>
-                    <canvas
-                      class="has-background-white graph-canvas"
-                      id="graph-<%= simplifiedQuantitative[i].idPregunta %>"
-                    ></canvas>
-                  </div>
-                </div>
-              </div>
+              <% } %>
             </div>
-            <% } %>
+            <!-- End of Qualitative Answers -->
           </div>
-          <!-- End of Quantitative Answers -->
-
-          <!-- Qualitative Answers -->
-          <div class="column is-half">
-            <% for (let i = 0; i < simplifiedQualitative.length; i++) { %>
-            <div class="is-flex">
-              <div class="card custom-card">
-                <div class="card-content">
-                  <div class="content">
-                    <h1 class="title is-4 has-text-left">
-                      <%= simplifiedQualitative[i].Pregunta %>
-                    </h1>
-                    <!-- Showing the ansews with a slider -->
-                    <% for (let j = 0; j <
-                    simplifiedQualitative[i].respuestas.length; j++) { %>
-                    <p class="has-text-left">
-                      <%= simplifiedQualitative[i].respuestas[j].trim() %>
-                    </p>
-                    <% } %>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <% } %>
-          </div>
-          <!-- End of Qualitative Answers -->
+          <!-- End of showing the answers from retroalimentacion -->
         </div>
-        <!-- End of showing the answers from retroalimentacion -->
-      </div>
-      <!-- End of hero -->
-    </section>
+        <!-- End of hero -->
+      </section>
+    </div>
+
+    
 
     <script src="/js/actualRetro.chart.js"></script>
   </body>
 </html>
 
 <style>
-  /* Override Bulma CSS */
+
+  ::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+    background-color: transparent;
+  }
+  .card {
+    background-color: rgb(38, 43, 43) !important;
+    border: 1px solid #181a1b !important;
+  }
+
+  .title {
+    color: #e3e1dd !important;
+  }
+
+  p {
+    color: #e3e1dd !important;
+  }
+  .subtitle {
+    color: #e3e1dd !important;
+  }
+
+  body {
+    background-color: #181a1b;
+    color: #e3e1dd !important;
+  }
+
+  section {
+    background-color: #181a1b;
+  }
+
+  .mainContainer {
+    background-color: #181a1b;
+    width: 85%;
+    margin-left: 15%;
+    padding-top: 6% !important;
+    height: 92%;
+    
+
+    padding: 0px;
+  } 
+
   .reporte-button {
     margin-left: 20px;
     width: 150px;
   }
-  /* Custom CSS */
+
   .custom-card {
     width: 100%;
     border-radius: 22px;
@@ -128,6 +174,29 @@
   }
   #dropdown-menu3 {
     width: 265px;
+  }
+
+  .is-danger{
+    background-color: #BC4749 !important;
+    
+  }
+
+  .is-danger:hover{
+    background-color: #D9534F !important;
+  }
+
+  .retroNumber{
+    color: #e3e1dd !important;
+    background-color: #181a1b !important;
+  }
+
+  .retroNumber:hover{
+    color: #e3e1dd !important;
+    background-color: #363636 !important;
+  }
+
+  .dropdownImg:hover{
+    transform: scale(1.2);
   }
 </style>
 

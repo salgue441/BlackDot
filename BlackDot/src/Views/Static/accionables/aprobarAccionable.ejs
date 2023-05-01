@@ -2,86 +2,113 @@
   <%- include('../../partials/header.ejs') %>
 
   <body>
-    <%- include('../../partials/navBar.ejs') %>
+    <%- include('../../partials/navBar.ejs') %> 
+  <%- include('../../partials/sidebarAdmin.ejs') %>
 
-    <section class="section is flex" style="margin-top: 2rem">
-      <div class="columns is-vcentered">
-        <div class="column">
-          <h1 class="title is-1">Accionables</h1>
-        </div>
-        <div class="column is-narrow">
-          <a
-            href="/historico/historicoAccionables"
-            class="button is-danger reporte-button"
-            onclick="event.preventDefault(); saveAccionables();"
-          >
-            Aprobar Accionables
-          </a>
-        </div>
+    <div class="mainContainer is-flex is-justify-content-center"> <section class="section " >
+    <div class="is-flex is-justify-content-space-between">
+      <div class="mb-6">
+        <h1 class="title is-1 ">Accionables</h1>
+        <p class="subtitle is-5 is-italic">Selecciona los accionables que quieras enviar a Jira</p>
+        
       </div>
+      <div class="mr-5"><a
+        href="/historico/historicoAccionables"
+        class="button is-danger reporte-button"
+        onclick="event.preventDefault(); saveAccionables();"
+      >
+        Aprobar Accionables
+      </a>
+  </div>
+    </div>
 
+    <section class="columns is-multiline is-3 is-variable">
       <% for (let i = 0; i < accionables.length; i++) { %>
-      <div class="card">
-        <div class="card-content">
-          <div class="columns">
-            <div class="column is-2">
-              <div class="media">
-                <div
-                  class="media-left is-flex is-flex-direction-row is-align-items-center"
-                >
-                  <figure class="image is-64x64">
-                    <img
-                      src="<%= accionables[i].profileImage %>"
-                      class="is-rounded"
-                      alt="Profile Image"
-                    />
-                  </figure>
-                  <p class="subtitle is-size-6 ml-4">User: None</p>
-                </div>
-              </div>
-            </div>
-            <div class="column is-8 is-flex">
-              <div class="media-content nombreAccionable">
-                <p class="title is-4"><%= accionables[i].nombreAccionable %></p>
-              </div>
-            </div>
-            <div class="column is-2 checkboxDiv">
-              <div class="content">
-                <!-- Toggle box -->
-                <div class="accionable-toggle is-flex justify-content-flex-end">
-                  <figure class="image is-24x24">
-                    <input
-                      type="checkbox"
-                      name="accionable"
-                      class="checkbox"
-                      onclick="handleCheckBox('<%= accionables[i].idAccionable %>')"
-                      id="checkbox-<%= accionables[i].idAccionable %>"
-                    />
-
-                    <input
-                      type="hidden"
-                      id="selected-accionables"
-                      name="accionable"
-                      class="checkbox"
-                    />
-                  </figure>
-                </div>
-                <!-- End of Toggle box -->
-              </div>
+        <div class="box column is-one-quarter mr-5 ml-5 p-5 is-flex ">
+          <div class="mb-4">
+            <p class="title is-4 mb-2">Contenido:</p>
+            <p class="is-size-5"><%= accionables[i].nombreAccionable %></p>
+            <div class="is-flex mt-4">
+              <p class="title mb-3 mr-2 is-5 mt-1">Prioridad:</p>
+              <span class="button is-warning is-small noHover is-align-self-center mb-1"></span>
             </div>
           </div>
+          <div class="column checkboxDiv is-flex is-align-items-start is-justify-content-end ml-2">
+            <!-- Toggle box -->
+            <div class="accionable-toggle">
+              <figure class="image is-24x24">
+                <input
+                  type="checkbox"
+                  name="accionable"
+                  class="checkbox"
+                  onclick="handleCheckBox('<%= accionables[i].idAccionable %>')"
+                  id="checkbox-<%= accionables[i].idAccionable %>"
+                />
+                <input type="hidden" id="selected-accionables" name="accionable" class="checkbox" />
+              </figure>
+            </div>
+            <!-- End of Toggle box -->
+          </div>
         </div>
-      </div>
-      <% if (i !== accionables.length - 1) { %>
-      <hr />
-      <% } %> <% } %>
+        
+      <% } %>
     </section>
+    
+  </div>
   </body>
+
 
   <script src="/js/accionable.front.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
   <style>
+
+  .noHover {
+    pointer-events: none;
+  }    
+
+
+p{
+color: #e3e1dd !important;
+}
+
+.button {
+  padding: 0.3rem;
+ 
+}
+
+    hr {
+      opacity: 0;
+      margin: 1rem;
+    }
+
+    ::-webkit-scrollbar {
+      width: 0;
+      height: 0;
+      background-color: transparent;
+    }
+
+    .mainContainer {
+    background-color: #181a1b;
+    width: 85%;
+    margin-left: 15%;
+    padding-left: 10% !important;
+    padding-top: 6% !important;
+    height: 200vh;
+    
+
+    padding: 0px;
+  } 
+  
+  .title {
+    color: #e3e1dd !important;
+  }
+
+  .label {
+    color: #e3e1dd !important;
+    margin-left: 4rem;
+  }
+  
     .nombreAccionable {
       display: flex !important;
       align-items: center !important;
@@ -103,9 +130,17 @@
       transform: translate(-18%, -20%);
       appearance: none;
       outline: none;
-      border: 2px solid #000;
+      border: 2px solid #e3e1dd;
       border-radius: 4px;
+      padding: 0;
     }
+
+    .box {
+    background-color: rgb(38, 43, 43) !important;
+    border: 1px solid #181a1b !important;
+    gap : 0.5rem !important;
+    }
+  
 
     .checkbox::before {
       content: "";
@@ -115,7 +150,7 @@
       transform: translate(-50%, -50%);
       height: 20px;
       width: 20px;
-      background-color: #000;
+      background-color:#e3e1dd;
       border-radius: 2px;
       opacity: 0;
       transition: opacity 0.2s ease-in-out;
@@ -124,5 +159,24 @@
     .checkbox:checked::before {
       opacity: 1;
     }
+
+    .is-warning{
+      background-color: #D4AF37 !important;
+      width: 3rem !important;
+      height: 1rem !important;
+      border-radius:22% !important; ;
+    }
+
+
+    .is-danger{
+    background-color: #BC4749 !important;
+    
+  }
+
+  .is-danger:hover{
+    background-color: #D9534F !important;
+  }
+
+    
   </style>
 </html>

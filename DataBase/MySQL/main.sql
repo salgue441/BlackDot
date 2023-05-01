@@ -115,6 +115,20 @@ create table if not exists cualitativa
         idRetroalimentacion int not null
     );
 
+<<<<<<< HEAD
+    create table if not exists Accionable
+    (
+        idAccionable int not null auto_increment primary key,
+        nombreAccionable varchar (300) null,
+        storyPoints int default 0 not null,
+        labelAccionable varchar (50),
+        prioridadAccionable enum ('Alta', 'Media-Alta', 'Media', 'Media-Baja', 'Baja') not null default 'Media',
+        estadoAccionable enum ('Aprobado', 'No aprobado') not null default 'No aprobado',
+        estadoIssue enum ('To Do', 'In Progress', 'Done') not null default 'To Do',
+        fechaCreacion timestamp not null default current_timestamp ,
+        fechaFinalizacion timestamp not null default current_timestamp
+    );
+=======
 create table if not exists accionable
 (
     idAccionable int not null auto_increment primary key,
@@ -127,6 +141,7 @@ create table if not exists accionable
     fechaCreacion datetime not null default current_timestamp ,
     fechaFinalizacion datetime not null default current_timestamp
 );
+>>>>>>> 8ec348e6362e62ca1545f7f5a64e1c497a7b1cdc
 
 -- Relaciones
 create table if not exists empleadoRol

@@ -1,0 +1,267 @@
+<html>
+  <%- include('../../partials/header.ejs') %>
+
+  <body>
+    <%- include('../../partials/navBar.ejs') %>
+    <%- include('../../partials/sidebarAdmin.ejs') %>
+
+
+   <div class="mainContainer is-flex is-flex-direction-column is-justify-content-center"> 
+    <h1 class="title is-1">Empleados</h1>
+ 
+  <div class="container is-marginless">
+    <div class="columns is-multiline">
+      <div class="column is-three-quarters">
+        <div class="columns is-multiline">
+          <% for(let i = 0; i< empleados.length; i++){ %> <%
+          if(empleados[i].idRol != 3){ %>
+          <div class="column is-one-third colEmpleado is-paddingless">
+            <div class="box boxEmpleado m-2 p-3">
+              <div
+                class="empleadoContainer is-flex is-flex-direction-column has-text-centered"
+              >
+                <div class="is-flex is-justify-content-right">
+                  <a
+                    class="delete deleteIcon"
+                    href="/editar/empleados/eliminar/<%=empleados[i].idEmpleado %>"
+                  ></a>
+                </div>
+
+                <% if(empleados[i].googleProfilePicture != null){ %>
+                <img
+                  src="<%= empleados[i].googleProfilePicture %>"
+                  alt="Profile Picture"
+                  class="image is-128x128 is-rounded profilePicture is-align-self-center mb-2"
+                />
+                <% } else { %>
+                <img
+                  src="https://i0.wp.com/ilacnet.org/wp-content/uploads/2021/01/default-1.png?ssl=1"
+                  alt="Profile Picture"
+                  class="image is-128x128 is-rounded profilePicture is-align-self-center mb-2"
+                />
+                <% } %>
+                <div class="dataContainer">
+                  <p>
+                    <%= empleados[i].primerNombre + " " +
+                    empleados[i].apellidoPaterno %>
+                  </p>
+                  <p class="mb-2"><%= empleados[i].googleEmail %></p>
+
+                  <% if(empleados[i].idRol == 1){ %>
+                  <p class="button is-warning nombreRol">
+                    <%= empleados[i].nombreRol %>
+                  </p>
+                  <% }else{ %>
+                  <p class="button is-info nombreRol">
+                    <%= empleados[i].nombreRol %>
+                  </p>
+                  <% } %>
+                </div>
+              </div>
+            </div>
+          </div>
+          <% } %> <% } %>
+        </div>
+      </div>
+
+      <div class="column is-one-quarter p-2">
+        <section class="optionsContainer">
+          <section class="box acceptEmpleado">
+            <p class="subtitle">Empleados por aceptar</p>
+
+            <a
+              class="aceptarEmpButton is-link button"
+              href="/editar/empleados/aceptar"
+            >
+              Empleados</a
+            >
+          </section>
+
+          <section class="mt-6">
+            <div class="box boxAddEmail">
+              <p class="subtitle">Gestionar roles</p>
+              <div
+                class="mt-3 is-flex is-flex-direction-column is-justify-content-space-evenly"
+              >
+                <!-- Select empleado -->
+                <p class="mb-2">Seleccionar Empleado</p>
+                <div class="select">
+                  <select class="mb-3">
+                    <!-- title -->
+                    <option>Empleado</option>
+
+                    <% for(let i = 0; i< empleados.length; i++){ %>
+                    <option>
+                      <%= empleados[i].primerNombre + " " +
+                      empleados[i].apellidoPaterno %>
+                    </option>
+                    <% } %>
+                  </select>
+                </div>
+                <!-- Select Rol -->
+                <p class="mb-3 mt-2">Seleccionar Rol</p>
+                <div class="select">
+                  <select>
+                    <option>Rol</option>
+                    <% for(let i = 0; i< roles.length; i++){ %>
+                    <option><%= roles[i].nombreRol %></option>
+                    <% } %>
+                  </select>
+                </div>
+                <button class="button is-success mt-3">
+                  Guardar Cambios
+                </button>
+              </div>
+            </div>
+          </section>
+        </section>
+      </div>
+    </div>
+  </div></div>
+  </body>
+</html>
+
+<style>
+
+  ::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+    background-color: transparent;
+  }
+  .box {
+    background-color: rgb(38, 43, 43) !important;
+    border: 1px solid #181a1b !important;
+    padding-left: 3rem;
+  }
+
+  .title {
+    color: #e3e1dd !important;
+  }
+
+  .label {
+    color: #e3e1dd !important;
+   
+  }
+
+  .subtitle {
+    color: #e3e1dd !important;
+  }
+
+
+  p {
+    color: #e3e1dd !important;
+  }
+
+
+
+  body {
+    background-color: #181a1b;
+    color: #e3e1dd !important;
+  }
+
+  section {
+    background-color: #181a1b;
+  }
+
+
+  .mainContainer {
+    width: 85%;
+
+    height: 92%;
+    padding-left: 20%;
+    padding-top: 5% !important;
+  }
+
+  body {
+    padding: 4rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+
+  .empleadoContainer {
+    width: 100%;
+  }
+
+
+
+  .profilePicture {
+    border-radius: 50%;
+  }
+  .boxEmpleado {
+    height: 300px;
+  }
+
+
+  .delete:hover {
+    background-color: hsl(348, 100%, 61%) !important;
+  }
+
+  .mainContainer {
+    width: 100%;
+    height: 200vh;
+    display: flex;
+  }
+
+  .nombreRol {
+    cursor: default !important;
+  }
+  /* Set the styles for the first child div (two-thirds width) */
+  .container .left {
+    flex: 2;
+  }
+
+  .container .right {
+    flex: 1;
+  }
+
+  .boxAddEmail {
+    height: 19rem;
+    padding: 1rem 2rem !important;
+  }
+
+  .acceptEmpleado{
+    padding: 1rem 2rem !important;
+
+  }
+
+  .plusButton {
+    width: 50px;
+    height: 50px;
+    align-self: center;
+  }
+
+  select {
+    width: 100%;
+  }
+
+  .box {
+    border: 1px solid #dbdbdb;
+  }
+
+  .is-info {
+    background-color: #3C838A !important;
+  }
+
+  .is-success{
+    background-color: #6A994E !important;
+    color: #e3e1dd !important ;
+  }
+
+  .is-success:hover{
+    background-color: #78b147 !important;
+  }
+
+  .is-link{
+    background-color: #1F74AD !important;
+  }
+
+  .is-link:hover{
+    background-color: #258CD0 !important;
+  }
+
+  .is-warning{
+    background-color: #A98A23 !important;
+  }
+</style>

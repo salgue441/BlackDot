@@ -24,83 +24,90 @@ const fetchSprintData = async () => {
 const createBarChart = (canvas, data, labels) => {
   const ctx = canvas.getContext("2d")
 
-  const colors = [
-    {
-      backgroundColor: "rgba(255, 99, 132, 0.6)",
-      borderColor: "rgba(255, 99, 132, 1)",
-    },
-    {
-      backgroundColor: "rgba(54, 162, 235, 0.6)",
-      borderColor: "rgba(54, 162, 235, 1)",
-    },
-    {
-      backgroundColor: "rgba(255, 206, 86, 0.6)",
-      borderColor: "rgba(255, 206, 86, 1)",
-    },
-    {
-      backgroundColor: "rgba(165, 199, 139, 0.6)",
-      borderColor: "rgba(165, 199, 139, 1)",
-    },
-    {
-      backgroundColor: "rgba(75, 192, 192, 0.6)",
-      borderColor: "rgba(75, 192, 192, 1)",
-    },
-    {
-      backgroundColor: "rgba(153, 102, 255, 0.6)",
-      borderColor: "rgba(153, 102, 255, 1)",
-    },
-  ]
-
-  const backgroundColors = data.map(
-    (_, index) => colors[index % colors.length].backgroundColor
-  )
-  const borderColors = data.map(
-    (_, index) => colors[index % colors.length].borderColor
-  )
-
-  return new Chart(ctx, {
-    type: "bar",
-    data: {
-      labels: labels,
-      datasets: [
-        {
-          label: "StoryPoints",
-          data: data,
-          backgroundColor: backgroundColors,
-          borderColor: borderColors,
-          borderWidth: 1,
-        },
-      ],
-    },
-    options: {
-      scales: {
-        y: {
-          ticks: {
-            beginAtZero: true,
-          },
-
-          title: {
-            display: true,
-            text: "Story Points",
-          },
-        },
-        x: {
-          title: {
-            display: true,
-            text: "Estado",
-          },
-        },
+    const colors = [
+      {
+        backgroundColor: "rgba(255, 99, 132, 1)",
+        borderColor: "rgba(255, 99, 132, 1)",
       },
-
-      plugins: {
-        legend: {
-          display: false,
-        },
+      {
+        backgroundColor: "rgba(54, 162, 235, 1)",
+        borderColor: "rgba(54, 162, 235, 1)",
       },
-    },
-  })
-}
+      {
+        backgroundColor: "rgba(255, 206, 86, 1)",
+        borderColor: "rgba(255, 206, 86, 1)",
+      },
+      {
+        backgroundColor: "rgba(165, 199, 139, 1)",
+        borderColor: "rgba(165, 199, 139, 1)",
+      },
+      {
+        backgroundColor: "rgba(75, 192, 192, 1)",
+        borderColor: "rgba(75, 192, 192, 1)",
+      },
+      {
+        backgroundColor: "rgba(153, 102, 255, 1)",
+        borderColor: "rgba(153, 102, 255, 1)",
+      },
+    ]
+  
+    const backgroundColors = data.map(
+      (_, index) => colors[index % colors.length].backgroundColor
+    )
+    const borderColors = data.map(
+      (_, index) => colors[index % colors.length].borderColor
+    )
 
+    return new Chart(ctx, {
+      type: "bar",
+      data: {
+        labels: labels,
+        datasets: [
+          {
+            label: "StoryPoints",
+            data: data,
+            backgroundColor: backgroundColors,
+            borderColor: borderColors,
+            borderWidth: 1,
+          },
+        ],
+      },
+      options: {
+        scales: {
+          x: {
+            title: {
+              color: 'white'
+            },
+            ticks: {
+              color: 'white'
+            },
+            grid: {
+              color: 'rgba(227, 225, 221, 1)'
+            }
+          },
+          y: {
+            title: {
+              color: 'white'
+            },
+            ticks: {
+              beginAtZero: true,
+              color: 'white'
+            },
+            grid: {
+              color: 'rgba(227, 225, 221, 1)'
+            }
+          }
+        },
+        plugins: {
+          legend: {
+            display: false
+          }
+        }
+      }
+  
+    })
+  }
+  
   /**
    * @brief
    * Renders the graph. This function is called when the page is loaded

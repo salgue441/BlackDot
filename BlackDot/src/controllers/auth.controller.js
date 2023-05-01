@@ -105,10 +105,16 @@ const refreshTokenAPI = async (req, res, next) => {
 const registrarEmpleado = async (req, res) => {
   const { refreshToken } = req.body
   const verified = authUtils.verifyToken(refreshToken, "refresh")
+<<<<<<< HEAD:BlackDot/src/Controllers/auth.controller.js
+  
+  const nombre = verified.primerNombre.split(" ")
+  const apellido = verified.apellidoPaterno.split(" ")
+=======
 
   // If name has more than one word, split it
   const name = verified.primerNombre ? verified.primerNombre.split(" ") : []
   const lastName = verified.apellidoPaterno ? verified.apellidoPaterno.split(" ") : []
+>>>>>>> 8ec348e6362e62ca1545f7f5a64e1c497a7b1cdc:BlackDot/src/controllers/auth.controller.js
 
   const userData = {
     primerNombre: name[0],
@@ -122,6 +128,7 @@ const registrarEmpleado = async (req, res) => {
 
   try {
     const validacion = await Empleado.verifyByEmail(userData.googleEmail)
+    console.log("validacion: ", validacion)
 
     if (!validacion) {
       const nuevoEmpleado = new Empleado(userData)

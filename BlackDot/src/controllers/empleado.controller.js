@@ -111,7 +111,7 @@ exports.getEditarUsuario = async (req, res) => {
     const empleados = await EmpleadoRol.getAllWithRoles()
     const roles = await Rol.getAll()
 
-    res.render(path.join(__dirname, "../Views/Static/editar/correo.ejs"), {
+    res.render(path.join(__dirname, "../Views/Static/editar/editarUsuario.ejs"), {
       empleados,
       roles,
     })

@@ -1,100 +1,175 @@
-<nav
-  class="navbar is-fixed-top is-fullwidth is-flex"
-  role="navigation"
-  aria-label="main navigation"
->
-  <div class="navbar-brand">
-    <!-- Hamburger icon -->
-    <a
-      role="button"
-      class="navbar-burger burger"
-      aria-label="menu"
-      aria-expanded="false"
-      data-target="sidebar-data"
-      onclick="toggleSidebar(event)"
-    >
-      <span aria-hidden="true"></span>
-      <span aria-hidden="true"></span>
-      <span aria-hidden="true"></span>
+<nav class="navbar is-fixed-top is-fullwidth is-flex is-align-content-center p-4"
+role="navigation"
+aria-label="main navigation">
+
+
+
+  
+  <div class="navbar-start blackDot">
+    
+      <img src="../../assets/Blackdot_Blanco.png">
+        <p class="is-align-self-center is-size-4">BlackD.t</p>
+    </div>
+
+    
+  <div class="navbar-item-center logoZebrands "><img src="../../assets/$zebrands-brand-logo.svg"
+    alt=""
+    class="logo is-align-self-center" />
+  
+
+  </div>
+
+  <div class="navbar-item has-dropdown  navbar-end  " id="profileInfo">
+    <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png" alt="" class=" profilePicture
+     is-align-self-center  mt-1" />
+
+    <a class="is-align-self-center ml-3 is-size-5 noHover">
+      Juan Perez
     </a>
-  </div>
 
-  <!-- Logo -->
-  <div class="navbar-item-center">
-    <div class="navbar-item">
-      <a href="/home">
-        <img
-          src="../../assets/$zebrands-brand-logo.svg"
-          alt="Zebrands"
-          class="logo"
-        />
+    <div class="navbar-dropdown dropLogOut is-right pl-4 pr-4">
+      <a class="navbar-item dropdownItem has-text-centered pl-2  logOut" onclick="logOut()" id="logOut">
+        Cerrar Sesion
       </a>
+     
     </div>
+
+    <img src="../../assets/Dropdown.png" alt="a" class="dropdownImg is-align-self-center ml-2 mt-1 is-clickable"/>
+  </div>
   </div>
 
-  <div class="navbar-end">
-    <div class="navbar-item is-hidden-touch">
-      <img src="" alt="User Profile" class="is-rounded profile-img" />
-    </div>
-  </div>
+
+
+</div>
+
+
+
 </nav>
-
-<!-- Sidebar -->
-<%- include('./sideBarAdmin.ejs') %>
 
 <!-- Styles -->
 <style>
-  /* Custom Styles */
-  .navbar-item-center {
-    position: absolute;
-    left: 50%;
-    top: 10%;
-    transform: translateX(-50%);
-  }
-  .profile-img {
-    width: 40px;
-    height: 40px;
-    border: 1px solid #e4e5e3;
-    border-radius: 50%;
-    margin-right: 10px;
+  a {
+    color: #e3e1dd !important;
   }
 
-  .logo svg {
-    width: 100px;
-    height: 100px;
+  p{
+    color: #e3e1dd !important;
+  }
+
+  
+  .profilePicture {
+    
+    border: 1px solid #e4e5e3;
+    border-radius: 50%;
+  }
+
+  .logo{
+    width: 60px;
+    height: 60px;
+  }
+
+  .logoZebrands {
+    transform: scale(2.5) !important;
+    height: 60px !important;
+    filter: invert(1);
+    z-index: 10 !important ;
   }
 
   /* Bulma Css */
   .navbar {
-    background-color: #e4e5e3;
-    height: 60px;
+    background-color: #272b2c;
+
+    height: 8%;
+    border-bottom: 1px solid #444444;
+    box-shadow: 0px 1px 1px #444444;
+    z-index: 10;
+    padding-left: 5rem !important;
+    padding-right: 5rem !important;
   }
-  @media screen and (max-width: 1023px) {
-    .navbar-end {
-      justify-content: flex-end;
-      margin-right: 10px;
-    }
-    .navbar-item.is-hidden-touch {
-      display: block;
-    }
+
+  .navbar-dropdown {
+    width: 5px !important;
+    min-width: 8rem !important;
+    border-bottom: 1px solid #444444;
+    background-color: #272b2c;
+    border: none !important;
+   
   }
-  @media screen and (min-width: 1024px) {
-    .navbar-burger {
-      display: block !important;
-    }
-    .menu.is-hidden-touch {
-      display: none;
-    }
+
+  #profileInfo{
+    width: 10rem !important;
   }
+
+  #profileInfo:hover {
+  background-color: inherit !important;
+  color: inherit !important;  
+}
+
+
+
+  .dropLogOut {
+    width: 2rem !important;
+    
+  }
+
+  #logOut:hover{
+    background-color: #782B2D !important;
+    color: #e3e1dd !important;
+  }
+
+
+
+  .dropdownItem{
+    background-color: #d44143 !important;
+
+height: 8%;
+border-bottom: 1px solid #444444;
+box-shadow: 0px 1px 1px #444444;
+color: #e3e1dd !important;
+width: 100% !important;
+  }
+
+
+  
+
+  .dropdownImg{
+    width: 1rem;
+    height: 0.5rem;
+    z-index: 15;
+    
+  }
+
+  .dropdownImg:hover{
+    transform: scale(1.2);
+  }
+
+  .noHover{
+    pointer-events: none;
+  }
+
+
 </style>
 
-<!-- Hamburger icon functionality -->
 <script>
-  // When the hamburger icon is clicked, the sidebar opens
-  const toggleSidebar = (event) => {
-    var target = document.getElementById(event.target.dataset.target)
-    event.target.classList.toggle("is-active")
-    target.classList.toggle("is-active")
-    target.classList.toggle("is-hidden-touch")
-  }
+
+  const dropDownButton = document.querySelector('.dropdownImg');
+  const dropItem = document.querySelector('#profileInfo');
+
+  dropDownButton.addEventListener('click', function(event) {
+    event.stopPropagation();
+    dropItem.classList.toggle('is-active');
+  });
+
+  document.addEventListener('click', function(event) {
+    if (!dropItem.contains(event.target)) {
+      dropItem.classList.remove('is-active');
+    }
+  });
+
+logOut = () => {
+  deleteTokens()
+  window.location.href = "/auth"
+}
+
 </script>
+

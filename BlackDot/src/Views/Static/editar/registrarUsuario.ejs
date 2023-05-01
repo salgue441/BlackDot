@@ -2,88 +2,179 @@
   <%- include('../../partials/header.ejs') %>
 
   <body>
-    <%- include('../../partials/navBar.ejs') %>
+    <%- include('../../partials/navBar.ejs') %> <%-
+    include('../../partials/sidebarAdmin.ejs') %>
 
-    <section class="hero is-medium is-bold">
-      <div class="hero-body has-text-centered">
-        <!--Title-->
-        <section class="has-text-left mb-5">
-          <h1 class="title is-1 mb-5">Aceptar Empleados</h1>
-          <a class="button is-link" href="/editar/empleados"
-            >Lista de empleados</a
-          >
-          <% if(empleadoSinRol.length == 0){ %>
-
-          <h1 class="title is-1 mt-5">No hay empleados por aceptar</h1>
-          <% }else{%>
-        </section>
-
-        <!-- Employees -->
-
-        <section class="columns is-multiline">
-          <% for(let i = 0; i < empleadoSinRol.length; i++){ %>
-          <div class="column is-one-quarter">
-            <div
-              class="box is-flex is-flex-direction-column is-justify-content-center"
+    <div class="mainContainer">
+      <section class="hero is-medium is-bold">
+        <div class="hero-body has-text-centered">
+          <!--Title-->
+          <section class="has-text-left mb-5">
+            <h1 class="title is-1 mb-5">Aceptar Empleados</h1>
+            <a class="button is-link" href="/editar/empleados"
+              >Lista de empleados</a
             >
-              <div class="is-flex is-justify-content-center">
-                <img
-                  src="<%= empleadoSinRol[i].googleProfilePicture %>"
-                  alt="Profile Picture"
-                  class="image is-128x128 is-rounded"
-                />
-              </div>
-              <p><%= empleadoSinRol[i].primerNombre %></p>
-              <p><%= empleadoSinRol[i].googleEmail %></p>
-              <div class="optionsContainer is-2">
-                <!-- buttons for accept or reject -->
-                <form
-                  action="/editar/empleados/aceptar"
-                  method="POST"
-                  class="is-inline-block"
-                >
-                  <input
-                    type="hidden"
-                    name="idEmpleado"
-                    value="<%= empleadoSinRol[i].idEmpleado %>"
+            <% if(empleadoSinRol.length == 0){ %>
+
+            <h1 class="title is-1 mt-5">No hay empleados por aceptar</h1>
+            <% }else{%>
+          </section>
+
+          <!-- Employees -->
+
+          <section class="columns is-multiline">
+            <% for(let i = 0; i < empleadoSinRol.length; i++){ %>
+            <div class="column is-one-quarter">
+              <div
+                class="box is-flex is-flex-direction-column is-justify-content-center"
+              >
+                <div class="is-flex is-justify-content-center">
+                  <img
+                    src="<%= empleadoSinRol[i].googleProfilePicture %>"
+                    alt="Profile Picture"
+                    class="image is-128x128 is-rounded profilePicture"
                   />
-                  <button class="button is-success ml-1" type="submit">
-                    <span class="icon is-small">
-                      <i class="fas fa-check"></i>
-                    </span>
-                  </button>
-                </form>
-                <form
-                  action="/editar/empleados/rechazar"
-                  method="POST"
-                  class="is-inline-block"
-                >
-                  <input
-                    type="hidden"
-                    name="idEmpleado"
-                    value="<%= empleadoSinRol[i].idEmpleado %>"
-                  />
-                  <button class="button is-danger ml-1" type="submit">
-                    <span class="icon is-small">
-                      <i class="fas fa-times"></i>
-                    </span>
-                  </button>
-                </form>
+                </div>
+                <p><%= empleadoSinRol[i].primerNombre %></p>
+                <p><%= empleadoSinRol[i].googleEmail %></p>
+                <div class="optionsContainer is-2">
+                  <!-- buttons for accept or reject -->
+                  <form
+                    action="/editar/empleados/aceptar"
+                    method="POST"
+                    class="is-inline-block"
+                  >
+                    <input
+                      type="hidden"
+                      name="idEmpleado"
+                      value="<%= empleadoSinRol[i].idEmpleado %>"
+                    />
+
+                    <button class="button is-success ml-1" type="submit">
+                      <span class="icon is-small">
+                        <img src="/assets/approval.svg" alt=""
+                        class="aprovalIcon" " />
+                      </span>
+                    </button>
+                  </form>
+                  <form
+                    action="/editar/empleados/rechazar"
+                    method="POST"
+                    class="is-inline-block"
+                  >
+                    <input
+                      type="hidden"
+                      name="idEmpleado"
+                      value="<%= empleadoSinRol[i].idEmpleado %>"
+                    />
+                    <button class="button is-danger ml-1" type="submit">
+                      <span class="icon is-small">
+                        <img
+                          src="/assets/disapproval.svg"
+                          alt=""
+                          class="disAprovalIcon"
+                        />
+                      </span>
+                    </button>
+                  </form>
+                </div>
               </div>
             </div>
-          </div>
-          <% } } %>
-        </section>
-      </div>
-    </section>
+            <% } } %>
+          </section>
+        </div>
+      </section>
+    </div>
   </body>
 </html>
 
 <style>
+   ::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+    background-color: transparent;
+  }
+
+
+  .mainContainer {
+    width: 85%;
+
+    height: 92%;
+    margin-left: 20%;
+   
+  }
+  .title {
+    color: #e3e1dd !important;
+  }
+
+  .label {
+    color: #e3e1dd !important;
+   
+  }
+
+  .subtitle {
+    color: #e3e1dd !important;
+  }
+
+
+  p {
+    color: #e3e1dd !important;
+  }
+
   .box {
     gap: 0.5rem;
     height: 20rem;
 
-    border: 1px solid #dbdbdb;
+
+    background-color: rgb(38, 43, 43) !important;
+    border: 1px solid #181a1b !important;
+  }
+
+  body {
+    background-color: #181a1b;
+    color: #e3e1dd !important;
+  }
+
+  .profilePicture {
+    border-radius: 50%;
+  }
+
+  .aprovalIcon {
+    width: 1.5rem;
+    height: 1.5rem;
+    filter: invert(100%);
+  }
+
+  .aprovalIcon:hover {
+    transform: scale(1.2);
+  }
+
+  .disAprovalIcon {
+    width: 1.5rem;
+    height: 1.5rem;
+    filter: invert(100%) sepia(0%) saturate(7487%) hue-rotate(85deg)
+      brightness(101%) contrast(96%);
+  }
+
+  .disAprovalIcon:hover {
+    transform: scale(1.2);
+  }
+
+  .is-success{
+    background-color: #6A994E !important;
+    color: #e3e1dd !important ;
+  }
+
+  .is-success:hover{
+    background-color: #78b147 !important;
+  }
+
+  .is-danger{
+    background-color: #BC4749 !important;
+    
+  }
+
+  .is-danger:hover{
+    background-color: #D9534F !important;
   }
 </style>

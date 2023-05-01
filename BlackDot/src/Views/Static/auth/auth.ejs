@@ -2,87 +2,89 @@
 <html>
   <%- include('../../partials/header.ejs') %>
 
-    <div class="columns">
-      <!-- Hero -->
-      <div class="column is-three-quarters">
-        <section class="hero is-fullheight is-bold">
-          <div class="hero-body has-text-centered">
-            <div class="container">
-              <h1 class="title is-1">'ZËBRªNDS RETROSPECTIVA'</h1>
-            </div>
-          </div>
-        </section>
-      </div>
-      <div class="column is-vcentered">
-        <section>
-          <div class="container1">
-            <a href="/auth/google" class="btn btn-danger"
-              ><span class="fa fa-google"></span>
-              <div
-                id="g_id_onload"
-                data-client_id="549053021714-vunpaljl9nn3t0qpogjeq3m6o40v8h36.apps.googleusercontent.com"
-                data-context="signin"
-                data-ux_mode="popup"
-                data-callback="handleCredentialResponse"
-                data-auto_prompt="false"
-              ></div>
+    <body class="is-flex is-justify-content-center is-align-items-center  is-flex-direction-column">
 
-              <div
-                class="g_id_signin"
-                data-type="standard"
-                data-shape="pill"
-                data-theme="filled_black"
-                data-text="signin_with"
-                data-size="large"
-                data-logo_alignment="left"
-                data-width="200"
-              ></div>
-            </a>
-          </div>
-        </section>
+      <div class="title Titulo">ZËBRANDS RETROSPECTIVA</div>
+      
+
+      <div class="container box is-flex is-justify-content-center is-flex-direction-column has-text-centered ">
+
+        <p class="title is-1 mb-5">Sign In</p>
+
+        <a href="/auth/google" class="is-align-self-center  mt-5 btn"
+    ><span class="fa fa-google"></span>
+    <div
+      id="g_id_onload"
+      data-client_id="549053021714-vunpaljl9nn3t0qpogjeq3m6o40v8h36.apps.googleusercontent.com"
+      data-context="signin"
+      data-ux_mode="popup"
+      data-callback="handleCredentialResponse"
+      data-auto_prompt="false"
+    ></div>
+
+    <div
+      class="g_id_signin"
+      data-type="standard"
+      data-shape="pill"
+      data-theme="filled_black"
+      data-text="signin_with"
+      data-size="huge" 
+      data-logo_alignment="left"
+      data-width="200"
+      data-height="500"
+    ></div>
+</a>
+
+
       </div>
-    </div>
-  </body>
+      <div class="team has-text-centered is-flex is-justify-content-center is-align-items-center"><img src="../../assets/Blackdot_Blanco.png" class="blackdotImg">
+        <p class="is-vcentered is-fixed-bottom">BlackD.t</p></div>
+    </body>
+
 </html>
 
 <!-- Styles -->
 <style>
-  /* Overriding Bulma CSS */
-  .hero {
-    background: url("../../assets/hero.png") no-repeat center center fixed;
-    background-size: cover;
-
-    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
-      url("../../assets/hero.png") no-repeat center center fixed;
+  ::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+    background-color: transparent;
   }
+
+
+  body{
+    background: rgb(24,26,27);
+background: linear-gradient(264deg, rgba(24,26,27,1) 17%, rgba(39,43,44,1) 67%);
+  }
+
+p{
+  color: #eae8e5 !important;  
+}
+
+.Titulo{
+  margin-top: 8%;
+  margin-bottom: 4% !important;
+
+  font-size: 5vh !important;
+  color: #eae8e5;
+}
 
   .container {
-    width: 100%;
+    max-width: 30% !important;
+    width: 25% !important;
+    height: 40% !important;
+    background-color: rgba(54, 56, 56, 0.9);
+    box-shadow: 0px 0px 10px 0px rgba(120, 119, 119, 0.75);
   }
 
-  .container1 {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    height: 100vh;
+  .blackdotImg{
+    width: 2% !important;
+
   }
 
-  .title {
-    color: #e0e0e0;
-    font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
-      "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  .team{
+    margin-bottom: 4% !important;
   }
+  
 
-  .is-1 {
-    font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
-      "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
-    font-size: 4.8893rem !important;
-  }
-
-  @media screen and (max-width: 768px) {
-    .is-1 {
-      font-size: 2.5rem !important;
-    }
-  }
 </style>
