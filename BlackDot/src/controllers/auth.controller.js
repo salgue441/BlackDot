@@ -17,6 +17,7 @@ const authUtils = require('../utils/auth')
 // Models
 const Empleado = require('../models/empleado.model');
 const EmpleadoRol = require('../models/empleadoRol.model');
+const Rol = require('../models/rol.model')
 
 // Functions
 /**
@@ -78,6 +79,8 @@ const loginAPI = async (req, res, next) => {
 
     // Getting the role of the user
     const userRole = await EmpleadoRol.getByIDE(user.idEmpleado)
+    const roleName = await Rol.getByID(userRole.idRol)
+
     const userData = {
       primerNombre: data.given_name,
       apellidoPaterno: data.family_name,
@@ -85,6 +88,7 @@ const loginAPI = async (req, res, next) => {
       idGoogleAuth: data.sub,
       googleProfilePicture: data.picture,
       idRole: userRole.idRol,
+      roleName: roleName.nombreRol,
     }
 
     // session
@@ -134,6 +138,8 @@ const refreshTokenAPI = async (req, res, next) => {
 
     // User role data & session data
     const userRole = await EmpleadoRol.getByIDE(user.idEmpleado)
+    const roleName = await Rol.getByID(userRole.idRol)
+
     const userData = {
       primerNombre: verified.primerNombre,
       apellidoPaterno: verified.apellidoPaterno,
@@ -141,6 +147,7 @@ const refreshTokenAPI = async (req, res, next) => {
       idGoogleAuth: verified.idGoogleAuth,
       googleProfilePicture: verified.googleProfilePicture,
       idRole: userRole.idRol,
+      roleName: roleName.nombreRol,
     }
 
     // Refreshing the tokens

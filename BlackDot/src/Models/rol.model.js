@@ -34,13 +34,15 @@ module.exports = class Rol {
    * @returns {object} - Objeto de tipo Rol
    */
   static async getByID(idRol) {
-    if (!idRol) throw new Error("No se ha proporcionado un ID")
+    try {
+      const query = `select * from rol where idRol = ?`
+      const [rol, _] = await dataBase.query(query, [idRol])
 
-    const [rol] = await dataBase.query("select * from rol where idRol = ?", [
-      idRol,
-    ])
-
-    return new Rol(rol)
+      return new Rol(rol[0])
+    } catch (error) {
+      console.log(error)
+      throw new Error("Error al obtener el rol")
+    }
   }
 
   /**

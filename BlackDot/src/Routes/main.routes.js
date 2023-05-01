@@ -1,6 +1,12 @@
-/** @type {*}
- * oli
- *
+/**
+ * @file main.routes.js
+ * @brief Main routes. Renders the landing page and handles the landing API
+ * endpoint. Renders the error page and handles the error API endpoint.
+ * @author Olimpia Garcia
+ * @version 1.0
+ * @date 2023-04-20
+ * 
+ * @copyright Copyright 2023 (c) - MIT License
  */
 
 const express = require("express")
