@@ -1,3 +1,13 @@
+/**
+ * @file auth.controller.js
+ * @brief Authentication controller. Renders the login page and handles the
+ * login API endpoint.
+ * @author Carlos Salguero
+ * @version 1.0
+ * @date 2023-05-01 
+ * 
+ * @copyright Copyright 2023 (c) - MIT License
+ */
 const path = require('path');
 const bycript = require('bcryptjs');
 
@@ -66,12 +76,15 @@ const loginAPI = async (req, res, next) => {
       await newEmployeeRole.save()
     }
 
+    // Getting the role of the user
+    const userRole = await EmpleadoRol.getByIDE(user.idEmpleado)
     const userData = {
       primerNombre: data.given_name,
       apellidoPaterno: data.family_name,
       googleEmail: data.email,
       idGoogleAuth: data.sub,
       googleProfilePicture: data.picture,
+      idRole: userRole.idRol,
     }
 
     // session
@@ -119,13 +132,15 @@ const refreshTokenAPI = async (req, res, next) => {
       })
     }
 
-    // User data
+    // User role data & session data
+    const userRole = await EmpleadoRol.getByIDE(user.idEmpleado)
     const userData = {
       primerNombre: verified.primerNombre,
       apellidoPaterno: verified.apellidoPaterno,
       googleEmail: verified.googleEmail,
       idGoogleAuth: verified.idGoogleAuth,
       googleProfilePicture: verified.googleProfilePicture,
+      idRole: userRole.idRol,
     }
 
     // Refreshing the tokens

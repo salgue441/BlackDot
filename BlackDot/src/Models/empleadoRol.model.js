@@ -47,14 +47,21 @@ module.exports = class EmpleadoRol {
    * @returns {object} - Objeto de tipo EmpleadoRol
    */
   static async getByIDE(idEmpleado) {
-    if (!idEmpleado) throw new Error("No se ha proporcionado un ID de empleado")
+    try {
+      if (!idEmpleado)
+        throw new Error("No se ha proporcionado un ID de empleado")
 
-    const [empleado] = await dataBase.query(
-      "select * from empleadoRol where idEmpleado = ?",
-      [idEmpleado]
-    )
+      const query = `select * from empleadoRol where idEmpleado = ?`
+      const [rows] = await dataBase.execute(query, [idEmpleado])
 
-    return new EmpleadoRol(empleado)
+      if (rows.length === 0) throw new Error("Empleado no encontrado")
+
+      return new EmpleadoRol(rows[0])
+    }
+    catch (error) {
+      console.log(error)
+      throw new Error("No se ha proporcionado un ID de empleado")
+    }
   }
 
   /**
