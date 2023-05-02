@@ -1,3 +1,11 @@
+/**
+ * @file report.controller.js
+ * @brief Controller for report page
+ * @author Yuna Chung
+ * @version 1.0
+ * @date 2023-04-27
+ */
+
 const pdf = require("html-pdf");
 const express = require("express");
 const ejs = require("ejs");
