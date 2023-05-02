@@ -53,7 +53,7 @@ const generateReport = async (canvasID, pageTitle) => {
     const response = await fetch("/report/admin/generate", options);
     const result = await response.json();
 
-    generatePDF(result);
+    await generatePDF(result.pdfData, pageTitle);
   } catch (error) {
     console.log(error);
   }
@@ -64,17 +64,18 @@ const generateReport = async (canvasID, pageTitle) => {
  * Generates the PDF when the button is clicked.
  * @param {String} pdfData - The data of the PDF
  */
-const generatePDF = async (pdfData) => {
-  const blob = new Blob([pdfData], { type: "application/pdf" });
-  const url = URL.createObjectURL(blob);
+const generatePDF = async (pdfData, title) => {
+  console.log(pdfData);
+  const blobl = new Blob([pdfData], { type: "application/pdf" });
+  const url = URL.createObjectURL(blobl);
 
   const link = document.createElement("a");
+
   link.href = url;
-  link.download = "report.pdf";
+  link.download = `${title}.pdf`;
 
   document.body.appendChild(link);
   link.click();
 
   document.body.removeChild(link);
-  URL.revokeObjectURL(url);
 };

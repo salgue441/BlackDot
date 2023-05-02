@@ -49,6 +49,15 @@ const generateTemplate = async (req, res) => {
   });
 };
 
+const downloadTemplate = async (req, res) => {
+  const pdfData = req.body.pdfData;
+
+  res.setHeader("Content-Type", "application/pdf");
+  res.setHeader('Content-Disposition', 'attachment; filename=report.pdf');
+  res.send(pdfData);
+}
+
 module.exports = {
   generateTemplate,
+  downloadTemplate,
 };
