@@ -5,7 +5,6 @@ const path = require("path");
 
 const generateTemplate = async (req, res) => {
   const { graphImage } = req.body;
-  console.log(graphImage)
 
   // Generate the PDF
   const template = await ejs.renderFile(
@@ -13,7 +12,7 @@ const generateTemplate = async (req, res) => {
     {
       title: "Report",
       graphImage: graphImage,
-      logoImage: "/assets/404.jpg",
+      logoImage: "https://i.imgur.com/2y0nZ3U.png",
       pageNumber: 1,
       totalPages: 1,
     }
