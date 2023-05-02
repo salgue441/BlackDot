@@ -5,6 +5,8 @@
     <%- include('../../partials/navBar.ejs') %><%-
     include('../../partials/sideBarAdmin.ejs') %>
 
+    <% if(locals.currentUser.roleName === 'Administrador'){ %>
+
     <div class="mainContainer">
       <section class="section is-medium is-bold pb-6">
         <div class="has-text-centered">
@@ -57,6 +59,11 @@
         </div>
       </div>
     </div>
+    <% }else{ %>
+    <%- include('../../partials/invalidRol.ejs') %>
+    
+  <% } %>
+
   </body>
 </html>
 
@@ -76,6 +83,11 @@
   hr {
     opacity: 0;
     margin: 1rem;
+  }
+
+  body {
+    background-color: #181a1b !important;
+   
   }
 
   ::-webkit-scrollbar {
