@@ -1,104 +1,47 @@
-/**
- * @file report.controller.js
- * @brief Controller for report page
- * @author Yuna Chung
- * @version 1.0
- * @date 2023-04-27
- */
+const ejs = require("ejs");
+const fs = require("fs");
+const pdf = require("html-pdf");
+const path = require("path");
 
- const pdf = require("html-pdf");
- const express = require("express");
- const ejs = require("ejs");
- const path = require("path");
- const { response } = require("express");
- const fs = require("fs");
- 
- const router = express.Router();
- 
- const generateTemplate = (req, res) => {
-   const { graphImage } = req.body;
- 
-   const data = {
-     title: "Desempenio Sprint Actual",
-     graphImage: graphImage,
-     pageNumber: 1,
-     totalPages: 1,
-   };
- 
-   const templatePath = path.join(
-     __dirname,
-     "../views/static/reports/template.ejs"
-   );
- 
-   ejs.renderFile(templatePath, data, (err, html) => {
-     if (err) {
-       console.log(err);
-       res.status(500).send("An error occurred");
-     } else {
-       const options = { format: "Letter" };
- 
-       pdf.create(html, options).toBuffer((err, buffer) => {
-         if (err) {
-           console.log(err);
-           res.status(500).send("An error occurred");
-         } else {
-           res.setHeader("Content-type", "application/pdf");
-           res.setHeader(
-             "Content-Disposition",
-             "attachment; filename=report.pdf"
-           );
- 
-           res.send(buffer);
-         }
-       });
-     }
-   });
- };
- 
- const generatePDF = (req, res) => {
-   const { graphImage } = req.body;
- 
-   const data = {
-     title: "Desempenio Sprint Actual",
-     graphImage: graphImage,
-     pageNumber: 1,
-     totalPages: 1,
-   };
- 
-   ejs.renderFile(
-     path.join(__dirname, "../views/static/reports/template.ejs"),
-     data,
-     (err, html) => {
-       if (err) {
-         console.log(err);
-         res.status(500).send("An error occurred");
-       } else {
-         const options = { format: "Letter" };
- 
-         pdf.create(html, options).toFile("report.pdf", (err, result) => {
-           if (err) {
-             console.log(err);
-             res.status(500).send("An error occurred");
-           } else {
-             console.log(result);
-             const filePath = result.filename;
-             const fileStream = fs.createReadStream(filePath);
- 
-             res.setHeader("Content-type", "application/pdf");
-             res.setHeader(
-               "Content-Disposition",
-               "attachment; filename=report.pdf"
-             );
- 
-             fileStream.pipe(res);
-           }
-         });
-       }
-     }
-   );
- };
- 
- module.exports = {
-   generateTemplate,
-   generatePDF,
- };
+const generateTemplate = async (req, res) => {
+  const { graphImage } = req.body;
+  console.log(graphImage)
+
+  // Generate the PDF
+  const template = await ejs.renderFile(
+    path.join(__dirname, "../views/static/reports/template.ejs"),
+    {
+      title: "Yuna estuvo aqui",
+      graphImage: graphImage,
+      pageNumber: 1,
+      totalPages: 1,
+    }
+  );
+
+  const options = {
+    height: "11.25in",
+    width: "8.5in",
+    header: {
+      height: "20mm",
+    },
+    footer: {
+      height: "20mm",
+    },
+  };
+
+  pdf.create(template, options).toFile("report.pdf", (error, data) => {
+    if (error) {
+      console.log(error)
+      return res.status(500).json({
+        message: "Error generating the PDF",
+      })
+    }
+
+    console.log(data);
+    // fs.unlinkSync("./report.pdf");
+  });
+};
+
+module.exports = {
+  generateTemplate,
+};
