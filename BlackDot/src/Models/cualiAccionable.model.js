@@ -35,7 +35,7 @@ module.exports = class CualitativaAccionable {
       throw new Error("No se ha proporcionado un ID del Accionable")
 
     const [accionable] = await dataBase.query(
-      "SELECT * FROM CualitativaAccionable WHERE idAccionable = ?",
+      "SELECT * FROM cualitativaAccionable WHERE idAccionable = ?",
       [idAccionable]
     )
 
@@ -54,7 +54,7 @@ module.exports = class CualitativaAccionable {
       throw new Error("No se ha proporcionado un ID de la cualitativa")
 
     const [cualitativa] = await dataBase.query(
-      "SELECT * FROM CualitativaAccionable WHERE idCualitativa = ?",
+      "SELECT * FROM cualitativaAccionable WHERE idCualitativa = ?",
       [idCualitativa]
     )
 
@@ -68,7 +68,7 @@ module.exports = class CualitativaAccionable {
    **/
 
   static async getAll() {
-    const [result, _] = await dataBase.query("select * from CualitativaAccionable")
+    const [result, _] = await dataBase.query("select * from cualitativaAccionable")
 
     return result
   }
@@ -80,7 +80,7 @@ module.exports = class CualitativaAccionable {
    * */
 
   async save() {
-    const query = `INSERT INTO CualitativaAccionable (idCualitativa, idAccionable) VALUES (?, ?)`
+    const query = `INSERT INTO cualitativaAccionable (idCualitativa, idAccionable) VALUES (?, ?)`
     await dataBase.execute(query, [this.idCualitativa, this.idAccionable])
   }
 }

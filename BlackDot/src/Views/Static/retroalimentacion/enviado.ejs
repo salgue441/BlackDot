@@ -2,20 +2,74 @@
   <%- include('../../partials/header.ejs') %>
 
   <body>
-    <%- include('../../partials/navBar.ejs') %>
+    <%- include('../../partials/navBar.ejs') %> <%-
+    include('../../partials/sideBarAdmin.ejs') %>
 
-    <section class="hero is-hero mt-6 is-flex is-flex-direction-column">
-      <section class="container mt-6">
-        <h1 class="title is-1 has-text-centered">¡Gracias por tu respuesta!</h1>
-        <a class="button is-primary is-medium is-center" href="/home"
-          >Ir al Menu</a
-        >
+    
+
+    <div class="mainContainer">
+      <section class="hero is-hero mt-6 is-flex is-flex-direction-column">
+        <section class="container mt-6">
+          <h1 class="title is-1 has-text-centered">
+            ¡Gracias por tu respuesta!
+          </h1>
+          <a class="button is-link is-medium is-center" href="/home"
+            >Ir al Menu</a
+          >
+          <% if(locals.currentUser.roleName === 'Administrador'){ %>
+          <a
+            class="button is-link is-medium is-center mt-5"
+            href="/actual/verRespuestas"
+            >Ver Respuestas</a
+          >
+          <% } %>
+        </section>
       </section>
-    </section>
+    </div>
   </body>
 </html>
 
 <style>
+  ::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+    background-color: transparent;
+  }
+  .box {
+    background-color: rgb(38, 43, 43) !important;
+    border: 1px solid #181a1b !important;
+  }
+
+  .title {
+    color: #e3e1dd !important;
+  }
+
+  .subtitle {
+    color: #e3e1dd !important;
+  }
+
+  body {
+    background-color: #181a1b;
+    color: #e3e1dd !important;
+  }
+
+  .is-link {
+    background-color: #1f74ad !important;
+  }
+
+  .is-link:hover {
+    background-color: #258cd0 !important;
+  }
+
+  .mainContainer {
+    background-color: #181a1b;
+    width: 85%;
+    margin-left: 15%;
+    padding-top: 6% !important;
+    height: 92%;
+
+    padding: 0px;
+  }
   .container {
     display: flex;
     flex-direction: column;

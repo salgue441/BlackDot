@@ -1,21 +1,63 @@
+
 <html>
   <%- include('../../partials/header.ejs') %>
 
   <body>
-    <%- include('../../partials/navBar.ejs') %>
 
-    <section
-      class="hero is-hero mt-6 is-flex is-flex-direction-column is-justify-content-center"
-    >
-      <section class="container mt-6">
-        <h1 class="title is-1 has-text-centered">No hay Accionables</h1>
-        <img
-          src="/assets/NotAvailableActionable.jpeg"
-          alt="NotAvailableActionable"
-          class="is-centered"
-          style="width: 700px"
-        />
+<%- include('../../partials/navBar.ejs') %><%-
+include('../../partials/sideBarAdmin.ejs') %>
+   
+   
+   <div class="mainContainer">
+      <section
+        class="hero is-hero mt-6 is-flex is-flex-direction-column is-justify-content-center"
+      >
+        <section class="container mt-6">
+          <h1 class="title is-1 has-text-centered">
+            No hay Accionables <br />para aprobar
+          </h1>
+
+          <img
+            src="/assets/NotAvailableActionable.jpeg"
+            alt="NotAvailableActionable"
+            class="is-centered"
+            style="width: 700px"
+          />
+        </section>
       </section>
-    </section>
-  </body>
+    </div>
+
+
+    </body>
 </html>
+
+<style>
+  h1 {
+    color: #e3e1dd !important;
+  }
+  ::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+    background-color: transparent;
+  }
+
+  .mainContainer {
+    background-color: #181a1b;
+    width: 85%;
+    margin-left: 15%;
+
+    height: 200vh;
+
+    padding: 0px;
+  }
+
+  body {
+    background-color: #181a1b !important;
+    color: #000000 !important;
+  }
+
+  section {
+    background-color: #181a1b !important;
+    color: #e3e1dd !important;
+  }
+</style>

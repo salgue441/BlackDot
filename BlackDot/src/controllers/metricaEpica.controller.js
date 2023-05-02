@@ -43,8 +43,21 @@ exports.getAllEpicas = async (req, res) => {
       .sort((a, b) => new Date(b.fechaCreacion) - new Date(a.fechaCreacion))
       .slice(0, 7);
 
+    // Filtering epicas with their names
+    const filteredEpica = epicas.filter((epica) => {
+      const epicName = epica.nombreEpica.toLowerCase();
+
+      return (
+        epicName.includes("middleware paqueterías") ||
+        epicName.includes("implementar secciones de la aplicación") ||
+        epicName.includes("migración de contentful a ZeSystem") ||
+        epicName.includes("google tag manager") ||
+        epicName.includes("catalog connect")
+      );
+    });
+
     // Relating sprints and issues
-    const sprintIssuesMap = {}
+    const sprintIssuesMap = {};
 
     sprintIssues.forEach((sprintIssue) => {
       const idSprint = sprintIssue.idSprint;
@@ -55,52 +68,53 @@ exports.getAllEpicas = async (req, res) => {
       }
 
       sprintIssuesMap[idSprint].push(idIssue);
-    })
+    });
 
     sprints.forEach((sprint) => {
       const idSprint = sprint.idSprint;
       const sprintIssues = sprintIssuesMap[idSprint] || [];
 
       sprint.issues = issues.filter((issue) =>
-        sprintIssues.includes(issue.idIssue));
-    })
+        sprintIssues.includes(issue.idIssue)
+      );
+    });
 
-    // relating epica and sprintIssuesMap
-    const epicaSprintsMap = {}
+    // Relating epica and sprintIssuesMap
+    const epicaSprintsMap = {};
 
     sprintEpicas.forEach((sprintEpica) => {
-      const idEpica = sprintEpica.idEpica
-      const idSprint = sprintEpica.idSprint
+      const idEpica = sprintEpica.idEpica;
+      const idSprint = sprintEpica.idSprint;
 
       if (!epicaSprintsMap[idEpica]) {
-        epicaSprintsMap[idEpica] = []
+        epicaSprintsMap[idEpica] = [];
       }
 
       const relatedSprints = sprints.find(
         (sprint) => sprint.idSprint === idSprint
-      )
+      );
 
       if (relatedSprints) {
-        epicaSprintsMap[idEpica].push(relatedSprints)
+        epicaSprintsMap[idEpica].push(relatedSprints);
       }
-    })
+    });
 
-    epicas.forEach((epica) => {
-      const idEpica = epica.idEpica
-      const epicaSprints = epicaSprintsMap[idEpica] || []
+    filteredEpica.forEach((filteredEpica) => {
+      const idEpica = filteredEpica.idEpica;
+      const epicaSprints = epicaSprintsMap[idEpica] || [];
 
-      epica.sprints = epicaSprints
-    })
+      filteredEpica.sprints = epicaSprints;
+    });
 
     res.render(
       path.join(__dirname, "../views/static/epicas/verMetricasEpicas.ejs"),
       {
-        epicas: epicas,
+        epicas: filteredEpica,
         sprints: sprintNames,
       }
     );
   } catch (error) {
-    res.render(path.join(__dirname, "../Views/Static/error.ejs"), { error });
+    res.render(path.join(__dirname, "../views/static/error/error.ejs"), { error });
   }
 };
 
@@ -124,8 +138,21 @@ exports.getAllEpicasAPI = async (req, res) => {
       .sort((a, b) => new Date(b.fechaCreacion) - new Date(a.fechaCreacion))
       .slice(0, 7);
 
+    // Filtering epicas with their names
+    const filteredEpica = epicas.filter((epica) => {
+      const epicName = epica.nombreEpica.toLowerCase();
+
+      return (
+        epicName.includes("middleware paqueterías") ||
+        epicName.includes("implementar secciones de la aplicación") ||
+        epicName.includes("migración de contentful a ZeSystem") ||
+        epicName.includes("google tag manager") ||
+        epicName.includes("catalog connect")
+      );
+    });
+
     // Relating sprints and issues
-    const sprintIssuesMap = {}
+    const sprintIssuesMap = {};
 
     sprintIssues.forEach((sprintIssue) => {
       const idSprint = sprintIssue.idSprint;
@@ -136,44 +163,45 @@ exports.getAllEpicasAPI = async (req, res) => {
       }
 
       sprintIssuesMap[idSprint].push(idIssue);
-    })
+    });
 
     sprints.forEach((sprint) => {
       const idSprint = sprint.idSprint;
       const sprintIssues = sprintIssuesMap[idSprint] || [];
 
       sprint.issues = issues.filter((issue) =>
-        sprintIssues.includes(issue.idIssue));
-    })
+        sprintIssues.includes(issue.idIssue)
+      );
+    });
 
-    // relating epica and sprintIssuesMap
-    const epicaSprintsMap = {}
+    // Relating epica and sprintIssuesMap
+    const epicaSprintsMap = {};
 
     sprintEpicas.forEach((sprintEpica) => {
-      const idEpica = sprintEpica.idEpica
-      const idSprint = sprintEpica.idSprint
+      const idEpica = sprintEpica.idEpica;
+      const idSprint = sprintEpica.idSprint;
 
       if (!epicaSprintsMap[idEpica]) {
-        epicaSprintsMap[idEpica] = []
+        epicaSprintsMap[idEpica] = [];
       }
 
       const relatedSprints = sprints.find(
         (sprint) => sprint.idSprint === idSprint
-      )
+      );
 
       if (relatedSprints) {
-        epicaSprintsMap[idEpica].push(relatedSprints)
+        epicaSprintsMap[idEpica].push(relatedSprints);
       }
-    })
+    });
 
-    epicas.forEach((epica) => {
-      const idEpica = epica.idEpica
-      const epicaSprints = epicaSprintsMap[idEpica] || []
+    filteredEpica.forEach((filteredEpica) => {
+      const idEpica = filteredEpica.idEpica;
+      const epicaSprints = epicaSprintsMap[idEpica] || [];
 
-      epica.sprints = epicaSprints
-    })
+      filteredEpica.sprints = epicaSprints;
+    });
 
-    res.status(200).json({ epicas: epicas });
+    res.status(200).json({ epicas: filteredEpica });
   } catch (error) {
     res.render(path.join(__dirname, "../views/static/error/error.ejs"), { error });
   }

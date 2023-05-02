@@ -2,85 +2,164 @@
   <%- include('../../partials/header.ejs') %>
 
   <body>
-    <%- include('../../partials/navBar.ejs') %>
+    <%- include('../../partials/navBar.ejs') %><%-
+    include('../../partials/sideBarAdmin.ejs') %>
 
-    <section class="section is-medium is-bold">
-      <div class="has-text-centered">
-        <!-- Title & Button to Accept -->
-        <div class="columns">
-          <div class="column is-half is-flex">
-            <h1 class="title is-1">Accionables</h1>
-          </div>
-          <div class="column is-half is-flex is-justify-content-end">
-            <div class="is-grouped is-grouped-centered">
-              <input
-                class="button is-danger reporte-button"
-                id="sendButton"
-                type="submit"
-                value="Generar Reporte"
-                onclick=""
-              />
+    <% if(locals.currentUser.roleName === 'Administrador'){ %>
+
+    <div class="mainContainer">
+      <section class="section is-medium is-bold pb-6">
+        <div class="has-text-centered">
+          <!-- Title & Button to Accept -->
+          <div class="columns">
+            <div class="column is-half is-flex">
+              <h1 class="title is-1">Historico de Accionables</h1>
+            </div>
+            <div class="column is-half is-flex is-justify-content-end">
+              <div class="is-grouped is-grouped-centered">
+                <input
+                  class="button is-danger reporte-button"
+                  id="sendButton"
+                  type="submit"
+                  value="Generar Reporte"
+                  onclick=""
+                />
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </section>
-    <!-- End of Title & Button -->
+      </section>
+      <!-- End of Title & Button -->
 
-    <!-- Accionables -->
-    <div class="container" style="margin-left: 15%">
-      <div class="columns is-multiline">
-        <% accionables.forEach((accionable) => { %> <%
-        if(accionable.nombreAccionable !== '') { %>
-        <div class="column is-4 has-text-centered is-align-items-center">
-          <div class="box is-flex is-flex-direction-column accionable">
-            <div class="content has-text-centered justify-content">
-              <p><%= accionable.nombreAccionable %></p>
-              <% if(accionable.estadoAccionable === 'No aprobado') { %>
-              <p
-                class="box is-flex is-align-items-center has-text-centered EstadoNoAprobado"
-                style="margin-left: 25%; text-align: center"
-              >
-                <%= accionable.estadoAccionable %>
-              </p>
-              <% } else { %>
-              <p
-                class="box is-flex is-align-items-center has-text-centered EstadoAprobado"
-                style="margin-left: 25%; text-align: center"
-              >
-                <%= accionable.estadoAccionable %>
-              </p>
-              <% } %>
+      <!-- Accionables -->
+      <div class="container">
+        <div class="columns is-multiline">
+          <% accionables.forEach((accionable) => { %> <%
+          if(accionable.nombreAccionable !== '') { %>
+          <div class="column is-3">
+            <div class="box has-text-centered is-fullheight">
+              <div class="content">
+                <p class="title is-5 mb-4">
+                  <%= accionable.nombreAccionable %>
+                </p>
+                <% if(accionable.estadoAccionable === 'No aprobado') { %>
+                <div class="box EstadoNoAprobado is-narrow">
+                  <p><%= accionable.estadoAccionable %></p>
+                </div>
+                <% } else { %>
+                <div class="box EstadoAprobado is-narrow">
+                  <p><%= accionable.estadoAccionable %></p>
+                </div>
+                <% } %>
+              </div>
             </div>
           </div>
+
+          <% } %> <% }) %>
         </div>
-        <% } %> <% }) %>
       </div>
     </div>
+    <% }else{ %>
+    <%- include('../../partials/invalidRol.ejs') %>
+    
+  <% } %>
+
   </body>
 </html>
 
 <style>
-  .accionable {
-    top: 20rem !important;
+
+  html {
+    background-color: #181a1b !important;
+    color: #e3e1dd !important;
+  }
+  .noHover {
+    pointer-events: none;
+  }
+
+  p {
+    color: #e3e1dd !important;
+  }
+
+  .button {
+    padding: 0.3rem;
+  }
+
+  hr {
+    opacity: 0;
+    margin: 1rem;
+  }
+
+  body {
+    background-color: #181a1b !important;
+   
+  }
+
+  ::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+    background-color: transparent;
+  }
+
+  .mainContainer {
+    background-color: #181a1b;
+    width: 85%;
+    margin-left: 15%;
+
+    height: 200vh;
+
+    padding: 0px;
+  }
+
+  .box {
+    background-color: rgb(38, 43, 43) !important;
+    border: 1px solid #181a1b !important;
+    gap: 0.5rem !important;
+  }
+
+  .title {
+    color: #e3e1dd !important;
+  }
+
+  .label {
+    color: #e3e1dd !important;
+    margin-left: 4rem;
   }
 
   .EstadoNoAprobado {
-    background-color: hsl(348, 100%, 61%);
+    background-color: #bc4749 !important;
     color: hsl(0, 0%, 96%);
-    width: 50%;
-    height: 50px;
   }
 
   .EstadoAprobado {
-    background-color: hsl(171, 100%, 41%);
-    text-align: center;
-    width: 50%;
-    height: 50px;
+    background-color: #6a994e !important;
+    color: #e3e1dd !important ;
   }
 
   .reporte-button {
     height: 50px;
     width: 200px;
+  }
+
+  .is-danger {
+    background-color: #bc4749 !important;
+  }
+
+  .is-danger:hover {
+    background-color: #d9534f !important;
+  }
+
+  ::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+    background-color: transparent;
+  }
+
+  .mainContainer {
+    width: 85%;
+    margin-left: 15%;
+    height: 400vh;
+
+    padding: 0px;
   }
 </style>

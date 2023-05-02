@@ -18,30 +18,6 @@ const authUtil = require("../utils/auth")
 
 /**
  * @brief
- * get of editar usuarios
- * @param {Request} request - Request object
- * @param {Response} response - Response object
- * @returns {Response} - Response object
- * @throws {Error} - Error message
- * */
-/** */
-exports.getEditarUsuario = async (req, res) => {
-  try {
-    const empleados = await Empleado.getAll()
-    const empleadoRoles = await EmpleadoRol.getAll()
-
-    // Render the EJS template with the usuarios and empleadoRoles
-    res.render("Static/editar/editarUsuario.ejs", {
-      empleados,
-      empleadoRoles,
-    })
-  } catch (error) {
-    res.render(path.join(__dirname, "../Views/Static/error.ejs"), { error })
-  }
-}
-
-/**
- * @brief
  *
  * @param {Request} req - Request object
  * @param {Response} res - Response object
@@ -60,11 +36,11 @@ exports.getRegistrarUsuario = async (req, res) => {
       }
     }
 
-    res.render("../Views/Static/editar/registrarUsuario.ejs", {
+    res.render("../views/static/editar/registrarUsuario.ejs", {
       empleadoSinRol,
     })
   } catch (error) {
-    res.render(path.join(__dirname, "../Views/Static/error.ejs"), { error })
+    res.render(path.join(__dirname, "../views/static/error/error.ejs"), { error })
   }
 }
 
@@ -91,7 +67,7 @@ exports.postAceptarUsuario = async (req, res) => {
 
     res.redirect("/editar/empleados/aceptar")
   } catch (error) {
-    res.render(path.join(__dirname, "../Views/Static/error.ejs"), { error })
+    res.render(path.join(__dirname, "../views/static/error/error.ejs"), { error })
   }
 }
 
@@ -110,14 +86,12 @@ exports.postRechazarUsuario = async (req, res) => {
 
     await EmpleadoRol.deleteById(idEmpleado)
 
-    try {
+  
       await Empleado.deleteByID(idEmpleado)
       res.redirect("/editar/empleados/aceptar")
-    } catch (error) {
-      res.render(path.join(__dirname, "../Views/Static/error.ejs"), { error })
-    }
-  } catch (error) {
-    res.render(path.join(__dirname, "../Views/Static/error.ejs"), { error })
+    } 
+   catch (error) {
+    res.render(path.join(__dirname, "../views/static/error/error.ejs"), { error })
   }
 }
 
@@ -130,21 +104,55 @@ exports.postRechazarUsuario = async (req, res) => {
  * @throws {Error} - Error message
  * */
 /** */
-
 exports.getEditarUsuario = async (req, res) => {
   try {
     const empleados = await EmpleadoRol.getAllWithRoles()
     const roles = await Rol.getAll()
 
-    res.render(path.join(__dirname, "../Views/Static/editar/correo.ejs"), {
+    res.render(path.join(__dirname, "../views/static/editar/editarUsuario.ejs"), {
       empleados,
       roles,
     })
   } catch (error) {
-    res.render(path.join(__dirname, "../Views/Static/error.ejs"), {
+    res.render(path.join(__dirname, "../views/static/error.ejs"), {
       error,
     })
   }
 }
 
+exports.postEditarUsuario = async (req, res) => {
+  try {
+    const selectE = parseInt(req.body.selectEmpleado)
+    const selectR = parseInt(req.body.selectRol)
+    const empleadoRol = new EmpleadoRol({
+      idEmpleado: selectE,
+      idRol: selectR,
+    })
+    await empleadoRol.update()
+    const empleados = await EmpleadoRol.getAllWithRoles()
+    const roles = await Rol.getAll()
+
+    res.render(path.join(__dirname, "../views/static/editar/editarUsuario.ejs"), {
+      empleados,
+      roles,
+    })
+  } catch (error) {
+    res.render(path.join(__dirname, "../views/static/error.ejs"), {
+      error,
+    })
+  }
+}
+
+exports.getEliminarUsuario = async (req, res) => {
+  try {
+    const idEmpleado = parseInt(req.params.id)
+
+    await EmpleadoRol.deleteById(idEmpleado)
+
+    await Empleado.deleteByID(idEmpleado)
+    res.redirect("/editar/empleados")
+  } catch (error) {
+    res.render(path.join(__dirname, "../views/static/error.ejs"), { error })
+  }
+}
 

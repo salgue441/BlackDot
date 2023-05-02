@@ -33,7 +33,7 @@ module.exports = class EmpleadoRol {
     if (!idRol) throw new Error("No se ha proporcionado un ID de rol")
 
     const [rol] = await dataBase.query(
-      "select * from EmpleadoRol where idRol = ?",
+      "select * from empleadoRol where idRol = ?",
       [idRol]
     )
 
@@ -47,14 +47,21 @@ module.exports = class EmpleadoRol {
    * @returns {object} - Objeto de tipo EmpleadoRol
    */
   static async getByIDE(idEmpleado) {
-    if (!idEmpleado) throw new Error("No se ha proporcionado un ID de empleado")
+    try {
+      if (!idEmpleado)
+        throw new Error("No se ha proporcionado un ID de empleado")
 
-    const [empleado] = await dataBase.query(
-      "select * from EmpleadoRol where idEmpleado = ?",
-      [idEmpleado]
-    )
+      const query = `select * from empleadoRol where idEmpleado = ?`
+      const [rows] = await dataBase.execute(query, [idEmpleado])
 
-    return new EmpleadoRol(empleado)
+      if (rows.length === 0) throw new Error("Empleado no encontrado")
+
+      return new EmpleadoRol(rows[0])
+    }
+    catch (error) {
+      console.log(error)
+      throw new Error("No se ha proporcionado un ID de empleado")
+    }
   }
 
   /**
@@ -72,7 +79,7 @@ module.exports = class EmpleadoRol {
 
     if (!this.idRol) throw new Error("No se ha proporcionado un ID de rol")
 
-    const query = `insert into EmpleadoRol (idEmpleado, idRol) values (?,?)`
+    const query = `insert into empleadoRol (idEmpleado, idRol) values (?,?)`
     const [rows, _] = await dataBase.execute(query, [
       this.idEmpleado,
       this.idRol,
@@ -85,7 +92,7 @@ module.exports = class EmpleadoRol {
    * @returns {EmpleadoRol[]} - Arreglo de objetos de tipo empleadoRol
    */
   static async getAll() {
-    const query = `select * from EmpleadoRol`
+    const query = `select * from empleadoRol`
     const [rows, _] = await dataBase.execute(query)
 
     return rows
@@ -99,7 +106,7 @@ module.exports = class EmpleadoRol {
    * */
 
   static async getAllWithRoles() {
-    const query = `SELECT E.idEmpleado, E.primerNombre, E.apellidoPaterno, E.idGoogleAuth, E.googleEmail, E.googleProfilePicture, ER.idRol, R.nombreRol  FROM empleado E, empleadorol ER, rol R
+    const query = `SELECT E.idEmpleado, E.primerNombre, E.apellidoPaterno, E.idGoogleAuth, E.googleEmail, E.googleProfilePicture, ER.idRol, R.nombreRol  FROM empleado E, empleadoRol ER, rol R
     WHERE E.idEmpleado = ER.idEmpleado and R.idRol = ER.idRol;`
     const [rows, _] = await dataBase.execute(query)
 
@@ -117,7 +124,7 @@ module.exports = class EmpleadoRol {
   async update() {
     if (!this) throw new Error("No se ha proporcionado un empleadoRol")
 
-    const query = `UPDATE EmpleadoRol SET idRol = ? WHERE idEmpleado = ?`
+    const query = `UPDATE empleadoRol SET idRol = ? WHERE idEmpleado = ?`
     const [result] = await dataBase.execute(query, [
       this.idRol,
       this.idEmpleado,
@@ -137,7 +144,7 @@ module.exports = class EmpleadoRol {
   static async deleteById(idEmpleado) {
     if (!idEmpleado) throw new Error("No se ha proporcionado un idEmpleado")
 
-    const query = `DELETE FROM EmpleadoRol WHERE idEmpleado = ?`
+    const query = `DELETE FROM empleadoRol WHERE idEmpleado = ?`
     const [result] = await dataBase.execute(query, [idEmpleado])
 
     return result

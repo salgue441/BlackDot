@@ -4,7 +4,9 @@
   <body>
     <%- include('../../partials/sidebarAdmin.ejs') %>
     <%- include('../../partials/navBar.ejs') %>
+    <%- include('../../partials/sideBarAdmin.ejs') %>
 
+<<<<<<< HEAD
     <section class="hero is-medium is-bold">
       <div class="hero-body has-text-centered">
         <!-- Title -->
@@ -38,6 +40,42 @@
                         </div>
                     </div>
                 </div>
+=======
+    <div class="mainContainer">
+      <section class="hero is-medium is-bold ">
+        <div class="hero-body has-text-centered pt-0">
+          <!-- Title -->
+          <div class="columns">
+            <div class="column is-half is-flex">
+              <h1 class="title is-1 mt-5 mb-2">Metricas Actuales</h1>
+            </div>
+          </div>
+          <!-- End of Title -->
+  
+          <!-- Graph -->
+          
+              <div class="columns">
+                  <div class="column is-12">
+                      <div class="container">
+                          <div
+                              class="box  has-text-centered"
+                              style="width: 100%"
+                          >
+                              <p class="subtitle is-4">Sprint Actual</p>
+                              <canvas id="ActualSprint"></canvas>
+                          </div>
+                      </div>
+                  </div>
+  
+              </div>
+            </div>
+          </div>
+          <!-- End of Graph -->
+        </div>
+      </section>
+    </div>
+    
+>>>>>>> 65dbff62c10481bcdd18661dc8b9883cccc05cd5
 
     <script src="/js/actualSprint.chart.js"></script>
   </body>

@@ -9,7 +9,7 @@
  */
 
 const fetchEpicasData = async () => {
-  const res = await fetch("http://localhost:3000/historico/epicasData")
+  const res = await fetch("/historico/epicasData")
   const data = await res.json()
 
   return data
@@ -27,43 +27,43 @@ const createStackBarChart = (canvas, epicasData, labels) => {
 
   const colors = [
     {
-      backgroundColor: "rgba(255, 99, 132, 0.6)",
+      backgroundColor: "rgba(255, 99, 132, 1)",
       borderColor: "rgba(255, 99, 132, 1)",
     },
     {
-      backgroundColor: "rgba(255, 153, 109, 0.6)",
+      backgroundColor: "rgba(255, 153, 109,1)",
       borderColor: "rgba(255, 153, 109, 1)",
     },
     {
-      backgroundColor: "rgba(255, 206, 86, 0.6)",
+      backgroundColor: "rgba(255, 206, 86, 1)",
       borderColor: "rgba(255, 206, 86, 1)",
     },
     {
-      backgroundColor: "rgba(155, 184, 161, 0.6)",
+      backgroundColor: "rgba(155, 184, 161, 1)",
       borderColor: "rgba(155, 184, 161, 1)",
     },
     {
-      backgroundColor: "rgba(54, 162, 235, 0.6)",
+      backgroundColor: "rgba(54, 162, 235, 1)",
       borderColor: "rgba(54, 162, 235, 1)",
     },
     {
-      backgroundColor: "rgba(65, 177, 214, 0.6)",
+      backgroundColor: "rgba(65, 177, 214, 1)",
       borderColor: "rgba(65, 177, 214, 1)",
     },
     {
-      backgroundColor: "rgba(75, 192, 192, 0.6)",
+      backgroundColor: "rgba(75, 192, 192, 1)",
       borderColor: "rgba(75, 192, 192, 1)",
     },
     {
-      backgroundColor: "rgba(114, 147, 224, 0.6)",
+      backgroundColor: "rgba(114, 147, 224, 1)",
       borderColor: "rgba(114, 147, 224, 1)",
     },
     {
-      backgroundColor: "rgba(153, 102, 255, 0.6)",
+      backgroundColor: "rgba(153, 102, 255, 1)",
       borderColor: "rgba(153, 102, 255, 1)",
     },
     {
-      backgroundColor: "rgba(162, 116, 255, 0.6)",
+      backgroundColor: "rgba(162, 116, 255, 1)",
       borderColor: "rgba(162, 116, 255, 1)",
     }
   ]
@@ -98,12 +98,28 @@ const createStackBarChart = (canvas, epicasData, labels) => {
           title: {
             display: true,
             text: "Story Points",
+            color: "#fff",
+          },
+          grid: {
+            color: "rgba(227, 225, 221, 1)",
+            borderColor: "#fff", 
+          },
+          ticks: {
+            color: "#fff",
           },
         },
         x: {
           title: {
             display: true,
             text: "Sprints",
+            color: "#fff",
+          },
+          grid: {
+            color: "rgba(227, 225, 221, 1)",
+            borderColor: "#fff",
+          },
+          ticks: {
+            color: "#fff",
           },
         },
       },
@@ -111,10 +127,15 @@ const createStackBarChart = (canvas, epicasData, labels) => {
         legend: {
           display: true,
           position: "top",
+          labels: {
+            color: "rgba(227, 225, 221, 1)", 
+          },
         },
       },
     },
-  })
+  });
+  
+  
 }
 
   /**

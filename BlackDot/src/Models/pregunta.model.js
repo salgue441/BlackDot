@@ -32,7 +32,7 @@ module.exports = class Pregunta {
     if (!idPregunta) throw new Error("No se ha proporcionado un ID")
 
     const [pregunta] = await dataBase.query(
-      "select * from Pregunta where idPregunta = ?",
+      "select * from pregunta where idPregunta = ?",
       [idPregunta]
     )
 
@@ -47,7 +47,7 @@ module.exports = class Pregunta {
    * @returns {Promise<Pregunta[]>} - Arreglo de objetos de tipo Pregunta
    */
   static async getAll() {
-    const [preguntas, _] = await dataBase.query("select * from Pregunta")
+    const [preguntas, _] = await dataBase.query("select * from pregunta")
 
     return preguntas
   }
@@ -66,7 +66,7 @@ module.exports = class Pregunta {
     if (!this.tipoPregunta)
       throw new Error("No se ha proporcionado el tipo de Pregunta")
 
-    const query = `insert into Pregunta (contenido, tipoPregunta) values(?, ?)`
+    const query = `insert into pregunta (contenido, tipoPregunta) values(?, ?)`
     const result = await dataBase.query(query, [
       this.contenido,
       this.tipoPregunta,
@@ -96,7 +96,7 @@ module.exports = class Pregunta {
       throw new Error("No se ha proporcionado un tipo de pregunta")
 
     const [pregunta] = await dataBase.query(
-      "select * from Pregunta where contenido = ? and tipoPregunta = ?",
+      "select * from pregunta where contenido = ? and tipoPregunta = ?",
       [this.contenido, this.tipoPregunta]
     )
 
@@ -117,7 +117,7 @@ module.exports = class Pregunta {
       throw new Error("El ID debe ser un numero")
 
     const result = await dataBase.query(
-      `delete from Pregunta where idPregunta = ?`,
+      `delete from pregunta where idPregunta = ?`,
       [idPregunta]
     )
 
@@ -140,7 +140,7 @@ module.exports = class Pregunta {
     if (!this.tipoPregunta)
       throw new Error("No se ha proporcionado el tipo de Pregunta")
 
-    const query = `update Pregunta set contenido = ?, tipoPregunta = ? where idPregunta = ?`
+    const query = `update pregunta set contenido = ?, tipoPregunta = ? where idPregunta = ?`
     const result = await dataBase.query(query, [
       this.contenido,
       this.tipoPregunta,
@@ -162,7 +162,7 @@ module.exports = class Pregunta {
 
   static async getLastId() {
     const [pregunta] = await dataBase.query(
-      "select idPregunta from Pregunta order by idPregunta desc limit 1"
+      "select idPregunta from pregunta order by idPregunta desc limit 1"
     )
 
     if (pregunta.length === 0) throw new Error("No se pudo obtener el ID")
@@ -189,7 +189,7 @@ module.exports = class Pregunta {
       throw new Error("El array de ids no es un array de numeros")
 
     const [preguntas, _] = await dataBase.query(
-      `select * from Pregunta where idPregunta in (?)`,
+      `select * from pregunta where idPregunta in (?)`,
       [ids]
     )
 

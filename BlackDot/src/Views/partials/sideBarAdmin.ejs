@@ -1,0 +1,138 @@
+<aside class="menu sidebar" id="sidebar-data">
+  <section
+    class="userDataContainer is-flex is-justify-content-center sectionSideBar"
+  >
+    <!-- USer Data -->
+    <section class="UserData sectionSideBar">
+      <% if (locals.currentUser) { %>
+      <!-- Profile image -->
+      <img
+        src="<%= locals.currentUser.googleProfilePicture %>"
+        alt="Profile Picture"
+        class="image is-128x128 is-rounded mt-4"
+      />
+
+      <!-- Name -->
+      <section class="has-text-centered mt-4 sectionSideBar">
+        <p class="is-size-6 has-text-weight-bold">
+          <%= locals.currentUser.primerNombre.split(" ")[0] + " " +
+          locals.currentUser.apellidoPaterno.split(" ")[0] %>
+        </p>
+
+        <% if (locals.currentUser.roleName) { %>
+        <p class="is-size-7"><%- locals.currentUser.roleName %></p>
+        <% } else { %>
+        <p class="is-size-7">Sin Rol</p>
+        <% } %>
+      </section>
+    </section>
+    <% } %>
+  </section>
+
+  <!-- Navegacion -->
+
+  <section class="is-flex is-flex-direction-column sectionSideBar">
+    <!-- menu -->
+    <section class="mt-4 mb-3 sectionSideBar">
+      <ul class="is-size-5 ml-5">
+        <a href="/home" class="navbar-item">Inicio</a>
+      </ul>
+
+      <hr class="mt-2 mb-0" />
+      
+
+      <!-- Metricas -->
+
+      <section class="mt-4 mb-3 sectionSideBar">
+        <ul class="is-size-5 ml-5">
+          Metricas
+          <li>
+            <a class="navbar-item is-size-6 ml-2" href="/actual/metricasSprint"
+              >Sprint Actual</a
+            >
+          </li>
+          <li>
+            <a
+              class="navbar-item is-size-6 ml-2"
+              href="/historico/metricasEpicas"
+              >Epicas</a
+            >
+          </li>
+        </ul>
+      </section>
+
+      <!-- Retroalimentacion -->
+      <section class="mt-4 mb-3 sectionSideBar">
+        <ul class="is-size-5 ml-5">
+          Retroalimentacion
+          <li>
+            <a
+              class="navbar-item is-size-6 ml-2"
+              href="/actual/retroalimentacion"
+              >Responder</a
+            >
+          </li>
+          <% if(locals.currentUser.roleName === 'Administrador'){ %>
+          <li>
+            <a class="navbar-item is-size-6 ml-2" href="/actual/verRespuestas"
+              >Respuestas</a
+            >
+          </li>
+          <% } %>
+          <li>
+            <a
+              class="navbar-item is-size-6 ml-2"
+              href="/editar/crearRetroalimentacion"
+              >Crear</a
+            >
+          </li>
+        </ul>
+      </section>
+      <% if(locals.currentUser.roleName === 'Administrador'){ %>
+      <!-- Accionables -->
+      <section class="mt-4 mb-3 sectionSideBar">
+        <ul class="is-size-5 ml-5">
+          Accionables
+          
+          <li>
+            <a class="navbar-item is-size-6 ml-2" href="/actual/accionables"
+              >Aprobar</a
+            >
+          </li>
+          
+          <li>
+            <a
+              class="navbar-item is-size-6 ml-2"
+              href="/historico/historicoAccionables"
+              >Historico</a
+            >
+          </li>
+        </ul>
+      </section>
+      <% } %>
+
+      <!-- Editar -->
+
+      <% if(locals.currentUser.roleName === 'Administrador'){ %>
+      <section class="mt-4 mb-3 sectionSideBar">
+        <ul class="is-size-5 ml-5">
+          Editar
+          <li>
+            <a class="navbar-item is-size-6 ml-2" href="/editar/empleados"
+              >Empleado</a
+            >
+          </li>
+        </ul>
+      </section>
+
+      <% } %>
+    </section>
+  </section>
+</aside>
+
+
+<style>
+  hr{
+    background-color: #fff;
+  }
+</style>
