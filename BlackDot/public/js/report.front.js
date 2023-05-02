@@ -18,6 +18,7 @@
   const img = canvas.toDataURL("image/png");
 
   return img;
+  console.log(img);
 }
 
 /**

@@ -20,38 +20,39 @@ const generateTemplate = (req, res) => {
 
   const data = {
     title: "Desempenio Sprint Actual",
-    image: graphImage,
+    graphImage: graphImage, // graphImage.toString()
     pageNumber: 1,
     totalPages: 1,
   };
 
-  ejs.renderFile(
-    path.join(__dirname, "../views/static/reports/template.ejs"),
-    data,
-    (err, html) => {
-      if (err) {
-        console.log(err);
-        res.status(500).send("An error occurred");
-      } else {
-        const options = { format: "Letter" };
-
-        pdf.create(html, options).toBuffer((err, buffer) => {
-          if (err) {
-            console.log(err);
-            res.status(500).send("An error occurred");
-          } else {
-            res.setHeader("Content-type", "application/pdf");
-            res.setHeader(
-              "Content-Disposition",
-              "attachment; filename=report.pdf"
-            );
-
-            res.send(buffer);
-          }
-        });
-      }
-    }
+  const templatePath = path.join(
+    __dirname,
+    "../views/static/reports/template.ejs"
   );
+
+  ejs.renderFile(templatePath, data, (err, html) => {
+    if (err) {
+      console.log(err);
+      res.status(500).send("An error occurred");
+    } else {
+      const options = { format: "Letter" };
+
+      pdf.create(html, options).toBuffer((err, buffer) => {
+        if (err) {
+          console.log(err);
+          res.status(500).send("An error occurred");
+        } else {
+          res.setHeader("Content-type", "application/pdf");
+          res.setHeader(
+            "Content-Disposition",
+            "attachment; filename=report.pdf"
+          );
+
+          res.send(buffer);
+        }
+      });
+    }
+  });
 };
 
 const generatePDF = (req, res) => {
@@ -59,7 +60,7 @@ const generatePDF = (req, res) => {
 
   const data = {
     title: "Desempenio Sprint Actual",
-    image: graphImage,
+    graphImage: graphImage,
     pageNumber: 1,
     totalPages: 1,
   };
@@ -84,7 +85,10 @@ const generatePDF = (req, res) => {
             const fileStream = fs.createReadStream(filePath);
 
             res.setHeader("Content-type", "application/pdf");
-            res.setHeader("Content-Disposition", "attachment; filename=report.pdf");
+            res.setHeader(
+              "Content-Disposition",
+              "attachment; filename=report.pdf"
+            );
 
             fileStream.pipe(res);
           }
