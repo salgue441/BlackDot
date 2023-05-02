@@ -41,8 +41,9 @@ const renderLogin = (req, res) => {
 /**
  * @brief 
  * Log in API endpoint. Verifies if the user already exists in the database.
- * If it doesn't, it creates a new user. Then, it creates a new session and
- * returns the session data.
+ * If it doesn't, it creates a new user. If there are no users, the first user
+ * will be an admin. If there are users, the new user will be a regular user.
+ * Then, it creates a new session and returns the session data.
  * @param {*} req Request object
  * @param {*} res Response object
  * @param {*} next Next function
@@ -55,6 +56,31 @@ const loginAPI = async (req, res, next) => {
     const user = await Empleado.getByEmail(data.email)
 
     if (!user) {
+      const exists = await Empleado.exists()
+
+      // If there are no users, the first user will be an admin
+      if (!exists) {
+        const newUser = new Empleado({
+          primerNombre: data.given_name.split(' ')[0],
+          segundoNombre: data.given_name.split(' ')[1] || null,
+          apellidoPaterno: data.family_name.split(' ')[0],
+          apellidoMaterno: data.family_name.split(' ')[1] || null,
+          idGoogleAuth: bycript.hashSync(data.sub, 12),
+          googleEmail: data.email,
+          googleProfilePicture: data.picture,
+        })
+
+        const newEmployee = await newUser.save()
+
+        // Role (default: 1 - Admin)
+        const newEmployeeRole = new EmpleadoRol({
+          idEmpleado: newEmployee.idEmpleado,
+          idRol: 1,
+        })
+
+        await newEmployeeRole.save()
+      }
+
       const newUser = new Empleado({
         primerNombre: data.given_name.split(" ")[0],
         segundoNombre: data.given_name.split(" ")[1] || null,

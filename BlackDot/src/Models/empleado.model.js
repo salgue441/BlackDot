@@ -186,4 +186,24 @@ module.exports = class Empleado {
 
     return rows[0].idEmpleado
   }
+
+  /**
+   * @brief
+   * Checks if there are employees in the database. If there are no 
+   * employees, it returns false, otherwise it returns true.
+   * @returns {Promise<boolean>} - True if exists, false if not
+   */
+  static async exists() {
+    try {
+      const query = `select count(*) as employees from empleado`
+      const [rows] = await dataBase.execute(query)
+
+      if (rows[0].employees === 0) return false
+
+      return true
+    } catch (error) {
+      console.log(error)
+      throw new Error("No se ha encontrado el ultimo empleado")
+    }
+  }
 }
