@@ -26,6 +26,7 @@ const roles = (...allowedRoles) => {
         const { role } = currentUser
         if (!allowedRoles.includes(role)) return res.redirect('/home')
 
+        console.log('Role allowed')
     
 
         next()

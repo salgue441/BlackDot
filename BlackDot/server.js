@@ -77,9 +77,16 @@ app.use((req, res, next) => {
   next()
 })
 
+
+
+
 // Routes
 const initRoutes = require('./src/routes/index.routes')
 initRoutes(app)
+
+
+const { roles } = require('./src/middlewares/roles.middleware')
+app.use(roles)
 
 // 404 Error
 /**
