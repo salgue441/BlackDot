@@ -5,6 +5,8 @@
     <%- include('../../partials/navBar.ejs') %> <%-
     include('../../partials/sideBarAdmin.ejs') %>
 
+
+<% if(locals.currentUser.roleName === 'Administrador'){ %>
     <div class="mainContainer">
       <section class="hero is-medium is-bold">
         <div class="hero-body has-text-centered">
@@ -85,6 +87,10 @@
         </div>
       </section>
     </div>
+    <% }else{ %>
+      <%- include('../../partials/invalidRol.ejs') %>
+      
+    <% } %>
   </body>
 </html>
 

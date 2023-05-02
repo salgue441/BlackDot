@@ -71,11 +71,13 @@
               >Responder</a
             >
           </li>
+          <% if(locals.currentUser.roleName === 'Administrador'){ %>
           <li>
             <a class="navbar-item is-size-6 ml-2" href="/actual/verRespuestas"
               >Respuestas</a
             >
           </li>
+          <% } %>
           <li>
             <a
               class="navbar-item is-size-6 ml-2"
@@ -90,11 +92,13 @@
       <section class="mt-4 mb-3 sectionSideBar">
         <ul class="is-size-5 ml-5">
           Accionables
+          <% if(locals.currentUser.roleName === 'Administrador'){ %>
           <li>
             <a class="navbar-item is-size-6 ml-2" href="/actual/accionables"
               >Aprobar</a
             >
           </li>
+          <% } %>
           <li>
             <a
               class="navbar-item is-size-6 ml-2"
@@ -106,6 +110,8 @@
       </section>
 
       <!-- Editar -->
+
+      <% if(locals.currentUser.roleName === 'Administrador'){ %>
       <section class="mt-4 mb-3 sectionSideBar">
         <ul class="is-size-5 ml-5">
           Editar
@@ -116,6 +122,8 @@
           </li>
         </ul>
       </section>
+
+      <% } %>
     </section>
   </section>
 </aside>

@@ -5,6 +5,8 @@
     <%- include('../../partials/navBar.ejs') %> 
       <%- include('../../partials/sideBarAdmin.ejs') %> 
 
+      <% if(locals.currentUser.roleName === 'Administrador'){ %>
+
     <div class="mainContainer is-flex is-justify-content-center"> <section class="section " >
     <div class="is-flex is-justify-content-space-between">
       <div class="mb-6">
@@ -55,6 +57,10 @@
     </section>
     
   </div>
+  <% }else{ %>
+    <%- include('../../partials/invalidRol.ejs') %>
+    
+  <% } %>
   </body>
 
 
@@ -89,7 +95,7 @@ color: #e3e1dd !important;
     }
 
     .mainContainer {
-    background-color: #181a1b;
+    background-color: #181a1b !important;
     width: 85%;
     margin-left: 15%;
     padding-left: 10% !important;
@@ -98,6 +104,11 @@ color: #e3e1dd !important;
     
 
     padding: 0px;
+  } 
+
+  body {
+    background-color: #181a1b !important;
+   
   } 
   
   .title {

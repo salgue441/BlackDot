@@ -29,6 +29,8 @@ const authMiddleware = {
 
       req.session.currentUser = payload;
       res.locals.currentUser = payload;
+
+
       next();
     } catch (error) {
       next(error);
