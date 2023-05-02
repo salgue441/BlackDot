@@ -11,7 +11,7 @@ const generateTemplate = async (req, res) => {
   const template = await ejs.renderFile(
     path.join(__dirname, "../views/static/reports/template.ejs"),
     {
-      title: "Yuna estuvo aqui",
+      title: "Report",
       graphImage: graphImage,
       pageNumber: 1,
       totalPages: 1,

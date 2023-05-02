@@ -76,10 +76,10 @@ const createBarChart = (canvas, data, labels) => {
         scales: {
           x: {
             title: {
-              color: 'white'
+              color: '#e3e1dd '
             },
             ticks: {
-              color: 'white'
+              color: '#e3e1dd '
             },
             grid: {
               color: 'rgba(227, 225, 221, 1)'
@@ -87,11 +87,11 @@ const createBarChart = (canvas, data, labels) => {
           },
           y: {
             title: {
-              color: 'white'
+              color: '#e3e1dd '
             },
             ticks: {
               beginAtZero: true,
-              color: 'white'
+              color: '#e3e1dd'
             },
             grid: {
               color: 'rgba(227, 225, 221, 1)'
