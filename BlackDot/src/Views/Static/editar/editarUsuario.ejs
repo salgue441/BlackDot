@@ -5,9 +5,11 @@
     <%- include('../../partials/navBar.ejs') %> <%-
     include('../../partials/sideBarAdmin.ejs') %>
 
+<% if(locals.currentUser.roleName === 'Administrador'){ %>
     <div
       class="mainContainer is-flex is-flex-direction-column is-justify-content-center"
     >
+
       <h1 class="title is-1">Empleados</h1>
 
       <div class="container is-marginless">
@@ -121,7 +123,12 @@
           </div>
         </div>
       </div>
+      
     </div>
+    <% }else{ %>
+        <%- include('../../partials/invalidRol.ejs') %>
+        
+      <% } %>
   </body>
 </html>
 

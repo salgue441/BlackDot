@@ -5,7 +5,9 @@
     <%- include('../../partials/navBar.ejs') %>
     <%- include('../../partials/sidebarAdmin.ejs') %>
 
+    <% if(locals.currentUser.roleName === 'Administrador'){ %>
     <div class="mainContainer">
+
       <section class="hero is-medium is-bold">
         <div class="hero-body has-text-centered pt-0">
           <!-- Sprint title & Button -->
@@ -13,6 +15,7 @@
             <div class="column is-half is-flex">
               <h1 class="title is-1 has-text-left">
                 Retroalimentacion #<%= idRetroalimentacion %>
+                
 
                 <div>
                   <div class="dropdown mt-2" id="dropdown">
@@ -120,7 +123,11 @@
         </div>
         <!-- End of hero -->
       </section>
-    </div>
+      </div>
+      <% }else{ %>
+        <%- include('../../partials/invalidRol.ejs') %>
+        
+      <% } %>
 
     <script src="/js/actualRetro.chart.js"></script>
   </body>

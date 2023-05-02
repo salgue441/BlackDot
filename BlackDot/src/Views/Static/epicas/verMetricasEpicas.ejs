@@ -12,11 +12,13 @@
           <div class="column">
             <h1 class="title is-1">Desempeño de Trabajo</h1>
           </div>
+          <% if(locals.currentUser.roleName === 'Administrador'){ %>
           <div class="column is-narrow">
             <a href="#" class="button is-danger reporte-button"
               >Generar Reporte</a
             >
           </div>
+          <% } %>
         </div>
         <!-- End of title & generar reporte -->
 
