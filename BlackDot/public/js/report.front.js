@@ -10,26 +10,37 @@
 
 /**
  * @brief
+ * Clones the chart and updates the properties
+ * @param {string} canvasID - The ID of the canvas element
+ * @returns {Object} - The cloned chart
+ */
+const clonedAndUpdateChart = (canvasID) => {
+  const originalChart = Chart.getChart(canvasID);
+  const chartClone = Object.assign(
+    Object.create(Object.getPrototypeOf(originalChart)),
+    originalChart
+  );
+
+  // chartClone.update();
+  return chartClone;
+};
+
+/**
+ * @brief
  * Generates the report when the button is clicked.
  * Sends the data to the backend.
  * @param {string} canvasID - The ID of the canvas element
  */
- const generateReport = async (canvasID) => {
-  const chart = Chart.getChart(canvasID);
+const generateReport = async (canvasID, pageTitle) => {
+  // Clone and update the chart
+  const updateChart = clonedAndUpdateChart(canvasID);
+  const graphImage = updateChart.toBase64Image();
 
-  chart.options.scales.x.ticks.color = "rgba(0, 0, 0, 1)";
-  chart.options.scales.y.ticks.color = "rgba(0, 0, 0, 1)";
-  chart.options.scales.x.grid.color = "rgba(0, 0, 0, 1)";
-  chart.options.scales.y.grid.color = "rgba(0, 0, 0, 1)";
-
-  chart.update();
-
-  // Create the image
-  const graphImage = chart.toBase64Image();
 
   // Send the data to the backend
   const data = {
     graphImage: graphImage,
+    reportTitle: pageTitle,
   };
 
   const options = {
@@ -49,8 +60,6 @@
     console.log(error);
   }
 };
-
-
 
 /**
  * @brief
