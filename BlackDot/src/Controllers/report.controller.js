@@ -20,7 +20,7 @@
  
    const data = {
      title: "Desempenio Sprint Actual",
-     graphImage: graphImage, // graphImage.toString()
+     graphImage: graphImage,
      pageNumber: 1,
      totalPages: 1,
    };

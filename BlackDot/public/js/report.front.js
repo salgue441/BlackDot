@@ -18,7 +18,6 @@
   const img = canvas.toDataURL("image/png");
 
   return img;
-  console.log(img);
 }
 
 /**
@@ -71,7 +70,7 @@ const generatePDF = (pdfData) => {
   const input = document.createElement("input");
   input.type = "hidden";
   input.name = "pdfData";
-  input.value = pdfData;
+  input.value = pdfData; 
   form.appendChild(input);
   document.body.appendChild(form);
 
