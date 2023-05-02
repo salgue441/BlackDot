@@ -21,7 +21,6 @@ const clonedAndUpdateChart = (canvasID) => {
     originalChart
   );
 
-  // chartClone.update();
   return chartClone;
 };
 
@@ -35,7 +34,6 @@ const generateReport = async (canvasID, pageTitle) => {
   // Clone and update the chart
   const updateChart = clonedAndUpdateChart(canvasID);
   const graphImage = updateChart.toBase64Image();
-
 
   // Send the data to the backend
   const data = {
@@ -70,5 +68,13 @@ const generatePDF = async (pdfData) => {
   const blob = new Blob([pdfData], { type: "application/pdf" });
   const url = URL.createObjectURL(blob);
 
-  window.open(url);
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = "report.pdf";
+
+  document.body.appendChild(link);
+  link.click();
+
+  document.body.removeChild(link);
+  URL.revokeObjectURL(url);
 };
