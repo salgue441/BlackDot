@@ -13,6 +13,7 @@ const generateTemplate = async (req, res) => {
     {
       title: "Report",
       graphImage: graphImage,
+      logoImage: "/assets/404.jpg",
       pageNumber: 1,
       totalPages: 1,
     }
