@@ -82,10 +82,10 @@ const createBarChart = (canvas, data, labels) => {
   return new Chart(ctx, {
     type: "bar",
     data: {
-      labels: labels,
+      labels: labels.map((label) => label + " Story Points"),
       datasets: [
         {
-          label: "StoryPoints",
+          label: "Story Points",
           data: data,
           backgroundColor: backgroundColors,
           borderColor: borderColors,
@@ -123,22 +123,13 @@ const createBarChart = (canvas, data, labels) => {
             color: 'rgba(227, 225, 221, 1)'
           }
         }
-      },
-      y: {
-        title: {
-          color: 'white'
-        },
-        ticks: {
-          beginAtZero: true,
-          color: 'white'
-        },
-        grid: {
-          color: 'rgba(227, 225, 221, 1)'
-        }
       }
     },
     plugins: {
       legend: {
+        display: false
+      },
+      labels: {
         display: false
       }
     }
