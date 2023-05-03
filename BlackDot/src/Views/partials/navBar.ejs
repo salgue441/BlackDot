@@ -16,7 +16,7 @@
 
   <!-- Profile picture && Dropdown -->
   <div class="navbar-end">
-    <div class="navbar-item">
+    <div class="navbar-item " id="logoutContainer">
       <!-- Google Profile picture -->
       <% if (locals.currentUser.googleProfilePicture) { %>
       <div class="is-clickable is-flex" onclick="showDropdown()">
@@ -34,17 +34,18 @@
       <% } %>
 
       <!-- Dropdown menu -->
-      <div class="navbar-dropdown drop__logout is-right pl-4 pr-4">
-        <a
-          class="navbar-item dropdown__item has-text-centered pl-2 log__out"
-          onclick="logOut()"
-          id="log__out"
-        >
+      <div class="navbar-dropdown drop__logout is-right mt-3">
+     
+         <div class="buttonContainer is-flex is-justify-content-center "> <a class=" dropdown__item " onclick="logOut()" id="log__out">
           Cerrar Sesion
         </a>
       </div>
+      </div>
+      
     </div>
   </div>
 </nav>
 
 <script src="/js/navbar.front.js" defer></script>
+
+

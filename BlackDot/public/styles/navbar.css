@@ -83,6 +83,7 @@ a {
   color: inherit !important;
 }
 
+
 /* Dropdown item */
 .dropdown__item {
   width: 7rem !important;
@@ -92,7 +93,7 @@ a {
   font-weight: 400 !important;
   text-align: left !important;
   border-bottom: 1px solid #444444 !important;
-  background-color: #272b2c !important;
+  background-color: #aa3c3f !important;
 }
 
 .dropdown__item:hover {
@@ -105,9 +106,16 @@ a {
   width: 10rem !important;
 }
 
+#log__out{
+  font-size: 13px !important;
+  font-weight: 500 !important;
+  
+}
+
 #log__out:hover {
   background-color: #782b2d !important;
   color: #e3e1dd !important;
+  
 }
 
 /* Dropdown arrow */
@@ -124,4 +132,9 @@ a {
 /* Disable pointer events for certain elements */
 .noHover {
   pointer-events: none;
+}
+
+/* LogOut Container */
+#logoutContainer:hover {
+ background-color: inherit !important;
 }
