@@ -66,6 +66,7 @@ module.exports = class Retroalimentacion {
     const minutos = new Date().getMinutes()
 
     const fechaActual = fecha + " " + hora + ":" + minutos + ":00"
+    
 
     const [retro, _] = await dataBase.query(
       "select * from retroalimentacion where FechaCreacion <= ? and FechaFinalizacion >= ?",
