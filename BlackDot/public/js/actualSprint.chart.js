@@ -101,6 +101,7 @@ const createBarChart = (canvas, data, labels) => {
             text: "Status",
             color: 'white'
           },
+
           ticks: {
             color: 'white'
           },

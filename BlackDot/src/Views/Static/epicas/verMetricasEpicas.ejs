@@ -19,7 +19,9 @@
           </div>
           <% if(locals.currentUser.roleName === 'Administrador'){ %>
           <div class="column is-narrow">
-            <a href="#" class="button is-danger reporte-button"
+            <a href="#" 
+            class="button is-danger reporte-button"
+            onclick="generateReport(SprintComparison, 'Comparativa de Epicas')"
               >Generar Reporte</a
             >
           </div>
