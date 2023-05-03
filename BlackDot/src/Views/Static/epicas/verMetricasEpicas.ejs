@@ -63,7 +63,9 @@
               <div class="box item-names column is-4 ml-6" id="sprintNames">
                 <p class="title is-half">Sprints</p>
                 <% sprints.forEach((sprint) => { %>
-                <p><%= sprint.sprintName %></p>
+                <p>
+                  Sprint ID <%= sprint.idSprint %>: <%= sprint.sprintName %>
+                </p>
                 <% }) %>
               </div>
             </div>

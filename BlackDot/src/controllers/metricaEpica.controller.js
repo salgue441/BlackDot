@@ -138,17 +138,17 @@ exports.getAllEpicasAPI = async (req, res) => {
       .sort((a, b) => new Date(b.fechaCreacion) - new Date(a.fechaCreacion))
       .slice(0, 7);
 
-    // Filtering epicas with their names
-    const filteredEpica = epicas.filter((epica) => {
-      const epicName = epica.nombreEpica.toLowerCase();
+    const latestSprint = sprints[0];
 
-      return (
-        epicName.includes("middleware paqueterías") ||
-        epicName.includes("implementar secciones de la aplicación") ||
-        epicName.includes("migración de contentful a ZeSystem") ||
-        epicName.includes("google tag manager") ||
-        epicName.includes("catalog connect")
+    // Filtering epicas for the latest sprint
+    const filteredEpica = epicas.filter((epica) => {
+      const epicId = epica.idEpica;
+
+      const sprintEpica = sprintEpicas.find(
+        (sprintEpica) => sprintEpica.idEpica === epicId && sprintEpica.idSprint === latestSprint.idSprint
       );
+
+      return sprintEpica !== undefined;
     });
 
     // Relating sprints and issues
@@ -200,6 +200,7 @@ exports.getAllEpicasAPI = async (req, res) => {
 
       filteredEpica.sprints = epicaSprints;
     });
+
 
     res.status(200).json({ epicas: filteredEpica });
   } catch (error) {
