@@ -24,90 +24,111 @@ const fetchSprintData = async () => {
 const createBarChart = (canvas, data, labels) => {
   const ctx = canvas.getContext("2d")
 
-    const colors = [
-      {
-        backgroundColor: "rgba(255, 99, 132, 1)",
-        borderColor: "rgba(255, 99, 132, 1)",
-      },
-      {
-        backgroundColor: "rgba(54, 162, 235, 1)",
-        borderColor: "rgba(54, 162, 235, 1)",
-      },
-      {
-        backgroundColor: "rgba(255, 206, 86, 1)",
-        borderColor: "rgba(255, 206, 86, 1)",
-      },
-      {
-        backgroundColor: "rgba(165, 199, 139, 1)",
-        borderColor: "rgba(165, 199, 139, 1)",
-      },
-      {
-        backgroundColor: "rgba(75, 192, 192, 1)",
-        borderColor: "rgba(75, 192, 192, 1)",
-      },
-      {
-        backgroundColor: "rgba(153, 102, 255, 1)",
-        borderColor: "rgba(153, 102, 255, 1)",
-      },
-    ]
-  
-    const backgroundColors = data.map(
-      (_, index) => colors[index % colors.length].backgroundColor
-    )
-    const borderColors = data.map(
-      (_, index) => colors[index % colors.length].borderColor
-    )
+  /**
+* @brief
+* Colors array for the graph
+* @var {Array} colors Array with the colors for the graph
+*/
+  const colors = [
+    {
+      backgroundColor: "rgba(255, 99, 132, 1)",
+      borderColor: "rgba(255, 99, 132, 1)",
+    },
+    {
+      backgroundColor: "rgba(255, 153, 109,1)",
+      borderColor: "rgba(255, 153, 109, 1)",
+    },
+    {
+      backgroundColor: "rgba(255, 206, 86, 1)",
+      borderColor: "rgba(255, 206, 86, 1)",
+    },
+    {
+      backgroundColor: "rgba(155, 184, 161, 1)",
+      borderColor: "rgba(155, 184, 161, 1)",
+    },
+    {
+      backgroundColor: "rgba(54, 162, 235, 1)",
+      borderColor: "rgba(54, 162, 235, 1)",
+    },
+    {
+      backgroundColor: "rgba(65, 177, 214, 1)",
+      borderColor: "rgba(65, 177, 214, 1)",
+    },
+    {
+      backgroundColor: "rgba(75, 192, 192, 1)",
+      borderColor: "rgba(75, 192, 192, 1)",
+    },
+    {
+      backgroundColor: "rgba(114, 147, 224, 1)",
+      borderColor: "rgba(114, 147, 224, 1)",
+    },
+    {
+      backgroundColor: "rgba(153, 102, 255, 1)",
+      borderColor: "rgba(153, 102, 255, 1)",
+    },
+    {
+      backgroundColor: "rgba(162, 116, 255, 1)",
+      borderColor: "rgba(162, 116, 255, 1)",
+    }
+  ]
 
-    return new Chart(ctx, {
-      type: "bar",
-      data: {
-        labels: labels,
-        datasets: [
-          {
-            label: "StoryPoints",
-            data: data,
-            backgroundColor: backgroundColors,
-            borderColor: borderColors,
-            borderWidth: 1,
+  const backgroundColors = data.map(
+    (_, index) => colors[index % colors.length].backgroundColor
+  )
+  const borderColors = data.map(
+    (_, index) => colors[index % colors.length].borderColor
+  )
+
+  return new Chart(ctx, {
+    type: "bar",
+    data: {
+      labels: labels,
+      datasets: [
+        {
+          label: "StoryPoints",
+          data: data,
+          backgroundColor: backgroundColors,
+          borderColor: borderColors,
+          borderWidth: 1,
+        },
+      ],
+    },
+    options: {
+      scales: {
+        x: {
+          title: {
+            color: 'white'
           },
-        ],
-      },
-      options: {
-        scales: {
-          x: {
-            title: {
-              color: 'white'
-            },
-            ticks: {
-              color: 'white'
-            },
-            grid: {
-              color: 'rgba(227, 225, 221, 1)'
-            }
+          ticks: {
+            color: 'white'
           },
-          y: {
-            title: {
-              color: 'white'
-            },
-            ticks: {
-              beginAtZero: true,
-              color: 'white'
-            },
-            grid: {
-              color: 'rgba(227, 225, 221, 1)'
-            }
+          grid: {
+            color: 'rgba(227, 225, 221, 1)'
           }
         },
-        plugins: {
-          legend: {
-            display: false
+        y: {
+          title: {
+            color: 'white'
+          },
+          ticks: {
+            beginAtZero: true,
+            color: 'white'
+          },
+          grid: {
+            color: 'rgba(227, 225, 221, 1)'
           }
         }
+      },
+      plugins: {
+        legend: {
+          display: false
+        }
       }
-  
-    })
-  }
-  
+    }
+
+  })
+}
+
   /**
    * @brief
    * Renders the graph. This function is called when the page is loaded
