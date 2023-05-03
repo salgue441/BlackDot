@@ -7,35 +7,38 @@
   <%- include('../../partials/header.ejs') %>
 
   <body>
-    <%- include('../../partials/navBar.ejs') %>
-    <%- include('../../partials/sideBarAdmin.ejs') %>
+    <%- include('../../partials/navBar.ejs') %> <%-
+    include('../../partials/sideBarAdmin.ejs') %>
 
     <div class="mainContainer">
-      <section class="hero is-medium is-bold ">
+      <section class="hero is-medium is-bold">
         <div class="hero-body has-text-centered pt-0">
           <!-- Title -->
           <div class="columns">
-            <div class="column is-half is-flex">
-              <h1 class="title is-1 mt-5 mb-2">Metricas Actuales</h1>
+            <div class="column is-flex">
+              <h1 class="title is-1 mt-5 mb-2" id="title">Metricas Actuales</h1>
+            </div>
+            <div class="colunm">
+              <a
+                href="#"
+                class="button is-danger reporte-button"
+                onclick="generateReport(ActualSprint, 'Metricas Actuales')"
+                style="margin-top: 3rem; margin-right: 2rem;"
+              >
+                Generar Reporte
+              </a>
             </div>
           </div>
           <!-- End of Title -->
-  
+
           <!-- Graph -->
-          
-              <div class="columns">
-                  <div class="column is-12">
-                      <div class="container">
-                          <div
-                              class="box  has-text-centered"
-                              style="width: 100%"
-                          >
-                              <p class="subtitle is-4">Sprint Actual</p>
-                              <canvas id="ActualSprint"></canvas>
-                          </div>
-                      </div>
-                  </div>
-  
+          <div class="columns">
+            <div class="column is-12">
+              <div class="container">
+                <div class="box has-text-centered" style="width: 100%">
+                  <p class="subtitle is-4">Sprint Actual</p>
+                  <canvas id="ActualSprint"></canvas>
+                </div>
               </div>
             </div>
           </div>
@@ -43,17 +46,13 @@
         </div>
       </section>
     </div>
-    
 
-    <script src="/js/actualSprint.chart.js"></script>
+    <script src="/js/actualSprint.chart.js" defer></script>
   </body>
 </html>
 
-<% } %>
-
-
 <style>
-    ::-webkit-scrollbar {
+  ::-webkit-scrollbar {
     width: 0;
     height: 0;
     background-color: transparent;
@@ -86,17 +85,15 @@
     margin-left: 15%;
     padding-top: 6% !important;
     height: 92%;
-    
 
     padding: 0px;
-  } 
-
-  .is-danger{
-    background-color: #BC4749 !important;
-    
   }
 
-  .is-danger:hover{
-    background-color: #D9534F !important;
+  .is-danger {
+    background-color: #bc4749 !important;
+  }
+
+  .is-danger:hover {
+    background-color: #d9534f !important;
   }
 </style>
