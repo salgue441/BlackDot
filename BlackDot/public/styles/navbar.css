@@ -131,7 +131,8 @@ a {
 
 /* Disable pointer events for certain elements */
 .noHover {
-  pointer-events: none;
+  pointer-events: none !important;
+  position: default !important;
 }
 
 /* LogOut Container */

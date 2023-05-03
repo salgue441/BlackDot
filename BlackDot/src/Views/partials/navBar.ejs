@@ -19,16 +19,16 @@
     <div class="navbar-item " id="logoutContainer">
       <!-- Google Profile picture -->
       <% if (locals.currentUser.googleProfilePicture) { %>
-      <div class="is-clickable is-flex" onclick="showDropdown()">
+      <div class=" is-flex" onclick="showDropdown()">
         <img
           src="<%= locals.currentUser.googleProfilePicture %>"
-          class="profile__picture"
+          class="profile__picture noHover"
           id="profile__picture"
         />
         <img
           src="../../assets/Dropdown.png"
           alt="a"
-          class="dropdownImg ml-2 is-align-self-center"
+          class="dropdownImg ml-2 is-align-self-center is-clickable"
         />
       </div>
       <% } %>
