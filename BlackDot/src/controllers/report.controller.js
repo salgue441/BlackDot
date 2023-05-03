@@ -13,7 +13,7 @@ const path = require("path");
 
 const generateTemplate = async (req, res) => {
   const { graphImage, reportTitle } = req.body;
-  
+
   // Read the logo image file and encode it as base64
   const logoImage = fs.readFileSync(
     path.join(__dirname, "../../public/assets/$zebrands-brand-logo.svg")
@@ -35,7 +35,7 @@ const generateTemplate = async (req, res) => {
 
   const options = {
     height: "11in",
-    width: "8.5in", 
+    width: "8.5in",
     header: {
       height: "5mm",
     },
@@ -44,7 +44,9 @@ const generateTemplate = async (req, res) => {
     },
   };
 
-  pdf.create(template, options).toFile("report.pdf", (error, data) => {
+  const fileName = "report";
+
+  pdf.create(template, options).toFile(`public/reports/${fileName}.pdf`, (error, data) => {
     if (error) {
       console.log(error);
       return res.status(500).json({
@@ -52,19 +54,11 @@ const generateTemplate = async (req, res) => {
       });
     }
 
-    console.log(data);
+    return res.status(201).json({success: true, fileName})
   });
 };
 
-const downloadTemplate = async (req, res) => {
-  const pdfData = req.body.pdfData;
-
-  res.setHeader("Content-Type", "application/pdf");
-  res.setHeader('Content-Disposition', 'attachment; filename=report.pdf');
-  res.send(pdfData);
-}
 
 module.exports = {
   generateTemplate,
-  downloadTemplate,
 };

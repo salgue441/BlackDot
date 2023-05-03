@@ -53,29 +53,9 @@ const generateReport = async (canvasID, pageTitle) => {
     const response = await fetch("/report/admin/generate", options);
     const result = await response.json();
 
-    await generatePDF(result.pdfData, pageTitle);
+    window.open(`http://localhost:3000/reports/${result.fileName}.pdf`, "_blank");
   } catch (error) {
     console.log(error);
   }
 };
 
-/**
- * @brief
- * Generates the PDF when the button is clicked.
- * @param {String} pdfData - The data of the PDF
- */
-const generatePDF = async (pdfData, title) => {
-  console.log(pdfData);
-  const blobl = new Blob([pdfData], { type: "application/pdf" });
-  const url = URL.createObjectURL(blobl);
-
-  const link = document.createElement("a");
-
-  link.href = url;
-  link.download = `${title}.pdf`;
-
-  document.body.appendChild(link);
-  link.click();
-
-  document.body.removeChild(link);
-};
