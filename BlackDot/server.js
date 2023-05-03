@@ -77,9 +77,15 @@ app.use((req, res, next) => {
   next()
 })
 
+
+
+
 // Routes
 const initRoutes = require('./src/routes/index.routes')
 initRoutes(app)
+
+
+
 
 // 404 Error
 /**

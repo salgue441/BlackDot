@@ -3,13 +3,13 @@
     class="userDataContainer is-flex is-justify-content-center sectionSideBar"
   >
     <!-- USer Data -->
-    <section class="UserData sectionSideBar">
+    <section class="UserData sectionSideBar is-align-self-center is-align-content-center  ">
       <% if (locals.currentUser) { %>
       <!-- Profile image -->
       <img
         src="<%= locals.currentUser.googleProfilePicture %>"
         alt="Profile Picture"
-        class="image is-128x128 is-rounded mt-4"
+        class="image is-128x128 is-rounded mt-4 is-align-self-center "
       />
 
       <!-- Name -->

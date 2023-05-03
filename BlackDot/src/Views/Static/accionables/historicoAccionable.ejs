@@ -1,3 +1,7 @@
+<% if(locals.currentUser.roleName === 'Sin rol'){ %>
+  <%- include('../../partials/noROl.ejs') %>
+<% }else{ %>
+
 <html>
   <%- include('../../partials/header.ejs') %>
 
@@ -66,6 +70,8 @@
 
   </body>
 </html>
+
+<% } %>
 
 <style>
 

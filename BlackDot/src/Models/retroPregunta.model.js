@@ -129,7 +129,7 @@ class retroPregunta {
           cualitativa.contenido,
           retroalimentacion.fechaFinalizacion
         from retroalimentacion 
-        join retroalimentacionPregunta on retroalimentacion.idRetroalimentacion = retroalimentacionpregunta.idRetroalimentacion 
+        join retroalimentacionPregunta on retroalimentacion.idRetroalimentacion = retroalimentacionPregunta.idRetroalimentacion 
         join pregunta on retroalimentacionPregunta.idPregunta = pregunta.idPregunta 
         join cualitativa on retroalimentacionPregunta.idPregunta = cualitativa.idPregunta and retroalimentacion.idRetroalimentacion = cualitativa.idRetroalimentacion 
         where pregunta.tipoPregunta = 'Cualitativa' 

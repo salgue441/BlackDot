@@ -105,6 +105,7 @@ const loginAPI = async (req, res, next) => {
 
     // Getting the role of the user
     const userRole = await EmpleadoRol.getByIDE(user.idEmpleado)
+
     const roleName = await Rol.getByID(userRole.idRol)
 
     const userData = {

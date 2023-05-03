@@ -6,6 +6,7 @@ const mainRoutes = require("./main.routes")
 
 // middleware
 const authMiddleware = require("../middlewares/auth")
+const roles = require("../middlewares/roles.middleware")
 
 /**
  * @brief 
