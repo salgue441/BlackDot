@@ -1,3 +1,8 @@
+<% if(locals.currentUser.roleName === 'Sin Rol'){ %>
+  <%- include('../../partials/noROl.ejs') %>
+<% }else{ %>
+
+
 <html>
   <%- include('../../partials/header.ejs') %>
 
@@ -68,6 +73,8 @@
   </body>
 </html>
 
+<% } %>
+
 <style>
   ::-webkit-scrollbar {
     width: 0;
@@ -94,6 +101,7 @@
   }
   .accionableText{
     margin-left: 4rem;
+    color: #e3e1dd !important;
   }
   
   .mainContainer {

@@ -1,3 +1,7 @@
+<% if(locals.currentUser.roleName === 'Sin Rol'){ %>
+  <%- include('../../partials/noROl.ejs') %>
+<% }else{ %>
+
 <html>
   <%- include('../../partials/header.ejs') %>
 
@@ -58,6 +62,7 @@
     <script src="/js/sprint.chart.js"></script>
   </body>
 </html>
+<% } %>
 
 <!-- Styles -->
 <style>
@@ -79,8 +84,7 @@
     background-color: #181a1b;
   }
 
-  .graphContainer {
-  }
+
 
   ::-webkit-scrollbar {
     width: 0;

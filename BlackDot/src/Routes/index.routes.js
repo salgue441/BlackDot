@@ -7,6 +7,7 @@ const reportRoutes = require("./report.routes")
 
 // middleware
 const authMiddleware = require("../middlewares/auth")
+const roles = require("../middlewares/roles.middleware")
 
 /**
  * @brief 

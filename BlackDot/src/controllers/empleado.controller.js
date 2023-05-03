@@ -114,11 +114,19 @@ exports.getEditarUsuario = async (req, res) => {
       roles,
     })
   } catch (error) {
-    res.render(path.join(__dirname, "../views/static/error.ejs"), {
+    res.render(path.join(__dirname, "../views/static/error/error.ejs"), {
       error,
     })
   }
 }
+
+/**
+ * @brief
+ * post of editar rol de usuarios
+ * @param {Request} request - Request object
+ * @param {Response} response - Response object
+ * @throws {Error} - Error message
+ */
 
 exports.postEditarUsuario = async (req, res) => {
   try {
@@ -137,11 +145,20 @@ exports.postEditarUsuario = async (req, res) => {
       roles,
     })
   } catch (error) {
-    res.render(path.join(__dirname, "../views/static/error.ejs"), {
+    res.render(path.join(__dirname, "../views/static/error/error.ejs"), {
       error,
     })
   }
 }
+
+/**
+ * @brief
+ * get of eliminar usuario
+ * @param {Request} request - Request object
+ * @param {Response} response - Response object
+ * @throws {Error} - Error message
+ *
+ */
 
 exports.getEliminarUsuario = async (req, res) => {
   try {
@@ -152,7 +169,7 @@ exports.getEliminarUsuario = async (req, res) => {
     await Empleado.deleteByID(idEmpleado)
     res.redirect("/editar/empleados")
   } catch (error) {
-    res.render(path.join(__dirname, "../views/static/error.ejs"), { error })
+    res.render(path.join(__dirname, "../views/static/error/error.ejs"), { error })
   }
 }
 

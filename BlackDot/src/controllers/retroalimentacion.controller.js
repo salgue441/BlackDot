@@ -403,7 +403,7 @@ exports.postEditarPreguntas = async (req, res) => {
 
     try {
       await pregunta.save()
-      res.redirect("/crearRetro/crearRetroalimentacion")
+      res.redirect("/editar/crearRetroalimentacion")
     } catch (error) {
       res.render(path.join(__dirname, "../views/static/error/error.ejs"), {
         error,

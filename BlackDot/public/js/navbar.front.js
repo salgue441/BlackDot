@@ -32,9 +32,6 @@ const showDropdown = () => {
 
 document.addEventListener("DOMContentLoaded", showDropdown);
 
-
-
-
 /**
  * @brief
  * Log out the user and delete the tokens. 

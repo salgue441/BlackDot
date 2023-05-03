@@ -1,3 +1,8 @@
+<% if(locals.currentUser.roleName === 'Sin Rol'){ %>
+  <%- include('../../partials/noROl.ejs') %>
+<% }else{ %>
+
+
 <html>
   <%- include('../../partials/header.ejs') %>
 
@@ -82,7 +87,11 @@
   </body>
 </html>
 
+
+
 <script src="/js/comparativaEpicas.chart.js"></script>
+
+<% } %>
 
 <style>
   ::-webkit-scrollbar {
