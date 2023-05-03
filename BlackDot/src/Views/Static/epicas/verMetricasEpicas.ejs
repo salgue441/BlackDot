@@ -38,17 +38,26 @@
               </div>
 
               <canvas id="SprintComparison" class="graph-canvas"></canvas>
-              <canvas
-                id="EpicaComparison"
-                class="graph-canvas"
-                style="display: none"
-              ></canvas>
             </div>
             <div class="is-flex">
               <div class="box item-names column" id="epicNames">
                 <p class="title is-4">Epicas</p>
                 <% epicas.forEach((epic) => { %>
-                <p><%= epic.nombreEpica %></p>
+                <p>
+                  <span class="custom-checkbox">
+                    <input
+                      type="checkbox"
+                      id="epicCheckbox_<%= epic.idEpica %>"
+                      name="epicCheckbox"
+                      value="<%= epic.idEpica %>"
+                      checked
+                    />
+                    <label for="epicCheckbox_<%= epic.idEpica %>"
+                      ><%= epic.nombreEpica %></label
+                    >
+                  </span>
+                </p>
+
                 <% }) %>
               </div>
               <div class="box item-names column is-4 ml-6" id="sprintNames">
@@ -115,5 +124,43 @@
 
   .is-danger:hover {
     background-color: #d9534f !important;
+  }
+
+  /* Checkbox styling */
+  .custom-checkbox input[type="checkbox"] {
+    display: none;
+  }
+
+  .custom-checkbox label {
+    position: relative;
+    padding-left: 35px;
+    cursor: pointer;
+  }
+
+  .custom-checkbox label::before {
+    content: "";
+    display: inline-block;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #e3e6e8;
+    background-color: transparent;
+  }
+
+  .custom-checkbox input[type="checkbox"]:checked + label::before {
+    background-color: transparent;
+  }
+
+  .custom-checkbox input[type="checkbox"]:checked + label::after {
+    content: "";
+    display: inline-block;
+    position: absolute;
+    left: 5px;
+    top: 5px;
+    width: 10px;
+    height: 10px;
+    background-color: #e3e6e8;
   }
 </style>
