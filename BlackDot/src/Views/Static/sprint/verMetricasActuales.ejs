@@ -1,7 +1,5 @@
-<% if(locals.currentUser.roleName === 'Sin Rol'){ %>
-  <%- include('../../partials/noROl.ejs') %>
-<% }else{ %>
-
+<% if(locals.currentUser.roleName === 'Sin Rol'){ %> <%-
+include('../../partials/noROl.ejs') %> <% }else{ %>
 
 <html>
   <%- include('../../partials/header.ejs') %>
@@ -23,7 +21,7 @@
                 href="#"
                 class="button is-danger reporte-button"
                 onclick="generateReport(ActualSprint, 'Metricas Actuales')"
-                style="margin-top: 3rem; margin-right: 2rem;"
+                style="margin-top: 3rem; margin-right: 2rem"
               >
                 Generar Reporte
               </a>
@@ -50,6 +48,8 @@
     <script src="/js/actualSprint.chart.js" defer></script>
   </body>
 </html>
+
+<% } %>
 
 <style>
   ::-webkit-scrollbar {
