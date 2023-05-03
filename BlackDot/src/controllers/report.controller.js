@@ -1,3 +1,11 @@
+/**
+ * @file report.controller.js
+ * @brief Controller for report page
+ * @author Yuna Chung
+ * @version 1.0
+ * @date 2023.04.27
+ */
+
 const ejs = require("ejs");
 const fs = require("fs");
 const pdf = require("html-pdf");
@@ -45,7 +53,6 @@ const generateTemplate = async (req, res) => {
     }
 
     console.log(data);
-    // fs.unlinkSync("./report.pdf");
   });
 };
 
