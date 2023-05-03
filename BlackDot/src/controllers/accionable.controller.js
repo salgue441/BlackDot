@@ -63,14 +63,15 @@ exports.saveAccionable = async (req, res) => {
       const idAccionable = idsAccionables[i];
       const accionable = await Accionable.getbyId(idAccionable);
 
-      await accionable.updateEstadoAprobado();
+      // Call updateAccionable and wait for the Promise to resolve
+      await accionable.updateAccionable()
+      const updatedAccionable = await Accionable.getbyId(idAccionable);
 
-      if (accionable.estadoAccionable === "Aprobado") {
+      // Check the value of estadoAccionable after the Promise is resolved
+      if (updatedAccionable.estadoAccionable === "Aprobado") {
         await createAccionable(accionable);
       }
     }
-
-    console.log("Accionables saved successfully");
 
     res.status(200).json({ message: "Accinoables saved successfully" });
   } catch (error) {
@@ -78,3 +79,4 @@ exports.saveAccionable = async (req, res) => {
     return res.status(500).json({ message: error.message });
   }
 };
+

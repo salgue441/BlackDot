@@ -130,9 +130,9 @@ module.exports = class Accionable {
    * @brief
    * Modifica el estado del accionable
    **/
-
-  async updateEstadoAprobado() {
+  async updateAccionable() {
     const query = `UPDATE accionable SET estadoAccionable = 'Aprobado' WHERE idAccionable = ?`
+
     await dataBase.execute(query, [this.idAccionable])
   }
 }
