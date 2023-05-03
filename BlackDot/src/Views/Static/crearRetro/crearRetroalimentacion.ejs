@@ -1,4 +1,4 @@
-<% if(locals.currentUser.roleName === 'Sin rol'){ %>
+<% if(locals.currentUser.roleName === 'Sin Rol'){ %>
   <%- include('../../partials/noROl.ejs') %>
 <% }else{ %>
 
@@ -8,6 +8,8 @@
   <body>
     <%- include('../../partials/navBar.ejs') %> <%-
     include('../../partials/sideBarAdmin.ejs') %>
+
+<% if(locals.currentUser.roleName === 'Administrador'){ %>
 
     <br />
     <br />
@@ -119,6 +121,10 @@
         </a>
       </section>
     </div>
+    <% }else{ %>
+    <%- include('../../partials/invalidRol.ejs') %>
+    
+  <% } %> 
   </body>
 </html>
 
