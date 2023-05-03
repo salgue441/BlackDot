@@ -26,6 +26,11 @@ router.get(
   crearRetroalimentacion.getRetroalimentacionExitosa
 )
 
+/**
+ * @brief
+ * Routes to get the edit user page 
+ */
+
 const usuario = require("../controllers/empleado.controller")
 router.get("/empleados", usuario.getEditarUsuario)
 router.post("/empleados", usuario.postEditarUsuario)

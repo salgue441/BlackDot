@@ -120,6 +120,14 @@ exports.getEditarUsuario = async (req, res) => {
   }
 }
 
+/**
+ * @brief
+ * post of editar rol de usuarios
+ * @param {Request} request - Request object
+ * @param {Response} response - Response object
+ * @throws {Error} - Error message
+ */
+
 exports.postEditarUsuario = async (req, res) => {
   try {
     const selectE = parseInt(req.body.selectEmpleado)
@@ -142,6 +150,15 @@ exports.postEditarUsuario = async (req, res) => {
     })
   }
 }
+
+/**
+ * @brief
+ * get of eliminar usuario
+ * @param {Request} request - Request object
+ * @param {Response} response - Response object
+ * @throws {Error} - Error message
+ *
+ */
 
 exports.getEliminarUsuario = async (req, res) => {
   try {
