@@ -100,10 +100,12 @@
                           <option disabled selected>Empleado</option>
 
                           <% for(let i = 0; i< empleados.length; i++){ %>
-                          <option value="<%= empleados[i].idEmpleado%>">
-                            <%= empleados[i].primerNombre + " " +
-                            empleados[i].apellidoPaterno %>
-                          </option>
+                            <% if(empleados[i].idRol != 3){ %>
+                              <option value="<%= empleados[i].idEmpleado%>">
+                              <%= empleados[i].primerNombre + " " +
+                              empleados[i].apellidoPaterno %>
+                              </option>
+                            <% } %>
                           <% } %>
                         </select>
                       </div>
