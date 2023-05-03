@@ -82,7 +82,7 @@ const createBarChart = (canvas, data, labels) => {
   return new Chart(ctx, {
     type: "bar",
     data: {
-      labels: labels.map((label) => label + " Story Points"),
+      labels: labels.map((label) => label),
       datasets: [
         {
           label: "Story Points",
