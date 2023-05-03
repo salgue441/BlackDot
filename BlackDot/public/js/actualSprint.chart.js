@@ -97,6 +97,8 @@ const createBarChart = (canvas, data, labels) => {
       scales: {
         x: {
           title: {
+            display: true,
+            text: "Status",
             color: 'white'
           },
           ticks: {
@@ -108,6 +110,8 @@ const createBarChart = (canvas, data, labels) => {
         },
         y: {
           title: {
+            display: true,
+            text: "Story Points",
             color: 'white'
           },
           ticks: {
@@ -119,14 +123,26 @@ const createBarChart = (canvas, data, labels) => {
           }
         }
       },
-      plugins: {
-        legend: {
-          display: false
+      y: {
+        title: {
+          color: 'white'
+        },
+        ticks: {
+          beginAtZero: true,
+          color: 'white'
+        },
+        grid: {
+          color: 'rgba(227, 225, 221, 1)'
         }
       }
+    },
+    plugins: {
+      legend: {
+        display: false
+      }
     }
-
-  })
+  }
+  )
 }
 
   /**
