@@ -8,6 +8,8 @@
  * @copyright Copyright 2023 (c) - MIT License
  */
 
+
+
 /**
  * @brief
  * Clones the chart and updates the properties
@@ -53,7 +55,9 @@ const generateReport = async (canvasID, pageTitle) => {
     const response = await fetch("/report/admin/generate", options);
     const result = await response.json();
 
-    window.open(`http://localhost:3000/reports/${result.fileName}.pdf`, "_blank");
+    console.log(result);
+
+    window.open(`${result.domain}/reports/${result.fileName}.pdf`, "_blank");
 
     const data = await generateCSV(canvasID);
     const blob = new Blob([data], { type: "text/csv" });
@@ -111,8 +115,6 @@ function ConvertToCSV(data) {
   const headers = Object.keys(data);
   const rows = Object.values(data);
 
-
-
   let csv = headers.join(",") + "\n";
 
   for (let i = 0; i < rows[0].length; i++) {
@@ -124,15 +126,7 @@ function ConvertToCSV(data) {
         row = row.replace("undefined", "");
       }
     }
-
-
-
-
-
     csv += row + "\n";
   }
-
-
-
   return csv;
 }

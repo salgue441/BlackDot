@@ -46,6 +46,8 @@ const generateTemplate = async (req, res) => {
 
   const fileName = "report";
 
+  const domain = process.env.DOMAIN || "http://localhost:3000";
+
   pdf.create(template, options).toFile(`public/reports/${fileName}.pdf`, (error, data) => {
     if (error) {
       console.log(error);
@@ -54,7 +56,7 @@ const generateTemplate = async (req, res) => {
       });
     }
 
-    return res.status(201).json({success: true, fileName})
+    return res.status(201).json({ success: true, fileName, domain })
   });
 };
 

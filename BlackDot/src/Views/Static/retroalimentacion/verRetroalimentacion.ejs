@@ -1,18 +1,14 @@
-<% if(locals.currentUser.roleName === 'Sin Rol'){ %>
-  <%- include('../../partials/noROl.ejs') %>
-<% }else{ %>
-
+<% if(locals.currentUser.roleName === 'Sin Rol'){ %> <%-
+include('../../partials/noROl.ejs') %> <% }else{ %>
 
 <html>
   <%- include('../../partials/header.ejs') %>
 
   <body>
-    <%- include('../../partials/navBar.ejs') %>
-    <%- include('../../partials/sidebarAdmin.ejs') %>
-
-    <% if(locals.currentUser.roleName === 'Administrador'){ %>
+    <%- include('../../partials/navBar.ejs') %> <%-
+    include('../../partials/sideBarAdmin.ejs') %> <%
+    if(locals.currentUser.roleName === 'Administrador'){ %>
     <div class="mainContainer">
-
       <section class="hero is-medium is-bold">
         <div class="hero-body has-text-centered pt-0">
           <!-- Sprint title & Button -->
@@ -20,7 +16,6 @@
             <div class="column is-half is-flex">
               <h1 class="title is-1 has-text-left">
                 Retroalimentacion #<%= idRetroalimentacion %>
-                
 
                 <div>
                   <div class="dropdown mt-2" id="dropdown">
@@ -57,7 +52,6 @@
                   <div
                     class="column is-half is-flex is-justify-content-end"
                   ></div>
-                  
                 </div>
               </h1>
             </div>
@@ -67,14 +61,14 @@
 
           <!-- Showing the answers from retroalimentacion -->
           <div class="columns">
+            <% if(simplifiedQuantitative.length == 0 &&
+            simplifiedQualitative.length == 0){ %>
 
-            <% if(simplifiedQuantitative.length == 0 && simplifiedQualitative.length == 0){ %>
+            <h1 class="title is-4 has-text-left">
+              No hay respuestas para esta retroalimentacion
+            </h1>
 
-              <h1 class="title is-4 has-text-left">
-                No hay respuestas para esta retroalimentacion
-              </h1>
-
-            <% }else{ %> 
+            <% }else{ %>
 
             <!-- Quantitative Answers -->
             <div class="column is-half">
@@ -119,8 +113,7 @@
                   </div>
                 </div>
               </div>
-              <% } %>
-              <% } %>
+              <% } %> <% } %>
             </div>
             <!-- End of Qualitative Answers -->
           </div>
@@ -128,11 +121,8 @@
         </div>
         <!-- End of hero -->
       </section>
-      </div>
-      <% }else{ %>
-        <%- include('../../partials/invalidRol.ejs') %>
-        
-      <% } %>
+    </div>
+    <% }else{ %> <%- include('../../partials/invalidRol.ejs') %> <% } %>
 
     <script src="/js/actualRetro.chart.js"></script>
   </body>
