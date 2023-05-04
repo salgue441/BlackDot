@@ -16,10 +16,10 @@
 async function refreshTokens() {
     const { refreshToken } = getTokens();
 
-    //console.log("No es 7")
+    
     if (!refreshToken) return;
 
-    //console.log("No es 8")
+    
     try {
         const res = await fetch("/auth/token/refresh", {
             method: "POST",
@@ -32,14 +32,14 @@ async function refreshTokens() {
         });
 
         const data = await res.json();
-        //console.log ("No es 9")
+        
         //console.log(data)
 
         deleteTokens();
         setTokens(data);
     } catch (err) {
         deleteTokens();
-        //console.log("No es 10")
+        
         console.log(err);
     }
 }

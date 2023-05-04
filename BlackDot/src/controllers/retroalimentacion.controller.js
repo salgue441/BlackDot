@@ -143,7 +143,7 @@ exports.getCurretRetroalimentacion = async (req, res) => {
     .catch((error) => {
       console.log(error)
       res.render(path.join(__dirname, "../views/static/error/error.ejs"), {
-        error: "No existe una retroalimentacion",
+        error: "No existe una retroalimentación",
       })
     })
 }
@@ -193,7 +193,7 @@ exports.getRegistrarRespuestas = async (req, res) => {
       if (!retro) {
         res.render(path.join(__dirname, "../views/static/error/error.ejs"), {
           //? VIsta Temporal
-          error: "No hay retroalimentacion activa",
+          error: "No hay retroalimentación activa",
         })
       } else {
         const idRetro = retro.id
@@ -326,7 +326,7 @@ exports.getCrearRetroalimentacion = async (req, res) => {
   Retro.getRetroActual().then(async (retro) => {
     if (retro) {
       res.render(path.join(__dirname, "../views/static/error/error.ejs"), {
-        error: "Ya hay una retroalimentacion activa",
+        error: "Ya hay una retroalimentación activa",
       })
     } else {
       try {

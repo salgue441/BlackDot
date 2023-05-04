@@ -58,7 +58,7 @@ exports.getActualAPI = async (req, res) => {
     res.json({ issues: arrayIssues });
   } catch (error) {
     res.status(500).json({
-      message: error.message || "Error al obtener metricas epicas",
+      message: error.message || "Error al obtener métricas épicas",
     });
   }
 };

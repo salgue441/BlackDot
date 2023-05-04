@@ -159,7 +159,7 @@ const refreshTokenAPI = async (req, res, next) => {
       user = await Empleado.getByEmail(verified.googleEmail)
     } catch (error) {
       return res.status(500).json({
-        message: "Error al verificar el token de refresco"
+        message: "Error al verificar el refresh token"
       })
     }
 
