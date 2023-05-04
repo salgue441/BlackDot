@@ -1,5 +1,5 @@
 <% if(locals.currentUser.roleName === 'Sin Rol'){ %>
-  <%- include('../../partials/noROl.ejs') %>
+  <%- include('../../partials/noRol.ejs') %>
 <% }else{ %>
 
 <html>
@@ -19,17 +19,7 @@
             <div class="column is-half is-flex">
               <h1 class="title is-1">Historico de Accionables</h1>
             </div>
-            <div class="column is-half is-flex is-justify-content-end">
-              <div class="is-grouped is-grouped-centered">
-                <input
-                  class="button is-danger reporte-button"
-                  id="sendButton"
-                  type="submit"
-                  value="Generar Reporte"
-                  onclick=""
-                />
-              </div>
-            </div>
+          
           </div>
         </div>
       </section>
