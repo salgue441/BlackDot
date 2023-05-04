@@ -95,7 +95,14 @@ module.exports = class Retroalimentacion {
       const query = `select * from retroalimentacion order by idRetroalimentacion desc limit 1`
 
       const [rows] = await dataBase.execute(query)
+
+      console.log(rows)
+      console.log(rows[0].idRetroalimentacion)
+      
       return rows[0].idRetroalimentacion
+
+     
+
     }
     catch (error) {
       console.log(error)
