@@ -522,10 +522,10 @@ exports.saveIssuesToDB = async () => {
  * @param {*} accionable - The accionable to be created
  */
 exports.createAccionable = async (accionable) => {
-  const jiraUrl = process.env.JIRA_URL_TEST;
-  const jiraUser = process.env.JIRA_USER_TEST;
-  const apiToken = process.env.JIRA_API_TOKEN_TEST;
-  const projectName = process.env.JIRA_PROJECT_NAME_TEST;
+  const jiraUrl = process.env.JIRA_URL;
+  const jiraUser = process.env.JIRA_USER;
+  const apiToken = process.env.JIRA_API_TOKEN;
+  const projectName = process.env.JIRA_PROJECT_NAME;
 
   try {
     const auth = {
@@ -541,9 +541,10 @@ exports.createAccionable = async (accionable) => {
         summary: accionable.nombreAccionable,
         description: accionable.descripcionAccionable,
         issuetype: {
-          name: "Accionable",
+          name: "Task",
         },
         priority: { name: 'Medium' },
+        labels: ["Accionable"],
       }
     }
 

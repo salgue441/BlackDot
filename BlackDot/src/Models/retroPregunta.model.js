@@ -253,11 +253,12 @@ class retroPregunta {
    * */
 
   async save() {
-    const query = `insert into retroalimentacionPregunta (idRetroalimentacion, idPregunta) values (?, ?)`
+    const query = `insert into retroalimentacionPregunta (idRetroalimentacion, idPregunta, required) values (?, ?, ?)`
 
     const retro = await dataBase.query(query, [
       this.idRetroalimentacion,
       this.idPregunta,
+      this.required,
     ])
   }
 }

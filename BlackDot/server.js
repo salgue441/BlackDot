@@ -78,15 +78,24 @@ app.use((req, res, next) => {
   next()
 })
 
-
-
-
 // Routes
 const initRoutes = require('./src/routes/index.routes')
 initRoutes(app)
 
-
-
+// Redirect to auth
+/**
+ * @brief
+ * Redirects to auth if the user is not logged in
+ * @param {*} req Request object
+ * @param {*} res Response object
+ * @param {*} next Next function
+ * @returns {Object} Response object with error message
+ */
+app.use((req, res, next) => {
+  if (!req.session.currentUser) {
+    res.redirect('/auth')
+  }
+})
 
 // 404 Error
 /**

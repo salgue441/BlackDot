@@ -14,7 +14,11 @@
 
 create database if not exists blackdot;
 
-    use blackdot;
+use blackdot;
+
+alter database blackdot 
+character set utf8mb4
+collate utf8mb4_spanish_ci;
 
 -- Entidades
 create table if not exists empleado

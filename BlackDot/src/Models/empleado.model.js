@@ -89,21 +89,26 @@ module.exports = class Empleado {
    * @returns {Promise<Empleado>} - Query del empleado guardado
    */
   async save() {
-    const query = `insert into empleado(primerNombre, segundoNombre, apellidoPaterno, apellidoMaterno, 
+    try {
+      const query = `insert into empleado(primerNombre, segundoNombre, apellidoPaterno, apellidoMaterno, 
             idGoogleAuth, googleEmail, googleProfilePicture) values (?, ?, ?, ?, ?, ?, ?)`
 
-    const [result] = await dataBase.execute(query, [
-      this.primerNombre,
-      this.segundoNombre,
-      this.apellidoPaterno,
-      this.apellidoMaterno,
-      this.idGoogleAuth,
-      this.googleEmail,
-      this.googleProfilePicture,
-    ])
+      const [result] = await dataBase.execute(query, [
+        this.primerNombre,
+        this.segundoNombre,
+        this.apellidoPaterno,
+        this.apellidoMaterno,
+        this.idGoogleAuth,
+        this.googleEmail,
+        this.googleProfilePicture,
+      ])
 
-    this.idEmpleado = result.insertId
-    return this
+      this.idEmpleado = result.insertId
+      return this
+    }
+    catch (error) {
+      console.log(error)
+    }
   }
 
   /**

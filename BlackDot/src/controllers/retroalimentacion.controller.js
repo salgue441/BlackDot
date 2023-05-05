@@ -85,7 +85,6 @@ function countDuplicates(data) {
  * @returns {Response} - Response object
  * @throws {Error} - Error message
  */
-
 let retroObj = {}
 
 exports.getCurretRetroalimentacion = async (req, res) => {
@@ -94,26 +93,19 @@ exports.getCurretRetroalimentacion = async (req, res) => {
       try {
         const idRetro = req.params.id || retro
 
-     
-
         retroObj.id = idRetro
-
-    
 
         // Quantitative answers
         const quantitative = await retroPregunta.getQuantitativeAnswerByID(
           idRetro
         )
 
-          // Qualitative answers
+        // Qualitative answers
         const qualitative = await retroPregunta.getQualitativeAnswersByID(idRetro)
         const simplifiedQualitative = simplifyAnswers(qualitative)
 
         // Questions
         retros = await Retro.getAll()
-
-
-    
 
         const simplifiedQuantitative = simplifyAnswers(quantitative)
 
@@ -121,7 +113,7 @@ exports.getCurretRetroalimentacion = async (req, res) => {
           question.respuestas = countDuplicates(question.respuestas)
         }
 
-   
+
         res.render(
           path.join(
             __dirname,
@@ -146,6 +138,7 @@ exports.getCurretRetroalimentacion = async (req, res) => {
         error: "No existe una retroalimentacion",
       })
     })
+
 }
 
 /**

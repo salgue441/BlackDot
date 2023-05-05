@@ -56,7 +56,7 @@ exports.getRegistrarAprobacion = async (req, res) => {
 
 exports.saveAccionable = async (req, res) => {
   const { idsAccionables } = req.body;
-  const { createAccionable } = require("../Utils/jiraIssues.api");
+  const { createAccionable } = require("../utils/jiraIssues.api");
 
   try {
     for (let i = 0; i < idsAccionables.length; i++) {
