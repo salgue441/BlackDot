@@ -1,5 +1,6 @@
 /**
- *
+ * @file actual.routes.js
+ * @brief Rutas para la vista de la metrica actual
  */
 
 const express = require("express")
